@@ -1,7 +1,6 @@
 #!/bin/bash
 
 #==============================================================================
-#
 # Developer Workstation Setup Script
 #
 # DESCRIPTION: Post-install script for Fedora and RHEL 8 clones to create your
@@ -15,7 +14,6 @@
 #       AUTHOR: David Else
 #      COMPANY: https://www.elsewebdevelopment.com/
 #      VERSION: 1.0
-#
 #==============================================================================
 set -euo pipefail
 source /etc/os-release
@@ -23,7 +21,7 @@ source /etc/os-release
 GREEN=$(tput setaf 2)
 BOLD=$(tput bold)
 RESET=$(tput sgr0)
-INSTALL_DIR=/usr/local/bin
+BIN_INSTALL_DIR=/usr/local/bin
 
 if [ "$(id -u)" != 0 ]; then
     echo "You're not root! Run script with sudo" && exit 1
@@ -37,13 +35,13 @@ download_verify() {
 
 exec 2> >(tee "error_log_$(date -Iseconds).txt")
 
-packages_to_remove=(
+rpm_packages_to_remove=(
     cheese
     gedit
     rhythmbox
     totem)
 
-packages_to_install=(
+rpm_packages_to_install=(
     ImageMagick
     borgbackup
     chromium
@@ -73,17 +71,22 @@ flathub_packages_to_install=(
     fr.handbrake.ghb
     org.signal.Signal)
 
+npm_global_packages_to_install=(
+    vscode-langservers-extracted
+    bash-language-server
+)
+
 #==============================================================================
 # For RHEL 8 and clones (tested on 8.4)
 #==============================================================================
 if [[ ("$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "almalinux") && "${VERSION_ID%.*}" -gt 7 ]]; then
 
     setup_redhat_packages() {
-        local rhel_packages_to_remove=(
+        local rhel_rpm_packages_to_remove=(
             evolution
             firefox)
 
-        local rhel_packages_to_install=(
+        local rhel_rpm_packages_to_install=(
             ntfs-3g
             python36-devel)
 
@@ -93,8 +96,8 @@ if [[ ("$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "alm
             org.gnome.Shotwell
             org.bunkus.mkvtoolnix-gui)
 
-        packages_to_remove+=("${rhel_packages_to_remove[@]}")
-        packages_to_install+=("${rhel_packages_to_install[@]}")
+        rpm_packages_to_remove+=("${rhel_rpm_packages_to_remove[@]}")
+        rpm_packages_to_install+=("${rhel_rpm_packages_to_install[@]}")
         flathub_packages_to_install+=("${rhel_flathub_packages_to_install[@]}")
     }
 
@@ -126,24 +129,24 @@ if [[ ("$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "alm
         echo -e "${BOLD}Installing binaries for RHEL clones not available in repositories...${RESET}\n"
 
         download_verify "$PANDOC_LOCATION" "$PANDOC_FILENAME" "$PANDOC_SHA"
-        tar --no-same-owner -C $INSTALL_DIR/ -xf $PANDOC_FILENAME --no-anchored 'pandoc' --strip=2
+        tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $PANDOC_FILENAME --no-anchored 'pandoc' --strip=2
         rm $PANDOC_FILENAME
 
         download_verify "$SHELLCHECK_LOCATION" "$SHELLCHECK_FILENAME" "$SHELLCHECK_SHA"
-        tar --no-same-owner -C $INSTALL_DIR/ -xf $SHELLCHECK_FILENAME --no-anchored 'shellcheck' --strip=1
+        tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $SHELLCHECK_FILENAME --no-anchored 'shellcheck' --strip=1
         rm $SHELLCHECK_FILENAME
 
         download_verify "$BAT_LOCATION" "$BAT_FILENAME" "$BAT_SHA"
-        tar --no-same-owner -C $INSTALL_DIR/ -xf $BAT_FILENAME --no-anchored 'bat' --strip=1
+        tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $BAT_FILENAME --no-anchored 'bat' --strip=1
         rm $BAT_FILENAME
 
         download_verify "$RIPGREP_LOCATION" "$RIPGREP_FILENAME" "$RIPGREP_SHA"
-        tar --no-same-owner -C $INSTALL_DIR/ -xf $RIPGREP_FILENAME --no-anchored 'rg' --strip=1
+        tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $RIPGREP_FILENAME --no-anchored 'rg' --strip=1
         rm $RIPGREP_FILENAME
 
         download_verify "$SHFMT_LOCATION" "$SHFMT_FILENAME" "$SHFMT_SHA"
         chmod +x $SHFMT_FILENAME
-        mv $SHFMT_FILENAME $INSTALL_DIR/shfmt
+        mv $SHFMT_FILENAME $BIN_INSTALL_DIR/shfmt
     }
 
     setup_redhat_packages
@@ -156,10 +159,10 @@ if [[ ("$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "alm
 elif [ "$ID" == "fedora" ]; then
 
     setup_fedora_packages() {
-        local fedora_packages_to_remove=(
+        local fedora_rpm_packages_to_remove=(
             gnome-photos)
 
-        local fedora_packages_to_install=(
+        local fedora_rpm_packages_to_install=(
             ShellCheck
             bat
             chromium-libs-media-freeworld
@@ -175,8 +178,8 @@ elif [ "$ID" == "fedora" ]; then
             zathura-bash-completion
             zathura-pdf-mupdf)
 
-        packages_to_remove+=("${fedora_packages_to_remove[@]}")
-        packages_to_install+=("${fedora_packages_to_install[@]}")
+        rpm_packages_to_remove+=("${fedora_rpm_packages_to_remove[@]}")
+        rpm_packages_to_install+=("${fedora_rpm_packages_to_install[@]}")
     }
 
     add_fedora_repositories() {
@@ -204,11 +207,11 @@ $ID $VERSION_ID detected
 
 ${BOLD}Packages to remove${RESET}
 ${BOLD}------------------${RESET}
-RPM: ${GREEN}${packages_to_remove[*]}${RESET}
+RPM: ${GREEN}${rpm_packages_to_remove[*]}${RESET}
 
 ${BOLD}Packages to install${RESET}
 ${BOLD}-------------------${RESET}
-RPM: ${GREEN}${packages_to_install[*]}${RESET}
+RPM: ${GREEN}${rpm_packages_to_install[*]}${RESET}
 
 Flathub: ${GREEN}${flathub_packages_to_install[*]}${RESET}
 
@@ -219,7 +222,7 @@ add_repositories() {
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
     # spaces around strings ensure something like 'notnode' could not trigger 'nodejs' using [*]
-    case " ${packages_to_install[*]} " in
+    case " ${rpm_packages_to_install[*]} " in
     *' code '*)
         rpm --import https://packages.microsoft.com/keys/microsoft.asc
         sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
@@ -235,13 +238,13 @@ add_repositories() {
 
 install() {
     echo "${BOLD}Removing unwanted programs...${RESET}"
-    dnf -y remove "${packages_to_remove[@]}"
+    dnf -y remove "${rpm_packages_to_remove[@]}"
 
     echo "${BOLD}Updating...${RESET}"
     dnf -y --refresh upgrade
 
     echo "${BOLD}Installing packages...${RESET}"
-    dnf -y install "${packages_to_install[@]}"
+    dnf -y install "${rpm_packages_to_install[@]}"
 
     echo "${BOLD}Installing flathub packages...${RESET}"
     flatpak install -y flathub "${flathub_packages_to_install[@]}"
@@ -253,8 +256,8 @@ install() {
     /usr/bin/su - "$SUDO_USER" -c "curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh"
 
     echo "${BOLD}Installing umpv script for additional MPV functionality...${RESET}"
-    curl https://raw.githubusercontent.com/mpv-player/mpv/master/TOOLS/umpv -o "$INSTALL_DIR/umpv"
-    chmod +x "$INSTALL_DIR/umpv"
+    curl https://raw.githubusercontent.com/mpv-player/mpv/master/TOOLS/umpv -o "$BIN_INSTALL_DIR/umpv"
+    chmod +x "$BIN_INSTALL_DIR/umpv"
 
     echo "${BOLD}Installing Neovim 0.5 stable appimage and vim-code-dark theme...${RESET}"
     local NVIM_LOCATION=https://github.com/neovim/neovim/releases/download/v0.5.0/
@@ -262,7 +265,7 @@ install() {
     local NVIM_SHA=cdb136d673c0d21bcc08d3a6c95e31498d304eada28b61569750c8c74b5501cddbbb82a8e0287d687af43c313574cf743bfcdff3a526151b31f00096fc048d2f
     download_verify "$NVIM_LOCATION" "$NVIM_FILENAME" "$NVIM_SHA"
     chmod +x $NVIM_FILENAME
-    mv $NVIM_FILENAME $INSTALL_DIR/nvim
+    mv $NVIM_FILENAME $BIN_INSTALL_DIR/nvim
 
     local NVIM_CONFIG=$HOME/.config/nvim
     local CODEDARK_URL=https://raw.githubusercontent.com/tomasiser/vim-code-dark/master/colors/codedark.vim
@@ -270,8 +273,8 @@ install() {
     xdg-desktop-menu install --novendor nvim.desktop
     xdg-icon-resource install --novendor --mode user --size 64 nvim.png
 
-    echo "${BOLD}Installing HTML/CSS/JSON/Bash language servers for Neovim LSP: https://github.com/neovim/nvim-lspconfig${RESET}"
-    npm install -g vscode-langservers-extracted bash-language-server
+    echo "${BOLD}Installing NPM global packages"
+    npm install -g "${npm_global_packages_to_install[@]}"
 }
 
 display_end_message() {
