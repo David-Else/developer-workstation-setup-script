@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=Terminal
+Exec=gnome-terminal
+Type=Application
+Name[en_GB]=org.gnome.terminal.desktop
