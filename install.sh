@@ -50,6 +50,8 @@ RPM: ${GREEN}${rpm_packages_to_install[*]}${RESET}
 
 Flathub: ${GREEN}${flathub_packages_to_install[*]}${RESET}
 
+NPM global packages: ${GREEN}${npm_global_packages_to_install[*]}${RESET}
+
 EOL
     read -rp "Press enter to install, or ctrl+c to quit"
 }
@@ -276,7 +278,7 @@ install() {
     xdg-desktop-menu install --novendor nvim.desktop
     xdg-icon-resource install --novendor --mode user --size 64 nvim.png
 
-    echo "${BOLD}Installing NPM global packages"
+    echo "${BOLD}Installing NPM global packages..."
     npm install -g "${npm_global_packages_to_install[@]}"
 }
 
