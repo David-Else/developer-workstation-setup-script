@@ -256,13 +256,19 @@ install() {
     curl https://raw.githubusercontent.com/mpv-player/mpv/master/TOOLS/umpv -o "$INSTALL_DIR/umpv"
     chmod +x "$INSTALL_DIR/umpv"
 
-    echo "${BOLD}Installing Neovim 0.5 stable appimage...${RESET}"
+    echo "${BOLD}Installing Neovim 0.5 stable appimage and vim-code-dark theme...${RESET}"
     local NVIM_LOCATION=https://github.com/neovim/neovim/releases/download/v0.5.0/
     local NVIM_FILENAME=nvim.appimage
     local NVIM_SHA=cdb136d673c0d21bcc08d3a6c95e31498d304eada28b61569750c8c74b5501cddbbb82a8e0287d687af43c313574cf743bfcdff3a526151b31f00096fc048d2f
     download_verify "$NVIM_LOCATION" "$NVIM_FILENAME" "$NVIM_SHA"
     chmod +x $NVIM_FILENAME
     mv $NVIM_FILENAME $INSTALL_DIR/nvim
+
+    local NVIM_CONFIG=$HOME/.config/nvim
+    local CODEDARK_URL=https://raw.githubusercontent.com/tomasiser/vim-code-dark/master/colors/codedark.vim
+    curl --create-dirs $CODEDARK_URL -o "$NVIM_CONFIG/colors/codedark.vim"
+    xdg-desktop-menu install --novendor nvim.desktop
+    xdg-icon-resource install --novendor --mode user --size 64 nvim.png
 }
 
 display_end_message() {
