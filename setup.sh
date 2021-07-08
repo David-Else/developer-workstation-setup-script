@@ -94,8 +94,17 @@ cd - || exit
 #==============================================================================
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
+source ~/.bashrc
+
+# Use your home directory for NPM global packages
+mkdir -p "$HOME/.npm-global"
+npm config set prefix "$HOME/.npm-global"
+
 cat <<EOL
-=================================================================
+
+===============================================================================
+Congratulations, you are set up! Further suggested changes are:
+
 Gnome:    settings  > details > choose default applications
           network   > wired   > connect automatically
           software  > install 'Hide Top Bar'
@@ -110,12 +119,7 @@ Firefox:  Preferences > Network Settings > Enable DNS over HTTPS
 
           Privacy & Security > HTTPS-Only Mode > Enable HTTPS-Only Mode in all windows
 
-NPM: use your home directory for global packages
---------------------------------------------------------
-${GREEN}mkdir "$HOME/.npm-global"${RESET}
-${GREEN}npm config set prefix "$HOME/.npm-global"${RESET}
-
-ytfzf: helps you find Youtube videos (without API) and opens/downloads them using mpv/youtube-dl
+ytfzf: Helps you find Youtube videos (without API) and opens/downloads them using mpv/youtube-dl
 ------------------------------------------------------------------------------------------------
 ${GREEN}git clone https://github.com/pystardust/ytfzf${RESET}
 ${GREEN}cd ytfzf${RESET}
@@ -123,12 +127,12 @@ ${GREEN}sudo make install${RESET}
 
 Fix Visual Studio Code keyboard input on RHEL 8 clones
 ------------------------------------------------------
-add alias code="GTK_IM_MODULE=ibus code" to .bashrc
-go to terminal type 'ibus-setup'
-go to Emoji tab, press the '...' next to Emoji choice to get 'select keyboard shortcut for switching' window
-use the delete button to delete the shortcut and leave nothing there, press OK
-Close
+- Uncomment code="GTK_IM_MODULE=ibus code" from .bashrc
+- Go to terminal type 'ibus-setup'
+- Go to Emoji tab, press the '...' next to Emoji choice to get 'select keyboard shortcut for switching' window
+- Use the delete button to delete the shortcut and leave nothing there, press OK
+- Close
 
 Please reboot (or things may not work as expected)
-=================================================================
+===============================================================================
 EOL
