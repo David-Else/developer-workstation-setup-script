@@ -27,6 +27,8 @@ if [ "$(id -u)" != 0 ]; then
     echo "You're not root! Run script with sudo" && exit 1
 fi
 
+exec 2> >(tee "error_log_$(date -Iseconds).txt")
+
 # Call with arguments (location,filename,sha)
 download_verify() {
     curl -LOf "${1}${2}"
@@ -49,11 +51,8 @@ RPM: ${GREEN}${rpm_packages_to_install[*]}${RESET}
 Flathub: ${GREEN}${flathub_packages_to_install[*]}${RESET}
 
 EOL
-
-read -rp "Press enter to install, or ctrl+c to quit"
+    read -rp "Press enter to install, or ctrl+c to quit"
 }
-
-exec 2> >(tee "error_log_$(date -Iseconds).txt")
 
 rpm_packages_to_remove=(
     cheese
