@@ -33,6 +33,26 @@ download_verify() {
     echo "${3} ./${2}" | sha512sum --check
 }
 
+display_user_settings_and_prompt() {
+    clear
+    cat <<EOL
+$ID $VERSION_ID detected
+
+${BOLD}Packages to remove${RESET}
+${BOLD}------------------${RESET}
+RPM: ${GREEN}${rpm_packages_to_remove[*]}${RESET}
+
+${BOLD}Packages to install${RESET}
+${BOLD}-------------------${RESET}
+RPM: ${GREEN}${rpm_packages_to_install[*]}${RESET}
+
+Flathub: ${GREEN}${flathub_packages_to_install[*]}${RESET}
+
+EOL
+
+read -rp "Press enter to install, or ctrl+c to quit"
+}
+
 exec 2> >(tee "error_log_$(date -Iseconds).txt")
 
 rpm_packages_to_remove=(
@@ -150,6 +170,7 @@ if [[ ("$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "alm
     }
 
     setup_redhat_packages
+    display_user_settings_and_prompt
     add_redhat_repositories
     install_redhat_binaries
 
@@ -188,6 +209,7 @@ elif [ "$ID" == "fedora" ]; then
     }
 
     setup_fedora_packages
+    display_user_settings_and_prompt
     add_fedora_repositories
 
 #==============================================================================
@@ -200,24 +222,6 @@ fi
 #==============================================================================
 # For all supported OS
 #==============================================================================
-display_user_settings() {
-    clear
-    cat <<EOL
-$ID $VERSION_ID detected
-
-${BOLD}Packages to remove${RESET}
-${BOLD}------------------${RESET}
-RPM: ${GREEN}${rpm_packages_to_remove[*]}${RESET}
-
-${BOLD}Packages to install${RESET}
-${BOLD}-------------------${RESET}
-RPM: ${GREEN}${rpm_packages_to_install[*]}${RESET}
-
-Flathub: ${GREEN}${flathub_packages_to_install[*]}${RESET}
-
-EOL
-}
-
 add_repositories() {
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
@@ -294,8 +298,6 @@ Now use the setup script...
 EOL
 }
 
-display_user_settings
-read -rp "Press enter to install, or ctrl+c to quit"
 add_repositories
 install
 display_end_message
