@@ -269,6 +269,9 @@ install() {
     curl --create-dirs $CODEDARK_URL -o "$NVIM_CONFIG/colors/codedark.vim"
     xdg-desktop-menu install --novendor nvim.desktop
     xdg-icon-resource install --novendor --mode user --size 64 nvim.png
+
+    echo "${BOLD}Installing HTML/CSS/JSON/Bash language servers for Neovim LSP: https://github.com/neovim/nvim-lspconfig${RESET}"
+    npm install -g vscode-langservers-extracted bash-language-server
 }
 
 display_end_message() {

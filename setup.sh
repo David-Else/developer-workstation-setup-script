@@ -95,11 +95,6 @@ cd - || exit
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
 source ~/.bashrc
-
-# Use your home directory for NPM global packages
-mkdir -p "$HOME/.npm-global"
-npm config set prefix "$HOME/.npm-global"
-
 cat <<EOL
 
 ===============================================================================
