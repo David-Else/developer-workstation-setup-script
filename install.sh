@@ -66,7 +66,7 @@ rpm_packages_to_install=(
     ImageMagick
     borgbackup
     chromium
-    code
+    # code
     ffmpeg
     fuse-exfat
     gcc-c++
