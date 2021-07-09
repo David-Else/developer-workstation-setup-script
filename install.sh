@@ -196,6 +196,7 @@ elif [ "$ID" == "fedora" ]; then
             ripgrep
             shfmt
             shotwell
+            xrandr
             zathura
             zathura-bash-completion
             zathura-pdf-mupdf)
