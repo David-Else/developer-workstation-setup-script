@@ -72,7 +72,7 @@ fi
 #==============================================================================
 # Move dotfiles to the home directory, backup existing files and run stow
 #==============================================================================
-mv ./dotfiles ~/dotfiles
+cp ./dotfiles ~/dotfiles
 
 mv "$HOME/.bash_profile" "$HOME/.bash_profile_backup"
 mv "$HOME/.bashrc" "$HOME/.bashrc_backup"
