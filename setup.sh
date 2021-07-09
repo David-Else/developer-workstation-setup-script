@@ -17,6 +17,7 @@ function add_to_file() {
 #==============================================================================
 # Set host name
 #==============================================================================
+clear
 read -rp "What is this computer's name? [$HOSTNAME] " hostname
 if [[ ! -z "$hostname" ]]; then
     hostnamectl set-hostname "$hostname"
@@ -53,13 +54,6 @@ if [[ "${night_light}" == "true" ]]; then
     gsettings set org.gnome.settings-daemon.plugins.color \
         night-light-enabled true
 fi
-
-#==============================================================================
-# Pulse audio settings for better sound quality
-#==============================================================================
-sudo sed -i "s/; default-sample-format = s16le/default-sample-format = s32le/g" /etc/pulse/daemon.conf
-sudo sed -i "s/; resample-method = speex-float-1/resample-method = speex-float-10/g" /etc/pulse/daemon.conf
-sudo sed -i "s/; avoid-resampling = false/avoid-resampling = true/g" /etc/pulse/daemon.conf
 
 #==============================================================================
 # Font settings for subpixel rendering
@@ -120,13 +114,19 @@ ${GREEN}git clone https://github.com/pystardust/ytfzf${RESET}
 ${GREEN}cd ytfzf${RESET}
 ${GREEN}sudo make install${RESET}
 
-Fix Visual Studio Code keyboard input on RHEL 8 clones
+Fix Visual Studio Code keyboard input on RHEL 8 and clones
 ------------------------------------------------------
 - Uncomment code="GTK_IM_MODULE=ibus code" from .bashrc
 - Go to terminal type 'ibus-setup'
 - Go to Emoji tab, press the '...' next to Emoji choice to get 'select keyboard shortcut for switching' window
 - Use the delete button to delete the shortcut and leave nothing there, press OK
 - Close
+
+Improve audio on RHEL 8 and clones (not needed with Fedora 34 and pipewire)
+---------------------------------------------------------------------------
+${GREEN}sudo sed -i "s/; default-sample-format = s16le/default-sample-format = s32le/g" /etc/pulse/daemon.conf${RESET}
+${GREEN}sudo sed -i "s/; resample-method = speex-float-1/resample-method = speex-float-10/g" /etc/pulse/daemon.conf${RESET}
+${GREEN}sudo sed -i "s/; avoid-resampling = false/avoid-resampling = true/g" /etc/pulse/daemon.conf${RESET}
 
 Please reboot (or things may not work as expected)
 ===============================================================================
