@@ -279,6 +279,7 @@ install() {
 
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     nvim --headless -c ":PlugInstall" -c ":qa"
+    ln -s $CONFIG_DIR/plugged/fzf/bin/fzf $BIN_INSTALL_DIR
 
     echo "${BOLD}Installing NPM global packages..."
     npm install -g "${npm_global_packages_to_install[@]}"
