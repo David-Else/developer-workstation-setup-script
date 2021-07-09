@@ -277,6 +277,9 @@ install() {
     xdg-desktop-menu install --novendor nvim.desktop
     xdg-icon-resource install --novendor --mode user --size 64 nvim.png
 
+    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    nvim --headless -c ":PlugInstall" -c ":qa"
+
     echo "${BOLD}Installing NPM global packages..."
     npm install -g "${npm_global_packages_to_install[@]}"
 }
