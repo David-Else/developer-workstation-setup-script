@@ -273,8 +273,6 @@ install() {
     mv $NVIM_FILENAME $BIN_INSTALL_DIR/nvim
 
     local NVIM_CONFIG=$HOME/.config/nvim
-    local CODEDARK_URL=https://raw.githubusercontent.com/tomasiser/vim-code-dark/master/colors/codedark.vim
-    curl --create-dirs $CODEDARK_URL -o "$NVIM_CONFIG/colors/codedark.vim"
     xdg-desktop-menu install --novendor nvim.desktop
     xdg-icon-resource install --novendor --mode user --size 64 nvim.png
 
