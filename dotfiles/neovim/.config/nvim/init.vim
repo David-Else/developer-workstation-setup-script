@@ -74,7 +74,8 @@ augroup END
 
 augroup new_terminal_enter_insert_mode
   autocmd!
-  au TermOpen * startinsert
+  autocmd TermOpen * startinsert
+  autocmd BufEnter term://* startinsert
 augroup END
 
 augroup highlight_yank
@@ -162,6 +163,7 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 "                                           "
 "  <leader>f  = format (formatprg or LSP)   "
 "  <leader>l  = lint using shellcheck       "
+"  <leader>t  = open terminal to the right  "
 "  <leader>cd = working dir to current file "
 "  <leader>c  = edit init.vim config        "
 "  <leader>o  = insert newline below        "
@@ -197,6 +199,9 @@ tnoremap jk <C-\><C-n>
 
 " quit all but confirm if buffer unsaved 
 nnoremap <silent><leader>qa :confirm qall<CR>
+
+" open new terminal to the right
+nnoremap <silent><leader>t :vsplit<bar>term<CR>
 
 " disable netrw loading and replace broken link opening https://github.com/vim/vim/issues/4738
 let g:loaded_netrw       = 1
@@ -249,6 +254,20 @@ nnoremap <silent><leader>h :History!<CR>
 nnoremap <silent><leader>gs :GFiles?<CR>
 nnoremap <silent><leader>gc :BCommits!<CR>
 nnoremap <silent><leader>rg :Rg!<CR>
+
+" move around windows with alt hjkl
+tnoremap <A-h> <C-\><C-N><C-w>h
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
+tnoremap <A-l> <C-\><C-N><C-w>l
+inoremap <A-h> <C-\><C-N><C-w>h
+inoremap <A-j> <C-\><C-N><C-w>j
+inoremap <A-k> <C-\><C-N><C-w>k
+inoremap <A-l> <C-\><C-N><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
 
 "=================="
 "   Disable keys   "
