@@ -258,13 +258,6 @@ install() {
     echo "${BOLD}Installing Deno...${RESET}"
     su - "$SUDO_USER" -c "curl -fsSL https://deno.land/x/install/install.sh | sh"
 
-    echo "${BOLD}Installing nnn terminal file manager plugins...${RESET}"
-    su - "$SUDO_USER" -c "curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh"
-
-    echo "${BOLD}Installing umpv script for additional MPV functionality...${RESET}"
-    curl https://raw.githubusercontent.com/mpv-player/mpv/master/TOOLS/umpv -o "$BIN_INSTALL_DIR/umpv"
-    chmod +x "$BIN_INSTALL_DIR/umpv"
-
     echo "${BOLD}Installing Neovim 0.5 stable appimage and vim-plug...${RESET}"
     local NVIM_LOCATION=https://github.com/neovim/neovim/releases/download/v0.5.0/
     local NVIM_FILENAME=nvim.appimage
@@ -272,14 +265,23 @@ install() {
     download_verify "$NVIM_LOCATION" "$NVIM_FILENAME" "$NVIM_SHA"
     chmod +x $NVIM_FILENAME
     mv $NVIM_FILENAME $BIN_INSTALL_DIR/nvim
-
-    xdg-desktop-menu install --novendor nvim.desktop
-    xdg-icon-resource install --novendor --mode user --size 64 nvim.png
-
     su - "$SUDO_USER" -c "curl -fLo /home/$SUDO_USER/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
-    echo "${BOLD}Installing NPM global packages..."
-    npm install -g "${npm_global_packages_to_install[@]}"
+    if command -v nnn &>/dev/null; then
+        echo "${BOLD}Installing nnn terminal file manager plugins...${RESET}"
+        su - "$SUDO_USER" -c "curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh"
+    fi
+
+    if command -v mpv &>/dev/null; then
+        echo "${BOLD}Installing umpv script for additional MPV functionality...${RESET}"
+        curl https://raw.githubusercontent.com/mpv-player/mpv/master/TOOLS/umpv -o "$BIN_INSTALL_DIR/umpv"
+        chmod +x "$BIN_INSTALL_DIR/umpv"
+    fi
+
+    if command -v nodejs &>/dev/null; then
+        echo "${BOLD}Installing NPM global packages..."
+        npm install -g "${npm_global_packages_to_install[@]}"
+    fi
 }
 
 display_end_message() {

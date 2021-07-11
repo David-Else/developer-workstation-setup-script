@@ -79,7 +79,6 @@ mv "$HOME/.bashrc" "$HOME/.bashrc_backup"
 
 cd "$HOME/dotfiles" || exit
 stow *
-cd - || exit
 
 #==============================================================================
 # Increase inotify watchers for watching large numbers of files, default is 8192
@@ -88,8 +87,10 @@ cd - || exit
 #==============================================================================
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
-# Install Neovim plugins and symlink fzf
+# Install Neovim plugins and desktop icon (easier when script is being run by user)
 nvim --headless -c ":PlugInstall" -c ":qa"
+xdg-desktop-menu install --novendor nvim.desktop
+xdg-icon-resource install --novendor --mode user --size 64 nvim.png
 
 cat <<EOL
 
