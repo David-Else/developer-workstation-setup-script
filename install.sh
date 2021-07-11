@@ -265,7 +265,7 @@ install() {
     curl https://raw.githubusercontent.com/mpv-player/mpv/master/TOOLS/umpv -o "$BIN_INSTALL_DIR/umpv"
     chmod +x "$BIN_INSTALL_DIR/umpv"
 
-    echo "${BOLD}Installing Neovim 0.5 stable appimage, vim-code-dark theme and vim-plug...${RESET}"
+    echo "${BOLD}Installing Neovim 0.5 stable appimage and vim-plug...${RESET}"
     local NVIM_LOCATION=https://github.com/neovim/neovim/releases/download/v0.5.0/
     local NVIM_FILENAME=nvim.appimage
     local NVIM_SHA=cdb136d673c0d21bcc08d3a6c95e31498d304eada28b61569750c8c74b5501cddbbb82a8e0287d687af43c313574cf743bfcdff3a526151b31f00096fc048d2f
