@@ -22,6 +22,9 @@ GREEN=$(tput setaf 2)
 BOLD=$(tput bold)
 RESET=$(tput sgr0)
 BIN_INSTALL_DIR=/usr/local/bin
+BAT_LOCATION=https://github.com/sharkdp/bat/releases/download/v0.18.1/
+BAT_FILENAME=bat-v0.18.1-x86_64-unknown-linux-gnu.tar.gz
+BAT_SHA=5ccab17461d2c707dab2e917daacdabe744c8f8c1e09330c03f17b6f9a9be3d79d8a2786c5e37b1bdbdb981e9d9debfec909b4a99bf62329d6f12c1c3e8dfcb7
 
 if [ "$(id -u)" != 0 ]; then
     echo "You're not root! Run script with sudo" && exit 1
@@ -140,9 +143,6 @@ if [[ ("$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "alm
         local SHFMT_LOCATION=https://github.com/mvdan/sh/releases/download/v3.2.2/
         local SHFMT_FILENAME=shfmt_v3.2.2_linux_amd64
         local SHFMT_SHA=d4e699575899f7c44dbce54f6414fb63c0527e7d743ea724cb0091417e07a353c1d156d4184580a260ca855cdf5e01cdf46b353f04cf5093eba3ffc02223f1c6
-        local BAT_LOCATION=https://github.com/sharkdp/bat/releases/download/v0.18.1/
-        local BAT_FILENAME=bat-v0.18.1-x86_64-unknown-linux-gnu.tar.gz
-        local BAT_SHA=5ccab17461d2c707dab2e917daacdabe744c8f8c1e09330c03f17b6f9a9be3d79d8a2786c5e37b1bdbdb981e9d9debfec909b4a99bf62329d6f12c1c3e8dfcb7
         local RIPGREP_LOCATION=https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/
         local RIPGREP_FILENAME=ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz
         local RIPGREP_SHA=cdc18bd31019fc7b8509224c2f52b230be33dee36deea2e4db1ee8c78ace406c7cd182814d056f4ce65ee533290a674822432777b61c2b4bc8cc4a4ea107cfde
@@ -156,10 +156,6 @@ if [[ ("$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "alm
         download_verify "$SHELLCHECK_LOCATION" "$SHELLCHECK_FILENAME" "$SHELLCHECK_SHA"
         tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $SHELLCHECK_FILENAME --no-anchored 'shellcheck' --strip=1
         rm $SHELLCHECK_FILENAME
-
-        download_verify "$BAT_LOCATION" "$BAT_FILENAME" "$BAT_SHA"
-        tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $BAT_FILENAME --no-anchored 'bat' --strip=1
-        rm $BAT_FILENAME
 
         download_verify "$RIPGREP_LOCATION" "$RIPGREP_FILENAME" "$RIPGREP_SHA"
         tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $RIPGREP_FILENAME --no-anchored 'rg' --strip=1
@@ -186,7 +182,6 @@ elif [ "$ID" == "fedora" ]; then
 
         local fedora_rpm_packages_to_install=(
             ShellCheck
-            bat
             chromium-libs-media-freeworld
             java-1.8.0-openjdk
             krita
@@ -258,6 +253,10 @@ install() {
     echo "${BOLD}Installing Deno...${RESET}"
     su - "$SUDO_USER" -c "curl -fsSL https://deno.land/x/install/install.sh | sh"
 
+    download_verify "$BAT_LOCATION" "$BAT_FILENAME" "$BAT_SHA"
+    tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $BAT_FILENAME --no-anchored 'bat' --strip=1
+    rm $BAT_FILENAME
+
     echo "${BOLD}Installing Neovim 0.5 stable appimage and vim-plug...${RESET}"
     local NVIM_LOCATION=https://github.com/neovim/neovim/releases/download/v0.5.0/
     local NVIM_FILENAME=nvim.appimage
@@ -278,7 +277,7 @@ install() {
         chmod +x "$BIN_INSTALL_DIR/umpv"
     fi
 
-    if command -v nodejs &>/dev/null; then
+    if command -v node &>/dev/null; then
         echo "${BOLD}Installing NPM global packages..."
         npm install -g "${npm_global_packages_to_install[@]}"
     fi
