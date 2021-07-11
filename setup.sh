@@ -1,5 +1,4 @@
 #!/bin/bash
-set -euo pipefail
 
 GREEN=$(tput setaf 2)
 RESET=$(tput sgr0)
@@ -88,6 +87,7 @@ stow *
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
 # Install Neovim plugins and desktop icon (easier when script is being run by user)
+mkdir -p "$CONFIG_DIR"/plugged
 nvim --headless -c ":PlugInstall" -c ":qa"
 xdg-desktop-menu install --novendor nvim.desktop
 xdg-icon-resource install --novendor --mode user --size 64 nvim.png
