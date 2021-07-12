@@ -71,13 +71,14 @@ fi
 #==============================================================================
 # Move dotfiles to the home directory, backup existing files and run stow
 #==============================================================================
-cp -r ./dotfiles ~/dotfiles
+mv ./dotfiles ~/dotfiles
 
 mv "$HOME/.bash_profile" "$HOME/.bash_profile_backup"
 mv "$HOME/.bashrc" "$HOME/.bashrc_backup"
 
 cd "$HOME/dotfiles" || exit
 stow *
+cd - || exit
 
 #==============================================================================
 # Increase inotify watchers for watching large numbers of files, default is 8192
