@@ -89,7 +89,7 @@ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo s
 
 # Install Neovim plugins
 mkdir -p "$HOME"/.config/nvim/plugged
-nvim --headless -c ":PlugInstall" -c ":qa"
+# nvim --headless -c ":PlugInstall" -c ":qa"
 
 cat <<EOL
 
