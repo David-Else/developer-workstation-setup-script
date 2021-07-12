@@ -86,11 +86,9 @@ stow *
 #==============================================================================
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
-# Install Neovim plugins and desktop icon (easier when script is being run by user)
+# Install Neovim plugins
 mkdir -p "$HOME"/.config/nvim/plugged
 nvim --headless -c ":PlugInstall" -c ":qa"
-xdg-desktop-menu install --novendor nvim.desktop
-xdg-icon-resource install --novendor --mode user --size 64 nvim.png
 
 cat <<EOL
 
@@ -101,7 +99,9 @@ Gnome:    settings  > details > choose default applications
           network   > wired   > connect automatically
           software  > install 'Hide Top Bar'
 
-${GREEN}flatpak run org.mozilla.firefox https://addons.mozilla.org/en-GB/firefox/addon/privacy-badger17/ \
+${GREEN}flatpak run org.mozilla.firefox${RESET} (RHEL) or ${GREEN}firefox
+
+https://addons.mozilla.org/en-GB/firefox/addon/privacy-badger17/ \
 https://addons.mozilla.org/en-GB/firefox/addon/ublock-origin/ \
 https://addons.mozilla.org/en-US/firefox/addon/vimium-ff/${RESET}
 
@@ -130,6 +130,11 @@ Improve audio on RHEL 8 and clones (not needed with Fedora 34 and pipewire)
 ${GREEN}sudo sed -i "s/; default-sample-format = s16le/default-sample-format = s32le/g" /etc/pulse/daemon.conf${RESET}
 ${GREEN}sudo sed -i "s/; resample-method = speex-float-1/resample-method = speex-float-10/g" /etc/pulse/daemon.conf${RESET}
 ${GREEN}sudo sed -i "s/; avoid-resampling = false/avoid-resampling = true/g" /etc/pulse/daemon.conf${RESET}
+
+Setup Neovim desktop integration
+--------------------------------
+xdg-desktop-menu install --novendor ./nvim.desktop
+xdg-icon-resource install --novendor --mode user --size 64 ./nvim.png
 
 Please reboot (or things may not work as expected)
 ===============================================================================
