@@ -114,7 +114,7 @@ augroup END
 lua << EOF
 require("zen-mode").setup {
   window = {
-    width = 80, -- width of the Zen window
+    width = 81, -- width of the Zen window
     },
   }
 
