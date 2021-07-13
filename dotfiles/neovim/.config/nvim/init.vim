@@ -30,6 +30,8 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'junegunn/fzf.vim'
   " zen mode
   Plug 'folke/zen-mode.nvim'
+  " which key
+  Plug 'folke/which-key.nvim'
 call plug#end()
 
 lua require("lsp")
@@ -112,11 +114,13 @@ augroup END
 "=================="
 
 lua << EOF
+require("which-key").setup {}
+
 require("zen-mode").setup {
   window = {
     width = 81, -- width of the Zen window
-    },
-  }
+  },
+}
 
 require'nvim-treesitter.configs'.setup {
   ensure_installed = { "bash", "css", "html", "javascript", "json", "jsonc", "lua", "rust", "typescript" },
