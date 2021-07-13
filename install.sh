@@ -266,10 +266,8 @@ install() {
     mv $NVIM_FILENAME $BIN_INSTALL_DIR/nvim
     su - "$SUDO_USER" -c "curl -fLo /home/$SUDO_USER/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
-    if command -v nnn &>/dev/null; then
-        echo "${BOLD}Installing nnn terminal file manager plugins...${RESET}"
-        su - "$SUDO_USER" -c "curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh"
-    fi
+    echo "${BOLD}Installing nnn terminal file manager plugins...${RESET}"
+    su - "$SUDO_USER" -c "curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh"
 
     if command -v mpv &>/dev/null; then
         echo "${BOLD}Installing umpv script for additional MPV functionality...${RESET}"

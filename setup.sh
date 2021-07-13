@@ -137,6 +137,8 @@ Setup Neovim desktop integration
 xdg-desktop-menu install --novendor ./nvim.desktop
 xdg-icon-resource install --novendor --mode user --size 64 ./nvim.png
 
+sudo ln -s ~/.config/nvim/plugged/fzf/bin/fzf /usr/local/bin
+
 Please reboot (or things may not work as expected)
 ===============================================================================
 EOL
