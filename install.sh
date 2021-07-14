@@ -8,7 +8,7 @@
 #
 #      WEBSITE: https://github.com/David-Else/developer-workstation-setup-script
 #
-# REQUIREMENTS: Freshly installed Fedora, or RHEL 8 variant installed with
+# REQUIREMENTS: Freshly installed Fedora 34+, or RHEL 8 clone installed with
 #               software selection = workstation
 #
 #       AUTHOR: David Else
