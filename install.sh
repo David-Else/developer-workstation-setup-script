@@ -98,7 +98,8 @@ flathub_packages_to_install=(
 npm_global_packages_to_install=(
     vscode-langservers-extracted
     bash-language-server
-)
+    live-server
+    prettier)
 
 #==============================================================================
 # For RHEL 8 and clones (tested on 8.4)
