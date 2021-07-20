@@ -37,7 +37,7 @@ call plug#end()
 lua require("lsp")
 
 "=================="
-"     Settings     "
+" Global Settings  "
 "=================="
 
 colorscheme codedark
@@ -61,60 +61,44 @@ set nospell spelllang=en_us
 set completeopt=menu,menuone,noselect " options for insert mode completion
 set guicursor+=n-v-c:blinkon1         " set cursor to blink
 set clipboard=unnamedplus             " use clipboard register '+' instead of '*'
-
-let g:markdown_fenced_languages = ['bash=sh', 'javascript', 'js=javascript', 'json=javascript', 'typescript', 'ts=typescript', 'php', 'html', 'css', 'rust', 'sql']
-let g:markdown_folding = 1
+set grepprg=rg\ --vimgrep\ --smart-case\ --hidden " use rg when using grep command
+set grepformat=%f:%l:%c:%m
 
 "=================="
 "   Autocommands   "
 "=================="
 
-augroup markdown_start_folds_open
+augroup reset_group
   autocmd!
-  au FileType markdown setlocal foldlevel=99 conceallevel=2
 augroup END
 
-augroup new_terminal_enter_insert_mode
-  autocmd!
-  autocmd TermOpen * startinsert
-  autocmd BufEnter term://* startinsert
-augroup END
-
-augroup highlight_yank
-  autocmd!
-  autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
-augroup END
-
+autocmd reset_group TermOpen * startinsert
+autocmd reset_group BufEnter term://* startinsert
+autocmd reset_group TextYankPost * silent! lua require'vim.highlight'.on_yank()
+autocmd reset_group CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
+autocmd reset_group QuickFixCmdPost [^l]* cwindow
+autocmd reset_group QuickFixCmdPost    l* lwindow
 " to create session: :mks [optional session filename]
-augroup sessions_save_on_exit
-  autocmd!
-  autocmd VimLeave * if !empty(v:this_session) | exe "mksession! ".(v:this_session)
-augroup END
+autocmd reset_group VimLeave * if !empty(v:this_session) | exe "mksession! ".(v:this_session)
 
-augroup lightbulb_code_action
-  autocmd!
-  autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
-augroup END
-
-augroup formatting 
-  autocmd!
-  autocmd FileType sh setlocal formatprg=shfmt\ -i\ 4
-  autocmd FileType markdown setlocal formatprg=prettier\ --parser\ markdown
-  autocmd FileType css setlocal formatprg=prettier\ --parser\ css
-  autocmd FileType html setlocal formatprg=prettier\ --parser\ html
-  autocmd FileType json setlocal formatprg=prettier\ --parser\ json
 " use deno LSP for formatting these instead
-"  autocmd FileType javascript setlocal formatprg=prettier\ --parser\ typescript
-"  autocmd FileType javascript.jsx setlocal formatprg=prettier\ --parser\ typescript
-"  autocmd FileType typescript setlocal formatprg=prettier\ --parser\ typescript
-augroup END
+" autocmd FileType javascript setlocal formatprg=prettier\ --parser\ typescript
+" autocmd FileType javascript.jsx setlocal formatprg=prettier\ --parser\ typescript
+" autocmd FileType typescript setlocal formatprg=prettier\ --parser\ typescript
 
 "=================="
 "  Setup Plugins   "
 "=================="
 
 lua << EOF
-require("which-key").setup {}
+require("which-key").setup {
+  plugins = {             
+    spelling = {          
+      enabled = true,     
+      suggestions = 20,   
+    },                    
+  },
+}
 
 require("zen-mode").setup {
   window = {
@@ -166,7 +150,7 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 "         ESC = search highlighting off     "
 "                                           "
 "  <leader>f  = format (formatprg or LSP)   "
-"  <leader>l  = lint using shellcheck       "
+"  <leader>m  = run make on current buffer  "
 "  <leader>t  = open terminal to the right  "
 "  <leader>cd = working dir to current file "
 "  <leader>c  = edit init.vim config        "
@@ -218,8 +202,8 @@ nnoremap <silent><leader>o m`o<Esc>``
 " toggle zen mode
 nnoremap <silent><leader>z :ZenMode<CR>
 
-" lint current buffer using shellcheck
-nnoremap <leader>l :vsplit term://shellcheck -x %<CR>
+" run make on current buffer
+nnoremap <leader>m :make %<CR>
 
 " change working directory to the location of the current file
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
