@@ -30,8 +30,10 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'junegunn/fzf.vim'
   " zen mode
   Plug 'folke/zen-mode.nvim'
-  " which key
+  " popup with possible key bindings as you type
   Plug 'folke/which-key.nvim'
+  " comment stuff out
+  Plug 'tpope/vim-commentary'
 call plug#end()
 
 lua require("lsp")
@@ -73,6 +75,7 @@ augroup reset_group
 augroup END
 
 autocmd reset_group TermOpen * startinsert
+autocmd reset_group TermClose term://* close
 autocmd reset_group BufEnter term://* startinsert
 autocmd reset_group TextYankPost * silent! lua require'vim.highlight'.on_yank()
 autocmd reset_group CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
@@ -256,6 +259,13 @@ nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
+
+" cycle through quicklist/:helpgrep items
+nnoremap [c :cprevious<CR>
+nnoremap ]c :cnext<CR>
+" cycle through location list items
+nnoremap [l :lprevious<CR>
+nnoremap ]l :lnext<CR>
 
 "=================="
 "   Disable keys   "
