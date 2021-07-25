@@ -17,7 +17,7 @@ endfunction
 
 call plug#begin('~/.config/nvim/plugged')
   " use built-in LSP and treesitter features
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'nvim-treesitter/nvim-treesitter', { 'branch': '0.5-compat', 'do': ':TSUpdate' }
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
   Plug 'neovim/nvim-lspconfig'
   " auto completion and LSP codeAction alert
@@ -57,8 +57,8 @@ set shiftwidth=2      " number of spaces inserted for indentation
 set ssop-=options     " do not store global and local values in a session
 set termguicolors     " set to true color
 set title             " change terminal title to name of file
-set signcolumn=yes    " add gutter space for lsp info on left
-set updatetime=100    " increased to lsp code actions appear faster
+set signcolumn=yes    " add gutter space for LSP info on left
+set updatetime=100    " increased to LSP code actions appear faster
 set nospell spelllang=en_us
 set completeopt=menu,menuone,noselect " options for insert mode completion
 set guicursor+=n-v-c:blinkon1         " set cursor to blink
@@ -150,6 +150,8 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 "                                           "
 "          jk = escape                      "
 "      ctrl-s = save                        "
+" alt h/j/k/l = navigate windows            "
+" ]c/[c/[l/]l = cycle quick/location lists  "
 "         ESC = search highlighting off     "
 "                                           "
 "  <leader>f  = format (formatprg or LSP)   "
