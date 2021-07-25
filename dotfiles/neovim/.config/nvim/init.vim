@@ -18,7 +18,7 @@ endfunction
 call plug#begin('~/.config/nvim/plugged')
   " use built-in LSP and treesitter features
   Plug 'nvim-treesitter/nvim-treesitter', { 'branch': '0.5-compat', 'do': ':TSUpdate' }
-  Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+  Plug 'nvim-treesitter/nvim-treesitter-textobjects', { 'branch': '0.5-compat' }
   Plug 'neovim/nvim-lspconfig'
   " auto completion and LSP codeAction alert
   Plug 'hrsh7th/nvim-compe'
