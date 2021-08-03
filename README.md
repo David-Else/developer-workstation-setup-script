@@ -87,14 +87,66 @@ This script is designed to be run immediately after installing the operating sys
 
 ![RHEL](./images/centos-8-install-options.png)
 
-## Prior customization
+## Clone this repo
 
-You will want to look at the script and modify it with your own preferences. This has been made as easy as possible, and should be self explanatory. `rpm_packages_to_remove rpm_packages_to_install flathub_packages_to_install npm_global_packages_to_install` arrays contain all the packages that are common to Fedora and RHEL clones, inside the `if then` conditional you can add and remove packages specifically for each operating system.
-
-## Clone this repo and run `install.sh` and `setup.sh`
 ```
 git clone https://github.com/David-Else/developer-workstation-setup-script
 cd developer-workstation-setup-script
+```
+
+## Customize the software selection
+
+You will want to look at the install script and modify it with your own preferences. This has been made as easy as possible, and should be self explanatory.
+
+The following arrays in `install.sh` contain all the packages that are common to Fedora and RHEL clones:
+
+```bash
+rpm_packages_to_remove=()
+rpm_packages_to_install=()
+flathub_packages_to_install=()
+npm_global_packages_to_install=()
+```
+
+These arrays are global and are modified depending on if you have installed Fedora or a RHEL clone. Inside the `if then` conditional you can add and remove packages specifically for each operating system:
+
+```bash
+if [[ ("$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "almalinux") && "${VERSION_ID%.*}" -gt 7 ]]; then
+
+    setup_redhat_packages() {
+        local rhel_rpm_packages_to_remove=()
+        local rhel_rpm_packages_to_install=()
+        local rhel_flathub_packages_to_install=()
+    }
+
+elif [ "$ID" == "fedora" ]; then
+
+    setup_fedora_packages() {
+        local fedora_rpm_packages_to_remove=()
+        local fedora_rpm_packages_to_install=()
+    }
+fi
+```
+
+Repos can be added conditionally, so if the package is not required then the repo is not installed:
+
+```bash
+    case " ${rpm_packages_to_install[*]} " in
+    *' code '*)
+        rpm --import https://packages.microsoft.com/keys/microsoft.asc
+        sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+        ;;&
+    *' lazygit '*)
+        dnf -y copr enable atim/lazygit
+        ;;&
+    *' gh '*)
+        dnf -y config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
+        ;;
+    esac
+```
+
+## Run `install.sh` and `setup.sh`
+
+```
 sudo ./install.sh
 ./setup.sh
 ```
@@ -107,11 +159,11 @@ sudo ./install.sh
 
 **A**: Sudo privileges are needed for the installation, and they time out before the script can finish. This makes unattended installation impossible without running the install part of the script as root.
 
-The setup part is much easier to do as a user, so running it as the user avoids constant `su - "$SUDO_USER" -c` statements in the code. If a part of the setup needs `sudo` it will ask for it for just that part.
+The setup part is much easier to do as a user, so running it as the user avoids constant `su - "$SUDO_USER" -c` statements in the code. If a part of the setup needs `sudo` it will ask for your password.
 
 **Q**: Does this script disable the caps lock key? I've noticed that it works during login but after that it stops working altogether.
 
-**A**: It makes the caps lock into a delete for touch typing purposes, to change it modify this line in the setup script before running:
+**A**: It makes the caps lock into a delete for touch typing purposes, to change it modify this line in the setup script:
 
 ```shell
  capslock_delete="false"
