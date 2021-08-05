@@ -47,6 +47,7 @@ colorscheme codedark
 set noswapfile
 set splitright
 set splitbelow
+set scrolloff=8       " set number of screen lines to keep above/below the cursor
 set linebreak         " soft wrap long lines at a character in 'breakat'
 set inccommand=split  " shows the effects of a command incrementally as you type
 set hidden            " keep buffer windows open
@@ -165,6 +166,7 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 "  <leader>cc = toggle colorcolumn          "
 "  <leader>n  = toggle line numbers         "
 "  <leader>s  = toggle spell check          "
+"  <leader>sn = next spell error and prompt "
 "  <leader>w  = toggle whitespaces          "
 "  <leader>z  = toggle zen mode             "
 "                                           "
@@ -176,7 +178,7 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 "  <leader>rg = ripgrep search results      "
 "                                           "
 "  <leader>gs = git status                  "
-"  <leader>gc = git commits history         "
+"  <leader>gh = git commits history         "
 "                                           " 
 "  text objects                             "
 "  ------------                             "
@@ -190,6 +192,9 @@ let mapleader = "\<Space>"
 inoremap jk <Esc>
 tnoremap jk <C-\><C-n>
 
+" go to next spelling error and prompt for correction
+nmap <silent><leader>sn ]sz=
+
 " quit all but confirm if buffer unsaved 
 nnoremap <silent><leader>qa :confirm qall<CR>
 
@@ -199,7 +204,7 @@ nnoremap <silent><leader>t :vsplit<bar>term<CR>
 " disable netrw loading and replace broken link opening https://github.com/vim/vim/issues/4738
 let g:loaded_netrw       = 1
 let g:loaded_netrwPlugin = 1
-nnoremap <silent> gx :execute 'silent! !xdg-open ' . shellescape(expand('<cWORD>'), 1)<cr>
+nnoremap <silent> gx :execute 'silent! !xdg-open ' . shellescape(expand('<cWORD>'), 1)<CR>
 
 " insert new line in normal mode
 nnoremap <silent><leader>o m`o<Esc>``
@@ -226,26 +231,26 @@ nnoremap <silent><leader>cc :execute "set colorcolumn=" . (&colorcolumn == "" ? 
 nnoremap <silent><leader>n :set invnumber<CR>
 
 " toggle spell checking
-nnoremap <silent><leader>s :set invspell<cr>
+nnoremap <silent><leader>s :set invspell<CR>
 
 " toggle showing white spaces
 set lcs+=space:.
-nnoremap <silent><leader>w :set list!<cr>
+nnoremap <silent><leader>w :set list!<CR>
 
 " ctrl-s to save (add stty -ixon to ~/.bashrc required)
-nnoremap <silent><c-s> :<c-u>update<cr>
-inoremap <silent><c-s> <c-o>:update<cr>
-vnoremap <silent><c-s> <c-c>:update<cr>gv
+nnoremap <silent><c-s> :<c-u>update<CR>
+inoremap <silent><c-s> <c-o>:update<CR>
+vnoremap <silent><c-s> <c-c>:update<CR>gv
 
 " esc to turn off search highlighting
-nnoremap <silent><esc> :noh<cr>
+nnoremap <silent><esc> :noh<CR>
 
 let g:fzf_preview_window = ['right:60%', 'ctrl-/']
 nnoremap <silent><c-p> :Files!<CR>
 nnoremap <silent><leader>b :Buffers!<CR>
 nnoremap <silent><leader>h :History!<CR>
 nnoremap <silent><leader>gs :GFiles?<CR>
-nnoremap <silent><leader>gc :BCommits!<CR>
+nnoremap <silent><leader>gh :BCommits!<CR>
 nnoremap <silent><leader>rg :Rg!<CR>
 
 " move around windows with alt hjkl
