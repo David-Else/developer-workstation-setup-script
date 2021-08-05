@@ -38,46 +38,17 @@ To maintain parity with Fedora 34+, any package that is not available directly i
 
 ## Great software out of the box, easy to customize and choose your own
 
-### Browsers
-
-- Firefox
-- Chromium
-- nnn file browser
-
-### Graphics and photography
-
-- Krita
-- Shotwell
-- ImageMagick
-
-### Sound and video
-
-- MPV
-- Handbrake
-- MKVToolNix
-
-### Security and backup
-
-- KeepassXC
-- BorgBackup
-
-### Development tools
-
-- Visual Studio Code (now optional, uncomment in script)
-- Neovim 0.5 fully configured with treesitter/lsp/nvim-compe/fzf
-- Node.js / Deno
-- Podman
-- Gnome Boxes
-- Lazygit
-- Github CLI
-- Pandoc
-- Shellcheck / shfmt
-- Bat / ripgrep
-
-## Communications
-
-- Thunderbird
-- Signal Messenger
+| Development    | Browsers         | Graphics and | Sound and video | Security and backup |
+| -------------- | ---------------- | ------------ | --------------- | ------------------- |
+| Neovim 0.5     | Firefox          | Krita        | MPV             | KeepassXC           |
+| Node.js / Deno | Chromium         | Shotwell     | Handbrake       | BorgBackup          |
+| Gnome Boxes    | nnn file browser | ImageMagick  | MKVToolNix      |                     |
+| Lazygit        |                  |              |                 |                     |
+| Github CLI     |                  |              |                 |                     |
+| Pandoc         |                  |              |                 |                     |
+| Shellcheck     |                  |              |                 |                     |
+| Shfmt          |                  |              |                 |                     |
+| Bat / ripgrep  |                  |              |                 |                     |
 
 # Installation
 
