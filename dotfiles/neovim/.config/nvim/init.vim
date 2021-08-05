@@ -192,6 +192,18 @@ let mapleader = "\<Space>"
 inoremap jk <Esc>
 tnoremap jk <C-\><C-n>
 
+" make Y act like C and D
+nnoremap Y y$
+
+" keep cursor position when joining lines
+nnoremap J mxJ'x
+
+" set undo break points
+inoremap , ,<c-g>u
+inoremap . .<c-g>u
+inoremap ! !<c-g>u
+inoremap ? ?<c-g>u
+
 " go to next spelling error and prompt for correction
 nmap <silent><leader>sn ]sz=
 
