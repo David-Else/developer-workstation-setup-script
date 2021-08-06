@@ -163,6 +163,10 @@ sudo ./install.sh
   <leader>gh = git commits history
 ```
 
+## Vim built in shortcuts
+
+https://www.elsewebdevelopment.com/ultimate-vim-keyboard-shortcuts/
+
 ## Neovim plugins
 
 - [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) - Nvim Treesitter configurations and abstraction layer
