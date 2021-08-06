@@ -126,6 +126,43 @@ sudo ./install.sh
 
 # Neovim
 
+## Neovim custom key mappings
+
+```
+ General                                      LSP
+ -------                                      ---
+          jk = escape                         gD        = Jumps to the declaration
+      ctrl-s = save                           gd        = Jumps to the definition
+ alt h/j/k/l = navigate windows               K         = Displays hover information
+ ]c/[c/[l/]l = cycle quick/location lists     <C-k>     = Displays signature info
+         ESC = search highlighting off        gi        = Lists all implementations
+                                                          in the quickfix window
+  <leader>f  = format (formatprg or LSP)      gr        = List all symbol references
+  <leader>m  = run make on current buffer     <space>wa = Add workspace folder
+  <leader>t  = open terminal to the right     <space>wr = Remove workstation folder
+  <leader>cd = working dir to current file    <space>wl = List workstation folders
+  <leader>c  = edit init.vim config           <space>D  = Jump to type definition
+  <leader>o  = insert newline below           <space>rn = Rename all symbol references
+  <leader>qa = quit all                       <space>ca = Selects a code action
+                                              <space>e  = Show diagnostics from line
+  <leader>cc = toggle colorcolumn             <space>q  = Sets the location list
+  <leader>n  = toggle line numbers            [d        = Move to previous diagnostic
+  <leader>s  = toggle spell check             ]d        = Move to next diagnostic
+  <leader>sn = next spell error and prompt
+  <leader>w  = toggle whitespaces
+  <leader>z  = toggle zen mode
+
+  fzf.vim                                      Text objects
+  -------                                      ------------
+  ctrl-p     = open file explorer              ["af"] = @function.outer
+  <leader>b  = open buffers                    ["if"] = @function.inner
+  <leader>h  = open file history               ["ac"] = @class.outer
+  <leader>rg = ripgrep search results          ["ic"] = @class.inner
+
+  <leader>gs = git status
+  <leader>gh = git commits history
+```
+
 ## Neovim plugins
 
 - [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) - Nvim Treesitter configurations and abstraction layer
@@ -139,41 +176,6 @@ sudo ./install.sh
 
 - [vim-commentary](https://github.com/tpope/vim-commentary) - Comment stuff out
 - [fzf.vim](https://github.com/junegunn/fzf.vim) - fzf vim wrapper
-
-## Neovim custom key mappings
-
-```
-          jk = escape                         gD        = Jumps to the declaration     
-      ctrl-s = save                           gd        = Jumps to the definition      
- alt h/j/k/l = navigate windows               K         = Displays hover information   
- ]c/[c/[l/]l = cycle quick/location lists     <C-k>     = Displays signature info      
-         ESC = search highlighting off        gi        = Lists all implementations    
-                                                          in the quickfix window       
-  <leader>f  = format (formatprg or LSP)      gr        = List all symbol references   
-  <leader>m  = run make on current buffer     <space>wa = Add workspace folder         
-  <leader>t  = open terminal to the right     <space>wr = Remove workstation folder    
-  <leader>cd = working dir to current file    <space>wl = List workstation folders     
-  <leader>c  = edit init.vim config           <space>D  = Jump to type definition      
-  <leader>o  = insert newline below           <space>rn = Rename all symbol references 
-  <leader>qa = quit all                       <space>ca = Selects a code action        
-                                              <space>e  = Show diagnostics from line   
-  <leader>cc = toggle colorcolumn             <space>q  = Sets the location list       
-  <leader>n  = toggle line numbers            [d        = Move to previous diagnostic  
-  <leader>s  = toggle spell check             ]d        = Move to next diagnostic      
-  <leader>sn = next spell error and prompt                                             
-  <leader>w  = toggle whitespaces                          
-  <leader>z  = toggle zen mode                             
-                                                           
-  fzf.vim                                      text objects                            
-  -------                                      ------------                            
-  ctrl-p     = open file explorer              ["af"] = @function.outer            
-  <leader>b  = open buffers                    ["if"] = @function.inner
-  <leader>h  = open file history               ["ac"] = @class.outer   
-  <leader>rg = ripgrep search results          ["ic"] = @class.inner   
-                                             
-  <leader>gs = git status                    
-  <leader>gh = git commits history           
-```
 
 # FAQ
 
