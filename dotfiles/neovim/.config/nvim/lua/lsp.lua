@@ -77,8 +77,11 @@ nvim_lsp.denols.setup({
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
   virtual_text = false,
 })
-
 -- Show diagnostics on cursor over
 vim.cmd([[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()]])
 -- Show function signature help while typing
 vim.cmd([[autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()]])
+-- Stop the (buggy?) unwanted focus on floating windows
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  focusable = false
+})
