@@ -140,70 +140,39 @@ sudo ./install.sh
 - [vim-commentary](https://github.com/tpope/vim-commentary) - Comment stuff out
 - [fzf.vim](https://github.com/junegunn/fzf.vim) - fzf vim wrapper
 
-## Neovim key bindings
+## Neovim custom key mappings
 
 ```
-"==========================================="
-"         Custom Key Mappings               "
-"                                           "
-"          jk = escape                      "
-"      ctrl-s = save                        "
-" alt h/j/k/l = navigate windows            "
-" ]c/[c/[l/]l = cycle quick/location lists  "
-"         ESC = search highlighting off     "
-"                                           "
-"  <leader>f  = format (formatprg or LSP)   "
-"  <leader>m  = run make on current buffer  "
-"  <leader>t  = open terminal to the right  "
-"  <leader>cd = working dir to current file "
-"  <leader>c  = edit init.vim config        "
-"  <leader>o  = insert newline below        "
-"  <leader>qa = quit all                    "
-"                                           "
-"  <leader>cc = toggle colorcolumn          "
-"  <leader>n  = toggle line numbers         "
-"  <leader>s  = toggle spell check          "
-"  <leader>sn = next spell error and prompt "
-"  <leader>w  = toggle whitespaces          "
-"  <leader>z  = toggle zen mode             "
-"                                           "
-"  fzf.vim                                  "
-"  -------                                  "
-"  ctrl-p     = open file explorer          "
-"  <leader>b  = open buffers                "
-"  <leader>h  = open file history           "
-"  <leader>rg = ripgrep search results      "
-"                                           "
-"  <leader>gs = git status                  "
-"  <leader>gh = git commits history         "
-"                                           "
-"  LSP                                      "
-"  ---                                      "
-"  gD        = Jumps to the declaration     "
-"  gd        = Jumps to the definition      "
-"  K         = Displays hover information   "
-"  <C-k>     = Displays signature info      "
-"  gi        = Lists all implementations    "
-"              in the quickfix window       "
-"  gr        = List all symbol references   "
-"  <space>wa = Add workspace folder         "
-"  <space>wr = Remove workstation folder    "
-"  <space>wl = List workstation folders     "
-"  <space>D  = Jump to type definition      "
-"  <space>rn = Rename all symbol references "
-"  <space>ca = Selects a code action        "
-"  <space>e  = Show diagnostics from line   "
-"  <space>q  = Sets the location list       "
-"  [d        = Move to previous diagnostic  "
-"  ]d        = Move to next diagnostic      "
-"                                           " 
-"  text objects                             "
-"  ------------                             "
-"      ["af"] = @function.outer             "
-"      ["if"] = @function.inner             "
-"      ["ac"] = @class.outer                "
-"      ["ic"] = @class.inner                "
-"==========================================="
+          jk = escape                         gD        = Jumps to the declaration     
+      ctrl-s = save                           gd        = Jumps to the definition      
+ alt h/j/k/l = navigate windows               K         = Displays hover information   
+ ]c/[c/[l/]l = cycle quick/location lists     <C-k>     = Displays signature info      
+         ESC = search highlighting off        gi        = Lists all implementations    
+                                                          in the quickfix window       
+  <leader>f  = format (formatprg or LSP)      gr        = List all symbol references   
+  <leader>m  = run make on current buffer     <space>wa = Add workspace folder         
+  <leader>t  = open terminal to the right     <space>wr = Remove workstation folder    
+  <leader>cd = working dir to current file    <space>wl = List workstation folders     
+  <leader>c  = edit init.vim config           <space>D  = Jump to type definition      
+  <leader>o  = insert newline below           <space>rn = Rename all symbol references 
+  <leader>qa = quit all                       <space>ca = Selects a code action        
+                                              <space>e  = Show diagnostics from line   
+  <leader>cc = toggle colorcolumn             <space>q  = Sets the location list       
+  <leader>n  = toggle line numbers            [d        = Move to previous diagnostic  
+  <leader>s  = toggle spell check             ]d        = Move to next diagnostic      
+  <leader>sn = next spell error and prompt                                             
+  <leader>w  = toggle whitespaces                          
+  <leader>z  = toggle zen mode                             
+                                                           
+  fzf.vim                                      text objects                            
+  -------                                      ------------                            
+  ctrl-p     = open file explorer              ["af"] = @function.outer            
+  <leader>b  = open buffers                    ["if"] = @function.inner
+  <leader>h  = open file history               ["ac"] = @class.outer   
+  <leader>rg = ripgrep search results          ["ic"] = @class.inner   
+                                             
+  <leader>gs = git status                    
+  <leader>gh = git commits history           
 ```
 
 # FAQ
