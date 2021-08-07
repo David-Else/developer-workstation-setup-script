@@ -163,7 +163,7 @@ sudo ./install.sh
   <leader>gh = git commits history
 ```
 
-## Vim built in shortcuts
+## Vim/Neovim built in shortcuts
 
 https://www.elsewebdevelopment.com/ultimate-vim-keyboard-shortcuts/
 
