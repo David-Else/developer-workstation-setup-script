@@ -227,20 +227,6 @@ nnoremap <silent><leader>gs :GFiles?<CR>
 nnoremap <silent><leader>gh :BCommits!<CR>
 nnoremap <silent><leader>rg :Rg!<CR>
 
-" move around windows with alt hjkl
-tnoremap <A-h> <C-\><C-N><C-w>h
-tnoremap <A-j> <C-\><C-N><C-w>j
-tnoremap <A-k> <C-\><C-N><C-w>k
-tnoremap <A-l> <C-\><C-N><C-w>l
-inoremap <A-h> <C-\><C-N><C-w>h
-inoremap <A-j> <C-\><C-N><C-w>j
-inoremap <A-k> <C-\><C-N><C-w>k
-inoremap <A-l> <C-\><C-N><C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
-
 " cycle through quicklist/:helpgrep items
 nnoremap [c :cprevious<CR>
 nnoremap ]c :cnext<CR>
