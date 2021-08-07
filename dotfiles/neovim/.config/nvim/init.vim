@@ -66,6 +66,7 @@ set guicursor+=n-v-c:blinkon1         " set cursor to blink
 set clipboard=unnamedplus             " use clipboard register '+' instead of '*'
 set grepprg=rg\ --vimgrep\ --smart-case\ --hidden " use rg when using grep command
 set grepformat=%f:%l:%c:%m
+let g:markdown_folding = 1 " enable markdown folding (doesn't work in after/ftplugin)
 
 "=================="
 "   Autocommands   "
