@@ -2,41 +2,23 @@
 
 ![neo-70s](./images/neo-70s.jpg)
 
-Welcome to your new **ultimate development environment**! A total re-write and re-imagining of [Fedora and Centos Ultimate Setup Scripts](https://github.com/David-Else/fedora-ultimate-setup-script).
+Welcome to your new **ultimate development environment**! A post-install setup script for developers that works on Fedora and all RHEL 8 clones. Enjoy the same software and desktop regardless of which Red Hat based distribution you choose. 
 
-- Detects if you are running Fedora or a RHEL clone and adjusts packages and their sources automatically
-- Installs all required repositories for your custom software selection
-- Removes crufty and junk software
-- Installs excellent software and sets up entire system
-- Makes improvements to Gnome desktop and font settings
-- Uses [stow](https://www.gnu.org/software/stow/) to install and mange dotfiles
 
-# Features
+## Features
 
-## Compatible with Fedora 34+ and RHEL 8+ and clones
+### Fedora 34+ and RHEL 8+ clones compatibility
 
 ![rocky-fedora-logos](./images/rocky-fedora.png)
 
-Works across Fedora 34+ and RHEL 8+ and all clones. You get to choose between **cutting edge** Fedora or **stable secure** RHEL clones. I suggest if you want stable, then choose Rocky.
-
-\*\* We have entered a new era since the betrayal of Centos users, now we shall never utter the word 'Centos' again, but instead we shall sing the glories of [Rocky Linux](https://rockylinux.org/), and let us not forget in our enthusiasm the awesome [Alma Linux](https://almalinux.org/).
-
-## Intelligent package and repository selection
+Works across Fedora 34+ and RHEL 8+ and all clones. You get to choose between cutting edge Fedora or stable RHEL clones. I suggest if you want stable, then choose Rocky.
 
 To maintain parity with Fedora 34+, any package that is not available directly in RHEL is downloaded as:
 
 - A binary from Github or another trusted source
 - From [flathub](https://flathub.org/home)
 
-## Terminal and VIM key compatibility where possible
-
-- Setup out of the box with the latest [Neovim 0.5](https://neovim.io/news/2021/07) configured to use `fzf`, `ripgrep` and `bat` with an attractive Visual Studio Code theme
-
-![Neovim](./images/neo-vim-with-vs-code-theme-preview.png)
-
-- [nnn](https://github.com/jarun/nnn) file browser means no need to leave the terminal or abandon common sense VIM keys to explore your computers file system
-
-## Great software out of the box, easy to customize and choose your own
+### Great software out of the box, easy to customize and choose your own
 
 | Development    | Browsers         | Graphics    | Sound and video | Security and backup |
 | -------------- | ---------------- | ----------- | --------------- | ------------------- |
@@ -50,22 +32,37 @@ To maintain parity with Fedora 34+, any package that is not available directly i
 | Shfmt          |                  |             |                 |                     |
 | Bat / ripgrep  |                  |             |                 |                     |
 
-# Installation
+### Improved Gnome desktop and font settings
 
-## Before you run this script
+Gnome has been tweaked along with font settings for a better experience.
+
+### Neovim 0.5 with plugins and custom keybindings
+
+Setup out of the box with the latest [Neovim 0.5](https://neovim.io/news/2021/07) and plugins configured to use `fzf`, `ripgrep` and `bat` with an attractive Visual Studio Code theme
+
+![Neovim](./images/neo-vim-with-vs-code-theme-preview.png)
+
+
+### Uses [stow](https://www.gnu.org/software/stow/) to install and mange dotfiles
+
+All the software dotfiles are managed using stow, this makes them easy to alter and version on your computer.
+
+## Installation
+
+### RHEL clones must be installed using the `workstation` option
 
 This script is designed to be run immediately after installing the operating system. If you are using a RHEL clone you should select `workstation` from the software selection option during the install.
 
 ![RHEL](./images/centos-8-install-options.png)
 
-## Clone this repo
+### Use git to clone this repository
 
 ```
 git clone https://github.com/David-Else/developer-workstation-setup-script
 cd developer-workstation-setup-script
 ```
 
-## Customize the software selection
+### Customize the software selection before running the script
 
 You will want to look at the install script and modify it with your own preferences. This has been made as easy as possible, and should be self explanatory.
 
@@ -115,7 +112,7 @@ Repos can be added conditionally, so if the package is not required then the rep
     esac
 ```
 
-## Run `install.sh` and `setup.sh`
+### Run the scripts
 
 ```
 sudo ./install.sh
@@ -124,9 +121,9 @@ sudo ./install.sh
 
 **ENJOY!**
 
-# Neovim
+## Neovim keybindings and plugins used
 
-## Neovim custom key mappings
+### Neovim custom key mappings
 
 ```
  General                                      LSP
@@ -163,11 +160,11 @@ sudo ./install.sh
   <leader>gh = git commits history
 ```
 
-## Vim/Neovim built in shortcuts
+For all the Vim/Neovim built in shortcuts please check out https://www.elsewebdevelopment.com/ultimate-vim-keyboard-shortcuts/
 
-https://www.elsewebdevelopment.com/ultimate-vim-keyboard-shortcuts/
+### Neovim plugins
 
-## Neovim plugins
+This is a list of all the plugins used, please follow the links to read about how to opperate them.
 
 - [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) - Nvim Treesitter configurations and abstraction layer
 - [nvim-treesitter-textobject](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) - Create your own textobjects using tree-sitter queries
@@ -181,7 +178,7 @@ https://www.elsewebdevelopment.com/ultimate-vim-keyboard-shortcuts/
 - [vim-commentary](https://github.com/tpope/vim-commentary) - Comment stuff out
 - [fzf.vim](https://github.com/junegunn/fzf.vim) - fzf vim wrapper
 
-# FAQ
+## FAQ
 
 **Q**: Why is the script spit into two parts for install and setup?
 
