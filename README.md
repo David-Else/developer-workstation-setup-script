@@ -148,6 +148,11 @@ sudo ./install.sh
   <leader>sn = next spell error and prompt
   <leader>w  = toggle whitespaces
   <leader>z  = toggle zen mode
+  
+  <leader>ga = git add
+  <leader>gr = git reset
+  <leader>gc = git commit
+  <leader>gp = git push
 
   fzf.vim                                      Text objects
   -------                                      ------------
