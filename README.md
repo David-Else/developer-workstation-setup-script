@@ -11,7 +11,7 @@ Welcome to your new **ultimate development environment**! A post-install setup s
 
 ![rocky-fedora-logos](./images/rocky-fedora.png)
 
-Works across Fedora 34+ and RHEL 8+ and all clones. You get to choose between cutting edge Fedora or stable RHEL clones. I suggest if you want stable, then choose Rocky.
+Works across Fedora 34+, RHEL 8+ and all clones. You get to choose between cutting edge Fedora or stable RHEL clones. I suggest if you want stable, then choose Rocky.
 
 To maintain parity with Fedora 34+, any package that is not available directly in RHEL is downloaded as:
 
