@@ -73,16 +73,11 @@ nvim_lsp.denols.setup({
   },
 })
 
--- Turn off underline
+-- Turn off virtual text
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
   virtual_text = false,
 })
--- Turn off focusable LSP window to prevent buggy behaviour
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  focusable = false
-})
-
--- Show diagnostics on cursor over
-vim.cmd([[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()]])
+-- Show diagnostics on cursor over and stop window being focusable
+vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.lsp.diagnostic.show_line_diagnostics({focusable=false})]]
 -- Show function signature help while typing
 vim.cmd([[autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()]])
