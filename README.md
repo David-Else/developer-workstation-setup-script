@@ -149,8 +149,8 @@ sudo ./install.sh
   <leader>w  = toggle whitespaces
   <leader>z  = toggle zen mode
   
-  <leader>ga = git add
-  <leader>gr = git reset
+  <leader>ga = git add current file
+  <leader>gr = git reset current file
   <leader>gc = git commit
   <leader>gp = git push
 
