@@ -126,43 +126,42 @@ sudo ./install.sh
 ### Neovim custom key mappings
 
 ```
- General                                      LSP
- -------                                      ---
-          jk = escape                         gD        = Jumps to the declaration
-      ctrl-s = save                           gd        = Jumps to the definition
- alt h/j/k/l = navigate windows               K         = Displays hover information
- ]c/[c/[l/]l = cycle quick/location lists     <C-k>     = Displays signature info
-         ESC = search highlighting off        gi        = Lists all implementations
-                                                          in the quickfix window
-  <leader>f  = format (formatprg or LSP)      gr        = List all symbol references
-  <leader>m  = run make on current buffer     <space>wa = Add workspace folder
-  <leader>t  = open terminal to the right     <space>wr = Remove workstation folder
-  <leader>cd = working dir to current file    <space>wl = List workstation folders
-  <leader>c  = edit init.vim config           <space>D  = Jump to type definition
-  <leader>o  = insert newline below           <space>rn = Rename all symbol references
-  <leader>qa = quit all                       <space>ca = Selects a code action
-                                              <space>e  = Show diagnostics from line
-  <leader>cc = toggle colorcolumn             <space>q  = Sets the location list
-  <leader>n  = toggle line numbers            [d        = Move to previous diagnostic
-  <leader>s  = toggle spell check             ]d        = Move to next diagnostic
-  <leader>sn = next spell error and prompt
-  <leader>w  = toggle whitespaces
-  <leader>z  = toggle zen mode
-  
-  <leader>ga = git add current file
-  <leader>gr = git reset current file
-  <leader>gc = git commit
-  <leader>gp = git push
+ General                                    LSP
+ -------                                    ---
+         jk = escape                        gD        = Jumps to the declaration
+     ctrl-s = save                          gd        = Jumps to the definition
+]c/[c/[l/]l = cycle quick/location lists    K         = Displays hover information
+        ESC = search highlighting off       <C-k>     = Displays signature info
+                                            gi        = Lists all implementations
+ <leader>f  = format (formatprg or LSP)                 in the quickfix window
+ <leader>m  = run make on current buffer    gr        = List all symbol references
+ <leader>t  = open terminal to the right    <space>wa = Add workspace folder
+ <leader>cd = working dir to current file   <space>wr = Remove workstation folder
+ <leader>c  = edit init.vim config          <space>wl = List workstation folders
+ <leader>o  = insert newline below          <space>D  = Jump to type definition
+ <leader>qa = quit all                      <space>rn = Rename all symbol references
+                                            <space>ca = Selects a code action
+ <leader>cc = toggle colorcolumn            <space>e  = Show diagnostics from line
+ <leader>n  = toggle line numbers           <space>q  = Sets the location list
+ <leader>s  = toggle spell check            [d        = Move to previous diagnostic
+ <leader>sn = next spell error and prompt   ]d        = Move to next diagnostic
+ <leader>w  = toggle whitespaces
+ <leader>z  = toggle zen mode
 
-  fzf.vim                                      Text objects
-  -------                                      ------------
-  ctrl-p     = open file explorer              ["af"] = @function.outer
-  <leader>b  = open buffers                    ["if"] = @function.inner
-  <leader>h  = open file history               ["ac"] = @class.outer
-  <leader>rg = ripgrep search results          ["ic"] = @class.inner
+ <leader>ga = git add current file
+ <leader>gr = git reset current file
+ <leader>gc = git commit
+ <leader>gp = git push
 
-  <leader>gs = git status
-  <leader>gh = git commits history
+ fzf.vim
+ -------                                     Text objects
+ ctrl-p     = open file explorer             ------------
+ <leader>b  = open buffers                   ["af"] = @function.outer
+ <leader>h  = open file history              ["if"] = @function.inner
+ <leader>rg = ripgrep search results         ["ac"] = @class.outer
+                                             ["ic"] = @class.inner
+ <leader>gs = git status
+ <leader>gh = git commits history
 ```
 
 For all the Vim/Neovim built in shortcuts please check out https://www.elsewebdevelopment.com/ultimate-vim-keyboard-shortcuts/
