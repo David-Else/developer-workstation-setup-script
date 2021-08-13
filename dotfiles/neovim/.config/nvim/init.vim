@@ -159,6 +159,9 @@ let mapleader = "\<Space>"
 inoremap jk <Esc>
 tnoremap jk <C-\><C-n>
 
+" set ctrl-backspace to delete previous word
+inoremap <C-H> <C-W>
+
 " make Y act like C and D
 nnoremap Y y$
 
