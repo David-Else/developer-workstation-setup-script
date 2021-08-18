@@ -153,6 +153,8 @@ sudo ./install.sh
  <leader>gc = git commit
  <leader>gp = git push
 
+alt h/j/k/l = navigate windows
+
  fzf.vim
  -------                                     Text objects
  ctrl-p     = open file explorer             ------------
@@ -162,6 +164,9 @@ sudo ./install.sh
                                              ["ic"] = @class.inner
  <leader>gs = git status
  <leader>gh = git commits history
+
+ ctrl-/     = toggle preview window
+ ctrl-t/x/v = open in new tab/split/vert split
 ```
 
 For all the Vim/Neovim built in shortcuts please check out https://www.elsewebdevelopment.com/ultimate-vim-keyboard-shortcuts/
