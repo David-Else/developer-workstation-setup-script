@@ -196,7 +196,7 @@ This is a list of all the plugins used, please follow the links to read about ho
 If you would like to use Code for things that Neovim still struggles with (like debugging), and still use all the Vim keyboard shortcuts, I suggest installing `asvetliakov.vscode-neovim` and using these settings:
 
 `settings.json`
-```json
+```jsonc
 {
   // font size
   "editor.fontSize": 15,
