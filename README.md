@@ -189,6 +189,36 @@ This is a list of all the plugins used, please follow the links to read about ho
 
 ## FAQ
 
+**Q**: How do I install Visual Studio Code?
+
+**A**: Simply un-comment `code` from `rpm-packages-to-install` in `install.sh` before you run it. 
+
+If you would like to use Code for things that Neovim still struggles with (like debugging), and still use all the Vim keyboard shortcuts, I suggest installing `asvetliakov.vscode-neovim` and using these settings:
+
+`settings.json`
+```json
+{
+  // font size
+  "editor.fontSize": 15,
+  "markdown.preview.fontSize": 15,
+  "terminal.integrated.fontSize": 15,
+  // asvetliakov.vscode-neovim
+  "editor.scrollBeyondLastLine": false,
+  "vscode-neovim.neovimExecutablePaths.linux": "/usr/local/bin/nvim", // for RHEL clones, or "/usr/bin/nvim" for Fedora 
+  "workbench.list.automaticKeyboardNavigation": false,
+  // various
+  "window.titleBarStyle": "custom", // adjust the appearance of the window title bar for linux
+  "editor.minimap.enabled": false, // controls whether the minimap is shown
+  "workbench.activityBar.visible": false, // controls the visibility of the activity bar in the workbench
+  "window.menuBarVisibility": "hidden", // control the visibility of the menu bar
+  "files.restoreUndoStack": false, // don't restore the undo stack when a file is reopened
+  "editor.dragAndDrop": false, // controls whether the editor should allow moving selections via drag and drop
+  "telemetry.enableTelemetry": false // disable diagnostic data collection
+}
+```
+
+You might also like to install `ms-vscode.live-server` for live debugging in Code or the browser.
+
 **Q**: Why is the script spit into two parts for install and setup?
 
 **A**: Sudo privileges are needed for the installation, and they time out before the script can finish. This makes unattended installation impossible without running the install part of the script as root.
