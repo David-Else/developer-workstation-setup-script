@@ -155,13 +155,13 @@ sudo ./install.sh
 
 alt h/j/k/l = navigate windows
 
- fzf.vim
- -------                                     Text objects
- ctrl-p     = open file explorer             ------------
- <leader>b  = open buffers                   ["af"] = @function.outer
- <leader>h  = open file history              ["if"] = @function.inner
- <leader>rg = ripgrep search results         ["ac"] = @class.outer
-                                             ["ic"] = @class.inner
+ fzf.vim                                    Tree-sitter
+ -------                                    -----------
+ ctrl-p     = open file explorer            <CR>    = Initilize selection
+ <leader>b  = open buffers                  <CR>    = Expand selection by scope
+ <leader>h  = open file history             <TAB>   = Expand selection by node
+ <leader>rg = ripgrep search results        <S-TAB> = Shrink selection by node
+
  <leader>gs = git status
  <leader>gh = git commits history
 
@@ -176,7 +176,6 @@ For all the Vim/Neovim built in shortcuts please check out https://www.elsewebde
 This is a list of all the plugins used, please follow the links to read about how to opperate them.
 
 - [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) - Nvim Treesitter configurations and abstraction layer
-- [nvim-treesitter-textobject](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) - Create your own textobjects using tree-sitter queries
 - [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) - Quickstart configurations for the Nvim LSP client
 - [nvim-compe](https://github.com/hrsh7th/nvim-compe) - Auto completion plugin for nvim written in Lua
 - [nvim-lightbulb](https://github.com/kosayoda/nvim-lightbulb) - Shows a lightbulb whenever a `textDocument/codeAction` is available at the current cursor position
