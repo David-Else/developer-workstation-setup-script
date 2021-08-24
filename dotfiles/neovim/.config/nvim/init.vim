@@ -27,6 +27,7 @@ call plug#begin('~/.config/nvim/plugged')
   " auto completion and LSP codeAction alert
   Plug 'hrsh7th/nvim-cmp'
   Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-path'
   Plug 'kosayoda/nvim-lightbulb'
   " preview markdown in web browser using pandoc
   Plug 'davidgranstrom/nvim-markdown-preview'
@@ -149,6 +150,7 @@ cmp.setup {
 
   sources = {
     { name = 'nvim_lsp' },
+    { name = 'path' },
   },
 }
 EOF
