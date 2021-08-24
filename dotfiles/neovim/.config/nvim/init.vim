@@ -53,8 +53,8 @@ set splitright
 set splitbelow
 set scrolloff=8       " set number of screen lines to keep above/below the cursor
 set linebreak         " soft wrap long lines at a character in 'breakat'
-set inccommand=split  " shows the effects of a command incrementally as you type
-set hidden            " keep buffer windows open
+set inccommand=split  " shows the effects of a command incrementally as you type (note: this is now a default on master)
+set hidden            " keep buffer windows open (note: this is now a default on master)
 set cmdwinheight=14   " increase height of the command-line window
 set tabstop=2         " number of spaces that a <Tab> in the file counts for
 set expandtab         " use the appropriate number of spaces to insert a <Tab>
@@ -155,7 +155,7 @@ tnoremap jk <C-\><C-n>
 " set ctrl-backspace to delete previous word
 inoremap <C-H> <C-W>
 
-" make Y act like C and D
+" make Y act like C and D (note: this is now a default on master)
 nnoremap Y y$
 
 " keep cursor position when joining lines
