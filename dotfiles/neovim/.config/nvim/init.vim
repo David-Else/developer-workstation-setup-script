@@ -133,8 +133,44 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
+-- install .ttf file from npm i @vscode/codicons
+local cmp_kinds = {
+  Text = "  ",
+  Method = "  ",
+  Function = "  ",
+  Constructor = "  ",
+  Field = "  ",
+  Variable = "  ",
+  Class = "  ",
+  Interface = "  ",
+  Module = "  ",
+  Property = "  ",
+  Unit = "  ",
+  Value = "  ",
+  Enum = "  ",
+  Keyword = "  ",
+  Snippet = "  ",
+  Color = "  ",
+  File = "  ",
+  Reference = "  ",
+  Folder = "  ",
+  EnumMember = "  ",
+  Constant = "  ",
+  Struct = "  ",
+  Event = "  ",
+  Operator = "  ",
+  TypeParameter = "  ",
+}
+
 local cmp = require('cmp')
 cmp.setup {
+  formatting = {
+    format = function(_, vim_item)
+      vim_item.kind = (cmp_kinds[vim_item.kind] or "") .. vim_item.kind
+      return vim_item
+    end,
+  },
+
   mapping = {
     ['<S-Tab>'] = cmp.mapping.select_prev_item(),
     ['<Tab>'] = cmp.mapping.select_next_item(),
