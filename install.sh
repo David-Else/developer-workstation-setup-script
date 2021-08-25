@@ -289,6 +289,8 @@ ${BOLD}Congratulations, everything is installed!${RESET}
 
 For RHEL clones: ${GREEN}sudo dnf install ./abattis-cantarell-fonts-0.111-2.fc30.noarch.rpm${RESET} to upgrade 0.0.25
 
+To install Visual Studio Code icons for the Neovim completion plugin double click the codicon.ttf file in Gnome Files
+
 To install Python applications: ${GREEN}pip3 install --user youtube-dl trash-cli tldr${RESET}
  
 You can set software to open in a certain workspace with:
