@@ -25,6 +25,9 @@ BIN_INSTALL_DIR=/usr/local/bin
 BAT_LOCATION=https://github.com/sharkdp/bat/releases/download/v0.18.1/
 BAT_FILENAME=bat-v0.18.1-x86_64-unknown-linux-gnu.tar.gz
 BAT_SHA=5ccab17461d2c707dab2e917daacdabe744c8f8c1e09330c03f17b6f9a9be3d79d8a2786c5e37b1bdbdb981e9d9debfec909b4a99bf62329d6f12c1c3e8dfcb7
+VALE_LOCATION=https://github.com/errata-ai/vale/releases/download/v2.10.6/
+VALE_FILENAME=vale_2.10.6_Linux_64-bit.tar.gz
+VALE_SHA=ef622bc3b0df405f53ef864c14c2ef77122ccdef94081f7cd086504e127ebf35c3794e88cddbe37f4929ad2a55a3c7be2c8af8864cd881a89a421d438274297f
 
 if [ "$(id -u)" != 0 ]; then
     echo "You're not root! Run script with sudo" && exit 1
@@ -254,9 +257,15 @@ install() {
     echo "${BOLD}Installing Deno...${RESET}"
     su - "$SUDO_USER" -c "curl -fsSL https://deno.land/x/install/install.sh | sh"
 
+    echo "${BOLD}Installing bat...${RESET}"
     download_verify "$BAT_LOCATION" "$BAT_FILENAME" "$BAT_SHA"
     tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $BAT_FILENAME --no-anchored 'bat' --strip=1
     rm $BAT_FILENAME
+
+    echo "${BOLD}Installing vale...${RESET}"
+    download_verify "$VALE_LOCATION" "$VALE_FILENAME" "$VALE_SHA"
+    tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $VALE_FILENAME --no-anchored 'vale'            
+    rm $VALE_FILENAME  
 
     echo "${BOLD}Installing Neovim 0.5 stable appimage and vim-plug...${RESET}"
     local NVIM_LOCATION=https://github.com/neovim/neovim/releases/download/v0.5.0/
