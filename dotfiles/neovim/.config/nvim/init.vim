@@ -29,6 +29,9 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'hrsh7th/cmp-nvim-lsp'
   Plug 'hrsh7th/cmp-path'
   Plug 'kosayoda/nvim-lightbulb'
+  " allow non-LSP sources to hook into the LSP client
+  Plug 'jose-elias-alvarez/null-ls.nvim'
+  Plug 'nvim-lua/plenary.nvim'
   " preview markdown in web browser using pandoc
   Plug 'davidgranstrom/nvim-markdown-preview'
   " fuzzy find
@@ -91,11 +94,6 @@ autocmd reset_group QuickFixCmdPost [^l]* cwindow
 autocmd reset_group QuickFixCmdPost    l* lwindow
 " to create session: :mks [optional session filename]
 autocmd reset_group VimLeave * if !empty(v:this_session) | exe "mksession! ".(v:this_session)
-
-" use deno LSP for formatting these instead
-" autocmd FileType javascript setlocal formatprg=prettier\ --parser\ typescript
-" autocmd FileType javascript.jsx setlocal formatprg=prettier\ --parser\ typescript
-" autocmd FileType typescript setlocal formatprg=prettier\ --parser\ typescript
 
 "=================="
 "  Setup Plugins   "
@@ -350,4 +348,3 @@ set statusline+=\[%{&fileformat}\]
 set statusline+=\ %p%%
 set statusline+=\ %l:%c
 set statusline+=\ 
-

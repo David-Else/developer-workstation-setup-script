@@ -2,6 +2,19 @@
 -- npm i -g vscode-langservers-extracted bash-language-server
 
 local nvim_lsp = require("lspconfig")
+
+local null_ls = require("null-ls")
+local sources = {
+    null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.stylua,
+    null_ls.builtins.formatting.shfmt.with({
+        extra_args = { "-i", "4" }
+      }),
+    null_ls.builtins.diagnostics.shellcheck,
+    null_ls.builtins.diagnostics.vale,
+}
+null_ls.config({ sources = sources })
+
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
@@ -60,7 +73,7 @@ end
 
 -- Use a loop to conveniently both setup defined servers
 -- and map buffer local keybindings when the language server attaches
-local servers = { "bashls", "jsonls", "cssls", "html" }
+local servers = { "bashls", "jsonls", "cssls", "html", "null-ls" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup({ on_attach = on_attach })
 end

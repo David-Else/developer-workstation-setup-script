@@ -262,7 +262,7 @@ install() {
     tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $BAT_FILENAME --no-anchored 'bat' --strip=1
     rm $BAT_FILENAME
 
-    echo "${BOLD}Installing vale...${RESET}"
+    echo "${BOLD}Installing Vale...${RESET}"
     download_verify "$VALE_LOCATION" "$VALE_FILENAME" "$VALE_SHA"
     tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $VALE_FILENAME --no-anchored 'vale'            
     rm $VALE_FILENAME  
