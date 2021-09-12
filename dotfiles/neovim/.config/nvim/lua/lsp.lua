@@ -1,12 +1,21 @@
--- modified from https://github.com/neovim/nvim-lspconfig#keybindings-and-completion 3rd May 2021
--- npm i -g vscode-langservers-extracted bash-language-server
-
 local nvim_lsp = require 'lspconfig'
-
 local null_ls = require 'null-ls'
+
+-- https://github.com/jose-elias-alvarez/null-ls.nvim
 local sources = {
-  null_ls.builtins.formatting.prettier,
-  null_ls.builtins.formatting.stylua,
+  -- Use denols instead for 'javascript', 'javascriptreact', 'typescript', 'typescriptreact'
+  null_ls.builtins.formatting.prettier.with {
+    filetypes = {
+      'vue',
+      'svelte',
+      'css',
+      'scss',
+      'html',
+      'json',
+      'yaml',
+      'markdown',
+    },
+  },
   null_ls.builtins.formatting.stylua.with {
     extra_args = { '--config-path', vim.fn.expand '~/.stylua.toml' },
   },
@@ -18,6 +27,8 @@ local sources = {
 }
 null_ls.config { sources = sources }
 
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
@@ -26,13 +37,17 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, ...)
   end
 
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+  -- Format on save
+  if client.resolved_capabilities.document_formatting then
+    vim.cmd 'autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()'
+  end
 
-  -- Mappings.
+  -- Mappings
   local opts = { noremap = true, silent = true }
-  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+
+  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
@@ -46,14 +61,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-
-  -- Set some keybinds conditional on server capabilities
-  if client.resolved_capabilities.document_formatting then
-    buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-  end
-  if client.resolved_capabilities.document_range_formatting then
-    buf_set_keymap('v', '<space>f', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
-  end
+  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
   -- Set autocommands conditional on server_capabilities
   -- Hightlight color taken from nvcode hi CursorLine value
@@ -74,16 +82,31 @@ local on_attach = function(client, bufnr)
   end
 end
 
--- Use a loop to conveniently both setup defined servers
--- and map buffer local keybindings when the language server attaches
+local on_attach_disable_formatting = function(client)
+  client.resolved_capabilities.document_formatting = false
+  client.resolved_capabilities.document_range_formatting = false
+  return on_attach(client)
+end
+
+-- Use a loop to conveniently call 'setup' on multiple servers and
+-- map buffer local keybindings when the language server attaches
+-- turn off formatting for jsonls to use null-ls prettier
 local servers = { 'bashls', 'jsonls', 'cssls', 'html', 'null-ls' }
 for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup { on_attach = on_attach }
+  nvim_lsp[lsp].setup {
+    on_attach = lsp == 'jsonls' and on_attach_disable_formatting or on_attach,
+    flags = {
+      debounce_text_changes = 150,
+    },
+  }
 end
 
 -- Add the deno language server with linting enabled
 nvim_lsp.denols.setup {
   on_attach = on_attach,
+  flags = {
+    debounce_text_changes = 150,
+  },
   init_options = {
     lint = true,
   },
@@ -93,7 +116,9 @@ nvim_lsp.denols.setup {
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
   virtual_text = false,
 })
+
 -- Show diagnostics on cursor over and stop window being focusable
 vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.lsp.diagnostic.show_line_diagnostics({focusable=false})]]
+
 -- Show function signature help while typing
 vim.cmd [[autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()]]
