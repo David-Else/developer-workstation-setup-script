@@ -179,6 +179,7 @@ This is a list of all the plugins used, please follow the links to read about ho
 - [nvim-markdown-preview](https://github.com/davidgranstrom/nvim-markdown-preview) - Markdown preview in the browser using pandoc/live-server through Neovim's job-control API
 - [zen-mode.nvim](https://github.com/folke/zen-mode.nvim) - Distraction-free coding for Neovim
 - [which-key.nvim](https://github.com/folke/which-key.nvim) - Neovim plugin that shows a popup with possible keybindings of the command you started typing
+- [null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim) - Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
 
 - [vim-commentary](https://github.com/tpope/vim-commentary) - Comment stuff out
 - [fzf.vim](https://github.com/junegunn/fzf.vim) - fzf vim wrapper
