@@ -2,8 +2,7 @@
 
 ![neo-70s](./images/neo-70s.jpg)
 
-Welcome to your new **ultimate development environment**! A post-install setup script for developers that works on Fedora and all RHEL 8 clones. Enjoy the same software and desktop regardless of which Red Hat based distribution you choose. 
-
+Welcome to your new **ultimate development environment**! A post-install setup script for developers that works on Fedora and all RHEL 8 clones. Enjoy the same software and desktop regardless of which Red Hat based distribution you choose.
 
 ## Features
 
@@ -41,7 +40,6 @@ Gnome has been tweaked along with font settings for a better experience.
 Setup out of the box with the latest [Neovim 0.5](https://neovim.io/news/2021/07) and plugins configured to use `fzf`, `ripgrep` and `bat` with an attractive Visual Studio Code theme
 
 ![Neovim](./images/neo-vim-with-vs-code-theme-preview.png)
-
 
 ### Uses [stow](https://www.gnu.org/software/stow/) to install and mange dotfiles
 
@@ -126,47 +124,46 @@ sudo ./install.sh
 ### Neovim custom key mappings
 
 ```
- General                                    LSP
- -------                                    ---
-         jk = escape                        gD        = Jumps to the declaration
-     ctrl-s = save                          gd        = Jumps to the definition
-]c/[c/[l/]l = cycle quick/location lists    K         = Displays hover information
-        ESC = search highlighting off       <C-k>     = Displays signature info
-                                            gi        = Lists all implementations
- <leader>f  = format (formatprg or LSP)                 in the quickfix window
- <leader>m  = run make on current buffer    gr        = List all symbol references
- <leader>t  = open terminal to the right    <space>wa = Add workspace folder
- <leader>cd = working dir to current file   <space>wr = Remove workstation folder
- <leader>c  = edit init.vim config          <space>wl = List workstation folders
- <leader>o  = insert newline below          <space>D  = Jump to type definition
- <leader>qa = quit all                      <space>rn = Rename all symbol references
-                                            <space>ca = Selects a code action
- <leader>cc = toggle colorcolumn            <space>e  = Show diagnostics from line
- <leader>n  = toggle line numbers           <space>q  = Sets the location list
- <leader>s  = toggle spell check            [d        = Move to previous diagnostic
- <leader>sn = next spell error and prompt   ]d        = Move to next diagnostic
- <leader>w  = toggle whitespaces
- <leader>z  = toggle zen mode
+General                                     LSP
+-------                                     ---
+         jk = escape                        gD        = jumps to the declaration
+     ctrl-s = save                          gd        = jumps to the definition
+]c/[c/[l/]l = cycle quick/location lists    K         = displays hover information
+        ESC = search highlighting off       <C-k>     = displays signature info
+                                            gi        = lists all implementations
+<leader>m  = run make on current buffer                 in the quickfix window
+<leader>t  = open terminal to the right     gr        = list all symbol references
+<leader>cd = working dir to current file    <space>wa = add workspace folder
+<leader>c  = edit init.vim config           <space>wr = aemove workstation folder
+<leader>o  = insert newline below           <space>wl = list workstation folders
+<leader>qa = quit all                       <space>D  = jump to type definition
+                                            <space>f  = format
+<leader>cc = toggle colorcolumn             <space>rn = rename all symbol references
+<leader>n  = toggle line numbers            <space>ca = selects a code action
+<leader>s  = toggle spell check             <space>e  = show diagnostics from line
+<leader>sn = next spell error and prompt    <space>q  = sets the location list
+<leader>w  = toggle whitespaces             [d        = move to previous diagnostic
+<leader>z  = toggle zen mode                ]d        = move to next diagnostic
 
- <leader>ga = git add current file
- <leader>gr = git reset current file
- <leader>gc = git commit
- <leader>gp = git push
+<leader>ga = git add current file
+<leader>gr = git reset current file
+<leader>gc = git commit
+<leader>gp = git push
 
 alt h/j/k/l = navigate windows
 
- fzf.vim                                    Tree-sitter
- -------                                    -----------
- ctrl-p     = open file explorer            <CR>    = Initilize selection
- <leader>b  = open buffers                  <CR>    = Expand selection by scope
- <leader>h  = open file history             <TAB>   = Expand selection by node
- <leader>rg = ripgrep search results        <S-TAB> = Shrink selection by node
+fzf.vim                                     Tree-sitter
+-------                                     -----------
+ctrl-p     = open file explorer             <CR>    = Initilize selection
+<leader>b  = open buffers                   <CR>    = Expand selection by scope
+<leader>h  = open file history              <TAB>   = Expand selection by node
+<leader>rg = ripgrep search results         <S-TAB> = Shrink selection by node
 
- <leader>gs = git status
- <leader>gh = git commits history
+<leader>gs = git status
+<leader>gh = git commits history
 
- ctrl-/     = toggle preview window
- ctrl-t/x/v = open in new tab/split/vert split
+ctrl-/     = toggle preview window
+ctrl-t/x/v = open in new tab/split/vert split
 ```
 
 For all the Vim/Neovim built in shortcuts please check out https://www.elsewebdevelopment.com/ultimate-vim-keyboard-shortcuts/
@@ -190,11 +187,12 @@ This is a list of all the plugins used, please follow the links to read about ho
 
 **Q**: How do I install Visual Studio Code?
 
-**A**: Simply un-comment `code` from `rpm-packages-to-install` in `install.sh` before you run it. 
+**A**: Simply un-comment `code` from `rpm-packages-to-install` in `install.sh` before you run it.
 
 If you would like to use Code for things that Neovim still struggles with (like debugging), and still use all the Vim keyboard shortcuts, I suggest installing `asvetliakov.vscode-neovim` and using these settings:
 
 `settings.json`
+
 ```jsonc
 {
   // font size
@@ -203,7 +201,7 @@ If you would like to use Code for things that Neovim still struggles with (like 
   "terminal.integrated.fontSize": 15,
   // asvetliakov.vscode-neovim
   "editor.scrollBeyondLastLine": false,
-  "vscode-neovim.neovimExecutablePaths.linux": "/usr/local/bin/nvim", // for RHEL clones, or "/usr/bin/nvim" for Fedora 
+  "vscode-neovim.neovimExecutablePaths.linux": "/usr/local/bin/nvim", // for RHEL clones, or "/usr/bin/nvim" for Fedora
   "workbench.list.automaticKeyboardNavigation": false,
   // various
   "window.titleBarStyle": "custom", // adjust the appearance of the window title bar for linux
