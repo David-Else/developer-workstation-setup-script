@@ -87,9 +87,8 @@ cd - || exit
 #==============================================================================
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
-# Install Neovim plugins
+# Creae directory for neovim plugins
 mkdir -p "$HOME"/.config/nvim/plugged
-# nvim --headless -c ":PlugInstall" -c ":qa"
 
 cat <<EOL
 
@@ -104,7 +103,7 @@ ${GREEN}flatpak run org.mozilla.firefox${RESET} (RHEL) or ${GREEN}firefox
 
 https://addons.mozilla.org/en-GB/firefox/addon/privacy-badger17/ \
 https://addons.mozilla.org/en-GB/firefox/addon/ublock-origin/ \
-https://addons.mozilla.org/en-US/firefox/addon/vimium-ff/${RESET}
+https://addons.mozilla.org/en-US/firefox/addon/surfingkeys_ff/${RESET}
 
 Firefox:  Preferences > Network Settings > Enable DNS over HTTPS
           about:config network.security.esni.enabled
