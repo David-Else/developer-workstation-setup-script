@@ -22,12 +22,13 @@ clip() { xclip -sel clip -rmlastnl; }
 export NNN_PLUG="p:addtoplaylist;f:fzcd;m:mtpmount"
 export NNN_BMS='d:~/Documents;D:~/Downloads;p:~/Pictures;v:~/Videos;m:~/Music;h:~/'
 export NNN_TRASH=1 # use trash-cli: https://pypi.org/project/trash-cli/
+export NNN_FIFO=/tmp/nnn.fifo
 
 export BAT_THEME="Visual Studio Dark+"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git}"'
 export YTFZF_PREF="bestvideo[height<=?1080]+bestaudio/best"
 
-stty -ixon # disable terminal flow control to free ctrl-s for shortcut
+stty -ixon      # disable terminal flow control to free ctrl-s for shortcut
 stty werase \^H # set ctrl-backspace to delete previous word instead of ctrl-w
 
 # alias code="GTK_IM_MODULE=ibus code" # for RHEL 8 and clones
