@@ -55,17 +55,14 @@ if [[ "${night_light}" == "true" ]]; then
 fi
 
 #==============================================================================
-# Font settings for subpixel rendering
+# Font settings for sub-pixel rendering
 #==============================================================================
-RESOLUTION=$(xrandr | grep '*' | awk -Fx '{ gsub(/ /,"");print $1 }')
-
-if [[ $RESOLUTION -gt 1920 ]]; then
-    echo "Vertical resolution $RESOLUTION is greater than 1920, skipping sub pixel rendering"
-else
-    echo "Vertical resolution $RESOLUTION is less than or equal to 1920, activating subpixel rendering for fonts without fontconfig support and rgba antialiasing"
-
+read -p "Use sub-pixel rendering? (recommended for monitors with less than 4k resolution) " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
     add_to_file "$HOME/.Xresources" "Xft.lcdfilter: lcddefault"
     dconf write /org/gnome/settings-daemon/plugins/xsettings/antialiasing "'rgba'"
+    echo "Sub-pixel rendering set, see tweaks and $HOME/.Xresources"
 fi
 
 #==============================================================================
