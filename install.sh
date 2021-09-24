@@ -81,7 +81,8 @@ rpm_packages_to_install=(
     gnome-tweaks
     keepassxc
     lazygit
-    libva-intel-driver
+    # libva-intel-driver
+    # mesa-vdpau-drivers
     mediainfo
     mpv
     nnn
@@ -176,7 +177,7 @@ if [[ ("$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "alm
     install_redhat_binaries
 
     #==========================================================================
-    # For Fedora (tested on 34)
+    # For Fedora (tested on 34) * (Fedora 35 maybe Fedora Linux)
     #==========================================================================
 elif [ "$ID" == "fedora" ]; then
 
@@ -264,8 +265,8 @@ install() {
 
     echo "${BOLD}Installing Vale...${RESET}"
     download_verify "$VALE_LOCATION" "$VALE_FILENAME" "$VALE_SHA"
-    tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $VALE_FILENAME --no-anchored 'vale'            
-    rm $VALE_FILENAME  
+    tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $VALE_FILENAME --no-anchored 'vale'
+    rm $VALE_FILENAME
 
     echo "${BOLD}Installing Neovim 0.5 stable appimage and vim-plug...${RESET}"
     local NVIM_LOCATION=https://github.com/neovim/neovim/releases/download/v0.5.0/
