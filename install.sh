@@ -268,10 +268,10 @@ install() {
     tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $VALE_FILENAME --no-anchored 'vale'
     rm $VALE_FILENAME
 
-    echo "${BOLD}Installing Neovim 0.5 stable appimage and vim-plug...${RESET}"
-    local NVIM_LOCATION=https://github.com/neovim/neovim/releases/download/v0.5.0/
+    echo "${BOLD}Installing Neovim 0.5.1 stable appimage and vim-plug...${RESET}"
+    local NVIM_LOCATION=https://github.com/neovim/neovim/releases/download/v0.5.1/
     local NVIM_FILENAME=nvim.appimage
-    local NVIM_SHA=cdb136d673c0d21bcc08d3a6c95e31498d304eada28b61569750c8c74b5501cddbbb82a8e0287d687af43c313574cf743bfcdff3a526151b31f00096fc048d2f
+    local NVIM_SHA=e3d9ba6dda401b716c531a3ddefc73e2eb0a5c3daa8ab8886715adef7bab4b420ea18e5b2df34d3aee0e55f1886e7dfbfeff31bd4fef99389255a8125f7b0693
     download_verify "$NVIM_LOCATION" "$NVIM_FILENAME" "$NVIM_SHA"
     chmod +x $NVIM_FILENAME
     mv $NVIM_FILENAME $BIN_INSTALL_DIR/nvim
