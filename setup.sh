@@ -135,6 +135,11 @@ xdg-icon-resource install --novendor --mode user --size 64 ./nvim.png
 
 sudo ln -s ~/.config/nvim/plugged/fzf/bin/fzf /usr/local/bin
 
+Create/update Deno completions
+------------------------------
+deno completions bash > deno.sh
+sudo mv deno.sh /etc/profile.d
+
 Please reboot (or things may not work as expected)
 ===============================================================================
 EOL
