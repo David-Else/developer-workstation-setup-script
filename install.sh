@@ -188,7 +188,6 @@ elif [ "$ID" == "fedora" ]; then
         local fedora_rpm_packages_to_install=(
             ShellCheck
             chromium-libs-media-freeworld
-            java-1.8.0-openjdk
             krita
             lshw
             mkvtoolnix-gui
