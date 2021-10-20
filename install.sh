@@ -35,6 +35,12 @@ fi
 
 exec 2> >(tee "error_log_$(date -Iseconds).txt")
 
+# Call with arguments (path,line to add)
+add_to_file() {
+    touch "$1"
+    grep -qxF "$2" "$1" && echo "$2 exists in ${GREEN}$1${RESET}" || echo "$2" >>"$1"
+}
+
 # Call with arguments (location,filename,sha)
 download_verify() {
     curl -LOf "${1}${2}"
@@ -289,6 +295,18 @@ install() {
         echo "${BOLD}Installing NPM global packages..."
         npm install -g "${npm_global_packages_to_install[@]}"
     fi
+
+    #==============================================================================
+    # Enable magic SysRq key / RightAlt+PrtScn+
+    #
+    #  Reboot  :R: Switch to XLATE mode
+    #  Even    :E: Send terminate signal to all processes except init
+    #  If      :I: Send kill signal to all processes except init
+    #  System  :S: Sync all mounted file-systems
+    #  Utterly :U: Remount file-systems as read-only
+    #  Broken  :B: Reboot
+    #==============================================================================
+    add_to_file "/etc/sysctl.d/90-sysrq.conf" "kernel.sysrq = 1"
 }
 
 display_end_message() {
