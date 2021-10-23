@@ -128,12 +128,14 @@ ${GREEN}sudo sed -i "s/; default-sample-format = s16le/default-sample-format = s
 ${GREEN}sudo sed -i "s/; resample-method = speex-float-1/resample-method = speex-float-10/g" /etc/pulse/daemon.conf${RESET}
 ${GREEN}sudo sed -i "s/; avoid-resampling = false/avoid-resampling = true/g" /etc/pulse/daemon.conf${RESET}
 
-Setup Neovim desktop integration
---------------------------------
+Setup Neovim desktop integration and icons
+------------------------------------------
 xdg-desktop-menu install --novendor ./nvim.desktop
 xdg-icon-resource install --novendor --mode user --size 64 ./nvim.png
 
 sudo ln -s ~/.config/nvim/plugged/fzf/bin/fzf /usr/local/bin
+
+double click on codicon.ttf (copy and paste from https://raw.githubusercontent.com/microsoft/vscode-codicons/main/dist/codicon.csv)
 
 Create/update Deno completions
 ------------------------------
