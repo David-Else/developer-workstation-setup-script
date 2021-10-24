@@ -41,7 +41,7 @@ add_to_file() {
     grep -qxF "$2" "$1" && echo "$2 exists in ${GREEN}$1${RESET}" || echo "$2" >>"$1"
 }
 
-# Call with arguments (location,filename,sha)
+# Call with arguments (${1} location,${2} filename,${3} sha)
 download_verify() {
     curl -LOf "https://github.com/${1}${2}"
     echo "${3} ./${2}" | sha512sum --check
