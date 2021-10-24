@@ -47,6 +47,12 @@ download_verify() {
     echo "${3} ./${2}" | sha512sum --check
 }
 
+# Call with arguments (${1} filename,${2} strip,${3} newname)
+install() {
+    tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf "${1}" --no-anchored "${3}" --strip="${2}"
+    rm "${1}"
+}
+
 display_user_settings_and_prompt() {
     clear
     cat <<EOL
@@ -145,32 +151,24 @@ if [[ ("$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "alm
     }
 
     install_redhat_binaries() {
-        local PANDOC_LOCATION=https://github.com/jgm/pandoc/releases/download/2.11.2/
-        local PANDOC_FILENAME=pandoc-2.11.2-linux-amd64.tar.gz
-        local PANDOC_SHA=9d265941f224d376514e18fc45d5292e9c2481b04693c96917a0d55ed817b190cf2ea2666097388bfdf30023db2628567ea04ff6b9cc3316130a8190da72c605
-        local SHELLCHECK_LOCATION=https://github.com/koalaman/shellcheck/releases/download/v0.7.2/
+        local PANDOC_LOCATION=jgm/pandoc/releases/download/2.15/
+        local PANDOC_FILENAME=pandoc-2.15-linux-amd64.tar.gz
+        local PANDOC_SHA=31eb03fd79da89c117c59631afaf5ea21e66ff0692a8188e92a7f42a540f807696bb7605199522d2a3a65b12b2942de802042c6e0ec9d392990461a2bccfee03
+        local SHELLCHECK_LOCATION=koalaman/shellcheck/releases/download/v0.7.2/
         local SHELLCHECK_FILENAME=shellcheck-v0.7.2.linux.x86_64.tar.xz
         local SHELLCHECK_SHA=067e2b8ee1910218de1e62068f7cc86ed7048e97b2a9d7c475ea29ae81c17a944376ce5c240d5c783ef3251d9bee7d7d010351958314eadd0fc88b5decfd8328
-        local SHFMT_LOCATION=https://github.com/mvdan/sh/releases/download/v3.2.2/
-        local SHFMT_FILENAME=shfmt_v3.2.2_linux_amd64
-        local SHFMT_SHA=d4e699575899f7c44dbce54f6414fb63c0527e7d743ea724cb0091417e07a353c1d156d4184580a260ca855cdf5e01cdf46b353f04cf5093eba3ffc02223f1c6
-        local RIPGREP_LOCATION=https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/
+        local SHFMT_LOCATION=mvdan/sh/releases/download/v3.4.0/
+        local SHFMT_FILENAME=shfmt_v3.4.0_linux_amd64
+        local SHFMT_SHA=6abfda1bcf3b91ec6738b6c5bbecd1b75924d4ce19f4cf42eeb621a1aa3dde419803dff22ba870e110522341b27910290f333ea15124c0f87e8094519cc9c127
+        local RIPGREP_LOCATION=BurntSushi/ripgrep/releases/download/13.0.0/
         local RIPGREP_FILENAME=ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz
         local RIPGREP_SHA=cdc18bd31019fc7b8509224c2f52b230be33dee36deea2e4db1ee8c78ace406c7cd182814d056f4ce65ee533290a674822432777b61c2b4bc8cc4a4ea107cfde
 
         echo -e "${BOLD}Installing binaries for RHEL clones not available in repositories...${RESET}\n"
 
-        download_verify "$PANDOC_LOCATION" "$PANDOC_FILENAME" "$PANDOC_SHA"
-        tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $PANDOC_FILENAME --no-anchored 'pandoc' --strip=2
-        rm $PANDOC_FILENAME
-
-        download_verify "$SHELLCHECK_LOCATION" "$SHELLCHECK_FILENAME" "$SHELLCHECK_SHA"
-        tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $SHELLCHECK_FILENAME --no-anchored 'shellcheck' --strip=1
-        rm $SHELLCHECK_FILENAME
-
-        download_verify "$RIPGREP_LOCATION" "$RIPGREP_FILENAME" "$RIPGREP_SHA"
-        tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $RIPGREP_FILENAME --no-anchored 'rg' --strip=1
-        rm $RIPGREP_FILENAME
+        download_verify "$PANDOC_LOCATION" "$PANDOC_FILENAME" "$PANDOC_SHA" && install "$PANDOC_FILENAME" "2" "pandoc"
+        download_verify "$SHELLCHECK_LOCATION" "$SHELLCHECK_FILENAME" "$SHELLCHECK_SHA" && install "$SHELLCHECK_FILENAME" "1" "shellcheck"
+        download_verify "$RIPGREP_LOCATION" "$RIPGREP_FILENAME" "$RIPGREP_SHA" && install "$RIPGREP_FILENAME" "1" "rg"
 
         download_verify "$SHFMT_LOCATION" "$SHFMT_FILENAME" "$SHFMT_SHA"
         chmod +x $SHFMT_FILENAME
@@ -264,9 +262,7 @@ install() {
     su - "$SUDO_USER" -c "curl -fsSL https://deno.land/x/install/install.sh | sh"
 
     echo "${BOLD}Installing bat...${RESET}"
-    download_verify "$BAT_LOCATION" "$BAT_FILENAME" "$BAT_SHA"
-    tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $BAT_FILENAME --no-anchored 'bat' --strip=1
-    rm $BAT_FILENAME
+    download_verify "$BAT_LOCATION" "$BAT_FILENAME" "$BAT_SHA" && install "$BAT_FILENAME" "1" "bat"
 
     echo "${BOLD}Installing Vale...${RESET}"
     download_verify "$VALE_LOCATION" "$VALE_FILENAME" "$VALE_SHA"
