@@ -22,10 +22,10 @@ GREEN=$(tput setaf 2)
 BOLD=$(tput bold)
 RESET=$(tput sgr0)
 BIN_INSTALL_DIR=/usr/local/bin
-BAT_LOCATION=https://github.com/sharkdp/bat/releases/download/v0.18.1/
+BAT_LOCATION=sharkdp/bat/releases/download/v0.18.1/
 BAT_FILENAME=bat-v0.18.1-x86_64-unknown-linux-gnu.tar.gz
 BAT_SHA=5ccab17461d2c707dab2e917daacdabe744c8f8c1e09330c03f17b6f9a9be3d79d8a2786c5e37b1bdbdb981e9d9debfec909b4a99bf62329d6f12c1c3e8dfcb7
-VALE_LOCATION=https://github.com/errata-ai/vale/releases/download/v2.10.6/
+VALE_LOCATION=errata-ai/vale/releases/download/v2.10.6/
 VALE_FILENAME=vale_2.10.6_Linux_64-bit.tar.gz
 VALE_SHA=ef622bc3b0df405f53ef864c14c2ef77122ccdef94081f7cd086504e127ebf35c3794e88cddbe37f4929ad2a55a3c7be2c8af8864cd881a89a421d438274297f
 
@@ -43,7 +43,7 @@ add_to_file() {
 
 # Call with arguments (location,filename,sha)
 download_verify() {
-    curl -LOf "${1}${2}"
+    curl -LOf "https://github.com/${1}${2}"
     echo "${3} ./${2}" | sha512sum --check
 }
 
@@ -270,7 +270,7 @@ install() {
     rm $VALE_FILENAME
 
     echo "${BOLD}Installing Neovim 0.5.1 stable appimage and vim-plug...${RESET}"
-    local NVIM_LOCATION=https://github.com/neovim/neovim/releases/download/v0.5.1/
+    local NVIM_LOCATION=neovim/neovim/releases/download/v0.5.1/
     local NVIM_FILENAME=nvim.appimage
     local NVIM_SHA=e3d9ba6dda401b716c531a3ddefc73e2eb0a5c3daa8ab8886715adef7bab4b420ea18e5b2df34d3aee0e55f1886e7dfbfeff31bd4fef99389255a8125f7b0693
     download_verify "$NVIM_LOCATION" "$NVIM_FILENAME" "$NVIM_SHA"
