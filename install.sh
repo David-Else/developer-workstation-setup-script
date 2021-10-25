@@ -271,6 +271,9 @@ install_all() {
     download_verify "$VALE_LOCATION" "$VALE_FILENAME" "$VALE_SHA"
     tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $VALE_FILENAME --no-anchored 'vale'
     rm $VALE_FILENAME
+    curl -LOf https://github.com/errata-ai/Microsoft/releases/latest/download/Microsoft.zip
+    su - "$SUDO_USER" -c "unzip Microsoft.zip -d ~/Documents/styles"
+    rm "Microsoft.zip"
 
     echo "${BOLD}Installing Stylua...${RESET}"
     download_verify $STYLUA_LOCATION $STYLUA_FILENAME $STYLUA_SHA
