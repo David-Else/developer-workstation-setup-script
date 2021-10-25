@@ -38,7 +38,7 @@ fi
 
 exec 2> >(tee "error_log_$(date -Iseconds).txt")
 
-# Call with arguments (path,line to add)
+# Call with arguments (${1} path,${2} line to add)
 add_to_file() {
     touch "$1"
     grep -qxF "$2" "$1" && echo "$2 exists in ${GREEN}$1${RESET}" || echo "$2" >>"$1"
