@@ -28,6 +28,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'hrsh7th/nvim-cmp'
   Plug 'hrsh7th/cmp-nvim-lsp'
   Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-buffer'
   Plug 'kosayoda/nvim-lightbulb'
   " allow non-LSP sources to hook into the LSP client
   Plug 'jose-elias-alvarez/null-ls.nvim'
@@ -185,6 +186,7 @@ cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'path' },
+    { name = 'buffer', keyword_length= 4 },
   },
 }
 EOF
@@ -202,6 +204,10 @@ inoremap <C-H> <C-W>
 
 " make Y act like C and D (note: this is now a default on master)
 nnoremap Y y$
+
+" change operations are sent to the black hole register, not unnamed
+nnoremap c "_c
+nnoremap C "_C
 
 " keep cursor position when joining lines
 nnoremap J mxJ'x
