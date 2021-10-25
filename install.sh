@@ -248,7 +248,7 @@ add_repositories() {
     esac
 }
 
-install() {
+install_all() {
     echo "${BOLD}Removing unwanted programs...${RESET}"
     dnf -y remove "${rpm_packages_to_remove[@]}"
 
@@ -333,5 +333,5 @@ EOL
 }
 
 add_repositories
-install
+install_all
 display_end_message
