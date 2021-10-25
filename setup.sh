@@ -78,13 +78,23 @@ stow *
 cd - || exit
 
 #==============================================================================
+# Install the vale Microsoft style guide (doesn't work in install script)
+#==============================================================================
+curl -LOf https://github.com/errata-ai/Microsoft/releases/latest/download/Microsoft.zip
+unzip Microsoft.zip -d ~/Documents/styles
+rm Microsoft.zip
+
+# Create example dirs and settings files
+mkdir -p ~/Documents/styles/Vocab/tech-blogging && touch ~/Documents/styles/Vocab/tech-blogging/{accept.txt,reject.txt}
+
+#==============================================================================
 # Increase inotify watchers for watching large numbers of files, default is 8192
 #
 # curl -s https://raw.githubusercontent.com/fatso83/dotfiles/master/utils/scripts/inotify-consumers | bash
 #==============================================================================
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
-# Creae directory for neovim plugins
+# Create directory for neovim plugins
 mkdir -p "$HOME"/.config/nvim/plugged
 
 cat <<EOL
@@ -116,7 +126,7 @@ ${GREEN}sudo make install${RESET}
 
 Fix Visual Studio Code keyboard input on RHEL 8 and clones
 ------------------------------------------------------
-- Uncomment code="GTK_IM_MODULE=ibus code" from .bashrc
+- Un-comment code="GTK_IM_MODULE=ibus code" from .bashrc
 - Go to terminal type 'ibus-setup'
 - Go to Emoji tab, press the '...' next to Emoji choice to get 'select keyboard shortcut for switching' window
 - Use the delete button to delete the shortcut and leave nothing there, press OK
