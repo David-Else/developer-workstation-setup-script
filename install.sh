@@ -275,6 +275,7 @@ install_all() {
     echo "${BOLD}Installing Stylua...${RESET}"
     download_verify $STYLUA_LOCATION $STYLUA_FILENAME $STYLUA_SHA
     unzip -d $BIN_INSTALL_DIR $STYLUA_FILENAME
+    chmod +x "$BIN_INSTALL_DIR/stylua"
     rm $STYLUA_FILENAME
 
     echo "${BOLD}Installing Neovim 0.5.1 stable appimage and vim-plug...${RESET}"
