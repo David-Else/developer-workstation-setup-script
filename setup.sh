@@ -130,17 +130,15 @@ ${GREEN}sudo sed -i "s/; avoid-resampling = false/avoid-resampling = true/g" /et
 
 Setup Neovim desktop integration and icons
 ------------------------------------------
-xdg-desktop-menu install --novendor ./nvim.desktop
-xdg-icon-resource install --novendor --mode user --size 64 ./nvim.png
-
-sudo ln -s ~/.config/nvim/plugged/fzf/bin/fzf /usr/local/bin
-
+${GREEN}xdg-desktop-menu install --novendor ./nvim.desktop${RESET}
+${GREEN}xdg-icon-resource install --novendor --mode user --size 64 ./nvim.png${RESET}
+${GREEN}sudo ln -s ~/.config/nvim/plugged/fzf/bin/fzf /usr/local/bin${RESET}
 double click on codicon.ttf (copy and paste from https://raw.githubusercontent.com/microsoft/vscode-codicons/main/dist/codicon.csv)
 
 Create/update Deno completions
 ------------------------------
-deno completions bash > deno.sh
-sudo mv deno.sh /etc/profile.d
+${GREEN}deno completions bash > deno.sh${RESET}
+${GREEN}sudo mv deno.sh /etc/profile.d${RESET}
 
 Please reboot (or things may not work as expected)
 ===============================================================================
