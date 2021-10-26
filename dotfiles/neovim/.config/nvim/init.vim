@@ -301,8 +301,8 @@ nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
-let g:fzf_preview_window = ['right:80%', 'ctrl-/']
-let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.9 } }
+let g:fzf_preview_window = ['up:75%', 'ctrl-/']
+let g:fzf_layout = { 'window': { 'width': 1, 'height': 1 } }
 
 nnoremap <silent><c-p> :Files!<CR>
 nnoremap <silent><leader>b :Buffers!<CR>
