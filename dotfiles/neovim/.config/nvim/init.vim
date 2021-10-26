@@ -44,6 +44,8 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'folke/which-key.nvim'
   " comment stuff out
   Plug 'tpope/vim-commentary'
+  " A pretty list for showing diagnostics
+  Plug 'folke/trouble.nvim'
 call plug#end()
 
 lua require("lsp")
@@ -54,23 +56,23 @@ lua require("lsp")
 
 colorscheme codedark
 
+set inccommand=split        " default in 0.6: shows the effects of a command incrementally as you type
+set hidden                  " default in 0.6: keep buffer windows open
+
 set noswapfile
-set splitright
-set splitbelow
-set scrolloff=8       " set number of screen lines to keep above/below the cursor
-set linebreak         " soft wrap long lines at a character in 'breakat'
-set inccommand=split  " shows the effects of a command incrementally as you type (DEFAULT in 0.6)
-set hidden            " keep buffer windows open (DEFAULT in 0.6)
-set cmdwinheight=14   " increase height of the command-line window
-set tabstop=2         " number of spaces that a <Tab> in the file counts for
-set expandtab         " use the appropriate number of spaces to insert a <Tab>
-set shiftwidth=2      " number of spaces inserted for indentation
-set ssop-=options     " do not store global and local values in a session
-set termguicolors     " set to true color
-set title             " change terminal title to name of file
-set signcolumn=yes    " add gutter space for LSP info on left
-set updatetime=100    " increased to LSP code actions appear faster
+set splitright splitbelow
 set nospell spelllang=en_us
+set scrolloff=8             " set number of screen lines to keep above/below the cursor
+set linebreak               " soft wrap long lines at a character in 'breakat'
+set cmdwinheight=14         " increase height of the command-line window
+set tabstop=2               " number of spaces that a <Tab> in the file counts for
+set expandtab               " use the appropriate number of spaces to insert a <Tab>
+set shiftwidth=2            " number of spaces inserted for indentation
+set ssop-=options           " do not store global and local values in a session
+set termguicolors           " set to true color
+set title                   " change terminal title to name of file
+set signcolumn=yes          " add gutter space for LSP info on left
+set updatetime=100          " increased to LSP code actions appear faster
 set completeopt=menu,menuone,noselect " options for insert mode completion
 set guicursor+=n-v-c:blinkon1         " set cursor to blink
 set clipboard=unnamedplus             " use clipboard register '+' instead of '*'
@@ -86,23 +88,29 @@ augroup reset_group
   autocmd!
 augroup END
 
+" enter/return to the terminal buffer in insert mode, and exit without a prompt
 autocmd reset_group TermOpen * startinsert
-autocmd reset_group TermClose term://* close
 autocmd reset_group BufEnter term://* startinsert
-autocmd reset_group TextYankPost * silent! lua require'vim.highlight'.on_yank()
-autocmd reset_group CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
-autocmd reset_group QuickFixCmdPost [^l]* cwindow
-autocmd reset_group QuickFixCmdPost    l* lwindow
-" to create session: :mks [optional session filename]
+autocmd reset_group TermClose term://* close
+" save active session on exit, to create a session :mks [optional session filename]
 autocmd reset_group VimLeave * if !empty(v:this_session) | exe "mksession! ".(v:this_session)
+" show highlight on yank
+autocmd reset_group TextYankPost * silent! lua require'vim.highlight'.on_yank()
 
 "=================="
 "  Setup Plugins   "
 "=================="
 
 lua << EOF
+vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
+
+require("trouble").setup {
+  icons = false,
+  use_lsp_diagnostic_signs = true,
+}
+
 require("which-key").setup {
-  plugins = {             
+  plugins = {            
     spelling = {          
       enabled = true,     
       suggestions = 20,   
