@@ -203,6 +203,7 @@ elif [ "$ID" == "fedora" ]; then
             shfmt
             shotwell
             xrandr
+            git-delta
             zathura
             zathura-bash-completion
             zathura-pdf-mupdf)
