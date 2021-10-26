@@ -19,17 +19,19 @@ To maintain parity with Fedora 34+, any package that is not available directly i
 
 ### Great software out of the box, easy to customize and choose your own
 
-| Development    | Browsers         | Graphics    | Sound and video | Security and backup |
-| -------------- | ---------------- | ----------- | --------------- | ------------------- |
-| Neovim 0.5     | Firefox          | Krita       | MPV             | KeepassXC           |
-| Node.js / Deno | Chromium         | Shotwell    | Handbrake       | BorgBackup          |
-| Gnome Boxes    | nnn file browser | ImageMagick | MKVToolNix      |                     |
-| Lazygit        |                  |             |                 |                     |
-| Github CLI     |                  |             |                 |                     |
-| Pandoc         |                  |             |                 |                     |
-| Shellcheck     |                  |             |                 |                     |
-| Shfmt          |                  |             |                 |                     |
-| Bat / ripgrep  |                  |             |                 |                     |
+| Development    | Browsers           | Graphics    | Sound and video | Security and backup |
+| -------------- | ------------------ | ----------- | --------------- | ------------------- |
+| Neovim         | Firefox            | Krita       | MPV             | KeepassXC           |
+| Node.js / Deno | Degoogled Chromium | Shotwell    | Handbrake       | BorgBackup          |
+| Gnome Boxes    | nnn file browser   | ImageMagick | MKVToolNix      |                     |
+| Lazygit        |                    |             |                 |                     |
+| Github CLI     |                    |             |                 |                     |
+| Pandoc         |                    |             |                 |                     |
+| Shellcheck     |                    |             |                 |                     |
+| Shfmt          |                    |             |                 |                     |
+| Bat            |                    |             |                 |                     |
+| Ripgrep        |                    |             |                 |                     |
+| Vale           |                    |             |                 |                     |
 
 ### Improved Gnome desktop and font settings
 
