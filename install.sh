@@ -86,13 +86,11 @@ rpm_packages_to_remove=(
 rpm_packages_to_install=(
     ImageMagick
     borgbackup
-    chromium
     # code
     ffmpeg
     fuse-exfat
     gcc-c++
     gh
-    gnome-shell-extension-auto-move-windows
     gnome-tweaks
     keepassxc
     lazygit
@@ -132,6 +130,7 @@ if [[ ("$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "alm
 
         local rhel_rpm_packages_to_install=(
             ntfs-3g
+            ungoogled-chromium
             python36-devel)
 
         local rhel_flathub_packages_to_install=(
@@ -151,6 +150,7 @@ if [[ ("$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "alm
         dnf -y install epel-release
         dnf -y install --nogpgcheck https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-8.noarch.rpm https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-8.noarch.rpm
         dnf -y config-manager --add-repo https://download.opensuse.org/repositories/home:stig124:nnn/CentOS_8/home:stig124:nnn.repo
+        dnf -y config-manager --add-repo https://download.opensuse.org/repositories/home:/ungoogled_chromium/CentOS_8/home:ungoogled_chromium.repo
     }
 
     install_redhat_binaries() {
@@ -194,8 +194,8 @@ elif [ "$ID" == "fedora" ]; then
 
         local fedora_rpm_packages_to_install=(
             ShellCheck
-            chromium-libs-media-freeworld
             krita
+            chromium-browser-privacy
             lshw
             mkvtoolnix-gui
             pandoc
@@ -325,9 +325,6 @@ To install Visual Studio Code icons for the Neovim completion plugin double clic
 
 To install Python applications: ${GREEN}pip3 install --user youtube-dl trash-cli tldr${RESET}
  
-You can set software to open in a certain workspace with:
-${GREEN}gsettings set org.gnome.shell.extensions.auto-move-windows application-list "['thunderbird.desktop:2','org.signal.Signal.desktop:2']"${RESET}
-
 Now use the setup script...
 
 EOL
