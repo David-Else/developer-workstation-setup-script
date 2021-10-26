@@ -88,10 +88,9 @@ augroup reset_group
   autocmd!
 augroup END
 
-" enter/return to the terminal buffer in insert mode, and exit without a prompt
+" start a terminal, and return to an open terminal in insert mode
 autocmd reset_group TermOpen * startinsert
 autocmd reset_group BufEnter term://* startinsert
-autocmd reset_group TermClose term://* close
 " save active session on exit, to create a session :mks [optional session filename]
 autocmd reset_group VimLeave * if !empty(v:this_session) | exe "mksession! ".(v:this_session)
 " show highlight on yank
