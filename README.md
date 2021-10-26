@@ -12,9 +12,9 @@ Welcome to your new **ultimate development environment**! A post-install setup s
 
 Works across Fedora 34+, RHEL 8+ and all clones. You get to choose between cutting edge Fedora or stable RHEL clones. I suggest if you want stable, then choose Rocky.
 
-To maintain parity with Fedora 34+, any package that is not available directly in RHEL is downloaded as:
+To maintain parity with Fedora 34+, any package that's not available directly in RHEL is downloaded as:
 
-- A binary from Github or another trusted source
+- A binary from GitHub or another trusted source
 - From [flathub](https://flathub.org/home)
 
 ### Great software out of the box, easy to customize and choose your own
@@ -25,7 +25,7 @@ To maintain parity with Fedora 34+, any package that is not available directly i
 | Node.js / Deno | Degoogled Chromium | Shotwell    | Handbrake       | BorgBackup          |
 | Gnome Boxes    | nnn file browser   | ImageMagick | MKVToolNix      |                     |
 | Lazygit        |                    |             |                 |                     |
-| Github CLI     |                    |             |                 |                     |
+| GitHub CLI     |                    |             |                 |                     |
 | Pandoc         |                    |             |                 |                     |
 | Shellcheck     |                    |             |                 |                     |
 | Shfmt          |                    |             |                 |                     |
@@ -51,7 +51,7 @@ All the software dotfiles are managed using stow, this makes them easy to alter 
 
 ### RHEL clones must be installed using the `workstation` option
 
-This script is designed to be run immediately after installing the operating system. If you are using a RHEL clone you should select `workstation` from the software selection option during the install.
+This script is designed to be run immediately after installing the operating system. If you are using a RHEL clone you should select `workstation` from the software selection option during installation.
 
 ![RHEL](./images/centos-8-install-options.png)
 
@@ -64,7 +64,7 @@ cd developer-workstation-setup-script
 
 ### Customize the software selection before running the script
 
-You will want to look at the install script and modify it with your own preferences. This has been made as easy as possible, and should be self explanatory.
+You will want to look at the installation script and modify it with your own preferences. This has been made as easy as possible, and should be self-explanatory.
 
 The following arrays in `install.sh` contain all the packages that are common to Fedora and RHEL clones:
 
@@ -221,13 +221,13 @@ You might also like to install `ms-vscode.live-server` for live debugging in Cod
 
 **Q**: Why is the script spit into two parts for install and setup?
 
-**A**: Sudo privileges are needed for the installation, and they time out before the script can finish. This makes unattended installation impossible without running the install part of the script as root.
+**A**: Sudo privileges are needed for the installation, and they time out before the script can finish. This makes unattended installation impossible without running the installer as root.
 
 The setup part is much easier to do as a user, so running it as the user avoids constant `su - "$SUDO_USER" -c` statements in the code. If a part of the setup needs `sudo` it will ask for your password.
 
 **Q**: Does this script disable the caps lock key? I've noticed that it works during login but after that it stops working altogether.
 
-**A**: It makes the caps lock into a delete for touch typing purposes, to change it modify this line in the setup script:
+**A**: It makes the caps lock into delete for touch typing purposes, to change it modify this line in the setup script:
 
 ```shell
  capslock_delete="false"
