@@ -151,6 +151,14 @@ Create/update Deno completions
 ${GREEN}deno completions bash > deno.sh${RESET}
 ${GREEN}sudo mv deno.sh /etc/profile.d${RESET}
 
+Add to ~/.gitconfig for better git diffs
+----------------------------------------
+[delta]
+    syntax-theme = Visual Studio Dark+
+    side-by-side = true
+    line-numbers-left-format = ""
+    line-numbers-right-format = "│ "
+
 Please reboot (or things may not work as expected)
 ===============================================================================
 EOL
