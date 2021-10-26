@@ -59,8 +59,8 @@ set splitright
 set splitbelow
 set scrolloff=8       " set number of screen lines to keep above/below the cursor
 set linebreak         " soft wrap long lines at a character in 'breakat'
-set inccommand=split  " shows the effects of a command incrementally as you type (note: this is now a default on master)
-set hidden            " keep buffer windows open (note: this is now a default on master)
+set inccommand=split  " shows the effects of a command incrementally as you type (DEFAULT in 0.6)
+set hidden            " keep buffer windows open (DEFAULT in 0.6)
 set cmdwinheight=14   " increase height of the command-line window
 set tabstop=2         " number of spaces that a <Tab> in the file counts for
 set expandtab         " use the appropriate number of spaces to insert a <Tab>
@@ -202,7 +202,7 @@ tnoremap jk <C-\><C-n>
 " set ctrl-backspace to delete previous word
 inoremap <C-H> <C-W>
 
-" make Y act like C and D (note: this is now a default on master)
+" make Y act like C and D (DEFAULT in 0.6)
 nnoremap Y y$
 
 " change operations are sent to the black hole register, not unnamed
@@ -268,8 +268,8 @@ nnoremap <silent><c-s> :<c-u>update<CR>
 inoremap <silent><c-s> <c-o>:update<CR>
 vnoremap <silent><c-s> <c-c>:update<CR>gv
 
-" esc to turn off search highlighting
-nnoremap <silent><esc> :noh<CR>
+" turn off search highlighting (DEFAULT in 0.6)
+nnoremap <silent><c-l> :noh<CR>
 
 " use `ALT+{h,j,k,l}` to navigate windows from any mode
 tnoremap <A-h> <C-\><C-N><C-w>h
