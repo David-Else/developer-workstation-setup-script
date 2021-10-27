@@ -1,7 +1,6 @@
 "=================="
 "    Functions     "
 "=================="
-
 function! GitBranch()
   return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
 endfunction
@@ -19,7 +18,6 @@ endfunction
 "=================="
 "  Load plugins    "
 "=================="
-
 call plug#begin('~/.config/nvim/plugged')
   " use built-in LSP and treesitter features
   Plug 'nvim-treesitter/nvim-treesitter', { 'branch': '0.5-compat', 'do': ':TSUpdate' }
@@ -57,7 +55,6 @@ lua require("plugin-setup")
 "=================="
 " Global Settings  "
 "=================="
-
 colorscheme codedark
 
 set inccommand=split        " default in 0.6: shows the effects of a command incrementally as you type
@@ -83,11 +80,12 @@ set clipboard=unnamedplus             " use clipboard register '+' instead of '*
 set grepprg=rg\ --vimgrep\ --smart-case\ --hidden " use rg when using grep command
 set grepformat=%f:%l:%c:%m
 let g:markdown_folding = 1 " enable markdown folding (doesn't work in after/ftplugin)
+let g:fzf_preview_window = ['up:75%', 'ctrl-/']
+let g:fzf_layout = { 'window': { 'width': 1, 'height': 1 } }
 
 "=================="
 "   Autocommands   "
 "=================="
-
 augroup reset_group
   autocmd!
 augroup END
@@ -103,8 +101,10 @@ autocmd reset_group TextYankPost * silent! lua require'vim.highlight'.on_yank()
 "==========================================="
 "         Custom Key Mappings               "
 "==========================================="
-
 let mapleader = "\<Space>"
+
+" default in 0.6: make Y act like C and D
+nnoremap Y y$
 
 " trouble.nvim
 nnoremap <leader>xx <cmd>TroubleToggle<cr>
@@ -114,14 +114,12 @@ nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
 nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
 nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 
+" escape key
 inoremap jk <Esc>
 tnoremap jk <C-\><C-n>
 
 " set ctrl-backspace to delete previous word
 inoremap <C-H> <C-W>
-
-" make Y act like C and D (DEFAULT in 0.6)
-nnoremap Y y$
 
 " change operations are sent to the black hole register, not unnamed
 nnoremap c "_c
@@ -149,9 +147,6 @@ nnoremap <silent><leader>t :vsplit<bar>term<CR>
 let g:loaded_netrw       = 1
 let g:loaded_netrwPlugin = 1
 nnoremap <silent> gx :execute 'silent! !xdg-open ' . shellescape(expand('<cWORD>'), 1)<CR>
-
-" insert new line in normal mode
-nnoremap <silent><leader>o m`o<Esc>``
 
 " toggle zen mode
 nnoremap <silent><leader>z :ZenMode<CR>
@@ -203,9 +198,6 @@ nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
-let g:fzf_preview_window = ['up:75%', 'ctrl-/']
-let g:fzf_layout = { 'window': { 'width': 1, 'height': 1 } }
-
 nnoremap <silent><c-p> :Files!<CR>
 nnoremap <silent><leader>b :Buffers!<CR>
 nnoremap <silent><leader>h :History!<CR>
@@ -248,14 +240,12 @@ inoremap <Right> <Nop>
 "======================================="
 "        Movement Mappings              "
 "======================================="
-
 " line without new line character
 onoremap l :silent normal 0vg_<CR>
 
 "======================================="
 "            Status Line                "
 "======================================="
-
 set statusline=
 set statusline+=%#PmenuSel#
 set statusline+=%{StatuslineGit()}

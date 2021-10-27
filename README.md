@@ -137,8 +137,8 @@ General                                     LSP
 <leader>t  = open terminal to the right     gr        = list all symbol references
 <leader>cd = working dir to current file    <space>wa = add workspace folder
 <leader>c  = edit init.vim config           <space>wr = aemove workstation folder
-<leader>o  = insert newline below           <space>wl = list workstation folders
-<leader>qa = quit all                       <space>D  = jump to type definition
+<leader>qa = quit all                       <space>wl = list workstation folders
+                                            <space>D  = jump to type definition
                                             <space>f  = format
 <leader>cc = toggle colorcolumn             <space>rn = rename all symbol references
 <leader>n  = toggle line numbers            <space>ca = selects a code action
