@@ -103,6 +103,9 @@ autocmd reset_group TextYankPost * silent! lua require'vim.highlight'.on_yank()
 "==========================================="
 let mapleader = "\<Space>"
 
+" default in 0.6:turn off search highlighting
+nnoremap <silent><c-l> :noh<CR>
+
 " default in 0.6: make Y act like C and D
 nnoremap Y y$
 
@@ -157,9 +160,6 @@ nnoremap <leader>m :make %<CR>
 " change working directory to the location of the current file
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
-" format entire buffer and keep cursor position with mark
-nnoremap <silent><leader>f mxgggqG'x<CR>
-
 " open init.vim file
 nnoremap <silent><leader>c :e $MYVIMRC<CR>
 
@@ -180,9 +180,6 @@ nnoremap <silent><leader>w :set list!<CR>
 nnoremap <silent><c-s> :<c-u>update<CR>
 inoremap <silent><c-s> <c-o>:update<CR>
 vnoremap <silent><c-s> <c-c>:update<CR>gv
-
-" turn off search highlighting (DEFAULT in 0.6)
-nnoremap <silent><c-l> :noh<CR>
 
 " use `ALT+{h,j,k,l}` to navigate windows from any mode
 tnoremap <A-h> <C-\><C-N><C-w>h
