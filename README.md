@@ -130,8 +130,8 @@ General                                     LSP
 -------                                     ---
          jk = escape                        gD        = jumps to the declaration
      ctrl-s = save                          gd        = jumps to the definition
-]c/[c/[l/]l = cycle quick/location lists    K         = displays hover information
-     ctrl-l = search highlighting off       <C-k>     = displays signature info
+     ctrl-l = search highlighting off       K         = displays hover information
+                                            <C-k>     = displays signature info
                                             gi        = lists all implementations
 <leader>m  = run make on current buffer                 in the quickfix window
 <leader>t  = open terminal to the right     gr        = list all symbol references

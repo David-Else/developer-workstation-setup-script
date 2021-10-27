@@ -202,13 +202,6 @@ nnoremap <silent><leader>gs :GFiles?<CR>
 nnoremap <silent><leader>gh :BCommits!<CR>
 nnoremap <silent><leader>rg :Rg!<CR>
 
-" cycle through quicklist/:helpgrep items
-nnoremap [c :cprevious<CR>
-nnoremap ]c :cnext<CR>
-" cycle through location list items
-nnoremap [l :lprevious<CR>
-nnoremap ]l :lnext<CR>
-
 " git add buffer / add to staging area
 nnoremap <leader>ga :!git add %<CR>
 " git reset buffer / lossless unstage
