@@ -1,7 +1,9 @@
 local nvim_lsp = require 'lspconfig'
 local null_ls = require 'null-ls'
 
--- https://github.com/jose-elias-alvarez/null-ls.nvim
+-- ==================
+--    null-ls.nvim
+-- ==================
 local sources = {
   -- Use denols instead for 'javascript', 'javascriptreact', 'typescript', 'typescriptreact'
   null_ls.builtins.formatting.prettier.with {
@@ -27,8 +29,17 @@ local sources = {
 }
 null_ls.config { sources = sources }
 
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
+-- ==================
+--     lspconfig
+-- ==================
+
+local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
+
+for type, icon in pairs(signs) do
+  local hl = 'DiagnosticSign' .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
+end
+
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
