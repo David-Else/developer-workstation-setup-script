@@ -109,13 +109,30 @@ nnoremap <silent><c-l> :noh<CR>
 " default in 0.6: make Y act like C and D
 nnoremap Y y$
 
-" trouble.nvim
+"==================
+"   trouble.nvim
+"==================
 nnoremap <leader>xx <cmd>TroubleToggle<cr>
 nnoremap <leader>xw <cmd>TroubleToggle lsp_workspace_diagnostics<cr>
 nnoremap <leader>xd <cmd>TroubleToggle lsp_document_diagnostics<cr>
 nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
 nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
 nnoremap gR <cmd>TroubleToggle lsp_references<cr>
+
+"==================
+"  zen-mode.nvim
+"==================
+nnoremap <silent><leader>z :ZenMode<CR>
+
+"==================
+"     fzf.vim
+"==================
+nnoremap <silent><c-p> :Files!<CR>
+nnoremap <silent><leader>b :Buffers!<CR>
+nnoremap <silent><leader>h :History!<CR>
+nnoremap <silent><leader>gs :GFiles?<CR>
+nnoremap <silent><leader>gh :BCommits!<CR>
+nnoremap <silent><leader>rg :Rg!<CR>
 
 " escape key
 inoremap jk <Esc>
@@ -150,9 +167,6 @@ nnoremap <silent><leader>t :vsplit<bar>term<CR>
 let g:loaded_netrw       = 1
 let g:loaded_netrwPlugin = 1
 nnoremap <silent> gx :execute 'silent! !xdg-open ' . shellescape(expand('<cWORD>'), 1)<CR>
-
-" toggle zen mode
-nnoremap <silent><leader>z :ZenMode<CR>
 
 " run make on current buffer
 nnoremap <leader>m :make %<CR>
@@ -194,13 +208,6 @@ nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
-
-nnoremap <silent><c-p> :Files!<CR>
-nnoremap <silent><leader>b :Buffers!<CR>
-nnoremap <silent><leader>h :History!<CR>
-nnoremap <silent><leader>gs :GFiles?<CR>
-nnoremap <silent><leader>gh :BCommits!<CR>
-nnoremap <silent><leader>rg :Rg!<CR>
 
 " git add buffer / add to staging area
 nnoremap <leader>ga :!git add %<CR>
