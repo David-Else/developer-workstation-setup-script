@@ -31,4 +31,5 @@ export YTFZF_PREF="bestvideo[height<=?1080]+bestaudio/best"
 stty -ixon      # disable terminal flow control to free ctrl-s for shortcut
 stty werase \^H # set ctrl-backspace to delete previous word instead of ctrl-w
 
+source ~/dotfiles/neovim/.config/nvim/plugged/fzf/shell/key-bindings.bash
 # alias code="GTK_IM_MODULE=ibus code" # for RHEL 8 and clones
