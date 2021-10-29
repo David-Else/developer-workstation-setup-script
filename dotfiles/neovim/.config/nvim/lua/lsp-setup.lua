@@ -32,7 +32,6 @@ null_ls.config { sources = sources }
 -- ==================
 --     lspconfig
 -- ==================
-
 local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
 
 for type, icon in pairs(signs) do
@@ -40,6 +39,8 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
 end
 
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
@@ -102,26 +103,103 @@ end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 -- turn off formatting for jsonls to use null-ls prettier
-local servers = { 'bashls', 'jsonls', 'cssls', 'html', 'null-ls' }
+local servers = { 'bashls', 'cssls', 'html', 'null-ls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
-    on_attach = lsp == 'jsonls' and on_attach_disable_formatting or on_attach,
+    on_attach = on_attach,
     flags = {
       debounce_text_changes = 150,
     },
   }
 end
 
--- Add the deno language server with linting enabled
+nvim_lsp.jsonls.setup {
+  on_attach = on_attach_disable_formatting,
+  flags = {
+    debounce_text_changes = 150,
+  },
+  settings = {
+    json = {
+      -- format = {
+      --   enable = false,
+      -- },
+      schemas = {
+        {
+          fileMatch = { 'package.json' },
+          url = 'https://json.schemastore.org/package.json',
+        },
+        {
+          fileMatch = { 'tsconfig.json', 'tsconfig.*.json' },
+          url = 'http://json.schemastore.org/tsconfig',
+        },
+        {
+          fileMatch = { '.eslintrc.json', '.eslintrc' },
+          url = 'http://json.schemastore.org/eslintrc',
+        },
+        {
+          fileMatch = { '.prettierrc', '.prettierrc.json', 'prettier.config.json' },
+          url = 'http://json.schemastore.org/prettierrc',
+        },
+        {
+          fileMatch = { '.stylelintrc', '.stylelintrc.json', 'stylelint.config.json' },
+          url = 'http://json.schemastore.org/stylelintrc',
+        },
+      },
+    },
+  },
+}
+
+-- Add the deno language server with linting enabled and markdown formatting
 nvim_lsp.denols.setup {
   on_attach = on_attach,
   flags = {
     debounce_text_changes = 150,
   },
+  filetypes = {
+    'javascript',
+    'javascriptreact',
+    'javascript.jsx',
+    'typescript',
+    'typescriptreact',
+    'typescript.tsx',
+  },
   init_options = {
+    config = './deno.jsonc',
     lint = true,
   },
 }
+
+-- Add ltex language server without lsp-config preset
+-- local bin_path = '/home/david/bin/ltex-ls-14.0.0/bin/ltex-ls'
+-- require('lspconfig/configs').ltex_ls = {
+--   default_config = {
+--     cmd = { bin_path },
+--     filetypes = { 'tex', 'bib', 'markdown' },
+--     root_dir = require('lspconfig/util').find_git_ancestor,
+--     settings = {
+--       ltex = {
+--         enabled = { 'latex', 'tex', 'bib', 'markdown' },
+--         language = 'en',
+--         diagnosticSeverity = 'information',
+--         setenceCacheSize = 2000,
+--         additionalRules = {
+--           enablePickyRules = true,
+--           motherTongue = 'en',
+--           -- languageModel = '~/',
+--         },
+--         trace = { server = 'verbose' },
+--         dictionary = {},
+--         disabledRules = {},
+--         hiddenFalsePositives = {},
+--       },
+--     },
+--   },
+-- }
+
+-- require('lspconfig').ltex_ls.setup {
+--   on_attach = on_attach,
+--   handlers = handlers,
+-- }
 
 -- Turn off virtual text
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
