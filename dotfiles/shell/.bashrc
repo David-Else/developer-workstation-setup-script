@@ -19,14 +19,14 @@ alias nnn="nnn -xe"                 # -x selection to system clipboard, -e open 
 
 clip() { xclip -sel clip -rmlastnl; }
 
-export NNN_PLUG="p:addtoplaylist;f:fzcd;m:mtpmount"
+export NNN_PLUG="p:addtoplaylist;f:fzcd;m:mtpmount;P:preview-tui"
 export NNN_BMS='d:~/Documents;D:~/Downloads;p:~/Pictures;v:~/Videos;m:~/Music;h:~/'
 export NNN_TRASH=1 # use trash-cli: https://pypi.org/project/trash-cli/
 export NNN_FIFO=/tmp/nnn.fifo
 
 export BAT_THEME="Visual Studio Dark+"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git}"'
-export YTFZF_PREF="bestvideo[height<=?1080]+bestaudio/best"
+export YTFZF_PREF="bestvideo[height<=?2160]+bestaudio/best"
 
 stty -ixon      # disable terminal flow control to free ctrl-s for shortcut
 stty werase \^H # set ctrl-backspace to delete previous word instead of ctrl-w
