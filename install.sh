@@ -31,6 +31,12 @@ VALE_SHA=ef622bc3b0df405f53ef864c14c2ef77122ccdef94081f7cd086504e127ebf35c3794e8
 STYLUA_LOCATION=JohnnyMorganz/StyLua/releases/download/v0.11.0/
 STYLUA_FILENAME=stylua-0.11.0-linux.zip
 STYLUA_SHA=b7cc2aea3d4fb777202e6fbae95fbe63cb34e272cba81317776d1f39a7da0e67f4dfbbd2f383deae469aeabc12372d18bc283d2323e806bc7a9d6014775b36ac
+LTEXLS_LOCATION=valentjn/ltex-ls/releases/download/15.0.0/
+LTEXLS_FILENAME=ltex-ls-15.0.0.tar.gz
+LTEXLS_SHA=76bed42397cd52a05415e107cd1163c05e13f00fa2e8d4e6c841f7f7f0fd4a67d99474dd6f86aa4ebef5d46e4cd227310badc52bc1b2c055c5aa390a9ac706a4
+NVIM_LOCATION=neovim/neovim/releases/download/v0.5.1/
+NVIM_FILENAME=nvim.appimage
+NVIM_SHA=e3d9ba6dda401b716c531a3ddefc73e2eb0a5c3daa8ab8886715adef7bab4b420ea18e5b2df34d3aee0e55f1886e7dfbfeff31bd4fef99389255a8125f7b0693
 
 if [ "$(id -u)" != 0 ]; then
     echo "You're not root! Run script with sudo" && exit 1
@@ -279,10 +285,14 @@ install_all() {
     chmod +x "$BIN_INSTALL_DIR/stylua"
     rm $STYLUA_FILENAME
 
+    echo "${BOLD}Installing Ltex-ls...${RESET}"
+    download_verify "$LTEXLS_LOCATION" "$LTEXLS_FILENAME" "$LTEXLS_SHA"
+    tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored 'bin' --strip=1
+    tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored 'lib' --strip=1
+    ln -s $BIN_INSTALL_DIR/bin/ltex-ls $BIN_INSTALL_DIR/ltex-ls
+    rm $LTEXLS_FILENAME
+
     echo "${BOLD}Installing Neovim 0.5.1 stable appimage and vim-plug...${RESET}"
-    local NVIM_LOCATION=neovim/neovim/releases/download/v0.5.1/
-    local NVIM_FILENAME=nvim.appimage
-    local NVIM_SHA=e3d9ba6dda401b716c531a3ddefc73e2eb0a5c3daa8ab8886715adef7bab4b420ea18e5b2df34d3aee0e55f1886e7dfbfeff31bd4fef99389255a8125f7b0693
     download_verify "$NVIM_LOCATION" "$NVIM_FILENAME" "$NVIM_SHA"
     chmod +x $NVIM_FILENAME
     mv $NVIM_FILENAME $BIN_INSTALL_DIR/nvim
