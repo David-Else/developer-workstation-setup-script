@@ -169,37 +169,19 @@ nvim_lsp.denols.setup {
   },
 }
 
--- Add ltex language server without lsp-config preset
--- local bin_path = '/home/david/bin/ltex-ls-14.0.0/bin/ltex-ls'
--- require('lspconfig/configs').ltex_ls = {
---   default_config = {
---     cmd = { bin_path },
---     filetypes = { 'tex', 'bib', 'markdown' },
---     root_dir = require('lspconfig/util').find_git_ancestor,
---     settings = {
---       ltex = {
---         enabled = { 'latex', 'tex', 'bib', 'markdown' },
---         language = 'en',
---         diagnosticSeverity = 'information',
---         setenceCacheSize = 2000,
---         additionalRules = {
---           enablePickyRules = true,
---           motherTongue = 'en',
---           -- languageModel = '~/',
---         },
---         trace = { server = 'verbose' },
---         dictionary = {},
---         disabledRules = {},
---         hiddenFalsePositives = {},
---       },
---     },
---   },
--- }
-
--- require('lspconfig').ltex_ls.setup {
---   on_attach = on_attach,
---   handlers = handlers,
--- }
+-- optionally install ngram data into home directory (~/en) and uncomment languageModel = '~/'
+-- https://dev.languagetool.org/finding-errors-using-n-gram-data
+require('lspconfig').ltex.setup {
+  settings = {
+    ltex = {
+      additionalRules = {
+        enablePickyRules = true,
+        motherTongue = 'en',
+        -- languageModel = '~/',
+      },
+    },
+  },
+}
 
 -- Turn off virtual text
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
