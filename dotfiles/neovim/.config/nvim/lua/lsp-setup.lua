@@ -149,7 +149,6 @@ nvim_lsp.jsonls.setup {
   },
 }
 
--- Add the deno language server with linting enabled and markdown formatting
 nvim_lsp.denols.setup {
   on_attach = on_attach,
   flags = {
