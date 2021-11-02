@@ -169,18 +169,16 @@ nvim_lsp.denols.setup {
   },
 }
 
--- optionally install ngram data into home directory (~/en) and uncomment languageModel = '~/'
+-- optionally install ngram data and uncomment settings pointing to dir above ngrams (for example 'en')
 -- https://dev.languagetool.org/finding-errors-using-n-gram-data
 require('lspconfig').ltex.setup {
-  settings = {
-    ltex = {
-      additionalRules = {
-        enablePickyRules = true,
-        motherTongue = 'en',
-        -- languageModel = '~/',
-      },
-    },
-  },
+  -- settings = {
+  --   ltex = {
+  --     additionalRules = {
+  --       languageModel = '~/',
+  --     },
+  --   },
+  -- },
 }
 
 -- Turn off virtual text
