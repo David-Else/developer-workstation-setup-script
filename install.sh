@@ -201,7 +201,6 @@ elif [ "$ID" == "fedora" ]; then
         local fedora_rpm_packages_to_install=(
             ShellCheck
             krita
-            chromium-browser-privacy
             lshw
             mkvtoolnix-gui
             pandoc
