@@ -143,10 +143,9 @@ General                                     LSP
 <leader>cc = toggle colorcolumn             <space>rn = rename all symbol references
 <leader>n  = toggle line numbers            <space>ca = selects a code action
 <leader>s  = toggle spell check             <space>e  = show diagnostics from line
-<leader>sn = next spell error and prompt    <space>q  = sets the location list
-<leader>w  = toggle whitespaces             [d        = move to previous diagnostic
-<leader>z  = toggle zen mode                ]d        = move to next diagnostic
-
+<leader>w  = toggle whitespaces             <space>q  = sets the location list
+<leader>z  = toggle zen mode                [d        = move to previous diagnostic
+                                            ]d        = move to next diagnostic
 <leader>ga = git add current file
 <leader>gr = git reset current file
 <leader>gc = git commit
@@ -154,18 +153,19 @@ General                                     LSP
 
 alt h/j/k/l = navigate windows
 
-fzf.vim                                     Tree-sitter
--------                                     -----------
-ctrl-p     = open file explorer             <CR>    = Initilize selection
-<leader>b  = open buffers                   <CR>    = Expand selection by scope
-<leader>h  = open file history              <TAB>   = Expand selection by node
-<leader>rg = ripgrep search results         <S-TAB> = Shrink selection by node
-
+fzf.vim
+-------                                     Tree-sitter
+ctrl-p     = open file explorer             -----------
+<leader>b  = open buffers                   <CR>    = Initilize selection
+<leader>h  = open file history              <CR>    = Expand selection by scope
+<leader>rg = ripgrep search results         <TAB>   = Expand selection by node
+                                            <S-TAB> = Shrink selection by node
 <leader>gs = git status
 <leader>gh = git commits history
 
 ctrl-/     = toggle preview window
 ctrl-t/x/v = open in new tab/split/vert split
+
 ```
 
 For all the Vim/Neovim built in shortcuts please check out https://www.elsewebdevelopment.com/ultimate-vim-keyboard-shortcuts/

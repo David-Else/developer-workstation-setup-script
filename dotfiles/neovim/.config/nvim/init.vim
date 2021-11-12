@@ -154,9 +154,6 @@ inoremap . .<c-g>u
 inoremap ! !<c-g>u
 inoremap ? ?<c-g>u
 
-" go to next spelling error and prompt for correction
-nmap <silent><leader>sn ]sz=
-
 " quit all but confirm if buffer unsaved 
 nnoremap <silent><leader>qa :confirm qall<CR>
 
