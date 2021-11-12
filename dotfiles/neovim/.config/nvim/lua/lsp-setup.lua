@@ -151,16 +151,16 @@ nvim_lsp.denols.setup {
   },
 }
 
--- optionally install ngram data and uncomment settings pointing to dir above ngrams (for example 'en')
--- https://dev.languagetool.org/finding-errors-using-n-gram-data
 require('lspconfig').ltex.setup {
-  -- settings = {
-  --   ltex = {
-  --     additionalRules = {
-  --       languageModel = '~/',
-  --     },
-  --   },
-  -- },
+  settings = {
+    ltex = {
+      -- additionalRules = {
+      --   languageModel = '~/ngrams/',
+      -- },
+      disabledRules = { ['en-US'] = { 'PROFANITY' } },
+      dictionary = { ['en-US'] = { 'Neovim', 'nvim' } },
+    },
+  },
 }
 
 -- Turn off virtual text
