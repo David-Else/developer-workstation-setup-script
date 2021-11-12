@@ -5,19 +5,9 @@ local null_ls = require 'null-ls'
 --    null-ls.nvim
 -- ==================
 local sources = {
-  -- Use denols instead for 'javascript', 'javascriptreact', 'typescript', 'typescriptreact'
   null_ls.builtins.formatting.prettier.with {
-    filetypes = {
-      'vue',
-      'svelte',
-      'css',
-      'scss',
-      'html',
-      'json',
-      'yaml',
-      'markdown',
-    },
-  },
+    disabled_filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+  }, -- Use denols instead for disabled_filetypes
   null_ls.builtins.formatting.stylua.with {
     extra_args = { '--config-path', vim.fn.expand '~/.stylua.toml' },
   },
@@ -27,6 +17,7 @@ local sources = {
   null_ls.builtins.diagnostics.shellcheck,
   null_ls.builtins.diagnostics.vale,
 }
+
 null_ls.config { sources = sources }
 
 -- ==================
@@ -153,14 +144,6 @@ nvim_lsp.denols.setup {
   on_attach = on_attach,
   flags = {
     debounce_text_changes = 150,
-  },
-  filetypes = {
-    'javascript',
-    'javascriptreact',
-    'javascript.jsx',
-    'typescript',
-    'typescriptreact',
-    'typescript.tsx',
   },
   init_options = {
     config = './deno.jsonc',
