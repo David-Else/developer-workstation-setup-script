@@ -80,6 +80,7 @@ set clipboard=unnamedplus             " use clipboard register '+' instead of '*
 set grepprg=rg\ --vimgrep\ --smart-case\ --hidden " use rg when using grep command
 set grepformat=%f:%l:%c:%m
 let g:markdown_folding = 1 " enable markdown folding (doesn't work in after/ftplugin)
+let g:markdown_fenced_languages = ['bash=sh', 'javascript', 'js=javascript', 'json=javascript', 'typescript', 'ts=typescript', 'php', 'html', 'css', 'rust', 'sql']
 let g:fzf_preview_window = ['up:75%', 'ctrl-/']
 let g:fzf_layout = { 'window': { 'width': 1, 'height': 1 } }
 
