@@ -136,7 +136,6 @@ if [[ ("$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "alm
 
         local rhel_rpm_packages_to_install=(
             ntfs-3g
-            ungoogled-chromium
             python36-devel)
 
         local rhel_flathub_packages_to_install=(
@@ -156,7 +155,6 @@ if [[ ("$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "alm
         dnf -y install epel-release
         dnf -y install --nogpgcheck https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-8.noarch.rpm https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-8.noarch.rpm
         dnf -y config-manager --add-repo https://download.opensuse.org/repositories/home:stig124:nnn/CentOS_8/home:stig124:nnn.repo
-        dnf -y config-manager --add-repo https://download.opensuse.org/repositories/home:/ungoogled_chromium/CentOS_8/home:ungoogled_chromium.repo
     }
 
     install_redhat_binaries() {
