@@ -110,6 +110,11 @@ nnoremap <silent><c-l> :noh<CR>
 " default in 0.6: make Y act like C and D
 nnoremap Y y$
 
+" Fixed in 0.6: disable netrw loading and replace broken link opening https://github.com/vim/vim/issues/4738
+let g:loaded_netrw       = 1
+let g:loaded_netrwPlugin = 1
+nnoremap <silent> gx :execute 'silent! !xdg-open ' . shellescape(expand('<cWORD>'), 1)<CR>
+
 "==================
 "   trouble.nvim
 "==================
@@ -160,11 +165,6 @@ nnoremap <silent><leader>qa :confirm qall<CR>
 
 " open new terminal to the right
 nnoremap <silent><leader>t :vsplit<bar>term<CR>
-
-" disable netrw loading and replace broken link opening https://github.com/vim/vim/issues/4738
-let g:loaded_netrw       = 1
-let g:loaded_netrwPlugin = 1
-nnoremap <silent> gx :execute 'silent! !xdg-open ' . shellescape(expand('<cWORD>'), 1)<CR>
 
 " change working directory to the location of the current file
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
