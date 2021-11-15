@@ -133,7 +133,7 @@ General                                     LSP
      ctrl-l = search highlighting off       K         = displays hover information
                                             <C-k>     = displays signature info
                                             gi        = lists all implementations
-<leader>m  = run make on current buffer                 in the quickfix window
+                                                        in the quickfix window
 <leader>t  = open terminal to the right     gr        = list all symbol references
 <leader>cd = working dir to current file    <space>wa = add workspace folder
 <leader>c  = edit init.vim config           <space>wr = aemove workstation folder

@@ -166,9 +166,6 @@ let g:loaded_netrw       = 1
 let g:loaded_netrwPlugin = 1
 nnoremap <silent> gx :execute 'silent! !xdg-open ' . shellescape(expand('<cWORD>'), 1)<CR>
 
-" run make on current buffer
-nnoremap <leader>m :make %<CR>
-
 " change working directory to the location of the current file
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
