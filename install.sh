@@ -136,6 +136,7 @@ if [[ ("$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "alm
 
         local rhel_rpm_packages_to_install=(
             ntfs-3g
+            java-11-openjdk-headless
             python36-devel)
 
         local rhel_flathub_packages_to_install=(
