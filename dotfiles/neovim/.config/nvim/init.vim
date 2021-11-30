@@ -1,11 +1,11 @@
 "=================="
 "    Functions     "
 "=================="
-function! GitBranch()
+function GitBranch() abort
   return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
 endfunction
 
-function! StatuslineGit()
+function StatuslineGit() abort
   let l:branchname = GitBranch()
   return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
 endfunction
@@ -16,38 +16,30 @@ function GitCommit() abort
 endfunction
 
 "=================="
-"  Load plugins    "
+"     Plugins      "
 "=================="
 call plug#begin('~/.config/nvim/plugged')
-  " use built-in LSP and treesitter features
-  Plug 'nvim-treesitter/nvim-treesitter', { 'branch': '0.5-compat', 'do': ':TSUpdate' }
-  Plug 'neovim/nvim-lspconfig'
-  " auto completion and LSP codeAction alert
-  Plug 'hrsh7th/nvim-cmp'
-  Plug 'hrsh7th/cmp-nvim-lsp'
-  Plug 'hrsh7th/cmp-path'
-  Plug 'hrsh7th/cmp-buffer'
-  Plug 'kosayoda/nvim-lightbulb'
-  " allow non-LSP sources to hook into the LSP client
-  Plug 'jose-elias-alvarez/null-ls.nvim'
-  Plug 'nvim-lua/plenary.nvim'
-  " preview markdown in web browser using pandoc
-  Plug 'davidgranstrom/nvim-markdown-preview'
-  " fuzzy find
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-  Plug 'junegunn/fzf.vim'
-  " zen mode
-  Plug 'folke/zen-mode.nvim'
-  " popup with possible key bindings as you type
-  Plug 'folke/which-key.nvim'
-  " comment stuff out
-  Plug 'tpope/vim-commentary'
-  " A pretty list for showing diagnostics
-  Plug 'folke/trouble.nvim'
+   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+   Plug 'neovim/nvim-lspconfig'
+   Plug 'kosayoda/nvim-lightbulb'
+   Plug 'hrsh7th/nvim-cmp'
+   Plug 'hrsh7th/cmp-nvim-lsp'
+   Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+   Plug 'hrsh7th/cmp-path'
+   Plug 'hrsh7th/cmp-buffer'
+   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+   Plug 'junegunn/fzf.vim'
+   Plug 'folke/zen-mode.nvim'
+   Plug 'folke/which-key.nvim'
+   Plug 'folke/trouble.nvim'
+   Plug 'jose-elias-alvarez/null-ls.nvim'
+   Plug 'nvim-lua/plenary.nvim'
+   Plug 'davidgranstrom/nvim-markdown-preview'
+   Plug 'tpope/vim-commentary'
 call plug#end()
 
 "=================="
-"  Load lua setup  "
+"  Load Lua Setup  "
 "=================="
 lua require("lsp-setup")
 lua require("plugin-setup")
@@ -57,32 +49,30 @@ lua require("plugin-setup")
 "=================="
 colorscheme codedark
 
-set inccommand=split        " default in 0.6: shows the effects of a command incrementally as you type
-set hidden                  " default in 0.6: keep buffer windows open
-
 set noswapfile
 set splitright splitbelow
 set nospell spelllang=en_us
-set scrolloff=8             " set number of screen lines to keep above/below the cursor
+set scrolloff=8             " screen lines to keep above/below the cursor
 set linebreak               " soft wrap long lines at a character in 'breakat'
-set cmdwinheight=14         " increase height of the command-line window
-set tabstop=2               " number of spaces that a <Tab> in the file counts for
-set expandtab               " use the appropriate number of spaces to insert a <Tab>
-set shiftwidth=2            " number of spaces inserted for indentation
-set ssop-=options           " do not store global and local values in a session
-set termguicolors           " set to true color
+set tabstop=2               " spaces that a <Tab> in the file counts for
+set expandtab               " use appropriate number of spaces to insert a <Tab>
+set shiftwidth=2            " spaces inserted for indentation
+set ssop-=options           " don't store global and local values in a session
+set termguicolors           " use true color
 set title                   " change terminal title to name of file
 set signcolumn=yes          " add gutter space for LSP info on left
-set updatetime=100          " increased to LSP code actions appear faster
+set updatetime=100          " increased so LSP code actions appear faster
 set completeopt=menu,menuone,noselect " options for insert mode completion
 set guicursor+=n-v-c:blinkon1         " set cursor to blink
-set clipboard=unnamedplus             " use clipboard register '+' instead of '*'
-set grepprg=rg\ --vimgrep\ --smart-case\ --hidden " use rg when using grep command
+set clipboard=unnamedplus             " use register '+' instead of '*'
+set grepprg=rg\ --vimgrep\ --smart-case\ --hidden
 set grepformat=%f:%l:%c:%m
-let g:markdown_folding = 1 " enable markdown folding (doesn't work in after/ftplugin)
-let g:markdown_fenced_languages = ['bash=sh', 'javascript', 'js=javascript', 'json=javascript', 'typescript', 'ts=typescript', 'php', 'html', 'css', 'rust', 'sql']
 let g:fzf_preview_window = ['up:75%', 'ctrl-/']
 let g:fzf_layout = { 'window': { 'width': 1, 'height': 1 } }
+let g:markdown_folding = 1
+let g:markdown_fenced_languages = [
+  \ 'bash=sh', 'javascript', 'js=javascript', 'json=javascript', 'typescript',
+  \ 'ts=typescript', 'php', 'html', 'css', 'rust', 'sql']
 
 "=================="
 "   Autocommands   "
@@ -94,7 +84,7 @@ augroup END
 " start a terminal, and return to an open terminal in insert mode
 autocmd reset_group TermOpen * startinsert
 autocmd reset_group BufEnter term://* startinsert
-" save active session on exit, to create a session :mks [optional session filename]
+" save active session on exit, create a session :mks [optional session filename]
 autocmd reset_group VimLeave * if !empty(v:this_session) | exe "mksession! ".(v:this_session)
 " show highlight on yank
 autocmd reset_group TextYankPost * silent! lua require'vim.highlight'.on_yank()
@@ -103,17 +93,6 @@ autocmd reset_group TextYankPost * silent! lua require'vim.highlight'.on_yank()
 "         Custom Key Mappings               "
 "==========================================="
 let mapleader = "\<Space>"
-
-" default in 0.6:turn off search highlighting
-nnoremap <silent><c-l> :noh<CR>
-
-" default in 0.6: make Y act like C and D
-nnoremap Y y$
-
-" Fixed in 0.6: disable netrw loading and replace broken link opening https://github.com/vim/vim/issues/4738
-let g:loaded_netrw       = 1
-let g:loaded_netrwPlugin = 1
-nnoremap <silent> gx :execute 'silent! !xdg-open ' . shellescape(expand('<cWORD>'), 1)<CR>
 
 "==================
 "   trouble.nvim
@@ -154,13 +133,13 @@ nnoremap C "_C
 " keep cursor position when joining lines
 nnoremap J mxJ'x
 
-" set undo break points
+" set more undo break points
 inoremap , ,<c-g>u
 inoremap . .<c-g>u
 inoremap ! !<c-g>u
 inoremap ? ?<c-g>u
 
-" quit all but confirm if buffer unsaved 
+" quit all confirming, if buffer unsaved 
 nnoremap <silent><leader>qa :confirm qall<CR>
 
 " open new terminal to the right
@@ -204,13 +183,11 @@ nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
-" git add buffer / add to staging area
+" git
 nnoremap <leader>ga :!git add %<CR>
-" git reset buffer / lossless unstage
 nnoremap <leader>gr :!git reset %<CR>
-" git commit
 nnoremap <leader>gc :call GitCommit()<CR>
-" git push
+" nnoremap <silent><leader>gc :vsplit<bar>:term git commit<CR>
 nnoremap <leader>gp :!git push<CR>
 
 " disable accidentally pressing ctrl-z and suspending
@@ -218,22 +195,6 @@ nnoremap <c-z> <Nop>
 
 " disable recording
 nnoremap q <Nop>
-
-" disable arrow keys
-noremap  <Up>    <Nop>
-noremap  <Down>  <Nop>
-noremap  <Left>  <Nop>
-noremap  <Right> <Nop>
-inoremap <Up>    <Nop>
-inoremap <Down>  <Nop>
-inoremap <Left>  <Nop>
-inoremap <Right> <Nop>
-
-"======================================="
-"        Movement Mappings              "
-"======================================="
-" line without new line character
-onoremap l :silent normal 0vg_<CR>
 
 "======================================="
 "            Status Line                "
