@@ -37,9 +37,9 @@ To maintain parity with Fedora 34+, any package that's not available directly in
 
 Gnome has been tweaked along with font settings for a better experience.
 
-### Neovim 0.5 with plugins and custom keybindings
+### Neovim 0.6 with plugins and custom keybindings
 
-Setup out of the box with the latest [Neovim 0.5](https://neovim.io/news/2021/07) and plugins configured to use `fzf`, `ripgrep` and `bat` with an attractive Visual Studio Code theme
+Setup out of the box with the latest [Neovim 0.6](https://neovim.io/news/2021/07) and plugins configured to use `fzf`, `ripgrep` and `bat` with an attractive Visual Studio Code theme
 
 ![Neovim](./images/neo-vim-with-vs-code-theme-preview.png)
 
