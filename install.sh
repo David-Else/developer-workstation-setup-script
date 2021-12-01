@@ -151,7 +151,7 @@ if [[ ("$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "alm
     }
 
     add_redhat_repositories() {
-        dnf module enable -y nodejs:14
+        dnf module enable -y nodejs:16
         dnf -y config-manager --enable powertools
         dnf -y install epel-release
         dnf -y install --nogpgcheck https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-8.noarch.rpm https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-8.noarch.rpm
