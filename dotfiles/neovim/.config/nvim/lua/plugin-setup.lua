@@ -36,7 +36,20 @@ require('zen-mode').setup {
 --  nvim-treesitter
 -- ==================
 require('nvim-treesitter.configs').setup {
-  ensure_installed = { 'bash', 'css', 'html', 'javascript', 'json', 'jsonc', 'lua', 'rust', 'typescript' },
+  ensure_installed = {
+    'vim',
+    'bash',
+    'css',
+    'html',
+    'javascript',
+    'jsdoc',
+    'json',
+    'jsonc',
+    'lua',
+    'rust',
+    'typescript',
+    'tsx',
+  },
   highlight = {
     enable = true,
   },
