@@ -8,7 +8,7 @@ vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_li
 -- ==================
 require('trouble').setup {
   icons = false,
-  use_lsp_diagnostic_signs = true,
+  use_diagnostic_signs = true,
 }
 
 -- ==================
