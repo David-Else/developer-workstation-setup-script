@@ -2,25 +2,6 @@ local nvim_lsp = require 'lspconfig'
 local null_ls = require 'null-ls'
 
 -- ==================
---    null-ls.nvim
--- ==================
-local sources = {
-  null_ls.builtins.formatting.prettier.with {
-    disabled_filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
-  }, -- use denols instead for disabled_filetypes
-  null_ls.builtins.formatting.stylua.with {
-    extra_args = { '--config-path', vim.fn.expand '~/.stylua.toml' },
-  },
-  null_ls.builtins.formatting.shfmt.with {
-    extra_args = { '-i', '4' },
-  },
-  null_ls.builtins.diagnostics.shellcheck,
-  -- null_ls.builtins.diagnostics.vale,
-}
-
-null_ls.config { sources = sources }
-
--- ==================
 --     lspconfig
 -- ==================
 local on_attach = function(client, bufnr)
@@ -64,7 +45,7 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
-local servers = { 'bashls', 'cssls', 'html', 'null-ls' }
+local servers = { 'bashls', 'cssls', 'html' }
 for client, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -95,8 +76,8 @@ nvim_lsp.jsonls.setup {
           url = 'http://json.schemastore.org/prettierrc',
         },
         {
-          fileMatch = { '.stylelintrc', '.stylelintrc.json', 'stylelint.config.json' },
-          url = 'http://json.schemastore.org/stylelintrc',
+          fileMatch = { 'deno.json' },
+          url = 'https://raw.githubusercontent.com/denoland/deno/main/cli/schemas/config-file.v1.json',
         },
       },
     },
@@ -132,3 +113,23 @@ nvim_lsp.ltex.setup {
 vim.diagnostic.config { virtual_text = false }
 -- show line diagnostics in a hover window
 vim.cmd [[autocmd CursorHold * lua vim.diagnostic.open_float(nil,{focusable=false,scope="cursor"})]]
+
+-- ==================
+--    null-ls.nvim
+-- ==================
+null_ls.setup {
+  sources = {
+    null_ls.builtins.formatting.prettier.with {
+      disabled_filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+    }, -- use denols instead for disabled_filetypes
+    null_ls.builtins.formatting.stylua.with {
+      extra_args = { '--config-path', vim.fn.expand '~/.stylua.toml' },
+    },
+    null_ls.builtins.formatting.shfmt.with {
+      extra_args = { '-i', '4' },
+    },
+    null_ls.builtins.diagnostics.shellcheck,
+    -- null_ls.builtins.diagnostics.vale,
+  },
+  on_attach = on_attach,
+}
