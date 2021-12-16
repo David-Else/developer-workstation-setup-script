@@ -88,7 +88,7 @@ nvim_lsp.denols.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   init_options = {
-    config = './deno.jsonc',
+    config = './deno.json',
     lint = true,
   },
 }
