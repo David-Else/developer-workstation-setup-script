@@ -12,18 +12,6 @@ require('trouble').setup {
 }
 
 -- ==================
---   which-key.nvim
--- ==================
-require('which-key').setup {
-  plugins = {
-    spelling = {
-      enabled = true,
-      suggestions = 20,
-    },
-  },
-}
-
--- ==================
 --   zen-mode.nvim
 -- ==================
 require('zen-mode').setup {

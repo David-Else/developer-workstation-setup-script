@@ -19,19 +19,19 @@ To maintain parity with Fedora 34+, any package that's not available directly in
 
 ### Great software out of the box, easy to customize and choose your own
 
-| Development    | Browsers           | Graphics    | Sound and video | Security and backup |
-| -------------- | ------------------ | ----------- | --------------- | ------------------- |
-| Neovim         | Firefox            | Krita       | MPV             | KeepassXC           |
-| Node.js / Deno | Degoogled Chromium | Shotwell    | Handbrake       | BorgBackup          |
-| Gnome Boxes    | nnn file browser   | ImageMagick | MKVToolNix      |                     |
-| Lazygit        |                    |             |                 |                     |
-| GitHub CLI     |                    |             |                 |                     |
-| Pandoc         |                    |             |                 |                     |
-| Shellcheck     |                    |             |                 |                     |
-| Shfmt          |                    |             |                 |                     |
-| Bat            |                    |             |                 |                     |
-| Ripgrep        |                    |             |                 |                     |
-| Vale           |                    |             |                 |                     |
+| Development    | Browsers         | Graphics    | Sound and video | Security and backup |
+| -------------- | ---------------- | ----------- | --------------- | ------------------- |
+| Neovim         | Firefox          | Krita       | MPV             | KeepassXC           |
+| Node.js / Deno | Chromium         | Shotwell    | Handbrake       | BorgBackup          |
+| Gnome Boxes    | nnn file browser | ImageMagick | MKVToolNix      |                     |
+| Lazygit        |                  |             |                 |                     |
+| GitHub CLI     |                  |             |                 |                     |
+| Pandoc         |                  |             |                 |                     |
+| Shellcheck     |                  |             |                 |                     |
+| Shfmt          |                  |             |                 |                     |
+| Bat            |                  |             |                 |                     |
+| Ripgrep        |                  |             |                 |                     |
+| Vale           |                  |             |                 |                     |
 
 ### Improved Gnome desktop and font settings
 
@@ -39,7 +39,7 @@ Gnome has been tweaked along with font settings for a better experience.
 
 ### Neovim 0.6 with plugins and custom keybindings
 
-Setup out of the box with the latest [Neovim 0.6](https://neovim.io/news/2021/07) and plugins configured to use `fzf`, `ripgrep` and `bat` with an attractive Visual Studio Code theme
+Setup out of the box with the latest [Neovim 0.6](https://neovim.io) and plugins configured to use `fzf`, `ripgrep` and `bat` with an attractive Visual Studio Code theme
 
 ![Neovim](./images/neo-vim-with-vs-code-theme-preview.png)
 
@@ -130,42 +130,40 @@ General                                     LSP
 -------                                     ---
          jk = escape                        gD        = jumps to the declaration
      ctrl-s = save                          gd        = jumps to the definition
-     ctrl-l = search highlighting off       K         = displays hover information
-                                            <C-k>     = displays signature info
-                                            gi        = lists all implementations
-                                                        in the quickfix window
-<leader>t  = open terminal to the right     gr        = list all symbol references
+alt h/j/k/l = navigate windows              K         = displays hover information
+                                            ctrl-k    = displays signature info
+<leader>ts = open terminal below            gi        = lists all implementations
+<leader>tv = open terminal to the right                 in the quickfix window
+                                            gr        = list all symbol references
 <leader>cd = working dir to current file    <space>wa = add workspace folder
-<leader>c  = edit init.vim config           <space>wr = aemove workstation folder
-<leader>qa = quit all                       <space>wl = list workstation folders
-                                            <space>D  = jump to type definition
-                                            <space>f  = format
-<leader>cc = toggle colorcolumn             <space>rn = rename all symbol references
-<leader>n  = toggle line numbers            <space>ca = selects a code action
-<leader>s  = toggle spell check             <space>e  = show diagnostics from line
-<leader>w  = toggle whitespaces             <space>q  = sets the location list
-<leader>z  = toggle zen mode                [d        = move to previous diagnostic
-                                            ]d        = move to next diagnostic
-<leader>ga = git add current file
-<leader>gr = git reset current file
-<leader>gc = git commit
-<leader>gp = git push
+<leader>qa = quit all                       <space>wr = remove workstation folder
+<leader>cc = toggle colorcolumn             <space>wl = list workstation folders
+<leader>n  = toggle line numbers            <space>D  = jump to type definition
+<leader>w  = toggle whitespaces             <space>f  = format
+<leader>z  = toggle zen mode                <space>rn = rename all symbol references
+                                            <space>ca = selects a code action
+<leader>ga = git add current file           <space>e  = show diagnostics from line
+<leader>gr = git reset current file         <space>q  = sets the location list
+<leader>gc = git commit                     [d        = move to previous diagnostic
+<leader>gp = git push                       ]d        = move to next diagnostic
 
-alt h/j/k/l = navigate windows
 
-fzf.vim
--------                                     Tree-sitter
-ctrl-p     = open file explorer             -----------
-<leader>b  = open buffers                   <CR>    = Initilize selection
-<leader>h  = open file history              <CR>    = Expand selection by scope
-<leader>rg = ripgrep search results         <TAB>   = Expand selection by node
-                                            <S-TAB> = Shrink selection by node
+fzf.vim                                     Tree-sitter
+-------                                     -----------
+ctrl-p     = open file explorer             <CR>    = Initilize selection
+<leader>b  = open buffers                   <CR>    = Expand selection by scope
+<leader>h  = open file history              <TAB>   = Expand selection by node
+<leader>rg = ripgrep search results         <S-TAB> = Shrink selection by node
 <leader>gs = git status
 <leader>gh = git commits history
-
 ctrl-/     = toggle preview window
 ctrl-t/x/v = open in new tab/split/vert split
 
+
+vim-commentary
+--------------
+gcc = comment out a line (takes a count)
+gc  = comment out the target of a motion or in visual mode the selection
 ```
 
 For all the Vim/Neovim built in shortcuts please check out https://www.elsewebdevelopment.com/ultimate-vim-keyboard-shortcuts/
@@ -180,7 +178,6 @@ This is a list of all the plugins used, please follow the links to read about ho
 - [nvim-lightbulb](https://github.com/kosayoda/nvim-lightbulb) - Shows a lightbulb whenever a `textDocument/codeAction` is available at the current cursor position
 - [nvim-markdown-preview](https://github.com/davidgranstrom/nvim-markdown-preview) - Markdown preview in the browser using pandoc/live-server through Neovim's job-control API
 - [zen-mode.nvim](https://github.com/folke/zen-mode.nvim) - Distraction-free coding for Neovim
-- [which-key.nvim](https://github.com/folke/which-key.nvim) - Neovim plugin that shows a popup with possible keybindings of the command you started typing
 - [null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim) - Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
 
 - [vim-commentary](https://github.com/tpope/vim-commentary) - Comment stuff out

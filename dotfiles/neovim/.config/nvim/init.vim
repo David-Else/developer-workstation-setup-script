@@ -30,7 +30,6 @@ call plug#begin('~/.config/nvim/plugged')
    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
    Plug 'junegunn/fzf.vim'
    Plug 'folke/zen-mode.nvim'
-   Plug 'folke/which-key.nvim'
    Plug 'folke/trouble.nvim'
    Plug 'jose-elias-alvarez/null-ls.nvim'
    Plug 'nvim-lua/plenary.nvim'
@@ -51,7 +50,6 @@ colorscheme codedark
 
 set noswapfile
 set splitright splitbelow
-set nospell spelllang=en_us
 set scrolloff=8             " screen lines to keep above/below the cursor
 set linebreak               " soft wrap long lines at a character in 'breakat'
 set tabstop=2               " spaces that a <Tab> in the file counts for
@@ -71,7 +69,7 @@ let g:fzf_preview_window = ['up:75%', 'ctrl-/']
 let g:fzf_layout = { 'window': { 'width': 1, 'height': 1 } }
 let g:markdown_folding = 1
 let g:markdown_fenced_languages = [
-  \ 'bash=sh', 'javascript', 'js=javascript', 'json=javascript', 'typescript',
+  \ 'bash=sh', 'javascript', 'js=javascript', 'typescript',
   \ 'ts=typescript', 'php', 'html', 'css', 'rust', 'sql']
 
 "=================="
@@ -142,23 +140,18 @@ inoremap ? ?<c-g>u
 " quit all confirming, if buffer unsaved 
 nnoremap <silent><leader>qa :confirm qall<CR>
 
-" open new terminal to the right
-nnoremap <silent><leader>t :vsplit<bar>term<CR>
+" open new split window terminals
+nnoremap <silent><leader>tv :vsplit<bar>term<CR>
+nnoremap <silent><leader>ts :split<bar>term<CR>
 
 " change working directory to the location of the current file
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
-
-" open init.vim file
-nnoremap <silent><leader>c :e $MYVIMRC<CR>
 
 " toggle colorcolumn
 nnoremap <silent><leader>cc :execute "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<CR>
 
 " toggle line numbers
 nnoremap <silent><leader>n :set invnumber<CR>
-
-" toggle spell checking
-nnoremap <silent><leader>s :set invspell<CR>
 
 " toggle showing white spaces
 set lcs+=space:.
