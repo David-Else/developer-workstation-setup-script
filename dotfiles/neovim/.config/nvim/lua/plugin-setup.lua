@@ -17,6 +17,7 @@ require('trouble').setup {
 require('zen-mode').setup {
   window = {
     width = 81,
+    backdrop = 1,
   },
 }
 
