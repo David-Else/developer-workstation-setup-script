@@ -1,6 +1,8 @@
 "=================="
 "    Functions     "
 "=================="
+
+" On Centos 8 aiksaurus-1.2.1-38.fc28.x86_64.rpm works
 func Thesaur(findstart, base)
     if a:findstart
 	let line = getline('.')
@@ -12,7 +14,6 @@ func Thesaur(findstart, base)
     else
 	let res = []
 	let h = ''
-  " On Centos 8 aiksaurus-1.2.1-38.fc28.x86_64.rpm works
 	for l in split(system('aiksaurus '.shellescape(a:base)), '\n')
 	    if l[:3] == '=== '
 	    	let h = substitute(l[4:], ' =*$', '', '')
