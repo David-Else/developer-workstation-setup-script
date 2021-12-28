@@ -1,6 +1,29 @@
 "=================="
 "    Functions     "
 "=================="
+func Thesaur(findstart, base)
+    if a:findstart
+	let line = getline('.')
+	let start = col('.') - 1
+	while start > 0 && line[start - 1] =~ '\a'
+	   let start -= 1
+	endwhile
+	return start
+    else
+	let res = []
+	let h = ''
+  " On Centos 8 aiksaurus-1.2.1-38.fc28.x86_64.rpm works
+	for l in split(system('aiksaurus '.shellescape(a:base)), '\n')
+	    if l[:3] == '=== '
+	    	let h = substitute(l[4:], ' =*$', '', '')
+	    elseif l[0] =~ '\a'
+		call extend(res, map(split(l, ', '), {_, val -> {'word': val, 'menu': '('.h.')'}}))
+	    endif
+	endfor
+	return res
+    endif
+endfunc
+
 function GitBranch() abort
   return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
 endfunction
@@ -19,6 +42,7 @@ endfunction
 "     Plugins      "
 "=================="
 call plug#begin('~/.config/nvim/plugged')
+   Plug 'Mofiqul/vscode.nvim'
    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
    Plug 'neovim/nvim-lspconfig'
    Plug 'kosayoda/nvim-lightbulb'
@@ -46,10 +70,12 @@ lua require("plugin-setup")
 "=================="
 " Global Settings  "
 "=================="
-colorscheme codedark
+let g:vscode_style = "dark"
+colorscheme vscode
 
 set noswapfile
 set splitright splitbelow
+set thesaurusfunc=Thesaur   " use the 'thesaurusfunc' for external thesaurus
 set scrolloff=8             " screen lines to keep above/below the cursor
 set linebreak               " soft wrap long lines at a character in 'breakat'
 set tabstop=2               " spaces that a <Tab> in the file counts for
