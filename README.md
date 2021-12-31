@@ -163,7 +163,7 @@ ctrl-t/x/v = open in new tab/split/vert split
 vim-commentary
 --------------
 gcc = comment out a line (takes a count)
-gc  = comment out the target of a motion or in visual mode the selection
+gc  = comment out the target of a motion, or in visual mode the selection
 
 
 trouble.nvim
