@@ -34,7 +34,7 @@ STYLUA_SHA=b7cc2aea3d4fb777202e6fbae95fbe63cb34e272cba81317776d1f39a7da0e67f4dfb
 LTEXLS_LOCATION=valentjn/ltex-ls/releases/download/15.0.0/
 LTEXLS_FILENAME=ltex-ls-15.0.0.tar.gz
 LTEXLS_SHA=76bed42397cd52a05415e107cd1163c05e13f00fa2e8d4e6c841f7f7f0fd4a67d99474dd6f86aa4ebef5d46e4cd227310badc52bc1b2c055c5aa390a9ac706a4
-NVIM_LOCATION=neovim/neovim/releases/download/v0.6.0/
+NVIM_LOCATION=neovim/neovim/releases/download/v0.6.1/
 NVIM_FILENAME=nvim.appimage
 NVIM_SHA=e3d9ba6dda401b716c531a3ddefc73e2eb0a5c3daa8ab8886715adef7bab4b420ea18e5b2df34d3aee0e55f1886e7dfbfeff31bd4fef99389255a8125f7b0693
 
