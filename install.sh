@@ -290,7 +290,7 @@ install_all() {
     ln -s $BIN_INSTALL_DIR/bin/ltex-ls $BIN_INSTALL_DIR/ltex-ls
     rm $LTEXLS_FILENAME
 
-    echo "${BOLD}Installing Neovim 0.6.0 stable appimage and vim-plug...${RESET}"
+    echo "${BOLD}Installing Neovim stable appimage and vim-plug...${RESET}"
     download_verify "$NVIM_LOCATION" "$NVIM_FILENAME" "$NVIM_SHA"
     chmod +x $NVIM_FILENAME
     mv $NVIM_FILENAME $BIN_INSTALL_DIR/nvim
