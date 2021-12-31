@@ -168,19 +168,19 @@ gc  = comment out the target of a motion, or in visual mode the selection
 
 trouble.nvim
 ------------
-<leader>xx = TroubleToggle
-<leader>xw = TroubleToggle workspace_diagnostics
-<leader>xd = TroubleToggle document_diagnostics
-<leader>xq = TroubleToggle quickfix
-<leader>xl = TroubleToggle loclist
-        gR = TroubleToggle lsp_references
+<leader>xx = toggle
+<leader>xw = toggle workspace diagnostics
+<leader>xd = toggle document diagnostics
+<leader>xq = toggle quickfix
+<leader>xl = toggle loclist
+        gR = toggle lsp references
 ```
 
 For all the Vim/Neovim built in shortcuts please check out https://www.elsewebdevelopment.com/ultimate-vim-keyboard-shortcuts/
 
 ### Neovim plugins
 
-This is a list of all the plugins used, please follow the links to read about how to opperate them.
+This is a list of all the plugins used, please follow the links to read about how to operate them.
 
 - [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) - Nvim Treesitter configurations and abstraction layer
 - [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) - Quickstart configurations for the Nvim LSP client
@@ -197,7 +197,7 @@ This is a list of all the plugins used, please follow the links to read about ho
 
 **Q**: How do I install Visual Studio Code?
 
-**A**: Simply un-comment `code` from `rpm-packages-to-install` in `install.sh` before you run it.
+**A**: Simply uncomment `code` from `rpm-packages-to-install` in `install.sh` before you run it.
 
 If you would like to use Code for things that Neovim still struggles with (like debugging), and still use all the Vim keyboard shortcuts, I suggest installing `asvetliakov.vscode-neovim` and using these settings:
 
