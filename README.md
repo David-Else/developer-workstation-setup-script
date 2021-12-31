@@ -160,17 +160,11 @@ ctrl-/     = toggle preview window
 ctrl-t/x/v = open in new tab/split/vert split
 
 
-vim-commentary
---------------
-gcc = comment out a line (takes a count)
-gc  = comment out the target of a motion, or in visual mode the selection
-
-
-trouble.nvim
-------------
-<leader>xx = toggle
-<leader>xw = toggle workspace diagnostics
-<leader>xd = toggle document diagnostics
+trouble.nvim                                vim-commentary
+------------                                --------------
+<leader>xx = toggle                         gcc = comment out a line (takes a count)
+<leader>xw = toggle workspace diagnostics   gc  = comment out the target of a motion,
+<leader>xd = toggle document diagnostics          or the selection in visual mode
 <leader>xq = toggle quickfix
 <leader>xl = toggle loclist
         gR = toggle lsp references
