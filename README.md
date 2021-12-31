@@ -164,6 +164,16 @@ vim-commentary
 --------------
 gcc = comment out a line (takes a count)
 gc  = comment out the target of a motion or in visual mode the selection
+
+
+trouble.nvim
+------------
+<leader>xx = TroubleToggle
+<leader>xw = TroubleToggle workspace_diagnostics
+<leader>xd = TroubleToggle document_diagnostics
+<leader>xq = TroubleToggle quickfix
+<leader>xl = TroubleToggle loclist
+        gR = TroubleToggle lsp_references
 ```
 
 For all the Vim/Neovim built in shortcuts please check out https://www.elsewebdevelopment.com/ultimate-vim-keyboard-shortcuts/
