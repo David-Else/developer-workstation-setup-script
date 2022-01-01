@@ -46,21 +46,24 @@ call plug#begin('~/.config/nvim/plugged')
    Plug 'Mofiqul/vscode.nvim'
    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
    Plug 'neovim/nvim-lspconfig'
-   Plug 'kosayoda/nvim-lightbulb'
-   Plug 'hrsh7th/nvim-cmp'
-   Plug 'hrsh7th/cmp-nvim-lsp'
-   Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
-   Plug 'hrsh7th/cmp-path'
-   Plug 'hrsh7th/cmp-buffer'
-   Plug 'hrsh7th/cmp-cmdline'
+
    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
    Plug 'junegunn/fzf.vim'
-   Plug 'folke/zen-mode.nvim'
-   Plug 'folke/trouble.nvim'
-   Plug 'jose-elias-alvarez/null-ls.nvim'
-   Plug 'nvim-lua/plenary.nvim'
-   Plug 'davidgranstrom/nvim-markdown-preview'
-   Plug 'tpope/vim-commentary'
+
+   Plug 'kosayoda/nvim-lightbulb', { 'commit': 'cd5267d2d708e908dbd668c7de74e1325eb1e1da' }
+   Plug 'folke/zen-mode.nvim', { 'commit': 'f1cc53d32b49cf962fb89a2eb0a31b85bb270f7c' }
+   Plug 'folke/trouble.nvim', { 'commit': '20469be985143d024c460d95326ebeff9971d714' }
+   Plug 'jose-elias-alvarez/null-ls.nvim', { 'commit': '031e839ac2a8ca1a4bc4111633a829dcae741c31' }
+   Plug 'nvim-lua/plenary.nvim', { 'commit': 'a672e11c816d4a91ef01253ba1a2567d20e08e55' }
+   Plug 'davidgranstrom/nvim-markdown-preview', { 'commit': '940c856932ad81e784f16a47e24193821a8fa8fd' }
+   Plug 'tpope/vim-commentary', { 'commit': '627308e30639be3e2d5402808ce18690557e8292' }
+
+   Plug 'hrsh7th/nvim-cmp', { 'commit': 'eca04af4f8881013498eb7e30aae3ea04c0e552a' }
+   Plug 'hrsh7th/cmp-nvim-lsp', { 'commit': '134117299ff9e34adde30a735cd8ca9cf8f3db81' }
+   Plug 'hrsh7th/cmp-nvim-lsp-signature-help', { 'commit': 'daa6a0c2484915e855e60eeff586860c68e59d83' }
+   Plug 'hrsh7th/cmp-path', { 'commit': '4d58224e315426e5ac4c5b218ca86cab85f80c79' }
+   Plug 'hrsh7th/cmp-buffer', { 'commit': 'a01cfeca70594f505b2f086501e90fb6c2f2aaaa' }
+   Plug 'hrsh7th/cmp-cmdline', { 'commit': '29ca81a6f0f288e6311b3377d9d9684d22eac2ec' }
 call plug#end()
 
 "=================="
