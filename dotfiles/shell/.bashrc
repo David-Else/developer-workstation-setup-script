@@ -19,8 +19,8 @@ alias nnn="nnn -xe"                 # -x selection to system clipboard, -e open 
 
 clip() { xclip -sel clip -rmlastnl; }
 
-export NNN_PLUG="p:addtoplaylist;f:fzcd;m:mtpmount;P:preview-tui"
-export NNN_BMS='d:~/Documents;D:~/Downloads;p:~/Pictures;v:~/Videos;m:~/Music;h:~/'
+export NNN_PLUG="p:addtoplaylist;f:fzcd;P:preview-tui"
+export NNN_BMS="d:~/Documents;p:~/Pictures;v:~/Videos;m:~/Music;h:~/;D:~/Downloads;M:/run/user/$UID/gvfs"
 export NNN_TRASH=1 # use trash-cli: https://pypi.org/project/trash-cli/
 export NNN_FIFO=/tmp/nnn.fifo
 
