@@ -19,6 +19,7 @@ alias nnn="nnn -xe"                 # -x selection to system clipboard, -e open 
 
 clip() { xclip -sel clip -rmlastnl; }
 
+[ -n "$NNNLVL" ] && PS1="N$NNNLVL $PS1" # prompt you are within a shell that will return you to nnn
 export NNN_PLUG="p:addtoplaylist;f:fzcd;P:preview-tui"
 export NNN_BMS="d:~/Documents;p:~/Pictures;v:~/Videos;m:~/Music;h:~/;D:~/Downloads;M:/run/user/$UID/gvfs"
 export NNN_TRASH=1 # use trash-cli: https://pypi.org/project/trash-cli/
