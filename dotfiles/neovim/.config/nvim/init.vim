@@ -53,7 +53,7 @@ call plug#begin('~/.config/nvim/plugged')
    Plug 'kosayoda/nvim-lightbulb', { 'commit': 'cd5267d2d708e908dbd668c7de74e1325eb1e1da' }
    Plug 'folke/zen-mode.nvim', { 'commit': 'f1cc53d32b49cf962fb89a2eb0a31b85bb270f7c' }
    Plug 'folke/trouble.nvim', { 'commit': '20469be985143d024c460d95326ebeff9971d714' }
-   Plug 'jose-elias-alvarez/null-ls.nvim', { 'commit': '031e839ac2a8ca1a4bc4111633a829dcae741c31' }
+   Plug 'jose-elias-alvarez/null-ls.nvim', { 'commit': '2bb7994500d7e5abcb51f067df74160fbc9e7aa3' }
    Plug 'nvim-lua/plenary.nvim', { 'commit': 'a672e11c816d4a91ef01253ba1a2567d20e08e55' }
    Plug 'davidgranstrom/nvim-markdown-preview', { 'commit': '940c856932ad81e784f16a47e24193821a8fa8fd' }
    Plug 'tpope/vim-commentary', { 'commit': '627308e30639be3e2d5402808ce18690557e8292' }
