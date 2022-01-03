@@ -332,7 +332,7 @@ For RHEL clones: ${GREEN}sudo dnf install extras/abattis-cantarell-fonts-0.111-2
 
 To install Visual Studio Code icons for the Neovim completion plugin double click the extras/codicon.ttf file in Gnome Files
 
-To install Python applications: ${GREEN}pip3 install --user youtube-dl trash-cli tldr${RESET}
+To install Python applications: ${GREEN}pip3 install --user yt-dlp gitlint trash-cli tldr${RESET}
  
 Now use the setup script...
 
