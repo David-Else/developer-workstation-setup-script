@@ -96,6 +96,7 @@ nvim_lsp.denols.setup {
 nvim_lsp.ltex.setup {
   on_attach = on_attach,
   capabilities = capabilities,
+  filetypes = { 'bib', 'markdown', 'org', 'plaintex', 'rst', 'rnoweb', 'tex', 'gitcommit' },
   settings = {
     ltex = {
       -- additionalRules = {
@@ -103,7 +104,7 @@ nvim_lsp.ltex.setup {
       -- },
       disabledRules = { ['en-US'] = { 'PROFANITY' } },
       dictionary = {
-        ['en-US'] = {},
+        ['en-US'] = { 'perf', 'ci' },
       },
     },
   },
@@ -129,6 +130,9 @@ null_ls.setup {
       extra_args = { '-i', '4' },
     },
     null_ls.builtins.diagnostics.shellcheck,
+    null_ls.builtins.diagnostics.gitlint.with {
+      extra_args = { '--contrib=contrib-title-conventional-commits', '--ignore=body-is-missing' },
+    },
     -- null_ls.builtins.diagnostics.vale,
   },
   on_attach = on_attach,
