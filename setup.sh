@@ -55,6 +55,12 @@ if [[ "${night_light}" == "true" ]]; then
 fi
 
 #==============================================================================
+# Gnome Terminal settings
+#==============================================================================
+gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ next-tab '<Primary>Tab'
+gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ prev-tab '<Primary><Shift>Tab'
+
+#==============================================================================
 # Font settings for sub-pixel rendering
 #==============================================================================
 read -p "Use sub-pixel rendering? (recommended for monitors with less than 4k resolution) " -n 1 -r
