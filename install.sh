@@ -22,6 +22,8 @@ GREEN=$(tput setaf 2)
 BOLD=$(tput bold)
 RESET=$(tput sgr0)
 BIN_INSTALL_DIR=/usr/local/bin
+PANDOC_FILTERS_DIR="$HOME/.local/share/pandoc/filters"
+
 BAT_LOCATION=sharkdp/bat/releases/download/v0.18.1/
 BAT_FILENAME=bat-v0.18.1-x86_64-unknown-linux-gnu.tar.gz
 BAT_SHA=5ccab17461d2c707dab2e917daacdabe744c8f8c1e09330c03f17b6f9a9be3d79d8a2786c5e37b1bdbdb981e9d9debfec909b4a99bf62329d6f12c1c3e8dfcb7
@@ -310,6 +312,16 @@ install_all() {
         npm install -g "${npm_global_packages_to_install[@]}"
     fi
 
+    if command -v pandoc &>/dev/null; then
+        if [ -d "$PANDOC_FILTERS_DIR" ]; then
+            echo 'Pandoc filter directory already exists, not installing any more filters'
+        else
+            echo "${BOLD}Installing pandoc filters..."
+            mkdir -p "$PANDOC_FILTERS_DIR"
+            curl https://raw.githubusercontent.com/pandoc/lua-filters/master/wordcount/wordcount.lua -o "$PANDOC_FILTERS_DIR/wordcount.lua"
+            curl https://raw.githubusercontent.com/pandoc/lua-filters/master/diagram-generator/diagram-generator.lua -o "$PANDOC_FILTERS_DIR/diagram-generator.lua"
+        fi
+    fi
     #==============================================================================
     # Enable magic SysRq key / RightAlt+PrtScn+
     #
