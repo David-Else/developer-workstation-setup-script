@@ -25,6 +25,10 @@ func Thesaur(findstart, base)
     endif
 endfunc
 
+function WordCount() abort
+    return (&filetype ==# 'markdown' ? wordcount().words : '')
+endfu
+
 function GitBranch() abort
   return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
 endfunction
@@ -237,3 +241,5 @@ set statusline+=\[%{&fileformat}\]
 set statusline+=\ %p%%
 set statusline+=\ %l:%c
 set statusline+=\ 
+set statusline+=%{WordCount()}
+
