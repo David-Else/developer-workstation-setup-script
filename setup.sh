@@ -87,12 +87,14 @@ cd - || exit
 #==============================================================================
 # Install the vale Microsoft style guide (doesn't work in install script)
 #==============================================================================
-curl -LOf https://github.com/errata-ai/Microsoft/releases/latest/download/Microsoft.zip
-unzip Microsoft.zip -d ~/Documents/styles
-rm Microsoft.zip
+if command -v vale &>/dev/null; then
+    curl -LOf https://github.com/errata-ai/Microsoft/releases/latest/download/Microsoft.zip
+    unzip Microsoft.zip -d ~/Documents/styles
+    rm Microsoft.zip
 
-# Create example dirs and settings files
-mkdir -p ~/Documents/styles/Vocab/tech-blogging && touch ~/Documents/styles/Vocab/tech-blogging/{accept.txt,reject.txt}
+    # Create example dirs and settings files
+    mkdir -p ~/Documents/styles/Vocab/tech-blogging && touch ~/Documents/styles/Vocab/tech-blogging/{accept.txt,reject.txt}
+fi
 
 #==============================================================================
 # Install pandoc filters (doesn't work in install script)
@@ -105,6 +107,9 @@ if command -v pandoc &>/dev/null; then
         mkdir -p "$PANDOC_FILTERS_DIR"
         curl https://raw.githubusercontent.com/pandoc/lua-filters/master/wordcount/wordcount.lua -o "$PANDOC_FILTERS_DIR/wordcount.lua"
         curl https://raw.githubusercontent.com/pandoc/lua-filters/master/diagram-generator/diagram-generator.lua -o "$PANDOC_FILTERS_DIR/diagram-generator.lua"
+        curl https://raw.githubusercontent.com/pandoc/lua-filters/master/pagebreak/pagebreak.lua -o "$PANDOC_FILTERS_DIR/pagebreak.lua"
+        curl https://raw.githubusercontent.com/pandoc/lua-filters/master/include-files/include-files.lua -o "$PANDOC_FILTERS_DIR/include-files.lua"
+        curl https://raw.githubusercontent.com/pandoc/lua-filters/master/include-code-files/include-code-files.lua -o "$PANDOC_FILTERS_DIR/include-code-files.lua"
     fi
 fi
 
