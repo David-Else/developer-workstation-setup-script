@@ -18,6 +18,7 @@ alias diff="diff -u --color=always" # add '| less -r' for full color output usin
 alias nnn="nnn -xe"                 # -x selection to system clipboard, -e open text in $EDITOR
 
 clip() { xclip -sel clip -rmlastnl; }
+wordcount() { pandoc --lua-filter wordcount.lua "$@"; }
 
 [ -n "$NNNLVL" ] && PS1="N$NNNLVL $PS1" # prompt you are within a shell that will return you to nnn
 export NNN_PLUG="p:addtoplaylist;f:fzcd;P:preview-tui;m:mtpmount"
