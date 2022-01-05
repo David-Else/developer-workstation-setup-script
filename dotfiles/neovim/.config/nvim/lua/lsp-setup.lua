@@ -96,7 +96,6 @@ nvim_lsp.denols.setup {
 nvim_lsp.ltex.setup {
   on_attach = on_attach,
   capabilities = capabilities,
-  filetypes = { 'bib', 'markdown', 'org', 'plaintex', 'rst', 'rnoweb', 'tex', 'gitcommit' },
   settings = {
     ltex = {
       -- additionalRules = {
