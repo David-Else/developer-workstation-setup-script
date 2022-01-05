@@ -2,6 +2,7 @@
 
 GREEN=$(tput setaf 2)
 RESET=$(tput sgr0)
+PANDOC_FILTERS_DIR="$HOME/.local/share/pandoc/filters"
 
 if [ "$(id -u)" = 0 ]; then
     echo "You're root! Run script as user" && exit 1
@@ -92,6 +93,20 @@ rm Microsoft.zip
 
 # Create example dirs and settings files
 mkdir -p ~/Documents/styles/Vocab/tech-blogging && touch ~/Documents/styles/Vocab/tech-blogging/{accept.txt,reject.txt}
+
+#==============================================================================
+# Install pandoc filters (doesn't work in install script)
+#==============================================================================
+if command -v pandoc &>/dev/null; then
+    if [ -d "$PANDOC_FILTERS_DIR" ]; then
+        echo 'Pandoc filter directory already exists, not installing any more filters'
+    else
+        echo "${BOLD}Installing pandoc filters..."
+        mkdir -p "$PANDOC_FILTERS_DIR"
+        curl https://raw.githubusercontent.com/pandoc/lua-filters/master/wordcount/wordcount.lua -o "$PANDOC_FILTERS_DIR/wordcount.lua"
+        curl https://raw.githubusercontent.com/pandoc/lua-filters/master/diagram-generator/diagram-generator.lua -o "$PANDOC_FILTERS_DIR/diagram-generator.lua"
+    fi
+fi
 
 #==============================================================================
 # Increase inotify watchers for watching large numbers of files, default is 8192
