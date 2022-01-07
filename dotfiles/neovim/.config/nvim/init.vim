@@ -152,6 +152,9 @@ nnoremap <silent><leader>gs :GFiles?<CR>
 nnoremap <silent><leader>gh :BCommits!<CR>
 nnoremap <silent><leader>rg :Rg!<CR>
 
+" if local todo exists load it, otherwise load global todo
+nnoremap <expr> <silent><leader>t filereadable('TODO.md') ? ':e TODO.md<CR>' : ':e ~/TODO.md<CR>'
+
 " escape key
 inoremap jk <Esc>
 tnoremap jk <C-\><C-n>
