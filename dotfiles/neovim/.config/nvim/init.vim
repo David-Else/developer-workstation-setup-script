@@ -62,7 +62,7 @@ call plug#begin('~/.config/nvim/plugged')
    Plug 'davidgranstrom/nvim-markdown-preview', { 'commit': '940c856932ad81e784f16a47e24193821a8fa8fd' }
    Plug 'tpope/vim-commentary', { 'commit': '627308e30639be3e2d5402808ce18690557e8292' }
 
-   Plug 'hrsh7th/nvim-cmp', { 'commit': 'eca04af4f8881013498eb7e30aae3ea04c0e552a' }
+   Plug 'hrsh7th/nvim-cmp', { 'commit': '796f925915f40d4726ed4cee4497604288fae9f7' }
    Plug 'hrsh7th/cmp-nvim-lsp', { 'commit': '134117299ff9e34adde30a735cd8ca9cf8f3db81' }
    Plug 'hrsh7th/cmp-nvim-lsp-signature-help', { 'commit': 'daa6a0c2484915e855e60eeff586860c68e59d83' }
    Plug 'hrsh7th/cmp-path', { 'commit': '4d58224e315426e5ac4c5b218ca86cab85f80c79' }
