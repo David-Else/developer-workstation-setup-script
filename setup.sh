@@ -89,11 +89,11 @@ cd - || exit
 #==============================================================================
 if command -v vale &>/dev/null; then
     curl -LOf https://github.com/errata-ai/Microsoft/releases/latest/download/Microsoft.zip
-    unzip Microsoft.zip -d ~/Documents/styles
+    unzip Microsoft.zip -d ~/styles
     rm Microsoft.zip
 
     # Create example dirs and settings files
-    mkdir -p ~/Documents/styles/Vocab/tech-blogging && touch ~/Documents/styles/Vocab/tech-blogging/{accept.txt,reject.txt}
+    mkdir -p ~/styles/Vocab/tech-blogging && touch ~/styles/Vocab/tech-blogging/{accept.txt,reject.txt}
 fi
 
 #==============================================================================
