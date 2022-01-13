@@ -1,6 +1,17 @@
 local nvim_lsp = require 'lspconfig'
 local null_ls = require 'null-ls'
 
+-- ===========================================
+--  Add user dictionary for ltex-ls
+--  * en.utf-8.add must be created using `zg`
+-- ===========================================
+local path = vim.fn.stdpath 'config' .. '/spell/en.utf-8.add'
+local words = {}
+
+for word in io.open(path, 'r'):lines() do
+  table.insert(words, word)
+end
+
 -- ==================
 --     lspconfig
 -- ==================
@@ -30,22 +41,17 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 
-  -- turn off formatting for the jsonls (use prettier)
-  if client.name == 'jsonls' then
+  -- turn off formatting for selected servers (use null-ls instead)
+  if client.name == 'jsonls' or client.name == 'tsserver' then
     client.resolved_capabilities.document_formatting = false
     client.resolved_capabilities.document_range_formatting = false
-  end
-
-  -- format on save
-  if client.resolved_capabilities.document_formatting then
-    vim.cmd 'autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()'
   end
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
-local servers = { 'bashls', 'cssls', 'html' }
+local servers = { 'bashls', 'cssls', 'html', 'tsserver' }
 for client, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -84,15 +90,22 @@ nvim_lsp.jsonls.setup {
   },
 }
 
-nvim_lsp.denols.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  init_options = {
-    config = './deno.json',
-    lint = true,
-  },
-}
+-- ==========
+--   denols
+-- ==========
+-- nvim_lsp.denols.setup {
+--   on_attach = on_attach,
+--   capabilities = capabilities,
+--   init_options = {
+--     config = './deno.json',
+--     lint = true,
+--   },
+--   root_dir = nvim_lsp.util.root_pattern('deno.json', 'deno.jsonc'),
+-- }
 
+-- ==================
+--      ltex-ls
+-- ==================
 nvim_lsp.ltex.setup {
   on_attach = on_attach,
   capabilities = capabilities,
@@ -101,9 +114,13 @@ nvim_lsp.ltex.setup {
       -- additionalRules = {
       --   languageModel = '~/ngrams/',
       -- },
-      disabledRules = { ['en-US'] = { 'PROFANITY' } },
+      disabledRules = {
+        ['en-US'] = { 'PROFANITY' },
+        ['en-GB'] = { 'PROFANITY' },
+      },
       dictionary = {
-        ['en-US'] = { 'perf', 'ci' },
+        ['en-US'] = words,
+        ['en-GB'] = words,
       },
     },
   },
@@ -112,16 +129,17 @@ nvim_lsp.ltex.setup {
 -- turn off virtual text globally
 vim.diagnostic.config { virtual_text = false }
 -- show line diagnostics in a hover window
-vim.cmd [[autocmd CursorHold * lua vim.diagnostic.open_float(nil,{focusable=false,scope="cursor"})]]
+vim.cmd [[autocmd CursorHold * lua vim.diagnostic.open_float(nil,{focus=false,scope="cursor"})]]
 
 -- ==================
 --    null-ls.nvim
 -- ==================
 null_ls.setup {
   sources = {
+    null_ls.builtins.formatting.deno_fmt,
     null_ls.builtins.formatting.prettier.with {
       disabled_filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
-    }, -- use denols instead for disabled_filetypes
+    }, -- use deno instead
     null_ls.builtins.formatting.stylua.with {
       extra_args = { '--config-path', vim.fn.expand '~/.stylua.toml' },
     },
@@ -134,5 +152,14 @@ null_ls.setup {
     },
     -- null_ls.builtins.diagnostics.vale,
   },
-  on_attach = on_attach,
+  on_attach = function(client)
+    if client.resolved_capabilities.document_formatting then
+      vim.cmd [[
+            augroup LspFormatting
+                autocmd! * <buffer>
+                autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+            augroup END
+            ]]
+    end
+  end,
 }
