@@ -48,7 +48,7 @@ endfunction
 "=================="
 call plug#begin('~/.config/nvim/plugged')
    Plug 'Mofiqul/vscode.nvim'
-   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
    Plug 'neovim/nvim-lspconfig'
 
    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -57,12 +57,12 @@ call plug#begin('~/.config/nvim/plugged')
    Plug 'kosayoda/nvim-lightbulb', { 'commit': 'cd5267d2d708e908dbd668c7de74e1325eb1e1da' }
    Plug 'folke/zen-mode.nvim', { 'commit': 'f1cc53d32b49cf962fb89a2eb0a31b85bb270f7c' }
    Plug 'folke/trouble.nvim', { 'commit': '20469be985143d024c460d95326ebeff9971d714' }
-   Plug 'jose-elias-alvarez/null-ls.nvim', { 'commit': '2bb7994500d7e5abcb51f067df74160fbc9e7aa3' }
+   Plug 'jose-elias-alvarez/null-ls.nvim', { 'commit': '288c4582f62f04944412acaed098fc16a1818464' }
    Plug 'nvim-lua/plenary.nvim', { 'commit': 'a672e11c816d4a91ef01253ba1a2567d20e08e55' }
    Plug 'davidgranstrom/nvim-markdown-preview', { 'commit': '940c856932ad81e784f16a47e24193821a8fa8fd' }
    Plug 'tpope/vim-commentary', { 'commit': '627308e30639be3e2d5402808ce18690557e8292' }
 
-   Plug 'hrsh7th/nvim-cmp', { 'commit': '796f925915f40d4726ed4cee4497604288fae9f7' }
+   Plug 'hrsh7th/nvim-cmp', { 'commit': 'ce0a3581e0fa6e3072bf06a97919d3e214ff00e6' }
    Plug 'hrsh7th/cmp-nvim-lsp', { 'commit': '134117299ff9e34adde30a735cd8ca9cf8f3db81' }
    Plug 'hrsh7th/cmp-nvim-lsp-signature-help', { 'commit': 'daa6a0c2484915e855e60eeff586860c68e59d83' }
    Plug 'hrsh7th/cmp-path', { 'commit': '4d58224e315426e5ac4c5b218ca86cab85f80c79' }
@@ -153,7 +153,7 @@ nnoremap <silent><leader>gh :BCommits!<CR>
 nnoremap <silent><leader>rg :Rg!<CR>
 
 " if local todo exists load it, otherwise load global todo
-nnoremap <expr> <silent><leader>t filereadable('TODO.md') ? ':e TODO.md<CR>' : ':e ~/TODO.md<CR>'
+nnoremap <expr> <silent><leader>t filereadable('TODO.md') ? ':e TODO.md<CR>' : ':e ~/Documents/TODO.md<CR>'
 
 " escape key
 inoremap jk <Esc>
