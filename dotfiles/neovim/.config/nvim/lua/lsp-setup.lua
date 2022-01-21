@@ -42,7 +42,7 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 
   -- turn off formatting for selected servers (use null-ls instead)
-  if client.name == 'jsonls' or client.name == 'tsserver' then
+  if client.name == 'jsonls' or client.name == 'tsserver' or client.name == 'html' then
     client.resolved_capabilities.document_formatting = false
     client.resolved_capabilities.document_range_formatting = false
   end
