@@ -14,8 +14,9 @@ export PATH
 # User specific aliases and functions
 alias ls="ls -ltha --color --group-directories-first --hyperlink=auto"
 alias tree="tree -Catr --noreport --dirsfirst --filelimit 100"
-alias diff="diff -u --color=always" # add '| less -r' for full color output using less
-alias nnn="nnn -xe"                 # -x selection to system clipboard, -e open text in $EDITOR
+alias diff="diff -u --color=always"     # add '| less -r' for full color output using less
+alias nnn="nnn -xe"                     # -x selection to system clipboard, -e open text in $EDITOR
+alias ssh='env TERM=xterm-256color ssh' # allows kitty to work with ssh
 
 clip() { xclip -sel clip -rmlastnl; }
 wordcount() { pandoc --lua-filter wordcount.lua "$@"; }
