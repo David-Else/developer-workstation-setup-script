@@ -36,4 +36,7 @@ stty werase \^H # set ctrl-backspace to delete previous word instead of ctrl-w
 if [ -f "$HOME/dotfiles/neovim/.config/nvim/plugged/fzf/shell/key-bindings.bash" ]; then
     source ~/dotfiles/neovim/.config/nvim/plugged/fzf/shell/key-bindings.bash
 fi
+
+eval "$(dircolors -b)" # needed for kitty to colorize the ls command
+
 # alias code="GTK_IM_MODULE=ibus code" # for RHEL 8 and clones
