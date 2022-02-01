@@ -272,9 +272,6 @@ install_all() {
 
     echo "${BOLD}Installing Kitty...${RESET}"
     su - "$SUDO_USER" -c "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin"
-    su - "$SUDO_USER" -c "ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/"
-    su - "$SUDO_USER" -c "cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/"
-    su - "$SUDO_USER" -c "sed -i "s | Icon=kitty | Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png | g" ~/.local/share/applications/kitty.desktop"
 
     echo "${BOLD}Installing bat...${RESET}"
     download_verify "$BAT_LOCATION" "$BAT_FILENAME" "$BAT_SHA" && install "$BAT_FILENAME" "1" "bat"
