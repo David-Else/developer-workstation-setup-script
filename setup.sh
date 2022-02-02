@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# v2
+source functions.bash
+
 GREEN=$(tput setaf 2)
 RESET=$(tput sgr0)
 PANDOC_FILTERS_DIR="$HOME/.local/share/pandoc/filters"
@@ -7,12 +10,6 @@ PANDOC_FILTERS_DIR="$HOME/.local/share/pandoc/filters"
 if [ "$(id -u)" = 0 ]; then
     echo "You're root! Run script as user" && exit 1
 fi
-
-# Call with arguments (path, line to add)
-function add_to_file() {
-    touch "$1"
-    grep -qxF "$2" "$1" && echo "$2 exists in ${GREEN}$1${RESET}" || echo "$2" >>"$1"
-}
 
 #==============================================================================
 # Set host name
