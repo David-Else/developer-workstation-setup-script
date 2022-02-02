@@ -13,7 +13,7 @@
 #
 #       AUTHOR: David Else
 #      COMPANY: https://www.elsewebdevelopment.com/
-#      VERSION: 1.0
+#      VERSION: 2.0
 #==============================================================================
 set -euo pipefail
 source /etc/os-release
