@@ -19,10 +19,8 @@
 set -euo pipefail
 source /etc/os-release
 source functions.bash
+source colors.bash
 
-GREEN=$(tput setaf 2)
-BOLD=$(tput bold)
-RESET=$(tput sgr0)
 BIN_INSTALL_DIR=/usr/local/bin
 
 BAT_LOCATION=sharkdp/bat/releases/download/v0.18.1/

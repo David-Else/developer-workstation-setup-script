@@ -1,5 +1,5 @@
 # shellcheck shell=bash
 
-green="\e[00m"
-bold="\e[1m"
-reset="\e[0m"
+GREEN="\e[00m"
+BOLD="\e[1m"
+RESET="\e[0m"

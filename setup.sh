@@ -2,9 +2,8 @@
 
 # v2
 source functions.bash
+source colors.bash
 
-GREEN=$(tput setaf 2)
-RESET=$(tput sgr0)
 PANDOC_FILTERS_DIR="$HOME/.local/share/pandoc/filters"
 
 if [ "$(id -u)" = 0 ]; then
