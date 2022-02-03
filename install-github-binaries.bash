@@ -1,5 +1,12 @@
 #!/bin/bash
-source functions.bash
+
+# ${1} version ${2} repo ${3} regex pattern
+download() {
+    gh release download --dir "$WD" "$1" --repo "$2" --pattern "$3"
+}
+
+WD="$(pwd)"
+BIN_INSTALL_DIR=/usr/local/bin
 
 PANDOC_VERSION=2.17.1.1
 SHELLCHECK_VERSION=0.8.0

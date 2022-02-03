@@ -6,10 +6,6 @@ add_to_file() {
     grep -qxF "$2" "$1" && echo "$2 exists in ${GREEN}$1${RESET}" || echo "$2" >>"$1"
 }
 
-# ${1} version ${2} repo ${3} regex pattern
-download() {
-    su - "$SUDO_USER" -c "gh release download --dir '$WD' $1 --repo $2 --pattern $3"
-}
 # ${1} filename ${2} strip ${3} newname
 install() {
     if [ -f "$BIN_INSTALL_DIR"/"$3" ]; then
