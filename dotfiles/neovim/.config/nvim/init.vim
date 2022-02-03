@@ -62,11 +62,11 @@ call plug#begin('~/.config/nvim/plugged')
    Plug 'davidgranstrom/nvim-markdown-preview', { 'commit': '940c856932ad81e784f16a47e24193821a8fa8fd' }
    Plug 'tpope/vim-commentary', { 'commit': '627308e30639be3e2d5402808ce18690557e8292' }
 
-   Plug 'hrsh7th/nvim-cmp', { 'commit': 'ce0a3581e0fa6e3072bf06a97919d3e214ff00e6' }
-   Plug 'hrsh7th/cmp-nvim-lsp', { 'commit': '134117299ff9e34adde30a735cd8ca9cf8f3db81' }
-   Plug 'hrsh7th/cmp-nvim-lsp-signature-help', { 'commit': 'daa6a0c2484915e855e60eeff586860c68e59d83' }
-   Plug 'hrsh7th/cmp-path', { 'commit': '4d58224e315426e5ac4c5b218ca86cab85f80c79' }
-   Plug 'hrsh7th/cmp-buffer', { 'commit': 'a01cfeca70594f505b2f086501e90fb6c2f2aaaa' }
+   Plug 'hrsh7th/nvim-cmp', { 'commit': 'de69c657ebbb2fa1ed918b97f27733b801ee639c' }
+   Plug 'hrsh7th/cmp-nvim-lsp', { 'commit': 'ebdfc204afb87f15ce3d3d3f5df0b8181443b5ba' }
+   Plug 'hrsh7th/cmp-nvim-lsp-signature-help', { 'commit': '47901e7ccb72cb6d2156af9bac338387f49d5a1e' }
+   Plug 'hrsh7th/cmp-path', { 'commit': '466b6b8270f7ba89abd59f402c73f63c7331ff6e' }
+   Plug 'hrsh7th/cmp-buffer', { 'commit': 'f83773e2f433a923997c5faad7ea689ec24d1785' }
    Plug 'hrsh7th/cmp-cmdline', { 'commit': '29ca81a6f0f288e6311b3377d9d9684d22eac2ec' }
 call plug#end()
 
