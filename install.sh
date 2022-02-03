@@ -29,7 +29,6 @@ WD="$(pwd)"
 source /etc/os-release
 source functions.bash
 source colors.bash
-source install-github-binaries.bash
 
 #==============================================================================
 # Packages to be installed, modified by the rest of the script depending on OS
@@ -207,9 +206,6 @@ install_all() {
 
     echo -e "${BOLD}Installing flathub packages...${RESET}"
     flatpak install -y flathub "${flathub_packages_to_install[@]}"
-
-    echo -e "${BOLD}Installing github binaries...${RESET}"
-    install_github_binaries
 
     echo -e "${BOLD}Installing Deno...${RESET}"
     su - "$SUDO_USER" -c "curl -fsSL https://deno.land/x/install/install.sh | sh"
