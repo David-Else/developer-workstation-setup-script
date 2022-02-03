@@ -125,7 +125,7 @@ echo -e "$(
 ${BOLD}Congratulations, everything is installed!${RESET}
 
 ===============================================================================
-Congratulations, you are set up! Further suggested changes are:
+Further suggested changes are:
 
 Gnome:    settings  > details > choose default applications
           network   > wired   > connect automatically
@@ -142,12 +142,6 @@ Firefox:  Preferences > Network Settings > Enable DNS over HTTPS
           (test with https://www.cloudflare.com/ssl/encrypted-sni/)
 
           Privacy & Security > HTTPS-Only Mode > Enable HTTPS-Only Mode in all windows
-
-ytfzf: Helps you find Youtube videos (without API) and opens/downloads them using mpv/youtube-dl
-------------------------------------------------------------------------------------------------
-${GREEN}git clone https://github.com/pystardust/ytfzf${RESET}
-${GREEN}cd ytfzf${RESET}
-${GREEN}sudo make install${RESET}
 
 Fix Visual Studio Code keyboard input on RHEL 8 and clones
 ------------------------------------------------------

@@ -64,4 +64,9 @@ install_github_binaries() {
 
     # remove temp files
     rm $STYLUA_FILENAME $LTEXLS_FILENAME
+
+    # install ytfzf
+    git clone https://github.com/pystardust/ytfzf
+    cd ytfzf || exit 1
+    sudo make install
 }
