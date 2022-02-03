@@ -32,7 +32,7 @@ source colors.bash
 source install-github-binaries.bash
 
 #==============================================================================
-# For RHEL and Fedora
+# Packages to be installed, modified by the rest of the script depending on OS
 #==============================================================================
 rpm_packages_to_remove=(
     cheese
@@ -76,7 +76,7 @@ npm_global_packages_to_install=(
     prettier)
 
 #==============================================================================
-# For RHEL Only
+# For RHEL Only, used only if a RHEL OS is detected
 #==============================================================================
 rhel_rpm_packages_to_remove=(
     evolution
@@ -93,7 +93,7 @@ rhel_flathub_packages_to_install=(
     org.bunkus.mkvtoolnix-gui)
 
 #==============================================================================
-# For Fedora Only
+# For Fedora Only, used only if Fedora is detected
 #==============================================================================
 fedora_rpm_packages_to_remove=(
     gnome-photos)
@@ -165,14 +165,14 @@ elif [ "$ID" == "fedora" ]; then
     rpm_packages_to_install+=("${fedora_rpm_packages_to_install[@]}")
 
 #==============================================================================
-# For Unsupported OS / RHEL or clone version <8
+# Exit if unsupported OS / RHEL or clone version <8
 #==============================================================================
 else
     echo "Unsupported OS or version" && exit 1
 fi
 
 #==============================================================================
-# Add more repositories depending if packages are chosen for RHEL and Fedora
+# Add more repositories depending if packages have been selected
 #==============================================================================
 add_repositories() {
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
