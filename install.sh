@@ -24,7 +24,6 @@ if [ "$(id -u)" != 0 ]; then
 fi
 
 BIN_INSTALL_DIR=/usr/local/bin
-WD="$(pwd)"
 
 source /etc/os-release
 source functions.bash
