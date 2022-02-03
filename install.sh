@@ -17,55 +17,23 @@
 #      VERSION: 2.0
 #==============================================================================
 set -euo pipefail
-source /etc/os-release
-source functions.bash
-source colors.bash
-
-BIN_INSTALL_DIR=/usr/local/bin
-
-BAT_LOCATION=sharkdp/bat/releases/download/v0.18.1/
-BAT_FILENAME=bat-v0.18.1-x86_64-unknown-linux-gnu.tar.gz
-BAT_SHA=5ccab17461d2c707dab2e917daacdabe744c8f8c1e09330c03f17b6f9a9be3d79d8a2786c5e37b1bdbdb981e9d9debfec909b4a99bf62329d6f12c1c3e8dfcb7
-VALE_LOCATION=errata-ai/vale/releases/download/v2.10.6/
-VALE_FILENAME=vale_2.10.6_Linux_64-bit.tar.gz
-VALE_SHA=ef622bc3b0df405f53ef864c14c2ef77122ccdef94081f7cd086504e127ebf35c3794e88cddbe37f4929ad2a55a3c7be2c8af8864cd881a89a421d438274297f
-STYLUA_LOCATION=JohnnyMorganz/StyLua/releases/download/v0.11.0/
-STYLUA_FILENAME=stylua-0.11.0-linux.zip
-STYLUA_SHA=b7cc2aea3d4fb777202e6fbae95fbe63cb34e272cba81317776d1f39a7da0e67f4dfbbd2f383deae469aeabc12372d18bc283d2323e806bc7a9d6014775b36ac
-LTEXLS_LOCATION=valentjn/ltex-ls/releases/download/15.0.0/
-LTEXLS_FILENAME=ltex-ls-15.0.0.tar.gz
-LTEXLS_SHA=76bed42397cd52a05415e107cd1163c05e13f00fa2e8d4e6c841f7f7f0fd4a67d99474dd6f86aa4ebef5d46e4cd227310badc52bc1b2c055c5aa390a9ac706a4
-NVIM_LOCATION=neovim/neovim/releases/download/v0.6.1/
-NVIM_FILENAME=nvim.appimage
-NVIM_SHA=5062c479668fd015a52195fca54cc44f50a0c19816dbd91a52398906c2afad05d80ca91b6d2f955949b1a5a846b2a36c4e9a804216376f8d5be08cfb41ead9fb
+exec 2> >(tee "error_log_$(date -Iseconds).txt")
 
 if [ "$(id -u)" != 0 ]; then
     echo "You're not root! Run script with sudo" && exit 1
 fi
 
-exec 2> >(tee "error_log_$(date -Iseconds).txt")
+BIN_INSTALL_DIR=/usr/local/bin
+WD="$(pwd)"
 
-display_user_settings_and_prompt() {
-    clear
-    cat <<EOL
-$ID $VERSION_ID detected
+source /etc/os-release
+source functions.bash
+source colors.bash
+source install-github-binaries.bash
 
-${BOLD}Packages to remove${RESET}
-${BOLD}------------------${RESET}
-RPM: ${GREEN}${rpm_packages_to_remove[*]}${RESET}
-
-${BOLD}Packages to install${RESET}
-${BOLD}-------------------${RESET}
-RPM: ${GREEN}${rpm_packages_to_install[*]}${RESET}
-
-Flathub: ${GREEN}${flathub_packages_to_install[*]}${RESET}
-
-NPM global packages: ${GREEN}${npm_global_packages_to_install[*]}${RESET}
-
-EOL
-    read -rp "Press enter to install, or ctrl+c to quit"
-}
-
+#==============================================================================
+# For RHEL and Fedora
+#==============================================================================
 rpm_packages_to_remove=(
     cheese
     gedit
@@ -108,30 +76,64 @@ npm_global_packages_to_install=(
     prettier)
 
 #==============================================================================
-# For RHEL 8 and clones (tested on 8.4)
+# For RHEL Only
+#==============================================================================
+rhel_rpm_packages_to_remove=(
+    evolution
+    firefox)
+
+rhel_rpm_packages_to_install=(
+    java-11-openjdk-headless
+    python36-devel)
+
+rhel_flathub_packages_to_install=(
+    org.mozilla.firefox
+    org.kde.krita
+    org.gnome.Shotwell
+    org.bunkus.mkvtoolnix-gui)
+
+#==============================================================================
+# For Fedora Only
+#==============================================================================
+fedora_rpm_packages_to_remove=(
+    gnome-photos)
+
+fedora_rpm_packages_to_install=(
+    krita
+    lshw
+    mkvtoolnix-gui
+    shotwell
+    xrandr
+    git-delta
+    zathura
+    zathura-bash-completion
+    zathura-pdf-mupdf)
+
+display_user_settings_and_prompt() {
+    clear
+    cat <<EOL
+$ID $VERSION_ID detected
+
+${BOLD}Packages to remove${RESET}
+${BOLD}------------------${RESET}
+RPM: ${GREEN}${rpm_packages_to_remove[*]}${RESET}
+
+${BOLD}Packages to install${RESET}
+${BOLD}-------------------${RESET}
+RPM: ${GREEN}${rpm_packages_to_install[*]}${RESET}
+
+Flathub: ${GREEN}${flathub_packages_to_install[*]}${RESET}
+
+NPM global packages: ${GREEN}${npm_global_packages_to_install[*]}${RESET}
+
+EOL
+    read -rp "Press enter to install, or ctrl+c to quit"
+}
+
+#==============================================================================
+# For RHEL only
 #==============================================================================
 if [[ ("$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "almalinux") && "${VERSION_ID%.*}" -gt 7 ]]; then
-
-    setup_redhat_packages() {
-        local rhel_rpm_packages_to_remove=(
-            evolution
-            firefox)
-
-        local rhel_rpm_packages_to_install=(
-            ntfs-3g
-            java-11-openjdk-headless
-            python36-devel)
-
-        local rhel_flathub_packages_to_install=(
-            org.mozilla.firefox
-            org.kde.krita
-            org.gnome.Shotwell
-            org.bunkus.mkvtoolnix-gui)
-
-        rpm_packages_to_remove+=("${rhel_rpm_packages_to_remove[@]}")
-        rpm_packages_to_install+=("${rhel_rpm_packages_to_install[@]}")
-        flathub_packages_to_install+=("${rhel_flathub_packages_to_install[@]}")
-    }
 
     add_redhat_repositories() {
         dnf module enable -y nodejs:16
@@ -141,72 +143,26 @@ if [[ ("$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "alm
         dnf -y config-manager --add-repo https://download.opensuse.org/repositories/home:stig124:nnn/CentOS_8/home:stig124:nnn.repo
     }
 
-    install_redhat_binaries() {
-        local PANDOC_LOCATION=jgm/pandoc/releases/download/2.15/
-        local PANDOC_FILENAME=pandoc-2.15-linux-amd64.tar.gz
-        local PANDOC_SHA=31eb03fd79da89c117c59631afaf5ea21e66ff0692a8188e92a7f42a540f807696bb7605199522d2a3a65b12b2942de802042c6e0ec9d392990461a2bccfee03
-        local SHELLCHECK_LOCATION=koalaman/shellcheck/releases/download/v0.7.2/
-        local SHELLCHECK_FILENAME=shellcheck-v0.7.2.linux.x86_64.tar.xz
-        local SHELLCHECK_SHA=067e2b8ee1910218de1e62068f7cc86ed7048e97b2a9d7c475ea29ae81c17a944376ce5c240d5c783ef3251d9bee7d7d010351958314eadd0fc88b5decfd8328
-        local SHFMT_LOCATION=mvdan/sh/releases/download/v3.4.0/
-        local SHFMT_FILENAME=shfmt_v3.4.0_linux_amd64
-        local SHFMT_SHA=6abfda1bcf3b91ec6738b6c5bbecd1b75924d4ce19f4cf42eeb621a1aa3dde419803dff22ba870e110522341b27910290f333ea15124c0f87e8094519cc9c127
-        local RIPGREP_LOCATION=BurntSushi/ripgrep/releases/download/13.0.0/
-        local RIPGREP_FILENAME=ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz
-        local RIPGREP_SHA=cdc18bd31019fc7b8509224c2f52b230be33dee36deea2e4db1ee8c78ace406c7cd182814d056f4ce65ee533290a674822432777b61c2b4bc8cc4a4ea107cfde
-
-        echo -e "${BOLD}Installing binaries for RHEL clones not available in repositories...${RESET}\n"
-
-        download_verify "$PANDOC_LOCATION" "$PANDOC_FILENAME" "$PANDOC_SHA" && install "$PANDOC_FILENAME" "2" "pandoc"
-        download_verify "$SHELLCHECK_LOCATION" "$SHELLCHECK_FILENAME" "$SHELLCHECK_SHA" && install "$SHELLCHECK_FILENAME" "1" "shellcheck"
-        download_verify "$RIPGREP_LOCATION" "$RIPGREP_FILENAME" "$RIPGREP_SHA" && install "$RIPGREP_FILENAME" "1" "rg"
-
-        download_verify "$SHFMT_LOCATION" "$SHFMT_FILENAME" "$SHFMT_SHA"
-        chmod +x $SHFMT_FILENAME
-        mv $SHFMT_FILENAME $BIN_INSTALL_DIR/shfmt
-    }
-
-    setup_redhat_packages
     display_user_settings_and_prompt
     add_redhat_repositories
-    install_redhat_binaries
+    rpm_packages_to_remove+=("${rhel_rpm_packages_to_remove[@]}")
+    rpm_packages_to_install+=("${rhel_rpm_packages_to_install[@]}")
+    flathub_packages_to_install+=("${rhel_flathub_packages_to_install[@]}")
 
     #==========================================================================
-    # For Fedora (tested on 34) * (Fedora 35 maybe Fedora Linux)
+    # For Fedora only
     #==========================================================================
 elif [ "$ID" == "fedora" ]; then
-
-    setup_fedora_packages() {
-        local fedora_rpm_packages_to_remove=(
-            gnome-photos)
-
-        local fedora_rpm_packages_to_install=(
-            ShellCheck
-            krita
-            lshw
-            mkvtoolnix-gui
-            pandoc
-            ripgrep
-            shfmt
-            shotwell
-            xrandr
-            git-delta
-            zathura
-            zathura-bash-completion
-            zathura-pdf-mupdf)
-
-        rpm_packages_to_remove+=("${fedora_rpm_packages_to_remove[@]}")
-        rpm_packages_to_install+=("${fedora_rpm_packages_to_install[@]}")
-    }
 
     add_fedora_repositories() {
         dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
         dnf -y config-manager --add-repo https://download.opensuse.org/repositories/home:stig124:nnn/Fedora_34/home:stig124:nnn.repo
     }
 
-    setup_fedora_packages
     display_user_settings_and_prompt
     add_fedora_repositories
+    rpm_packages_to_remove+=("${fedora_rpm_packages_to_remove[@]}")
+    rpm_packages_to_install+=("${fedora_rpm_packages_to_install[@]}")
 
 #==============================================================================
 # For Unsupported OS / RHEL or clone version <8
@@ -216,7 +172,7 @@ else
 fi
 
 #==============================================================================
-# For all supported OS
+# Add more repositories depending if packages are chosen for RHEL and Fedora
 #==============================================================================
 add_repositories() {
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -236,6 +192,9 @@ add_repositories() {
     esac
 }
 
+#==============================================================================
+# Remove unwanted programs, update system and install everything
+#==============================================================================
 install_all() {
     echo "${BOLD}Removing unwanted programs...${RESET}"
     dnf -y remove "${rpm_packages_to_remove[@]}"
@@ -249,37 +208,16 @@ install_all() {
     echo "${BOLD}Installing flathub packages...${RESET}"
     flatpak install -y flathub "${flathub_packages_to_install[@]}"
 
+    echo "${BOLD}Installing github binaries...${RESET}"
+    install_github_binaries
+
     echo "${BOLD}Installing Deno...${RESET}"
     su - "$SUDO_USER" -c "curl -fsSL https://deno.land/x/install/install.sh | sh"
 
     echo "${BOLD}Installing Kitty...${RESET}"
     su - "$SUDO_USER" -c "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin"
 
-    echo "${BOLD}Installing bat...${RESET}"
-    download_verify "$BAT_LOCATION" "$BAT_FILENAME" "$BAT_SHA" && install "$BAT_FILENAME" "1" "bat"
-
-    echo "${BOLD}Installing Vale...${RESET}"
-    download_verify "$VALE_LOCATION" "$VALE_FILENAME" "$VALE_SHA"
-    tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $VALE_FILENAME --no-anchored 'vale'
-    rm $VALE_FILENAME
-
-    echo "${BOLD}Installing Stylua...${RESET}"
-    download_verify $STYLUA_LOCATION $STYLUA_FILENAME $STYLUA_SHA
-    unzip -d $BIN_INSTALL_DIR $STYLUA_FILENAME
-    chmod +x "$BIN_INSTALL_DIR/stylua"
-    rm $STYLUA_FILENAME
-
-    echo "${BOLD}Installing Ltex-ls...${RESET}"
-    download_verify "$LTEXLS_LOCATION" "$LTEXLS_FILENAME" "$LTEXLS_SHA"
-    tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored 'bin' --strip=1
-    tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored 'lib' --strip=1
-    ln -s $BIN_INSTALL_DIR/bin/ltex-ls $BIN_INSTALL_DIR/ltex-ls
-    rm $LTEXLS_FILENAME
-
-    echo "${BOLD}Installing Neovim stable appimage and vim-plug...${RESET}"
-    download_verify "$NVIM_LOCATION" "$NVIM_FILENAME" "$NVIM_SHA"
-    chmod +x $NVIM_FILENAME
-    mv $NVIM_FILENAME $BIN_INSTALL_DIR/nvim
+    # Install neoplug
     su - "$SUDO_USER" -c "curl -fLo /home/$SUDO_USER/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
     echo "${BOLD}Installing nnn terminal file manager plugins...${RESET}"

@@ -6,14 +6,15 @@ add_to_file() {
     grep -qxF "$2" "$1" && echo "$2 exists in ${GREEN}$1${RESET}" || echo "$2" >>"$1"
 }
 
-# Call with arguments (${1} location,${2} filename,${3} sha)
-download_verify() {
-    curl -LOf "https://github.com/${1}${2}"
-    echo "${3} ./${2}" | sha512sum --check
+# ${1} version ${2} repo ${3} regex pattern
+download() {
+    su - "$SUDO_USER" -c "gh release download --dir '$WD' $1 --repo $2 --pattern $3"
 }
-
-# Call with arguments (${1} filename,${2} strip,${3} newname)
+# ${1} filename ${2} strip ${3} newname
 install() {
-    tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf "${1}" --no-anchored "${3}" --strip="${2}"
+    if [ -f "$BIN_INSTALL_DIR"/"$3" ]; then
+        echo -e "\e[00;32m$3\e[00m was previously installed, updating file..."
+    fi
+    tar --no-same-owner -C "$BIN_INSTALL_DIR"/ -xf "${1}" --no-anchored "${3}" --strip="${2}"
     rm "${1}"
 }
