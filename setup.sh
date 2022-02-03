@@ -99,7 +99,7 @@ if command -v pandoc &>/dev/null; then
     if [ -d "$PANDOC_FILTERS_DIR" ]; then
         echo 'Pandoc filter directory already exists, not installing any more filters'
     else
-        echo "${BOLD}Installing pandoc filters..."
+        echo -e "${BOLD}Installing pandoc filters..."
         mkdir -p "$PANDOC_FILTERS_DIR"
         curl https://raw.githubusercontent.com/pandoc/lua-filters/master/wordcount/wordcount.lua -o "$PANDOC_FILTERS_DIR/wordcount.lua"
         curl https://raw.githubusercontent.com/pandoc/lua-filters/master/diagram-generator/diagram-generator.lua -o "$PANDOC_FILTERS_DIR/diagram-generator.lua"
@@ -119,7 +119,10 @@ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo s
 # Create directory for neovim plugins
 mkdir -p "$HOME"/.config/nvim/plugged
 
-cat <<EOL
+echo -e "$(
+    cat <<EOL
+
+${BOLD}Congratulations, everything is installed!${RESET}
 
 ===============================================================================
 Congratulations, you are set up! Further suggested changes are:
@@ -182,4 +185,6 @@ Add to ~/.gitconfig for better git diffs
 
 Please reboot (or things may not work as expected)
 ===============================================================================
+
 EOL
+)"
