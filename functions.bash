@@ -14,3 +14,9 @@ install() {
     tar --no-same-owner -C "$BIN_INSTALL_DIR"/ -xf "${1}" --no-anchored "${3}" --strip="${2}"
     rm "${1}"
 }
+
+check_root() {
+    if [ "$(id -u)" != 0 ]; then
+        echo "You're not root! Run script with sudo" && exit 1
+    fi
+}
