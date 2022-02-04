@@ -219,12 +219,6 @@ install_all() {
     echo -e "${BOLD}Installing nnn terminal file manager plugins...${RESET}"
     su - "$SUDO_USER" -c "curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh"
 
-    if command -v mpv &>/dev/null; then
-        echo -e "${BOLD}Installing umpv script for additional MPV functionality...${RESET}"
-        curl https://raw.githubusercontent.com/mpv-player/mpv/master/TOOLS/umpv -o "$BIN_INSTALL_DIR/umpv"
-        chmod +x "$BIN_INSTALL_DIR/umpv"
-    fi
-
     if command -v node &>/dev/null; then
         echo -e "${BOLD}Installing NPM global packages..."
         npm install -g "${npm_global_packages_to_install[@]}"
