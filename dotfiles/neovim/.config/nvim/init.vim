@@ -38,11 +38,6 @@ function StatuslineGit() abort
   return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
 endfunction
 
-function GitCommit() abort
-  let message = input('Enter commit message: ')
-  call system("git commit -m '" . message . "'")
-endfunction
-
 "=================="
 "     Plugins      "
 "=================="
@@ -213,13 +208,6 @@ nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
-
-" git
-nnoremap <leader>ga :!git add %<CR>
-nnoremap <leader>gr :!git reset %<CR>
-nnoremap <leader>gc :call GitCommit()<CR>
-" nnoremap <silent><leader>gc :vsplit<bar>:term git commit<CR>
-nnoremap <leader>gp :!git push<CR>
 
 " disable accidentally pressing ctrl-z and suspending
 nnoremap <c-z> <Nop>

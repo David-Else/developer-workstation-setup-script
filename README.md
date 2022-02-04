@@ -142,10 +142,10 @@ alt h/j/k/l = navigate windows              K         = displays hover informati
 <leader>w  = toggle whitespaces             <space>f  = format
 <leader>z  = toggle zen mode                <space>rn = rename all symbol references
                                             <space>ca = selects a code action
-<leader>ga = git add current file           <space>e  = show diagnostics from line
-<leader>gr = git reset current file         <space>q  = sets the location list
-<leader>gc = git commit                     [d        = move to previous diagnostic
-<leader>gp = git push                       ]d        = move to next diagnostic
+                                            <space>e  = show diagnostics from line
+                                            <space>q  = sets the location list
+                                            [d        = move to previous diagnostic
+                                            ]d        = move to next diagnostic
 
 
 fzf.vim                                     Tree-sitter
