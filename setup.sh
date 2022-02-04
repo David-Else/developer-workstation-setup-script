@@ -125,8 +125,7 @@ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo s
 # Create directory for neovim plugins
 mkdir -p "$HOME"/.config/nvim/plugged
 
-echo -e "$(
-    cat <<EOL
+display_text "
 
 ${BOLD}Congratulations, everything is installed!${RESET}
 
@@ -170,16 +169,6 @@ Create/update Deno completions
 ${GREEN}deno completions bash > deno.sh${RESET}
 ${GREEN}sudo mv deno.sh /etc/profile.d${RESET}
 
-Add to ~/.gitconfig for better git diffs
-----------------------------------------
-[delta]
-    syntax-theme = Visual Studio Dark+
-    side-by-side = true
-    line-numbers-left-format = ""
-    line-numbers-right-format = "│ "
-
 Please reboot (or things may not work as expected)
 ===============================================================================
-
-EOL
-)"
+"

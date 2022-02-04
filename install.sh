@@ -108,10 +108,11 @@ fedora_rpm_packages_to_install=(
 #==============================================================================
 # Display user settings
 #==============================================================================
+
 display_user_settings_and_prompt() {
     clear
-    echo -e "$(
-        cat <<EOL
+    display_text "
+
 $ID $VERSION_ID detected
 
 ${BOLD}Packages to remove${RESET}
@@ -125,10 +126,7 @@ RPM: ${GREEN}${rpm_packages_to_install[*]}${RESET}
 Flathub: ${GREEN}${flathub_packages_to_install[*]}${RESET}
 
 NPM global packages: ${GREEN}${npm_global_packages_to_install[*]}${RESET}
-
-
-EOL
-    )"
+"
 
     read -rp "Press enter to install, or ctrl+c to quit"
 }
@@ -245,8 +243,7 @@ display_user_settings_and_prompt
 add_conditional_repositories
 install_all
 
-echo -e "$(
-    cat <<EOL
+display_text "
 
 ${BOLD}Congratulations, everything is installed!${RESET}
 
@@ -257,7 +254,4 @@ To install Visual Studio Code icons for the Neovim completion plugin double clic
 To install Python applications: ${GREEN}pip3 install --user yt-dlp gitlint trash-cli tldr${RESET}
  
 Now use the setup script...
-
-EOL
-
-)"
+"

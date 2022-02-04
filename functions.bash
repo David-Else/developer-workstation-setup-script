@@ -47,3 +47,14 @@ detect_os() {
         OS='valid_fedora'
     fi
 }
+
+#==============================================================================
+# Display a block of text with color ANSI escape codes
+#==============================================================================
+display_text() {
+    echo -e "$(
+        cat <<EOL
+        ${1}
+EOL
+    )"
+}
