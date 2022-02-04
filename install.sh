@@ -19,15 +19,13 @@
 set -euo pipefail
 exec 2> >(tee "error_log_$(date -Iseconds).txt")
 
-if [ "$(id -u)" != 0 ]; then
-    echo "You're not root! Run script with sudo" && exit 1
-fi
+check_root
 
 BIN_INSTALL_DIR=/usr/local/bin
 
-source /etc/os-release
 source functions.bash
 source colors.bash
+source /etc/os-release
 
 #==============================================================================
 # Packages to be installed, modified by the rest of the script depending on OS
@@ -107,6 +105,9 @@ fedora_rpm_packages_to_install=(
     zathura-bash-completion
     zathura-pdf-mupdf)
 
+#==============================================================================
+# Display user settings
+#==============================================================================
 display_user_settings_and_prompt() {
     clear
     cat <<EOL
@@ -131,7 +132,9 @@ EOL
 #==============================================================================
 # For RHEL only
 #==============================================================================
-if [[ ("$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "almalinux") && "${VERSION_ID%.*}" -gt 7 ]]; then
+detect_os
+
+if [[ "$OS" == "valid_rhel" ]]; then
 
     add_redhat_repositories() {
         dnf module enable -y nodejs:16
@@ -150,7 +153,7 @@ if [[ ("$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "alm
     #==========================================================================
     # For Fedora only
     #==========================================================================
-elif [ "$ID" == "fedora" ]; then
+elif [ "$OS" == "valid_fedora" ]; then
 
     add_fedora_repositories() {
         dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
