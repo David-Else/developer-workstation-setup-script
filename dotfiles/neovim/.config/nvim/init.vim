@@ -87,7 +87,6 @@ set expandtab               " use appropriate number of spaces to insert a <Tab>
 set shiftwidth=2            " spaces inserted for indentation
 set ssop-=options           " don't store global and local values in a session
 set termguicolors           " use true color
-set title                   " change terminal title to name of file
 set signcolumn=yes          " add gutter space for LSP info on left
 set updatetime=100          " increased so LSP code actions appear faster
 set completeopt=menu,menuone,noselect " options for insert mode completion
