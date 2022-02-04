@@ -144,7 +144,6 @@ if [[ "$OS" == "valid_rhel" ]]; then
         dnf -y config-manager --add-repo https://download.opensuse.org/repositories/home:stig124:nnn/CentOS_8/home:stig124:nnn.repo
     }
 
-    display_user_settings_and_prompt
     add_redhat_repositories
     rpm_packages_to_remove+=("${rhel_rpm_packages_to_remove[@]}")
     rpm_packages_to_install+=("${rhel_rpm_packages_to_install[@]}")
@@ -160,7 +159,6 @@ elif [ "$OS" == "valid_fedora" ]; then
         dnf -y config-manager --add-repo https://download.opensuse.org/repositories/home:stig124:nnn/Fedora_34/home:stig124:nnn.repo
     }
 
-    display_user_settings_and_prompt
     add_fedora_repositories
     rpm_packages_to_remove+=("${fedora_rpm_packages_to_remove[@]}")
     rpm_packages_to_install+=("${fedora_rpm_packages_to_install[@]}")
@@ -175,7 +173,7 @@ fi
 #==============================================================================
 # Add more repositories depending if packages have been selected
 #==============================================================================
-add_repositories() {
+add_conditional_repositories() {
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
     # spaces around strings ensure something like 'notnode' could not trigger 'nodejs' using [*]
@@ -245,7 +243,8 @@ install_all() {
     add_to_file "/etc/sysctl.d/90-sysrq.conf" "kernel.sysrq = 1"
 }
 
-add_repositories
+display_user_settings_and_prompt
+add_conditional_repositories
 install_all
 
 echo -e "$(

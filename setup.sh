@@ -1,19 +1,37 @@
 #!/bin/bash
 
 # v2
-source functions.bash
-source colors.bash
-
-PANDOC_FILTERS_DIR="$HOME/.local/share/pandoc/filters"
 
 if [ "$(id -u)" = 0 ]; then
     echo "You're root! Run script as user" && exit 1
 fi
 
+source functions.bash
+source colors.bash
+
+PANDOC_FILTERS_DIR="$HOME/.local/share/pandoc/filters"
+
+idle_delay=2400
+title_bar_buttons_on="true"
+clock_show_date="true"
+capslock_delete="true"
+night_light="true"
+
+detect_os
+clear
+
+#==============================================================================
+# Improve pulse audio on RHEL clones, not needed on Fedora that uses pipewire
+#==============================================================================
+if [[ "$OS" == "valid_rhel" ]]; then
+    sudo sed -i "s/; default-sample-format = s16le/default-sample-format = s32le/g" /etc/pulse/daemon.conf
+    sudo sed -i "s/; resample-method = speex-float-1/resample-method = speex-float-10/g" /etc/pulse/daemon.conf
+    sudo sed -i "s/; avoid-resampling = false/avoid-resampling = true/g" /etc/pulse/daemon.conf
+fi
+
 #==============================================================================
 # Set host name
 #==============================================================================
-clear
 read -rp "What is this computer's name? [$HOSTNAME] " hostname
 if [[ ! -z "$hostname" ]]; then
     hostnamectl set-hostname "$hostname"
@@ -22,12 +40,6 @@ fi
 #==============================================================================
 # Gnome desktop settings
 #==============================================================================
-idle_delay=2400
-title_bar_buttons_on="true"
-clock_show_date="true"
-capslock_delete="true"
-night_light="true"
-
 gsettings set org.gnome.desktop.session \
     idle-delay $idle_delay
 
@@ -50,12 +62,6 @@ if [[ "${night_light}" == "true" ]]; then
     gsettings set org.gnome.settings-daemon.plugins.color \
         night-light-enabled true
 fi
-
-#==============================================================================
-# Gnome Terminal settings
-#==============================================================================
-gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ next-tab '<Primary>Tab'
-gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ prev-tab '<Primary><Shift>Tab'
 
 #==============================================================================
 # Font settings for sub-pixel rendering
@@ -150,12 +156,6 @@ Fix Visual Studio Code keyboard input on RHEL 8 and clones
 - Go to Emoji tab, press the '...' next to Emoji choice to get 'select keyboard shortcut for switching' window
 - Use the delete button to delete the shortcut and leave nothing there, press OK
 - Close
-
-Improve audio on RHEL 8 and clones (not needed with Fedora 34 and pipewire)
----------------------------------------------------------------------------
-${GREEN}sudo sed -i "s/; default-sample-format = s16le/default-sample-format = s32le/g" /etc/pulse/daemon.conf${RESET}
-${GREEN}sudo sed -i "s/; resample-method = speex-float-1/resample-method = speex-float-10/g" /etc/pulse/daemon.conf${RESET}
-${GREEN}sudo sed -i "s/; avoid-resampling = false/avoid-resampling = true/g" /etc/pulse/daemon.conf${RESET}
 
 Setup Neovim desktop, icons and vale 
 ------------------------------------
