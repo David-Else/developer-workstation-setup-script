@@ -19,13 +19,13 @@
 set -euo pipefail
 exec 2> >(tee "error_log_$(date -Iseconds).txt")
 
-check_root
-
 BIN_INSTALL_DIR=/usr/local/bin
 
 source functions.bash
 source colors.bash
 source /etc/os-release
+
+check_root
 
 #==============================================================================
 # Packages to be installed, modified by the rest of the script depending on OS
@@ -110,7 +110,8 @@ fedora_rpm_packages_to_install=(
 #==============================================================================
 display_user_settings_and_prompt() {
     clear
-    cat <<EOL
+    echo -e "$(
+        cat <<EOL
 $ID $VERSION_ID detected
 
 ${BOLD}Packages to remove${RESET}
@@ -125,7 +126,10 @@ Flathub: ${GREEN}${flathub_packages_to_install[*]}${RESET}
 
 NPM global packages: ${GREEN}${npm_global_packages_to_install[*]}${RESET}
 
+
 EOL
+    )"
+
     read -rp "Press enter to install, or ctrl+c to quit"
 }
 
