@@ -11,8 +11,8 @@ add_to_file() {
 # ${1} filename ${2} strip ${3} newname
 install() {
     if [ -f "$BIN_INSTALL_DIR"/"$3" ]; then
-        echo -e "\e[00;32m$3\e[00m was previously installed"
-        read -p "Would you like to keep the existing version? " -n 1 -r
+        echo -e "${GREEN}$3${RESET} was previously installed"
+        read -p "Would you like to keep the existing version? " -n 1 -r && echo
         if [[ $REPLY =~ ^[Yy]$ ]]; then
             return
         fi

@@ -1,4 +1,6 @@
 #!/bin/bash
+set -euo pipefail
+
 source colors.bash
 source functions.bash
 
@@ -62,25 +64,31 @@ chmod +x "$BIN_INSTALL_DIR/stylua"
 # install ltex-ls
 tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored 'bin' --strip=1
 tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored 'lib' --strip=1
-ln -s $BIN_INSTALL_DIR/bin/ltex-ls $BIN_INSTALL_DIR/ltex-ls
+
+if [ ! -f "$BIN_INSTALL_DIR/bin/ltex-ls" ]; then
+    ln -s $BIN_INSTALL_DIR/bin/ltex-ls $BIN_INSTALL_DIR/ltex-ls
+fi
 
 # install neovim and vimplug
-# WORKS su - "$SUDO_USER" -c "curl -fLo /home/$SUDO_USER/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 chmod +x $NVIM_FILENAME
 mv $NVIM_FILENAME $BIN_INSTALL_DIR/nvim
-curl -fLo /home/"$SUDO_USER"/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-mkdir -p /home/"$SUDO_USER"/.config/nvim/plugged
-xdg-desktop-menu install --novendor "${WD}"/nvim.desktop
-xdg-icon-resource install --novendor --mode user --size 64 "${WD}"/nvim.png
+su - "$SUDO_USER" -c "mkdir -p /home/$SUDO_USER/.config/nvim/plugged"
+su - "$SUDO_USER" -c "curl -fLo /home/$SUDO_USER/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+su - "$SUDO_USER" -c "xdg-desktop-menu install --novendor ${WD}/nvim.desktop"
+su - "$SUDO_USER" -c "xdg-icon-resource install --novendor --mode user --size 64 ${WD}/nvim.png"
 
 # install shfmt
 chmod +x $SHFMT_FILENAME
 mv $SHFMT_FILENAME $BIN_INSTALL_DIR/shfmt
 
 # remove temp files
-rm $STYLUA_FILENAME $LTEXLS_FILENAME
+rm $PANDOC_FILENAME $SHELLCHECK_FILENAME $RIPGREP_FILENAME $BAT_FILENAME $VALE_FILENAME $DELTA_FILENAME $STYLUA_FILENAME $LTEXLS_FILENAME
 
 # install ytfzf
 git clone https://github.com/pystardust/ytfzf
 cd ytfzf || exit 1
 make install doc
+cd ..
+rm -rf ./ytfzf
+
+echo "Finished!"
