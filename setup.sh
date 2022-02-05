@@ -153,10 +153,8 @@ Fix Visual Studio Code keyboard input on RHEL 8 and clones
 - Use the delete button to delete the shortcut and leave nothing there, press OK
 - Close
 
-Setup Neovim desktop, icons and vale 
+Setup fzf and vale 
 ------------------------------------
-${GREEN}xdg-desktop-menu install --novendor ./nvim.desktop${RESET}
-${GREEN}xdg-icon-resource install --novendor --mode user --size 64 ./nvim.png${RESET}
 ${GREEN}sudo ln -s ~/.config/nvim/plugged/fzf/bin/fzf /usr/local/bin${RESET}
 
 change the ~/.vale.ini StylesPath = to the full path of your home directory, relative doesn't work, I couldn't use ~!
