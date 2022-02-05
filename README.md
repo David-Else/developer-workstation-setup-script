@@ -66,7 +66,7 @@ cd developer-workstation-setup-script
 
 You will want to look at the installation script and modify it with your own preferences. This has been made as easy as possible, and should be self-explanatory.
 
-The following arrays in `install.sh` contain all the packages that are common to Fedora and RHEL clones:
+The following arrays in `install.sh` contain all the packages that are common to Fedora and RHEL clones. They are set at the start of the script:
 
 ```bash
 rpm_packages_to_remove=()
@@ -75,27 +75,34 @@ flathub_packages_to_install=()
 npm_global_packages_to_install=()
 ```
 
-These arrays are global and are modified depending on if you have installed Fedora or a RHEL clone. Inside the `if then` conditional you can add and remove packages specifically for each operating system:
+Inside a `if then` conditional these arrays are modified depending on if you have installed Fedora or a RHEL clone.
 
 ```bash
-if [[ ("$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "almalinux") && "${VERSION_ID%.*}" -gt 7 ]]; then
+detect_os
 
-    setup_redhat_packages() {
-        local rhel_rpm_packages_to_remove=()
-        local rhel_rpm_packages_to_install=()
-        local rhel_flathub_packages_to_install=()
-    }
+if [[ "$OS" == "valid_rhel" ]]; then
 
-elif [ "$ID" == "fedora" ]; then
+    add_redhat_repositories() {}
 
-    setup_fedora_packages() {
-        local fedora_rpm_packages_to_remove=()
-        local fedora_rpm_packages_to_install=()
-    }
+    add_redhat_repositories
+    rpm_packages_to_remove+=("${rhel_rpm_packages_to_remove[@]}")
+    rpm_packages_to_install+=("${rhel_rpm_packages_to_install[@]}")
+    flathub_packages_to_install+=("${rhel_flathub_packages_to_install[@]}")
+
+elif [ "$OS" == "valid_fedora" ]; then
+
+    add_fedora_repositories() {}
+
+    add_fedora_repositories
+    rpm_packages_to_remove+=("${fedora_rpm_packages_to_remove[@]}")
+    rpm_packages_to_install+=("${fedora_rpm_packages_to_install[@]}")
+
+else
+    echo "Unsupported OS or version" && exit 1
 fi
 ```
 
-Repos can be added conditionally, so if the package is not required then the repo is not installed:
+Repos can be added conditionally for all OSes, so if the package is not required then the repo is not installed:
 
 ```bash
     case " ${rpm_packages_to_install[*]} " in
@@ -117,6 +124,7 @@ Repos can be added conditionally, so if the package is not required then the rep
 ```
 sudo ./install.sh
 ./setup.sh
+sudo ./install-github-binaries.bash
 ```
 
 **ENJOY!**
