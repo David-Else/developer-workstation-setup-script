@@ -65,13 +65,13 @@ tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored 'lib
 ln -s $BIN_INSTALL_DIR/bin/ltex-ls $BIN_INSTALL_DIR/ltex-ls
 
 # install neovim and vimplug
+# WORKS su - "$SUDO_USER" -c "curl -fLo /home/$SUDO_USER/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 chmod +x $NVIM_FILENAME
 mv $NVIM_FILENAME $BIN_INSTALL_DIR/nvim
-mkdir -p /home/"$SUDO_USER"/.config/nvim/plugged
-# WORKS su - "$SUDO_USER" -c "curl -fLo /home/$SUDO_USER/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 curl -fLo /home/"$SUDO_USER"/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-# MAKE WORK xdg-desktop-menu install --novendor ./nvim.desktop
-# MAKE WORK xdg-icon-resource install --novendor --mode user --size 64 ./nvim.png
+mkdir -p /home/"$SUDO_USER"/.config/nvim/plugged
+xdg-desktop-menu install --novendor "${WD}"/nvim.desktop
+xdg-icon-resource install --novendor --mode user --size 64 "${WD}"/nvim.png
 
 # install shfmt
 chmod +x $SHFMT_FILENAME
