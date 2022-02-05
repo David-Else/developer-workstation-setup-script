@@ -67,7 +67,9 @@ ln -s $BIN_INSTALL_DIR/bin/ltex-ls $BIN_INSTALL_DIR/ltex-ls
 # install neovim and vimplug
 chmod +x $NVIM_FILENAME
 mv $NVIM_FILENAME $BIN_INSTALL_DIR/nvim
-su - "$SUDO_USER" -c "curl -fLo /home/$SUDO_USER/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+mkdir -p /home/"$SUDO_USER"/.config/nvim/plugged
+# su - "$SUDO_USER" -c "curl -fLo /home/$SUDO_USER/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+curl -fLo /home/"$SUDO_USER"/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # install shfmt
 chmod +x $SHFMT_FILENAME

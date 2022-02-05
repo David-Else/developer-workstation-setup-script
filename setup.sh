@@ -122,9 +122,6 @@ fi
 #==============================================================================
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
-# Create directory for neovim plugins
-mkdir -p "$HOME"/.config/nvim/plugged
-
 display_text "
 
 ${BOLD}Congratulations, everything is installed!${RESET}
