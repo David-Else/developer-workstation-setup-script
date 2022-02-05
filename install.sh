@@ -102,6 +102,8 @@ fedora_rpm_packages_to_install=(
     zathura-bash-completion
     zathura-pdf-mupdf)
 
+fedora_flathub_packages_to_install=()
+
 #==============================================================================
 # Display user settings
 #==============================================================================
@@ -161,6 +163,7 @@ elif [ "$OS" == "valid_fedora" ]; then
     add_fedora_repositories
     rpm_packages_to_remove+=("${fedora_rpm_packages_to_remove[@]}")
     rpm_packages_to_install+=("${fedora_rpm_packages_to_install[@]}")
+    flathub_packages_to_install+=("${fedora_flathub_packages_to_install[@]}")
 
 #==============================================================================
 # Exit if unsupported OS / RHEL or clone version <8
