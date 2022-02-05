@@ -2,6 +2,8 @@
 
 # v2
 
+set -eo pipefail
+
 if [ "$(id -u)" = 0 ]; then
     echo "You're root! Run script as user" && exit 1
 fi
@@ -77,7 +79,7 @@ fi
 #==============================================================================
 # Move dotfiles to the home directory, backup existing files and run stow
 #==============================================================================
-mv ./dotfiles ~/dotfiles
+cp ./dotfiles ~/dotfiles
 
 mv "$HOME/.bash_profile" "$HOME/.bash_profile_backup"
 mv "$HOME/.bashrc" "$HOME/.bashrc_backup"
