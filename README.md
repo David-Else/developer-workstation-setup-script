@@ -123,8 +123,8 @@ Repos can be added conditionally for all OSes, so if the package is not required
 
 ```
 sudo ./install.sh
-./setup.sh
 sudo ./install-github-binaries.bash
+./setup.sh
 ```
 
 **ENJOY!**
