@@ -2,7 +2,7 @@
 source colors.bash
 source functions.bash
 
-check_root
+check_user_is_root
 
 # ${1} version ${2} repo ${3} regex pattern
 download() {
@@ -64,9 +64,10 @@ tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored 'bin
 tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored 'lib' --strip=1
 ln -s $BIN_INSTALL_DIR/bin/ltex-ls $BIN_INSTALL_DIR/ltex-ls
 
-# install neovim
+# install neovim and vimplug
 chmod +x $NVIM_FILENAME
 mv $NVIM_FILENAME $BIN_INSTALL_DIR/nvim
+su - "$SUDO_USER" -c "curl -fLo /home/$SUDO_USER/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
 # install shfmt
 chmod +x $SHFMT_FILENAME

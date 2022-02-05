@@ -25,7 +25,7 @@ source functions.bash
 source colors.bash
 source /etc/os-release
 
-check_root
+check_user_is_root
 
 #==============================================================================
 # Packages to be installed, modified by the rest of the script depending on OS
@@ -55,7 +55,6 @@ rpm_packages_to_install=(
     nodejs
     optipng
     podman
-    podman-docker
     stow
     thunderbird
     transmission-gtk
@@ -68,7 +67,6 @@ flathub_packages_to_install=(
 npm_global_packages_to_install=(
     vscode-langservers-extracted
     bash-language-server
-    live-server
     prettier)
 
 #==============================================================================
@@ -100,7 +98,6 @@ fedora_rpm_packages_to_install=(
     mkvtoolnix-gui
     shotwell
     xrandr
-    git-delta
     zathura
     zathura-bash-completion
     zathura-pdf-mupdf)
@@ -127,15 +124,15 @@ Flathub: ${GREEN}${flathub_packages_to_install[*]}${RESET}
 
 NPM global packages: ${GREEN}${npm_global_packages_to_install[*]}${RESET}
 "
-
+    echo
     read -rp "Press enter to install, or ctrl+c to quit"
 }
+
+detect_os
 
 #==============================================================================
 # For RHEL only
 #==============================================================================
-detect_os
-
 if [[ "$OS" == "valid_rhel" ]]; then
 
     add_redhat_repositories() {
@@ -214,9 +211,6 @@ install_all() {
 
     echo -e "${BOLD}Installing Kitty...${RESET}"
     su - "$SUDO_USER" -c "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin"
-
-    # Install neoplug
-    su - "$SUDO_USER" -c "curl -fLo /home/$SUDO_USER/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
     echo -e "${BOLD}Installing nnn terminal file manager plugins...${RESET}"
     su - "$SUDO_USER" -c "curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh"
