@@ -37,6 +37,12 @@ LTEXLS_FILENAME=ltex-ls-${LTEXLS_VERSION}.tar.gz
 NVIM_FILENAME=nvim.appimage
 DELTA_FILENAME=delta-${DELTA_VERSION}-x86_64-unknown-linux-gnu.tar.gz
 
+# print all the programs to install and ask for confirmation
+clear
+compgen -A variable -X '!*_FILENAME*' |
+    while read line; do echo -e "${line/\_FILENAME/} ${GREEN}${!line}${RESET}"; done
+read -rp $'\nPress enter to install, or ctrl+c to quit'
+
 echo -e "${BOLD}Installing GitHub binaries${RESET}"
 
 download $PANDOC_VERSION jgm/pandoc "*linux-amd64.tar.gz"
@@ -71,7 +77,7 @@ fi
 
 # install neovim and vimplug
 chmod +x $NVIM_FILENAME
-mv $NVIM_FILENAME $BIN_INSTALL_DIR/nvim
+cp -i $NVIM_FILENAME $BIN_INSTALL_DIR/nvim
 su - "$SUDO_USER" -c "mkdir -p /home/$SUDO_USER/.config/nvim/plugged"
 su - "$SUDO_USER" -c "curl -fLo /home/$SUDO_USER/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 su - "$SUDO_USER" -c "xdg-desktop-menu install --novendor ${WD}/nvim.desktop"
@@ -79,10 +85,10 @@ su - "$SUDO_USER" -c "xdg-icon-resource install --novendor --mode user --size 64
 
 # install shfmt
 chmod +x $SHFMT_FILENAME
-mv $SHFMT_FILENAME $BIN_INSTALL_DIR/shfmt
+cp -i $SHFMT_FILENAME $BIN_INSTALL_DIR/shfmt
 
 # remove temp files
-rm $PANDOC_FILENAME $SHELLCHECK_FILENAME $RIPGREP_FILENAME $BAT_FILENAME $VALE_FILENAME $DELTA_FILENAME $STYLUA_FILENAME $LTEXLS_FILENAME
+compgen -A variable -X '!*_FILENAME*' | while read line; do rm "${!line}"; done
 
 # install ytfzf
 git clone https://github.com/pystardust/ytfzf
@@ -91,4 +97,4 @@ make install doc
 cd ..
 rm -rf ./ytfzf
 
-echo "Finished!"
+echo -e "\n${BOLD}Finished!${RESET}"
