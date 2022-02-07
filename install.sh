@@ -24,7 +24,7 @@ source functions.bash
 source colors.bash
 source /etc/os-release
 
-check_user_is_root
+confirm_user_is 'root'
 
 #==============================================================================
 # Packages to be installed, modified by the rest of the script depending on OS

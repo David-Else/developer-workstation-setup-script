@@ -4,12 +4,10 @@
 
 set -eo pipefail
 
-if [ "$(id -u)" = 0 ]; then
-    echo "You're root! Run script as user" && exit 1
-fi
-
 source functions.bash
 source colors.bash
+
+confirm_user_is 'normal'
 
 PANDOC_FILTERS_DIR="$HOME/.local/share/pandoc/filters"
 

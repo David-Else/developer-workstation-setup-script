@@ -4,7 +4,7 @@ set -euo pipefail
 source colors.bash
 source functions.bash
 
-check_user_is_root
+confirm_user_is 'root'
 
 # ${1} version ${2} repo ${3} regex pattern
 download() {
