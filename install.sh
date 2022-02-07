@@ -210,15 +210,6 @@ install_all() {
     echo -e "${BOLD}Installing flathub packages...${RESET}"
     flatpak install -y flathub "${flathub_packages_to_install[@]}"
 
-    echo -e "${BOLD}Installing Deno...${RESET}"
-    su - "$SUDO_USER" -c "curl -fsSL https://deno.land/x/install/install.sh | sh"
-
-    echo -e "${BOLD}Installing Kitty...${RESET}"
-    su - "$SUDO_USER" -c "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin"
-
-    echo -e "${BOLD}Installing nnn terminal file manager plugins...${RESET}"
-    su - "$SUDO_USER" -c "curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh"
-
     if command -v node &>/dev/null; then
         echo -e "${BOLD}Installing NPM global packages..."
         npm install -g "${npm_global_packages_to_install[@]}"
