@@ -106,7 +106,7 @@ su - "$SUDO_USER" -c "ln -s ~/.local/kitty.app/bin/kitty $BIN_INSTALL_DIR"
 su - "$SUDO_USER" -c "cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/"
 su - "$SUDO_USER" -c "sed -i "s | Icon=kitty | Icon=/home/$SUDO_USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png | g" ~/.local/share/applications/kitty.desktop"
 
-# install nnn
+# install nnn plugins
 su - "$SUDO_USER" -c "curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh"
 
 echo -e "\n${BOLD}Finished!${RESET}"
