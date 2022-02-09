@@ -19,7 +19,6 @@ install() {
 
     fi
     tar --no-same-owner -C "$BIN_INSTALL_DIR"/ -xf "${1}" --no-anchored "${3}" --strip="${2}"
-    rm "${1}"
 }
 
 # Confirm the user is either normal or root and exit if they are not
