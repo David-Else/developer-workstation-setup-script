@@ -4,6 +4,20 @@
 
 Welcome to your new **ultimate development environment**! A post-install setup script for developers that works on Fedora and all RHEL 8 clones. Enjoy the same software and desktop regardless of which Red Hat based distribution you choose.
 
+## News
+
+9th Feb 2022: v2.0 has been released!
+
+- All software updated
+- Massive refactoring. Functions split out into modules and shared among install and setup scripts
+- New script for installing binaries that also uses `GitHub CLI`
+- More integration in the tools. For example, `Delta` diff viewer works for `Lazygit` and `fzf.vim`.
+- Frozen the Neovim plugins until Neovim 0.7 comes out. They are stable now.
+
+I have been constantly adding to this script since the last release, and it got out of hand. Hopefully now some logic and order have been restored, it was getting unmaintainable.
+
+Ansible looks cool, but it was too much work to learn just for this project.
+
 ## Features
 
 ### Fedora 34+ and RHEL 8+ clones compatibility
@@ -19,27 +33,29 @@ To maintain parity with Fedora 34+, any package that's not available directly in
 
 ### Great software out of the box, easy to customize and choose your own
 
-| Development    | Browsers         | Graphics    | Sound and video | Security and backup |
-| -------------- | ---------------- | ----------- | --------------- | ------------------- |
-| Neovim         | Firefox          | Krita       | MPV             | KeepassXC           |
-| Node.js / Deno | Chromium         | Shotwell    | Handbrake       | BorgBackup          |
-| Gnome Boxes    | nnn file browser | ImageMagick | MKVToolNix      |                     |
-| Lazygit        |                  |             |                 |                     |
-| GitHub CLI     |                  |             |                 |                     |
-| Pandoc         |                  |             |                 |                     |
-| Shellcheck     |                  |             |                 |                     |
-| Shfmt          |                  |             |                 |                     |
-| Bat            |                  |             |                 |                     |
-| Ripgrep        |                  |             |                 |                     |
-| Vale           |                  |             |                 |                     |
+| Development                 | Browsers         | Graphics    | Sound and video | Security and backup |
+| --------------------------- | ---------------- | ----------- | --------------- | ------------------- |
+| Neovim                      | Firefox          | Krita       | MPV             | KeepassXC           |
+| Node.js / Deno              | Chromium         | Shotwell    | Handbrake       | BorgBackup          |
+| Gnome Boxes                 | nnn file browser | ImageMagick | MKVToolNix      |                     |
+| Kitty (terminal)            |                  |             |                 |                     |
+| Lazygit (git terminal GUI)  |                  |             |                 |                     |
+| GitHub CLI                  |                  |             |                 |                     |
+| Pandoc (document converter) |                  |             |                 |                     |
+| Shellcheck (linter)         |                  |             |                 |                     |
+| Shfmt (formatter)           |                  |             |                 |                     |
+| Bat (cat replacement)       |                  |             |                 |                     |
+| Ripgrep (grep replacement)  |                  |             |                 |                     |
+| Delta (diff viewer)         |                  |             |                 |                     |
+| Vale (linter)               |                  |             |                 |                     |
 
 ### Improved Gnome desktop and font settings
 
 Gnome has been tweaked along with font settings for a better experience.
 
-### Neovim 0.6 with plugins and custom keybindings
+### Neovim 0.6.1 with plugins and custom keybindings
 
-Setup out of the box with the latest [Neovim 0.6](https://neovim.io) and plugins configured to use `fzf`, `ripgrep` and `bat` with an attractive Visual Studio Code theme
+Setup out of the box with the latest [Neovim 0.6.1](https://neovim.io) and plugins configured to use `fzf`, `ripgrep`, `delta` and `bat` with an attractive Visual Studio Code theme
 
 ![Neovim](./images/neo-vim-with-vs-code-theme-preview.png)
 
@@ -75,25 +91,31 @@ flathub_packages_to_install=()
 npm_global_packages_to_install=()
 ```
 
-Inside a `if then` conditional these arrays are modified depending on if you have installed Fedora or a RHEL clone.
+After that you can set packages to be added or removed for either RHEL clones or Fedora:
+
+```bash
+rhel_rpm_packages_to_remove=()
+rhel_rpm_packages_to_install=()
+rhel_flathub_packages_to_install=()
+
+fedora_rpm_packages_to_remove=()
+fedora_rpm_packages_to_install=()
+fedora_flathub_packages_to_install=()
+```
+
+Inside a `if then` conditional the first set of arrays are modified depending on if you have installed Fedora or a RHEL clone.
 
 ```bash
 detect_os
 
 if [[ "$OS" == "valid_rhel" ]]; then
 
-    add_redhat_repositories() {}
-
-    add_redhat_repositories
     rpm_packages_to_remove+=("${rhel_rpm_packages_to_remove[@]}")
     rpm_packages_to_install+=("${rhel_rpm_packages_to_install[@]}")
     flathub_packages_to_install+=("${rhel_flathub_packages_to_install[@]}")
 
 elif [ "$OS" == "valid_fedora" ]; then
 
-    add_fedora_repositories() {}
-
-    add_fedora_repositories
     rpm_packages_to_remove+=("${fedora_rpm_packages_to_remove[@]}")
     rpm_packages_to_install+=("${fedora_rpm_packages_to_install[@]}")
 
@@ -228,7 +250,7 @@ If you would like to use Code for things that Neovim still struggles with (like 
 
 You might also like to install `ms-vscode.live-server` for live debugging in Code or the browser.
 
-**Q**: Why is the script spit into two parts for install and setup?
+**Q**: Why is the script spit into multiple parts for install and setup?
 
 **A**: Sudo privileges are needed for the installation, and they time out before the script can finish. This makes unattended installation impossible without running the installer as root.
 
