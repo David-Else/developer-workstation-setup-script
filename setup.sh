@@ -9,8 +9,6 @@ source colors.bash
 
 confirm_user_is 'normal'
 
-PANDOC_FILTERS_DIR="$HOME/.local/share/pandoc/filters"
-
 idle_delay=2400
 title_bar_buttons_on="true"
 clock_show_date="true"
@@ -87,35 +85,6 @@ stow *
 cd - || exit
 
 #==============================================================================
-# Install the vale Microsoft style guide (doesn't work in install script)
-#==============================================================================
-if command -v vale &>/dev/null; then
-    curl -LOf https://github.com/errata-ai/Microsoft/releases/latest/download/Microsoft.zip
-    unzip Microsoft.zip -d ~/styles
-    rm Microsoft.zip
-
-    # Create example dirs and settings files
-    mkdir -p ~/styles/Vocab/tech-blogging && touch ~/styles/Vocab/tech-blogging/{accept.txt,reject.txt}
-fi
-
-#==============================================================================
-# Install pandoc filters (doesn't work in install script)
-#==============================================================================
-if command -v pandoc &>/dev/null; then
-    if [ -d "$PANDOC_FILTERS_DIR" ]; then
-        echo 'Pandoc filter directory already exists, not installing any more filters'
-    else
-        echo -e "${BOLD}Installing pandoc filters..."
-        mkdir -p "$PANDOC_FILTERS_DIR"
-        curl https://raw.githubusercontent.com/pandoc/lua-filters/master/wordcount/wordcount.lua -o "$PANDOC_FILTERS_DIR/wordcount.lua"
-        curl https://raw.githubusercontent.com/pandoc/lua-filters/master/diagram-generator/diagram-generator.lua -o "$PANDOC_FILTERS_DIR/diagram-generator.lua"
-        curl https://raw.githubusercontent.com/pandoc/lua-filters/master/pagebreak/pagebreak.lua -o "$PANDOC_FILTERS_DIR/pagebreak.lua"
-        curl https://raw.githubusercontent.com/pandoc/lua-filters/master/include-files/include-files.lua -o "$PANDOC_FILTERS_DIR/include-files.lua"
-        curl https://raw.githubusercontent.com/pandoc/lua-filters/master/include-code-files/include-code-files.lua -o "$PANDOC_FILTERS_DIR/include-code-files.lua"
-    fi
-fi
-
-#==============================================================================
 # Increase inotify watchers for watching large numbers of files, default is 8192
 #
 # curl -s https://raw.githubusercontent.com/fatso83/dotfiles/master/utils/scripts/inotify-consumers | bash
@@ -177,6 +146,15 @@ Create/update Deno completions
 ------------------------------
 ${GREEN}deno completions bash > deno.sh${RESET}
 ${GREEN}sudo mv deno.sh /etc/profile.d${RESET}
+
+Install the Microsoft vale style guide
+--------------------------------------
+${GREEN}url -LOf https://github.com/errata-ai/Microsoft/releases/latest/download/Microsoft.zip${RESET}
+${GREEN}nzip Microsoft.zip -d ~/styles${RESET}
+${GREEN}m Microsoft.zip${RESET}
+
+# Create example dirs and settings files
+${GREEN}mkdir -p ~/styles/Vocab/tech-blogging && touch ~/styles/Vocab/tech-blogging/{accept.txt,reject.txt}${RESET}
 
 Please reboot (or things may not work as expected)
 ===============================================================================

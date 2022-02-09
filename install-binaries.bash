@@ -109,4 +109,13 @@ su - "$SUDO_USER" -c "sed -i "s | Icon=kitty | Icon=/home/$SUDO_USER/.local/kitt
 # install nnn plugins
 su - "$SUDO_USER" -c "curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh"
 
+# install pandoc filters
+echo -e "${BOLD}Installing pandoc filters..."
+mkdir -p "$PANDOC_FILTERS_DIR"
+su - "$SUDO_USER" -c "url https://raw.githubusercontent.com/pandoc/lua-filters/master/wordcount/wordcount.lua -o $HOME/.local/share/pandoc/filters/wordcount.lua"
+su - "$SUDO_USER" -c "url https://raw.githubusercontent.com/pandoc/lua-filters/master/diagram-generator/diagram-generator.lua -o $HOME/.local/share/pandoc/filters/diagram-generator.lua"
+su - "$SUDO_USER" -c "url https://raw.githubusercontent.com/pandoc/lua-filters/master/pagebreak/pagebreak.lua -o $HOME/.local/share/pandoc/filters/pagebreak.lua"
+su - "$SUDO_USER" -c "url https://raw.githubusercontent.com/pandoc/lua-filters/master/include-files/include-files.lua -o $HOME/.local/share/pandoc/filters/include-files.lua"
+su - "$SUDO_USER" -c "url https://raw.githubusercontent.com/pandoc/lua-filters/master/include-code-files/include-code-files.lua -o $HOME/.local/share/pandoc/filters/include-code-files.lua"
+
 echo -e "\n${BOLD}Finished!${RESET}"
