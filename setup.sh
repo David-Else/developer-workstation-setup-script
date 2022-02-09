@@ -1,13 +1,9 @@
 #!/bin/bash
 
-# v2
-
 set -eo pipefail
 
 source functions.bash
 source colors.bash
-
-confirm_user_is 'normal'
 
 idle_delay=2400
 title_bar_buttons_on="true"
@@ -15,11 +11,12 @@ clock_show_date="true"
 capslock_delete="true"
 night_light="true"
 
+confirm_user_is 'normal'
 detect_os
 clear
 
 #==============================================================================
-# Improve pulse audio on RHEL clones, not needed on Fedora that uses pipewire
+# Improve pulse audio on RHEL clones, not needed on Fedora which uses pipewire
 #==============================================================================
 if [[ "$OS" == "valid_rhel" ]]; then
     sudo sed -i "s/; default-sample-format = s16le/default-sample-format = s32le/g" /etc/pulse/daemon.conf
@@ -113,7 +110,6 @@ ${BOLD}Congratulations, everything is installed!${RESET}
 Further suggested changes are:
 
 Gnome:    settings  > details > choose default applications
-          network   > wired   > connect automatically
           software  > install 'Hide Top Bar'
 
 ${GREEN}flatpak run org.mozilla.firefox${RESET} (RHEL) or ${GREEN}firefox
@@ -130,17 +126,17 @@ Firefox:  Preferences > Network Settings > Enable DNS over HTTPS
 
 Fix Visual Studio Code keyboard input on RHEL 8 and clones
 ------------------------------------------------------
-- Un-comment code="GTK_IM_MODULE=ibus code" from .bashrc
+- Un-comment ${GREEN}code="GTK_IM_MODULE=ibus code"${RESET} from ${GREEN}.bashrc${RESET}
 - Go to terminal type 'ibus-setup'
 - Go to Emoji tab, press the '...' next to Emoji choice to get 'select keyboard shortcut for switching' window
 - Use the delete button to delete the shortcut and leave nothing there, press OK
 - Close
 
-Setup fzf and vale 
-------------------------------------
+Setup fzf (after Neovim plugin has been installed) and vale 
+-----------------------------------------------------------
 ${GREEN}sudo ln -s ~/.config/nvim/plugged/fzf/bin/fzf /usr/local/bin${RESET}
 
-change the ~/.vale.ini StylesPath = to the full path of your home directory, relative doesn't work, I couldn't use ~!
+change the ${GREEN}~/.vale.ini${RESET} StylesPath = to the full path of your home directory, relative doesn't work, I couldn't use ~!
 
 Create/update Deno completions
 ------------------------------
