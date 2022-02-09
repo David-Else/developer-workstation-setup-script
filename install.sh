@@ -214,18 +214,6 @@ install_all() {
         echo -e "${BOLD}Installing NPM global packages..."
         npm install -g "${npm_global_packages_to_install[@]}"
     fi
-
-    #==============================================================================
-    # Enable magic SysRq key / RightAlt+PrtScn+
-    #
-    #  Reboot  :R: Switch to XLATE mode
-    #  Even    :E: Send terminate signal to all processes except init
-    #  If      :I: Send kill signal to all processes except init
-    #  System  :S: Sync all mounted file-systems
-    #  Utterly :U: Remount file-systems as read-only
-    #  Broken  :B: Reboot
-    #==============================================================================
-    add_to_file "/etc/sysctl.d/90-sysrq.conf" "kernel.sysrq = 1"
 }
 
 add_conditional_repositories

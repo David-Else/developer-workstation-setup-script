@@ -71,7 +71,7 @@ echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     add_to_file "$HOME/.Xresources" "Xft.lcdfilter: lcddefault"
     dconf write /org/gnome/settings-daemon/plugins/xsettings/antialiasing "'rgba'"
-    echo "Sub-pixel rendering set, see tweaks and $HOME/.Xresources"
+    echo "Sub-pixel rendering on"
 fi
 
 #==============================================================================
@@ -121,6 +121,20 @@ fi
 # curl -s https://raw.githubusercontent.com/fatso83/dotfiles/master/utils/scripts/inotify-consumers | bash
 #==============================================================================
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+
+#==============================================================================
+# Enable magic SysRq key / RightAlt+PrtScn+
+#
+#  Reboot  :R: Switch to XLATE mode
+#  Even    :E: Send terminate signal to all processes except init
+#  If      :I: Send kill signal to all processes except init
+#  System  :S: Sync all mounted file-systems
+#  Utterly :U: Remount file-systems as read-only
+#  Broken  :B: Reboot
+#==============================================================================
+sudo grep -qxF "kernel.sysrq = 1" "/etc/sysctl.d/90-sysrq.conf" &&
+    echo "kernel.sysrq = 1 exists in ${GREEN}/etc/sysctl.d/90-sysrq.conf${RESET}" ||
+    echo "kernel.sysrq = 1" >>"/etc/sysctl.d/90-sysrq.conf"
 
 display_text "
 
