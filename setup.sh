@@ -91,7 +91,6 @@ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo s
 display_text "
 
 ${BOLD}Congratulations, everything is installed!${RESET}
-
 ===============================================================================
 Further suggested changes are:
 
@@ -111,8 +110,8 @@ Firefox:  Preferences > Network Settings > Enable DNS over HTTPS
           Privacy & Security > HTTPS-Only Mode > Enable HTTPS-Only Mode in all windows
 
 Fix Visual Studio Code keyboard input on RHEL 8 and clones
-------------------------------------------------------
-- Un-comment ${GREEN}code="GTK_IM_MODULE=ibus code"${RESET} from ${GREEN}.bashrc${RESET}
+----------------------------------------------------------
+- Un-comment ${GREEN}code=GTK_IM_MODULE=ibus code${RESET} from ${GREEN}.bashrc${RESET}
 - Go to terminal type 'ibus-setup'
 - Go to Emoji tab, press the '...' next to Emoji choice to get 'select keyboard shortcut for switching' window
 - Use the delete button to delete the shortcut and leave nothing there, press OK
@@ -131,9 +130,9 @@ ${GREEN}sudo mv deno.sh /etc/profile.d${RESET}
 
 Install the Microsoft vale style guide
 --------------------------------------
-${GREEN}url -LOf https://github.com/errata-ai/Microsoft/releases/latest/download/Microsoft.zip${RESET}
-${GREEN}nzip Microsoft.zip -d ~/styles${RESET}
-${GREEN}m Microsoft.zip${RESET}
+${GREEN}curl -LOf https://github.com/errata-ai/Microsoft/releases/latest/download/Microsoft.zip${RESET}
+${GREEN}unzip Microsoft.zip -d ~/styles${RESET}
+${GREEN}rm Microsoft.zip${RESET}
 
 # Create example dirs and settings files
 ${GREEN}mkdir -p ~/styles/Vocab/tech-blogging && touch ~/styles/Vocab/tech-blogging/{accept.txt,reject.txt}${RESET}
