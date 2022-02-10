@@ -229,5 +229,5 @@ To install Visual Studio Code icons for the Neovim completion plugin double clic
 
 To install Python applications: ${GREEN}pip3 install --user yt-dlp gitlint trash-cli tldr${RESET}
  
-Now use the setup script...
+Now install the binaries with ${GREEN}sudo ./install-binaries.bash${RESET}...
 "
