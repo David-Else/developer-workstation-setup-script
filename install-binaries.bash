@@ -119,4 +119,13 @@ su - "$SUDO_USER" -c "url https://raw.githubusercontent.com/pandoc/lua-filters/m
 su - "$SUDO_USER" -c "url https://raw.githubusercontent.com/pandoc/lua-filters/master/include-files/include-files.lua -o $HOME/.local/share/pandoc/filters/include-files.lua"
 su - "$SUDO_USER" -c "url https://raw.githubusercontent.com/pandoc/lua-filters/master/include-code-files/include-code-files.lua -o $HOME/.local/share/pandoc/filters/include-code-files.lua"
 
-echo -e "\n${BOLD}Finished!${RESET}"
+display_text "
+
+${BOLD}Finished!${RESET}
+
+When you first run Neovim it will give errors:
+
+1. Run :PlugInstall and restart
+2. Generate the user spelling directory en.utf-8.add by typing zg on a word in spell mode
+
+"
