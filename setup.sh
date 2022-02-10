@@ -71,22 +71,15 @@ fi
 
 #==============================================================================
 # Backup files, move new dotfiles to the home directory and run stow
+#
+# This can only be run once, it will give errors if ran again as it moves the
+# dotfiles from the install script directory rather than copies
 #==============================================================================
 mv "$HOME/.bash_profile" "$HOME/.bash_profile_backup"
 mv "$HOME/.bashrc" "$HOME/.bashrc_backup"
 
-#! TEST !
-if [[ -d "$HOME/dotfiles" ]]; then
-    read -p "You have a dotfiles directory, shall I unstow/delete and replace with the new one? " -n 1 -r
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        stow -D --verbose --dir="$HOME/dotfiles" */
-        rm -rf "$HOME/dotfiles"
-    fi
-fi
-
 mv ./dotfiles "$HOME/dotfiles"
-stow --verbose --dir="$HOME/dotfiles" */
+stow --verbose --dir="$HOME/dotfiles" autostart kitty lazygit mpv neovim shell
 
 #==============================================================================
 # Increase inotify watchers for watching large numbers of files, default is 8192
