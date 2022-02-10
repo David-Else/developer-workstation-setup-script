@@ -100,24 +100,20 @@ rm -rf ./ytfzf
 # install deno
 su - "$SUDO_USER" -c "curl -fsSL https://deno.land/x/install/install.sh | sh"
 
-# install kitty TEST
+# install kitty
 su - "$SUDO_USER" -c "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin"
-if [ ! -f "$BIN_INSTALL_DIR/kitty" ]; then
-    ln -s "$HOME"/.local/kitty.app/bin/kitty $BIN_INSTALL_DIR/kitty
-fi
-su - "$SUDO_USER" -c "cp $HOME/.local/kitty.app/share/applications/kitty.desktop $HOME/.local/share/applications/"
-su - "$SUDO_USER" -c "sed -i "s | Icon=kitty | Icon=/home/$SUDO_USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png | g" $HOME/.local/share/applications/kitty.desktop"
 
 # install nnn plugins
 su - "$SUDO_USER" -c "curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh"
 
 # install pandoc filters
-mkdir -p "$PANDOC_FILTERS_DIR"
-su - "$SUDO_USER" -c "url https://raw.githubusercontent.com/pandoc/lua-filters/master/wordcount/wordcount.lua -o $HOME/.local/share/pandoc/filters/wordcount.lua"
-su - "$SUDO_USER" -c "url https://raw.githubusercontent.com/pandoc/lua-filters/master/diagram-generator/diagram-generator.lua -o $HOME/.local/share/pandoc/filters/diagram-generator.lua"
-su - "$SUDO_USER" -c "url https://raw.githubusercontent.com/pandoc/lua-filters/master/pagebreak/pagebreak.lua -o $HOME/.local/share/pandoc/filters/pagebreak.lua"
-su - "$SUDO_USER" -c "url https://raw.githubusercontent.com/pandoc/lua-filters/master/include-files/include-files.lua -o $HOME/.local/share/pandoc/filters/include-files.lua"
-su - "$SUDO_USER" -c "url https://raw.githubusercontent.com/pandoc/lua-filters/master/include-code-files/include-code-files.lua -o $HOME/.local/share/pandoc/filters/include-code-files.lua"
+## AARRGGHH this works but how make the dir and file have user rights?
+# mkdir -p /home/"$SUDO_USER"/.local/share/pandoc/filters/
+# curl https://raw.githubusercontent.com/pandoc/lua-filters/master/wordcount/wordcount.lua -o /home/"$SUDO_USER"/.local/share/pandoc/filters/wordcount.lua
+# curl https://raw.githubusercontent.com/pandoc/lua-filters/master/diagram-generator/diagram-generator.lua -o /home/"$SUDO_USER"/.local/share/pandoc/filters/diagram-generator.lua
+# curl https://raw.githubusercontent.com/pandoc/lua-filters/master/pagebreak/pagebreak.lua -o /home/"$SUDO_USER"/.local/share/pandoc/filters/pagebreak.lua
+# curl https://raw.githubusercontent.com/pandoc/lua-filters/master/include-files/include-files.lua -o /home/"$SUDO_USER"/.local/share/pandoc/filters/include-files.lua
+# curl https://raw.githubusercontent.com/pandoc/lua-filters/master/include-code-files/include-code-files.lua -o /home/"$SUDO_USER"/.local/share/pandoc/filters/include-code-files.lua
 
 display_text "
 
@@ -127,5 +123,20 @@ When you first run Neovim it will give errors:
 
 1. Run :PlugInstall and restart
 2. Generate the user spelling directory en.utf-8.add by typing zg on a word in spell mode
+
+Setup kitty manually:
+
+# Create a symbolic link to add kitty to PATH
+${GREEN}sudo ln -s ~/.local/kitty.app/bin/kitty /usr/local/bin${RESET}
+
+# Place the kitty.desktop file somewhere it can be found by the OS
+${GREEN}cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/${RESET}
+
+# Update the path to the kitty icon in the kitty.desktop file
+${GREEN}sed -i \"s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g\" ~/.local/share/applications/kitty.desktop${RESET}
+
+Create/update Deno completions:
+${GREEN}deno completions bash > deno.sh${RESET}
+${GREEN}sudo mv deno.sh /etc/profile.d${RESET}
 
 "
