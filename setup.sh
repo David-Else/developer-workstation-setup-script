@@ -70,16 +70,23 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 fi
 
 #==============================================================================
-# Move dotfiles to the home directory, backup existing files and run stow
+# Backup files, move new dotfiles to the home directory and run stow
 #==============================================================================
-mv ./dotfiles ~/dotfiles
-
 mv "$HOME/.bash_profile" "$HOME/.bash_profile_backup"
 mv "$HOME/.bashrc" "$HOME/.bashrc_backup"
 
-cd "$HOME/dotfiles" || exit
-stow *
-cd - || exit
+#! TEST !
+if [[ -d "$HOME/dotfiles" ]]; then
+    read -p "You have a dotfiles directory, shall I unstow/delete and replace with the new one? " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        stow -D --verbose --dir="$HOME/dotfiles" */
+        rm -rf "$HOME/dotfiles"
+    fi
+fi
+
+mv ./dotfiles "$HOME/dotfiles"
+stow --verbose --dir="$HOME/dotfiles" */
 
 #==============================================================================
 # Increase inotify watchers for watching large numbers of files, default is 8192
