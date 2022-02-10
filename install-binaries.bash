@@ -14,6 +14,7 @@ download() {
 
 WD="$(pwd)"
 BIN_INSTALL_DIR=/usr/local/bin
+PANDOC_FILTER_DIR=/home/"$SUDO_USER"/.local/share/pandoc/filters
 
 PANDOC_VERSION=2.17.1.1
 SHELLCHECK_VERSION=0.8.0
@@ -70,10 +71,7 @@ chmod +x "$BIN_INSTALL_DIR/stylua"
 # install ltex-ls
 tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored 'bin' --strip=1
 tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored 'lib' --strip=1
-
-if [ ! -f "$BIN_INSTALL_DIR/bin/ltex-ls" ]; then
-    ln -s $BIN_INSTALL_DIR/bin/ltex-ls $BIN_INSTALL_DIR/ltex-ls
-fi
+ln --symbolic --force $BIN_INSTALL_DIR/bin/ltex-ls $BIN_INSTALL_DIR/ltex-ls
 
 # install neovim and vimplug
 chmod +x $NVIM_FILENAME
@@ -107,13 +105,13 @@ su - "$SUDO_USER" -c "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh 
 su - "$SUDO_USER" -c "curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh"
 
 # install pandoc filters
-## AARRGGHH this works but how make the dir and file have user rights?
-# mkdir -p /home/"$SUDO_USER"/.local/share/pandoc/filters/
-# curl https://raw.githubusercontent.com/pandoc/lua-filters/master/wordcount/wordcount.lua -o /home/"$SUDO_USER"/.local/share/pandoc/filters/wordcount.lua
-# curl https://raw.githubusercontent.com/pandoc/lua-filters/master/diagram-generator/diagram-generator.lua -o /home/"$SUDO_USER"/.local/share/pandoc/filters/diagram-generator.lua
-# curl https://raw.githubusercontent.com/pandoc/lua-filters/master/pagebreak/pagebreak.lua -o /home/"$SUDO_USER"/.local/share/pandoc/filters/pagebreak.lua
-# curl https://raw.githubusercontent.com/pandoc/lua-filters/master/include-files/include-files.lua -o /home/"$SUDO_USER"/.local/share/pandoc/filters/include-files.lua
-# curl https://raw.githubusercontent.com/pandoc/lua-filters/master/include-code-files/include-code-files.lua -o /home/"$SUDO_USER"/.local/share/pandoc/filters/include-code-files.lua
+mkdir -p "$PANDOC_FILTER_DIR"
+curl https://raw.githubusercontent.com/pandoc/lua-filters/master/wordcount/wordcount.lua -o "$PANDOC_FILTER_DIR"/wordcount.lua
+curl https://raw.githubusercontent.com/pandoc/lua-filters/master/diagram-generator/diagram-generator.lua -o "$PANDOC_FILTER_DIR"/diagram-generator.lua
+curl https://raw.githubusercontent.com/pandoc/lua-filters/master/pagebreak/pagebreak.lua -o "$PANDOC_FILTER_DIR"/pagebreak.lua
+curl https://raw.githubusercontent.com/pandoc/lua-filters/master/include-files/include-files.lua -o "$PANDOC_FILTER_DIR"/include-files.lua
+curl https://raw.githubusercontent.com/pandoc/lua-filters/master/include-code-files/include-code-files.lua -o "$PANDOC_FILTER_DIR"/include-code-files.lua
+chown --recursive "$SUDO_USER:$SUDO_USER" "$PANDOC_FILTER_DIR"
 
 display_text "
 
