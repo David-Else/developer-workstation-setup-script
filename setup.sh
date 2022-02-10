@@ -88,20 +88,6 @@ stow --verbose --dir="$HOME/dotfiles" autostart kitty lazygit mpv neovim shell
 #==============================================================================
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
-#==============================================================================
-# Enable magic SysRq key / RightAlt+PrtScn+
-#
-#  Reboot  :R: Switch to XLATE mode
-#  Even    :E: Send terminate signal to all processes except init
-#  If      :I: Send kill signal to all processes except init
-#  System  :S: Sync all mounted file-systems
-#  Utterly :U: Remount file-systems as read-only
-#  Broken  :B: Reboot
-#==============================================================================
-sudo grep -qxF "kernel.sysrq = 1" "/etc/sysctl.d/90-sysrq.conf" &&
-    echo "kernel.sysrq = 1 exists in ${GREEN}/etc/sysctl.d/90-sysrq.conf${RESET}" ||
-    echo "kernel.sysrq = 1" >>"/etc/sysctl.d/90-sysrq.conf"
-
 display_text "
 
 ${BOLD}Congratulations, everything is installed!${RESET}
