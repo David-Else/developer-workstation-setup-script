@@ -22,7 +22,7 @@ wordcount() { pandoc --lua-filter wordcount.lua "$@"; }
 
 [ -n "$NNNLVL" ] && PS1="N$NNNLVL $PS1" # prompt you are within a shell that will return you to nnn
 export NNN_PLUG="f:fzcd;p:preview-tui;m:mtpmount"
-export NNN_BMS="d:~/Documents;p:~/Pictures;v:~/Videos;m:~/Music;h:~/;D:~/Downloads;M:/run/user/$UID/gvfs"
+export NNN_BMS="d:~/Documents;p:~/Pictures;v:~/Videos;m:~/Music;h:~/;u:/run/media;D:~/Downloads;M:/run/user/$UID/gvfs"
 export NNN_TRASH=1 # use trash-cli: https://pypi.org/project/trash-cli/
 export NNN_FIFO=/tmp/nnn.fifo
 
