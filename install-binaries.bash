@@ -1,20 +1,35 @@
 #!/bin/bash
 set -euo pipefail
 
+sudo --validate
+
 source colors.bash
 source functions.bash
 
-confirm_user_is 'root'
+confirm_user_is 'normal'
 
 # ${1} version ${2} repo ${3} regex pattern
 download() {
     echo -e "Downloading ${GREEN}${2}${RESET}..."
-    su - "$SUDO_USER" -c "gh release download --dir $WD $1 --repo $2 --pattern $3"
+    gh release download --dir "$WD" "$1" --repo "$2" --pattern "$3"
 }
 
-WD="$(pwd)"
+# Extracts a file from a tar archieve into a directory
+# ${1} filename ${2} strip ${3} newname
+install() {
+    if [ -f "$BIN_INSTALL_DIR"/"$3" ]; then
+        echo -e "${GREEN}$3${RESET} was previously installed"
+        read -p "Would you like to keep the existing version? " -n 1 -r && echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            return
+        fi
+
+    fi
+    sudo tar --no-same-owner -C "$BIN_INSTALL_DIR"/ -xf "${1}" --no-anchored "${3}" --strip="${2}"
+}
+
 BIN_INSTALL_DIR=/usr/local/bin
-PANDOC_FILTER_DIR=/home/"$SUDO_USER"/.local/share/pandoc/filters
+PANDOC_FILTER_DIR="$HOME"/.local/share/pandoc/filters
 
 PANDOC_VERSION=2.17.1.1
 SHELLCHECK_VERSION=0.8.0
@@ -65,7 +80,7 @@ install "$VALE_FILENAME" "0" "vale"
 install "$DELTA_FILENAME" "1" "delta"
 
 # install stylua
-unzip -d $BIN_INSTALL_DIR $STYLUA_FILENAME
+sudo unzip -d $BIN_INSTALL_DIR $STYLUA_FILENAME
 chmod +x "$BIN_INSTALL_DIR/stylua"
 
 # install ltex-ls
@@ -76,10 +91,10 @@ ln --symbolic --force $BIN_INSTALL_DIR/bin/ltex-ls $BIN_INSTALL_DIR/ltex-ls
 # install neovim and vimplug
 chmod +x $NVIM_FILENAME
 cp -i $NVIM_FILENAME $BIN_INSTALL_DIR/nvim
-su - "$SUDO_USER" -c "mkdir -p /home/$SUDO_USER/.config/nvim/plugged"
-su - "$SUDO_USER" -c "curl -fLo /home/$SUDO_USER/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-su - "$SUDO_USER" -c "xdg-desktop-menu install --novendor ${WD}/nvim.desktop"
-su - "$SUDO_USER" -c "xdg-icon-resource install --novendor --mode user --size 64 ${WD}/nvim.png"
+mkdir -p /home/$SUDO_USER/.config/nvim/plugged
+curl -fLo /home/$SUDO_USER/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+xdg-desktop-menu install --novendor ${WD}/nvim.desktop
+xdg-icon-resource install --novendor --mode user --size 64 ${WD}/nvim.png
 
 # install shfmt
 chmod +x $SHFMT_FILENAME
@@ -91,18 +106,21 @@ compgen -A variable -X '!*_FILENAME*' | while read line; do rm "${!line}"; done
 # install ytfzf
 git clone https://github.com/pystardust/ytfzf
 cd ytfzf || exit 1
-make install doc
+sudo make install doc
 cd ..
 rm -rf ./ytfzf
 
 # install deno
-su - "$SUDO_USER" -c "curl -fsSL https://deno.land/x/install/install.sh | sh"
+curl -fsSL https://deno.land/x/install/install.sh | sh
 
 # install kitty
-su - "$SUDO_USER" -c "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin"
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+sudo ln -s ~/.local/kitty.app/bin/kitty $BIN_INSTALL_DIR
+cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
+sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty.desktop
 
 # install nnn plugins
-su - "$SUDO_USER" -c "curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh"
+curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh
 
 # install pandoc filters
 mkdir -p "$PANDOC_FILTER_DIR"
@@ -111,7 +129,6 @@ curl https://raw.githubusercontent.com/pandoc/lua-filters/master/diagram-generat
 curl https://raw.githubusercontent.com/pandoc/lua-filters/master/pagebreak/pagebreak.lua -o "$PANDOC_FILTER_DIR"/pagebreak.lua
 curl https://raw.githubusercontent.com/pandoc/lua-filters/master/include-files/include-files.lua -o "$PANDOC_FILTER_DIR"/include-files.lua
 curl https://raw.githubusercontent.com/pandoc/lua-filters/master/include-code-files/include-code-files.lua -o "$PANDOC_FILTER_DIR"/include-code-files.lua
-chown --recursive "$SUDO_USER:$SUDO_USER" "$PANDOC_FILTER_DIR"
 
 display_text "
 
