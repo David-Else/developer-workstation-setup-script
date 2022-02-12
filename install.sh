@@ -18,8 +18,6 @@
 set -euo pipefail
 exec 2> >(tee "error_log_$(date -Iseconds).txt")
 
-BIN_INSTALL_DIR=/usr/local/bin
-
 source functions.bash
 source colors.bash
 source /etc/os-release
@@ -27,7 +25,7 @@ source /etc/os-release
 confirm_user_is 'root'
 
 #==============================================================================
-# Packages to be installed, modified by the rest of the script depending on OS
+# Packages to be installed, modified depending on OS
 #==============================================================================
 rpm_packages_to_remove=(
     cheese
@@ -69,7 +67,7 @@ npm_global_packages_to_install=(
     prettier)
 
 #==============================================================================
-# For RHEL Only, used only if a RHEL OS is detected
+# For RHEL or clones Only
 #==============================================================================
 rhel_rpm_packages_to_remove=(
     evolution
@@ -86,7 +84,7 @@ rhel_flathub_packages_to_install=(
     org.bunkus.mkvtoolnix-gui)
 
 #==============================================================================
-# For Fedora Only, used only if Fedora is detected
+# For Fedora Only
 #==============================================================================
 fedora_rpm_packages_to_remove=(
     gnome-photos)
@@ -132,7 +130,7 @@ NPM global packages: ${GREEN}${npm_global_packages_to_install[*]}${RESET}
 detect_os
 
 #==============================================================================
-# For RHEL only
+# For RHEL or clones only
 #==============================================================================
 if [[ "$OS" == "valid_rhel" ]]; then
 
@@ -167,14 +165,14 @@ elif [ "$OS" == "valid_fedora" ]; then
     add_fedora_repositories
 
 #==============================================================================
-# Exit if unsupported OS / RHEL or clone version <8
+# Exit if unsupported OS
 #==============================================================================
 else
     echo "Unsupported OS or version" && exit 1
 fi
 
 #==============================================================================
-# Add more repositories depending if packages have been selected
+# Add more repositories, some depending if packages have been selected
 #==============================================================================
 add_conditional_repositories() {
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
