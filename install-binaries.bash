@@ -11,7 +11,7 @@ confirm_user_is 'normal'
 # ${1} version ${2} repo ${3} regex pattern
 download() {
     echo -e "Downloading ${GREEN}${2}${RESET}..."
-    gh release download --dir "$WD" "$1" --repo "$2" --pattern "$3"
+    gh release download --dir "./" "$1" --repo "$2" --pattern "$3"
 }
 
 # Extracts a file from a tar archieve into a directory
@@ -81,20 +81,20 @@ install "$DELTA_FILENAME" "1" "delta"
 
 # install stylua
 sudo unzip -d $BIN_INSTALL_DIR $STYLUA_FILENAME
-chmod +x "$BIN_INSTALL_DIR/stylua"
+sudo chmod +x "$BIN_INSTALL_DIR/stylua"
 
 # install ltex-ls
-tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored 'bin' --strip=1
-tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored 'lib' --strip=1
-ln --symbolic --force $BIN_INSTALL_DIR/bin/ltex-ls $BIN_INSTALL_DIR/ltex-ls
+sudo tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored 'bin' --strip=1
+sudo tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored 'lib' --strip=1
+sudo ln --symbolic --force $BIN_INSTALL_DIR/bin/ltex-ls $BIN_INSTALL_DIR/ltex-ls
 
 # install neovim and vimplug
 chmod +x $NVIM_FILENAME
-cp -i $NVIM_FILENAME $BIN_INSTALL_DIR/nvim
-mkdir -p /home/$SUDO_USER/.config/nvim/plugged
-curl -fLo /home/$SUDO_USER/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-xdg-desktop-menu install --novendor ${WD}/nvim.desktop
-xdg-icon-resource install --novendor --mode user --size 64 ${WD}/nvim.png
+sudo cp -i $NVIM_FILENAME $BIN_INSTALL_DIR/nvim
+mkdir -p "$HOME"/.config/nvim/plugged
+curl -fLo "$HOME"/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+xdg-desktop-menu install --novendor ./nvim.desktop
+xdg-icon-resource install --novendor --mode user --size 64 ./nvim.png
 
 # install shfmt
 chmod +x $SHFMT_FILENAME
@@ -115,7 +115,7 @@ curl -fsSL https://deno.land/x/install/install.sh | sh
 
 # install kitty
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-sudo ln -s ~/.local/kitty.app/bin/kitty $BIN_INSTALL_DIR
+sudo ln --symbolic --force ~/.local/kitty.app/bin/kitty $BIN_INSTALL_DIR
 cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
 sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty.desktop
 
@@ -138,17 +138,6 @@ When you first run Neovim it will give errors:
 
 1. Run :PlugInstall and restart
 2. Generate the user spelling directory en.utf-8.add by typing zg on a word in spell mode
-
-Setup kitty manually:
-
-# Create a symbolic link to add kitty to PATH
-${GREEN}sudo ln -s ~/.local/kitty.app/bin/kitty /usr/local/bin${RESET}
-
-# Place the kitty.desktop file somewhere it can be found by the OS
-${GREEN}cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/${RESET}
-
-# Update the path to the kitty icon in the kitty.desktop file
-${GREEN}sed -i \"s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g\" ~/.local/share/applications/kitty.desktop${RESET}
 
 Create/update Deno completions:
 ${GREEN}deno completions bash > deno.sh${RESET}
