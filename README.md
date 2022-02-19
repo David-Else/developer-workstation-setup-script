@@ -78,7 +78,7 @@ npm_global_packages_to_install=()
 These arrays are global and are modified depending on if you have installed Fedora or a RHEL clone. Inside the `if then` conditional you can add and remove packages specifically for each operating system:
 
 ```bash
-if [[ ("$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "almalinux") && "${VERSION_ID%.*}" -gt 7 ]]; then
+if [[ ("$ID" == "eurolinux" || "$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "almalinux") && "${VERSION_ID%.*}" -gt 7 ]]; then
 
     setup_redhat_packages() {
         local rhel_rpm_packages_to_remove=()
