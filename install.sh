@@ -128,7 +128,7 @@ npm_global_packages_to_install=(
 #==============================================================================
 # For RHEL 8 and clones (tested on 8.4)
 #==============================================================================
-if [[ ("$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "almalinux") && "${VERSION_ID%.*}" -gt 7 ]]; then
+if [[ ("$ID" == "eurolinux" || "$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "almalinux") && "${VERSION_ID%.*}" -gt 7 ]]; then
 
     setup_redhat_packages() {
         local rhel_rpm_packages_to_remove=(
