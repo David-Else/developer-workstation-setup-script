@@ -11,7 +11,6 @@ add_to_file() {
 # ${1} normal|root
 confirm_user_is() {
     USER_STATUS=$(id -u)
-    echo $USER_STATUS
     if [[ "$USER_STATUS" != 0 && ${1} == "root" ]]; then
         echo "You're not root! Run script with sudo" && exit 1
     elif [[ "$USER_STATUS" == 0 && ${1} == "normal" ]]; then
