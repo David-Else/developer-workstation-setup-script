@@ -98,7 +98,7 @@ xdg-icon-resource install --novendor --mode user --size 64 ./nvim.png
 
 # install shfmt
 chmod +x $SHFMT_FILENAME
-cp -i $SHFMT_FILENAME $BIN_INSTALL_DIR/shfmt
+sudo cp -i $SHFMT_FILENAME $BIN_INSTALL_DIR/shfmt
 
 # remove temp files
 compgen -A variable -X '!*_FILENAME*' | while read line; do rm "${!line}"; done
@@ -134,13 +134,6 @@ display_text "
 
 ${BOLD}Finished!${RESET}
 
-When you first run Neovim it will give errors:
-
-1. Run :PlugInstall and restart
-2. Generate the user spelling directory en.utf-8.add by typing zg on a word in spell mode
-
-Create/update Deno completions:
-${GREEN}deno completions bash > deno.sh${RESET}
-${GREEN}sudo mv deno.sh /etc/profile.d${RESET}
+Now install the setup with ${GREEN}./setup.sh${RESET}...
 
 "

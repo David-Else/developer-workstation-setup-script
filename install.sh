@@ -108,7 +108,6 @@ fedora_flathub_packages_to_install=()
 display_user_settings_and_prompt() {
     clear
     display_text "
-
 $ID $VERSION_ID detected
 
 ${BOLD}Packages to remove${RESET}
@@ -225,7 +224,8 @@ For RHEL clones: ${GREEN}sudo dnf install extras/abattis-cantarell-fonts-0.111-2
 
 To install Visual Studio Code icons for the Neovim completion plugin double click the ${GREEN}extras/codicon.ttf${RESET} file in Gnome Files
 
-To install Python applications: ${GREEN}pip3 install --user yt-dlp gitlint trash-cli tldr${RESET}
+RHEL: To install Python applications: ${GREEN}pip3 install --user yt-dlp gitlint trash-cli tldr${RESET}
+Fedora: To install Python applications: ${GREEN}pip3 install --user gitlint trash-cli tldr${RESET}
  
-Now install the binaries with ${GREEN}sudo ./install-binaries.bash${RESET}...
+Now install the binaries with ${GREEN}./install-binaries.bash${RESET}...
 "

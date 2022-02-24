@@ -15,6 +15,8 @@ confirm_user_is 'normal'
 detect_os
 clear
 
+gsettings set org.gnome.desktop.default-applications.terminal exec kitty # may stop working in gnome 40
+
 #==============================================================================
 # Improve pulse audio on RHEL clones, not needed on Fedora which uses pipewire
 #==============================================================================
@@ -79,7 +81,8 @@ mv "$HOME/.bash_profile" "$HOME/.bash_profile_backup"
 mv "$HOME/.bashrc" "$HOME/.bashrc_backup"
 
 mv ./dotfiles "$HOME/dotfiles"
-stow --verbose --dir="$HOME/dotfiles" autostart kitty lazygit mpv neovim shell
+# lazygit directory fails for unknown reason
+stow --verbose --dir="$HOME/dotfiles" autostart kitty mpv neovim shell
 
 #==============================================================================
 # Increase inotify watchers for watching large numbers of files, default is 8192
@@ -92,6 +95,15 @@ display_text "
 
 ${BOLD}Congratulations, everything is installed!${RESET}
 ===============================================================================
+When you first run Neovim it will give error
+
+1. Run :PlugInstall and restart
+2. Generate the user spelling directory en.utf-8.add by typing zg on a word in spell mode using :set spell
+
+Create/update Deno completions:
+${GREEN}deno completions bash > deno.sh${RESET}
+${GREEN}sudo mv deno.sh /etc/profile.d${RESET}
+
 Further suggested changes are:
 
 Gnome:    settings  > details > choose default applications

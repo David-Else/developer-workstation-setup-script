@@ -1,8 +1,6 @@
 "=================="
 "    Functions     "
 "=================="
-
-" On Centos 8 aiksaurus-1.2.1-38.fc28.x86_64.rpm works
 func Thesaur(findstart, base)
     if a:findstart
 	let line = getline('.')
@@ -97,9 +95,9 @@ set grepformat=%f:%l:%c:%m
 let g:fzf_preview_window = ['up:75%', 'ctrl-/']
 let g:fzf_layout = { 'window': { 'width': 1, 'height': 1 } }
 let g:markdown_folding = 1
-let g:markdown_fenced_languages = [
-  \ 'bash=sh', 'javascript', 'js=javascript', 'typescript',
-  \ 'ts=typescript', 'php', 'html', 'css', 'rust', 'sql']
+" let g:markdown_fenced_languages = [
+"   \ 'bash=sh', 'javascript', 'js=javascript', 'typescript',
+"   \ 'ts=typescript', 'php', 'html', 'css', 'rust', 'sql']
 
 "=================="
 "   Autocommands   "
