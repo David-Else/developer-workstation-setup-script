@@ -1,8 +1,6 @@
 "=================="
 "    Functions     "
 "=================="
-
-" On Centos 8 aiksaurus-1.2.1-38.fc28.x86_64.rpm works
 func Thesaur(findstart, base)
     if a:findstart
 	let line = getline('.')
@@ -38,11 +36,6 @@ function StatuslineGit() abort
   return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
 endfunction
 
-function GitCommit() abort
-  let message = input('Enter commit message: ')
-  call system("git commit -m '" . message . "'")
-endfunction
-
 "=================="
 "     Plugins      "
 "=================="
@@ -57,17 +50,17 @@ call plug#begin('~/.config/nvim/plugged')
    Plug 'kosayoda/nvim-lightbulb', { 'commit': 'cd5267d2d708e908dbd668c7de74e1325eb1e1da' }
    Plug 'folke/zen-mode.nvim', { 'commit': 'f1cc53d32b49cf962fb89a2eb0a31b85bb270f7c' }
    Plug 'folke/trouble.nvim', { 'commit': '20469be985143d024c460d95326ebeff9971d714' }
-   Plug 'jose-elias-alvarez/null-ls.nvim', { 'commit': '288c4582f62f04944412acaed098fc16a1818464' }
+   Plug 'jose-elias-alvarez/null-ls.nvim', { 'commit': '3059dc761b27c4c836f88879c460cd7a989caa47' }
    Plug 'nvim-lua/plenary.nvim', { 'commit': 'a672e11c816d4a91ef01253ba1a2567d20e08e55' }
    Plug 'davidgranstrom/nvim-markdown-preview', { 'commit': '940c856932ad81e784f16a47e24193821a8fa8fd' }
    Plug 'tpope/vim-commentary', { 'commit': '627308e30639be3e2d5402808ce18690557e8292' }
 
-   Plug 'hrsh7th/nvim-cmp', { 'commit': 'ce0a3581e0fa6e3072bf06a97919d3e214ff00e6' }
-   Plug 'hrsh7th/cmp-nvim-lsp', { 'commit': '134117299ff9e34adde30a735cd8ca9cf8f3db81' }
-   Plug 'hrsh7th/cmp-nvim-lsp-signature-help', { 'commit': 'daa6a0c2484915e855e60eeff586860c68e59d83' }
-   Plug 'hrsh7th/cmp-path', { 'commit': '4d58224e315426e5ac4c5b218ca86cab85f80c79' }
-   Plug 'hrsh7th/cmp-buffer', { 'commit': 'a01cfeca70594f505b2f086501e90fb6c2f2aaaa' }
-   Plug 'hrsh7th/cmp-cmdline', { 'commit': '29ca81a6f0f288e6311b3377d9d9684d22eac2ec' }
+   Plug 'hrsh7th/nvim-cmp', { 'commit': '13d64460cba64950aff41e230cc801225bd9a3e2' }
+   Plug 'hrsh7th/cmp-nvim-lsp', { 'commit': 'ebdfc204afb87f15ce3d3d3f5df0b8181443b5ba' }
+   Plug 'hrsh7th/cmp-nvim-lsp-signature-help', { 'commit': '414619286928901600cf5b5ccb2f62666f82d3bd' }
+   Plug 'hrsh7th/cmp-path', { 'commit': '466b6b8270f7ba89abd59f402c73f63c7331ff6e' }
+   Plug 'hrsh7th/cmp-buffer', { 'commit': 'f83773e2f433a923997c5faad7ea689ec24d1785' }
+   Plug 'hrsh7th/cmp-cmdline', { 'commit': 'f4beb74e8e036f9532bedbcac0b93c7a55a0f8b0' }
 call plug#end()
 
 "=================="
@@ -92,7 +85,6 @@ set expandtab               " use appropriate number of spaces to insert a <Tab>
 set shiftwidth=2            " spaces inserted for indentation
 set ssop-=options           " don't store global and local values in a session
 set termguicolors           " use true color
-set title                   " change terminal title to name of file
 set signcolumn=yes          " add gutter space for LSP info on left
 set updatetime=100          " increased so LSP code actions appear faster
 set completeopt=menu,menuone,noselect " options for insert mode completion
@@ -103,9 +95,9 @@ set grepformat=%f:%l:%c:%m
 let g:fzf_preview_window = ['up:75%', 'ctrl-/']
 let g:fzf_layout = { 'window': { 'width': 1, 'height': 1 } }
 let g:markdown_folding = 1
-let g:markdown_fenced_languages = [
-  \ 'bash=sh', 'javascript', 'js=javascript', 'typescript',
-  \ 'ts=typescript', 'php', 'html', 'css', 'rust', 'sql']
+" let g:markdown_fenced_languages = [
+"   \ 'bash=sh', 'javascript', 'js=javascript', 'typescript',
+"   \ 'ts=typescript', 'php', 'html', 'css', 'rust', 'sql']
 
 "=================="
 "   Autocommands   "
@@ -213,13 +205,6 @@ nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
-
-" git
-nnoremap <leader>ga :!git add %<CR>
-nnoremap <leader>gr :!git reset %<CR>
-nnoremap <leader>gc :call GitCommit()<CR>
-" nnoremap <silent><leader>gc :vsplit<bar>:term git commit<CR>
-nnoremap <leader>gp :!git push<CR>
 
 " disable accidentally pressing ctrl-z and suspending
 nnoremap <c-z> <Nop>
