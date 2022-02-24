@@ -6,15 +6,13 @@ Welcome to your new **ultimate development environment**! A post-install setup s
 
 ## News
 
-9th Feb 2022: v2.0 has been released!
+24th Feb 2022: v2.0 has been released!
 
 - All software updated
 - Massive refactoring. Functions split out into modules and shared among install and setup scripts
 - New script for installing binaries that also uses `GitHub CLI`
 - More integration in the tools. For example, `Delta` diff viewer works for `Lazygit` and `fzf.vim`.
 - Frozen the Neovim plugins until Neovim 0.7 comes out. They are stable now.
-
-I have been constantly adding to this script since the last release, and it got out of hand. Hopefully now some logic and order have been restored, it was getting unmaintainable.
 
 Ansible looks cool, but it was too much work to learn just for this project.
 
@@ -37,17 +35,14 @@ To maintain parity with Fedora 34+, any package that's not available directly in
 | --------------------------- | ---------------- | ----------- | --------------- | ------------------- |
 | Neovim                      | Firefox          | Krita       | MPV             | KeepassXC           |
 | Node.js / Deno              | Chromium         | Shotwell    | Handbrake       | BorgBackup          |
-| Gnome Boxes                 | nnn file browser | ImageMagick | MKVToolNix      |                     |
-| Kitty (terminal)            |                  |             |                 |                     |
+| Kitty (terminal)            | nnn file browser | ImageMagick | MKVToolNix      |                     |
 | Lazygit (git terminal GUI)  |                  |             |                 |                     |
 | GitHub CLI                  |                  |             |                 |                     |
 | Pandoc (document converter) |                  |             |                 |                     |
-| Shellcheck (linter)         |                  |             |                 |                     |
-| Shfmt (formatter)           |                  |             |                 |                     |
+| Shellcheck / Shfmt          |                  |             |                 |                     |
 | Bat (cat replacement)       |                  |             |                 |                     |
 | Ripgrep (grep replacement)  |                  |             |                 |                     |
 | Delta (diff viewer)         |                  |             |                 |                     |
-| Vale (linter)               |                  |             |                 |                     |
 
 ### Improved Gnome desktop and font settings
 
@@ -57,7 +52,7 @@ Gnome has been tweaked along with font settings for a better experience.
 
 Setup out of the box with the latest [Neovim 0.6.1](https://neovim.io) and plugins configured to use `fzf`, `ripgrep`, `delta` and `bat` with an attractive Visual Studio Code theme
 
-![Neovim](./images/neo-vim-with-vs-code-theme-preview.png)
+![Neovim](./images/fzf.vim.png)
 
 ### Uses [stow](https://www.gnu.org/software/stow/) to install and mange dotfiles
 
