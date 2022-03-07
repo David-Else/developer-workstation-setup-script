@@ -81,6 +81,7 @@ rhel_flathub_packages_to_install=(
     org.mozilla.firefox
     org.kde.krita
     org.gnome.Shotwell
+    # org.winehq.Wine
     org.bunkus.mkvtoolnix-gui)
 
 #==============================================================================
