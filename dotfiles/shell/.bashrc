@@ -28,7 +28,8 @@ export NNN_FIFO=/tmp/nnn.fifo
 
 export BAT_THEME="Visual Studio Dark+"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git}"'
-export YTFZF_PREF="bestvideo[height<=?2160]+bestaudio/best"
+export video_pref="bestvideo[height<=?2160]+bestaudio/best"
+export thumbnail_viewer="kitty"
 
 stty -ixon      # disable terminal flow control to free ctrl-s for shortcut
 stty werase \^H # set ctrl-backspace to delete previous word instead of ctrl-w

@@ -104,7 +104,7 @@ sudo cp -i $SHFMT_FILENAME $BIN_INSTALL_DIR/shfmt
 compgen -A variable -X '!*_FILENAME*' | while read line; do rm "${!line}"; done
 
 # install ytfzf
-git clone https://github.com/pystardust/ytfzf
+git clone -b v2.2 https://github.com/pystardust/ytfzf
 cd ytfzf || exit 1
 sudo make install doc
 cd ..
