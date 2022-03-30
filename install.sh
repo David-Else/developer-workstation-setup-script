@@ -49,6 +49,7 @@ rpm_packages_to_install=(
     mediainfo
     mpv
     nnn
+    neovim
     nodejs
     optipng
     podman

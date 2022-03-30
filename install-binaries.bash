@@ -39,7 +39,6 @@ BAT_VERSION=0.19.0
 VALE_VERSION=2.14.0
 STYLUA_VERSION=0.12.1
 LTEXLS_VERSION=15.2.0
-NVIM_VERSION=0.6.1
 DELTA_VERSION=0.11.3
 
 PANDOC_FILENAME=pandoc-${PANDOC_VERSION}-linux-amd64.tar.gz
@@ -50,7 +49,6 @@ BAT_FILENAME=bat-v${BAT_VERSION}-x86_64-unknown-linux-gnu.tar.gz
 VALE_FILENAME=vale_${VALE_VERSION}_Linux_64-bit.tar.gz
 STYLUA_FILENAME=stylua-${STYLUA_VERSION}-linux.zip
 LTEXLS_FILENAME=ltex-ls-${LTEXLS_VERSION}.tar.gz
-NVIM_FILENAME=nvim.appimage
 DELTA_FILENAME=delta-${DELTA_VERSION}-x86_64-unknown-linux-gnu.tar.gz
 
 # print all the programs to install and ask for confirmation
@@ -69,7 +67,6 @@ download v$BAT_VERSION sharkdp/bat "*x86_64-unknown-linux-gnu.tar.gz"
 download v${VALE_VERSION} errata-ai/vale "*Linux_64-bit.tar.gz"
 download v$STYLUA_VERSION JohnnyMorganz/StyLua "*linux.zip"
 download $LTEXLS_VERSION valentjn/ltex-ls "*ltex-ls-${LTEXLS_VERSION}.tar.gz"
-download v$NVIM_VERSION neovim/neovim "*.appimage"
 download $DELTA_VERSION dandavison/delta "*x86_64-unknown-linux-gnu.tar.gz"
 
 install "$PANDOC_FILENAME" "2" "pandoc"
@@ -88,13 +85,9 @@ sudo tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored
 sudo tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored 'lib' --strip=1
 sudo ln --symbolic --force $BIN_INSTALL_DIR/bin/ltex-ls $BIN_INSTALL_DIR/ltex-ls
 
-# install neovim and vimplug
-chmod +x $NVIM_FILENAME
-sudo cp -i $NVIM_FILENAME $BIN_INSTALL_DIR/nvim
+# install vimplug
 mkdir -p "$HOME"/.config/nvim/plugged
 curl -fLo "$HOME"/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-xdg-desktop-menu install --novendor ./nvim.desktop
-xdg-icon-resource install --novendor --mode user --size 64 ./nvim.png
 
 # install shfmt
 chmod +x $SHFMT_FILENAME
