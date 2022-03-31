@@ -81,8 +81,11 @@ mv "$HOME/.bash_profile" "$HOME/.bash_profile_backup"
 mv "$HOME/.bashrc" "$HOME/.bashrc_backup"
 
 mv ./dotfiles "$HOME/dotfiles"
-# lazygit directory fails for unknown reason
+# lazygit directory fails for unknown reason, copy manually
 stow --verbose --dir="$HOME/dotfiles" autostart kitty mpv neovim shell
+
+# install neovim plugins
+nvim -es -u ~/.config/nvim/init.vim -i NONE -c "PlugInstall" -c "qa"
 
 #==============================================================================
 # Increase inotify watchers for watching large numbers of files, default is 8192
@@ -95,7 +98,9 @@ display_text "
 
 ${BOLD}Congratulations, everything is installed!${RESET}
 ===============================================================================
-Run Neovim and generate the user spelling directory ${GREEN}en.utf-8.add${RESET}
+Neovim will start with ${GREEN}Error detected while processing ~/.config/nvim/init.vim${RESET}
+
+To fix it run Neovim and generate the user spelling directory ${GREEN}en.utf-8.add${RESET}
 by ${GREEN}:set spell${RESET} and ${GREEN}zg${RESET} to add a word
 
 Create/update Deno completions:
