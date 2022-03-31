@@ -6,6 +6,17 @@ Welcome to your new **ultimate development environment**! A post-install setup s
 
 ## News
 
+31st March 2022: v2.1 released!
+
+- Add [todo.txt](https://github.com/todotxt/todo.txt) file type
+- Use new Neovim 0.6.1 EPEL8 version instead of appimage for RHEL8 clones
+- Automatically install Neovim plugins before first run
+- Fix Neovim giving error without adding dictionary file
+- Update Neovim plugins pinned commits
+- Update binaries
+- Update `nnn` repo to Fedora 35 from 34
+- Improve user messages
+
 24th Feb 2022: v2.0 has been released!
 
 - All software updated
