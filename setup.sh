@@ -95,10 +95,8 @@ display_text "
 
 ${BOLD}Congratulations, everything is installed!${RESET}
 ===============================================================================
-When you first run Neovim it will give error
-
-1. Run :PlugInstall and restart
-2. Generate the user spelling directory en.utf-8.add by typing zg on a word in spell mode using :set spell
+Run Neovim and generate the user spelling directory ${GREEN}en.utf-8.add${RESET}
+by ${GREEN}:set spell${RESET} and ${GREEN}zg${RESET} to add a word
 
 Create/update Deno completions:
 ${GREEN}deno completions bash > deno.sh${RESET}
@@ -129,7 +127,7 @@ Fix Visual Studio Code keyboard input on RHEL 8 and clones
 - Use the delete button to delete the shortcut and leave nothing there, press OK
 - Close
 
-Setup fzf (after Neovim plugin has been installed) and vale 
+Setup fzf and vale 
 -----------------------------------------------------------
 ${GREEN}sudo ln -s ~/.config/nvim/plugged/fzf/bin/fzf /usr/local/bin${RESET}
 
