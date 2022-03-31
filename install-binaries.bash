@@ -85,10 +85,6 @@ sudo tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored
 sudo tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored 'lib' --strip=1
 sudo ln --symbolic --force $BIN_INSTALL_DIR/bin/ltex-ls $BIN_INSTALL_DIR/ltex-ls
 
-# install vimplug
-mkdir -p "$HOME"/.config/nvim/plugged
-curl -fLo "$HOME"/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
 # install shfmt
 chmod +x $SHFMT_FILENAME
 sudo cp -i $SHFMT_FILENAME $BIN_INSTALL_DIR/shfmt
