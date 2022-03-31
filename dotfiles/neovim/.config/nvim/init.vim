@@ -47,7 +47,7 @@ call plug#begin('~/.config/nvim/plugged')
    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
    Plug 'junegunn/fzf.vim'
 
-   Plug 'kosayoda/nvim-lightbulb', { 'commit': 'cd5267d2d708e908dbd668c7de74e1325eb1e1da' }
+   Plug 'kosayoda/nvim-lightbulb', { 'commit': '29ca81408119ba809d1f922edc941868af97ee86' }
    Plug 'folke/zen-mode.nvim', { 'commit': 'f1cc53d32b49cf962fb89a2eb0a31b85bb270f7c' }
    Plug 'folke/trouble.nvim', { 'commit': '20469be985143d024c460d95326ebeff9971d714' }
    Plug 'jose-elias-alvarez/null-ls.nvim', { 'commit': '3059dc761b27c4c836f88879c460cd7a989caa47' }
@@ -55,11 +55,11 @@ call plug#begin('~/.config/nvim/plugged')
    Plug 'davidgranstrom/nvim-markdown-preview', { 'commit': '940c856932ad81e784f16a47e24193821a8fa8fd' }
    Plug 'tpope/vim-commentary', { 'commit': '627308e30639be3e2d5402808ce18690557e8292' }
 
-   Plug 'hrsh7th/nvim-cmp', { 'commit': '13d64460cba64950aff41e230cc801225bd9a3e2' }
+   Plug 'hrsh7th/nvim-cmp', { 'commit': '5e794cdf5bafda4c7f74d9aa4efb0f06fe9a5251' }
    Plug 'hrsh7th/cmp-nvim-lsp', { 'commit': 'ebdfc204afb87f15ce3d3d3f5df0b8181443b5ba' }
-   Plug 'hrsh7th/cmp-nvim-lsp-signature-help', { 'commit': '414619286928901600cf5b5ccb2f62666f82d3bd' }
+   Plug 'hrsh7th/cmp-nvim-lsp-signature-help', { 'commit': '8014f6d120f72fe0a135025c4d41e3fe41fd411b' }
    Plug 'hrsh7th/cmp-path', { 'commit': '466b6b8270f7ba89abd59f402c73f63c7331ff6e' }
-   Plug 'hrsh7th/cmp-buffer', { 'commit': 'f83773e2f433a923997c5faad7ea689ec24d1785' }
+   Plug 'hrsh7th/cmp-buffer', { 'commit': 'd66c4c2d376e5be99db68d2362cd94d250987525' }
    Plug 'hrsh7th/cmp-cmdline', { 'commit': 'f4beb74e8e036f9532bedbcac0b93c7a55a0f8b0' }
 call plug#end()
 
