@@ -156,7 +156,7 @@ elif [ "$OS" == "valid_fedora" ]; then
 
     add_fedora_repositories() {
         dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-        dnf -y config-manager --add-repo https://download.opensuse.org/repositories/home:stig124:nnn/Fedora_34/home:stig124:nnn.repo
+        dnf -y config-manager --add-repo https://download.opensuse.org/repositories/home:stig124:nnn/Fedora_35/home:stig124:nnn.repo
     }
 
     rpm_packages_to_remove+=("${fedora_rpm_packages_to_remove[@]}")
