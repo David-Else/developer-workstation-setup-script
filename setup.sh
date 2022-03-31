@@ -98,31 +98,22 @@ display_text "
 
 ${BOLD}Congratulations, everything is installed!${RESET}
 ===============================================================================
-Neovim will start with ${GREEN}Error detected while processing ~/.config/nvim/init.vim${RESET}
-
-To fix it run Neovim and generate the user spelling directory ${GREEN}en.utf-8.add${RESET}
-by ${GREEN}:set spell${RESET} and ${GREEN}zg${RESET} to add a word
-
-Create/update Deno completions:
-${GREEN}deno completions bash > deno.sh${RESET}
-${GREEN}sudo mv deno.sh /etc/profile.d${RESET}
-
-Further suggested changes are:
 
 Gnome:    settings  > details > choose default applications
           software  > install 'Hide Top Bar'
 
+Create/update Deno completions:
+-------------------------------
+${GREEN}deno completions bash > deno.sh${RESET}
+${GREEN}sudo mv deno.sh /etc/profile.d${RESET}
+
+Install Firefox extensions
+--------------------------
 ${GREEN}flatpak run org.mozilla.firefox${RESET} (RHEL) or ${GREEN}firefox
 
 https://addons.mozilla.org/en-GB/firefox/addon/privacy-badger17/ \
 https://addons.mozilla.org/en-GB/firefox/addon/ublock-origin/ \
 https://addons.mozilla.org/en-US/firefox/addon/surfingkeys_ff/${RESET}
-
-Firefox:  Preferences > Network Settings > Enable DNS over HTTPS
-          about:config network.security.esni.enabled
-          (test with https://www.cloudflare.com/ssl/encrypted-sni/)
-
-          Privacy & Security > HTTPS-Only Mode > Enable HTTPS-Only Mode in all windows
 
 Fix Visual Studio Code keyboard input on RHEL 8 and clones
 ----------------------------------------------------------

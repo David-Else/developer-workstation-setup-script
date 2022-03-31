@@ -85,9 +85,11 @@ sudo tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored
 sudo tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored 'lib' --strip=1
 sudo ln --symbolic --force $BIN_INSTALL_DIR/bin/ltex-ls $BIN_INSTALL_DIR/ltex-ls
 
-# install vimplug and plugins
+# install vimplug and plugins, add dictionary file so custom function does not give error
 mkdir -p "$HOME"/.config/nvim/plugged
 curl -fLo "$HOME"/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+mkdir -p "$HOME"/.config/nvim/spell
+touch "$HOME"/.config/nvim/spell/en.utf-8.add
 
 # install shfmt
 chmod +x $SHFMT_FILENAME
