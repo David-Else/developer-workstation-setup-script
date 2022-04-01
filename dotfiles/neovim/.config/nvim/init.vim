@@ -75,6 +75,8 @@ lua require("plugin-setup")
 let g:vscode_style = "dark"
 colorscheme vscode
 
+set title
+set titlelen=33
 set noswapfile
 set splitright splitbelow
 set thesaurusfunc=Thesaur   " use the 'thesaurusfunc' for external thesaurus
