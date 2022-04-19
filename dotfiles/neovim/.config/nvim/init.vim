@@ -41,7 +41,7 @@ endfunction
 "=================="
 call plug#begin('~/.config/nvim/plugged')
    Plug 'Mofiqul/vscode.nvim'
-   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+   Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '6a437db0124823f9fe89c1de9a3b536ce1f103f3', 'do': ':TSUpdate' }
    Plug 'neovim/nvim-lspconfig', { 'tag': 'v0.1.3' }
 
    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
