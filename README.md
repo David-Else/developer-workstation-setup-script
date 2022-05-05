@@ -186,7 +186,7 @@ alt h/j/k/l = navigate windows              K         = displays hover informati
 
 fzf.vim                                     Tree-sitter
 -------                                     -----------
-ctrl-p     = open file explorer             <CR>    = Initilize selection
+<leader>f  = open file explorer             <CR>    = Initilize selection
 <leader>b  = open buffers                   <CR>    = Expand selection by scope
 <leader>h  = open file history              <TAB>   = Expand selection by node
 <leader>rg = ripgrep search results         <S-TAB> = Shrink selection by node
