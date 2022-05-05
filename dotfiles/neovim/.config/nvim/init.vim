@@ -139,7 +139,7 @@ nnoremap <silent><leader>z :ZenMode<CR>
 "==================
 "     fzf.vim
 "==================
-nnoremap <silent><c-p> :Files!<CR>
+nnoremap <silent><leader>f :Files!<CR>
 nnoremap <silent><leader>b :Buffers!<CR>
 nnoremap <silent><leader>h :History!<CR>
 nnoremap <silent><leader>gs :GFiles?<CR>
@@ -213,6 +213,16 @@ nnoremap <c-z> <Nop>
 
 " disable recording
 nnoremap q <Nop>
+
+" helix shortcuts
+nnoremap gl $
+xnoremap gl $
+nnoremap gh 0
+xnoremap gh 0
+nnoremap gs ^
+xnoremap gs ^
+nnoremap % ggVG
+xnoremap % <Nop>
 
 "======================================="
 "            Status Line                "
