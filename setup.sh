@@ -94,6 +94,9 @@ nvim -es -u ~/.config/nvim/init.vim -i NONE -c "PlugInstall" -c "qa"
 #==============================================================================
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
+# create template file for nautilus
+touch "$HOME/Templates/text-file.txt"
+
 display_text "
 
 ${BOLD}Congratulations, everything is installed!${RESET}
