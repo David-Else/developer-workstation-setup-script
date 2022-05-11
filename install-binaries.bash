@@ -95,14 +95,14 @@ touch "$HOME"/.config/nvim/spell/en.utf-8.add
 chmod +x $SHFMT_FILENAME
 sudo cp -i $SHFMT_FILENAME $BIN_INSTALL_DIR/shfmt
 
-# remove temp files
-compgen -A variable -X '!*_FILENAME*' | while read line; do rm "${!line}"; done
-
 # install ytfzf
 git clone -b v2.2 https://github.com/pystardust/ytfzf
 cd ytfzf || exit 1
 sudo make install doc
 cd ..
+
+# remove temp files
+compgen -A variable -X '!*_FILENAME*' | while read line; do rm "${!line}"; done
 rm -rf ./ytfzf
 
 # install deno
