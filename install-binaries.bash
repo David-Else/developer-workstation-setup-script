@@ -85,18 +85,21 @@ sudo tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored
 sudo tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored 'lib' --strip=1
 sudo ln --symbolic --force $BIN_INSTALL_DIR/bin/ltex-ls $BIN_INSTALL_DIR/ltex-ls
 
-# install vimplug and plugins, add dictionary file so custom function does not give error
-mkdir -p "$HOME"/.config/nvim/plugged
-curl -fLo "$HOME"/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# install Paq plugin manager for Neovim, add dictionary file so custom function does not give error
+git clone --depth=1 https://github.com/savq/paq-nvim.git "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/start/paq-nvim
 mkdir -p "$HOME"/.config/nvim/spell
 touch "$HOME"/.config/nvim/spell/en.utf-8.add
+
+# install fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME"/bin/.fzf
+"$HOME"/bin/.fzf/installer
 
 # install shfmt
 chmod +x $SHFMT_FILENAME
 sudo cp -i $SHFMT_FILENAME $BIN_INSTALL_DIR/shfmt
 
 # install ytfzf
-git clone -b v2.2 https://github.com/pystardust/ytfzf
+git clone -b v2.3 https://github.com/pystardust/ytfzf
 cd ytfzf || exit 1
 sudo make install doc
 cd ..

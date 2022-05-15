@@ -126,11 +126,9 @@ Fix Visual Studio Code keyboard input on RHEL 8 and clones
 - Use the delete button to delete the shortcut and leave nothing there, press OK
 - Close
 
-Setup fzf and vale 
+Setup vale 
 -----------------------------------------------------------
-${GREEN}sudo ln -s ~/.config/nvim/plugged/fzf/bin/fzf /usr/local/bin${RESET}
-
-change the ${GREEN}~/.vale.ini${RESET} StylesPath = to the full path of your home directory, relative doesn't work, I couldn't use ~!
+Change the ${GREEN}~/.vale.ini${RESET} StylesPath = to the full path of your home directory, relative doesn't work, I couldn't use ~!
 
 Create/update Deno completions
 ------------------------------
