@@ -6,6 +6,11 @@ Welcome to your new **ultimate development environment**! A post-install setup s
 
 ## News
 
+13th May 2022: v2.2 released!
+
+- New Neovim 0.7 config re-written in Lua
+- New Neovim shortcuts and plugins
+
 31st March 2022: v2.1 released!
 
 - Add [todo.txt](https://github.com/todotxt/todo.txt) file type
@@ -164,46 +169,35 @@ sudo ./install.sh
 ```
 General                                     LSP
 -------                                     ---
-         jk = escape                        gD        = jumps to the declaration
-     ctrl-s = save                          gd        = jumps to the definition
-alt h/j/k/l = navigate windows              K         = displays hover information
+        jk = escape                         gD        = jumps to the declaration
+    ctrl-s = save                           gd        = jumps to the definition
+                                            <space>k  = displays hover information
                                             ctrl-k    = displays signature info
 <leader>ts = open terminal below            gi        = lists all implementations
 <leader>tv = open terminal to the right                 in the quickfix window
-                                            gr        = list all symbol references
-<leader>cd = working dir to current file    <space>wa = add workspace folder
-<leader>qa = quit all                       <space>wr = remove workstation folder
-<leader>cc = toggle colorcolumn             <space>wl = list workstation folders
-<leader>n  = toggle line numbers            <space>D  = jump to type definition
-<leader>w  = toggle whitespaces             <space>f  = format
-<leader>z  = toggle zen mode                <space>rn = rename all symbol references
-                                            <space>ca = selects a code action
-                                            <space>e  = show diagnostics from line
+<leader>qa = quit all                       gr        = list all symbol references
+<leader>c  = toggle colorcolumn             <space>wa = add workspace folder
+<leader>n  = toggle line numbers            <space>wr = remove workstation folder
+<leader>z  = toggle zen mode                <space>wl = list workstation folders
+                                            <space>D  = jump to type definition
+                                            <space>r  = rename all symbol references
+fzf.vim                                     <space>a  = selects a code action
+-------
+<leader>f  = open file explorer
+<leader>b  = open buffers                   Diagnostics
+<leader>h  = open file history              -----------
+<leader>/  = ripgrep search results         <space>e  = show diagnostics from line
                                             <space>q  = sets the location list
-                                            [d        = move to previous diagnostic
-                                            ]d        = move to next diagnostic
+ctrl-/     = toggle preview window          [d        = move to previous diagnostic
+ctrl-t/x/v = open in new tab/split/vert     ]d        = move to next diagnostic
 
 
-fzf.vim                                     Tree-sitter
--------                                     -----------
-<leader>f  = open file explorer             <CR>    = Initilize selection
-<leader>b  = open buffers                   <CR>    = Expand selection by scope
-<leader>h  = open file history              <TAB>   = Expand selection by node
-<leader>rg = ripgrep search results         <S-TAB> = Shrink selection by node
-<leader>gs = git status
-<leader>gh = git commits history
-ctrl-/     = toggle preview window
-ctrl-t/x/v = open in new tab/split/vert split
+comment-nvim
+------------
+NORMAL                                      VISUAL
 
-
-trouble.nvim                                vim-commentary
-------------                                --------------
-<leader>xx = toggle                         gcc = comment out a line (takes a count)
-<leader>xw = toggle workspace diagnostics   gc  = comment out the target of a motion,
-<leader>xd = toggle document diagnostics          or the selection in visual mode
-<leader>xq = toggle quickfix
-<leader>xl = toggle loclist
-        gR = toggle lsp references
+gcc = toggles line using linewise comment   gc  = Toggles the region using linewise comment
+gbc = toggles line using blockwise comment  gb  = Toggles the region using blockwise comment
 ```
 
 For all the Vim/Neovim built in shortcuts please check out https://www.elsewebdevelopment.com/ultimate-vim-keyboard-shortcuts/
@@ -220,7 +214,7 @@ This is a list of all the plugins used, please follow the links to read about ho
 - [zen-mode.nvim](https://github.com/folke/zen-mode.nvim) - Distraction-free coding for Neovim
 - [null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim) - Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
 
-- [vim-commentary](https://github.com/tpope/vim-commentary) - Comment stuff out
+- [comment.nvim](https://github.com/numToStr/Comment.nvim) - Comment stuff out
 - [fzf.vim](https://github.com/junegunn/fzf.vim) - fzf vim wrapper
 
 ## FAQ
