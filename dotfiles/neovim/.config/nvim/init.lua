@@ -326,6 +326,7 @@ end)
 -- ==================
 --        LSP
 -- ==================
+local init_lsp_on_attach_group = vim.api.nvim_create_augroup('init_lsp_on_attach_group', {})
 vim.diagnostic.config { virtual_text = false, float = { focusable = false } }
 
 -- show the popup diagnostics window once for the current cursor location
@@ -364,12 +365,17 @@ local on_attach = function(client, bufnr)
     client.resolved_capabilities.document_range_formatting = false
   end
 
-  vim.api.nvim_create_autocmd({ 'CursorHold' }, {
+  --  stop multiple LSPs on this buffer triggering multiple copies of this autocommand
+  --  clear any previous autocommands from the group and buffer number
+  vim.api.nvim_clear_autocmds { group = init_lsp_on_attach_group, buffer = bufnr }
+  --  set autocommand for only this buffer, it will be deleted if triggered again
+  vim.api.nvim_create_autocmd('CursorHold', {
     desc = 'show diagnostics when the cursor is over an error',
+    group = init_lsp_on_attach_group,
+    buffer = bufnr,
     callback = function()
       LspDiagnosticsPopupHandler()
     end,
-    group = init_group,
   })
 end
 
@@ -417,7 +423,7 @@ lspconfig.ltex.setup {
 --    null-ls.nvim
 -- ==================
 local null_ls = require 'null-ls'
-local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
+local init_null_ls_on_attach_group = vim.api.nvim_create_augroup('init_null_ls_on_attach_group', {})
 
 null_ls.setup {
   sources = {
@@ -438,10 +444,10 @@ null_ls.setup {
   },
   on_attach = function(client, bufnr)
     if client.supports_method 'textDocument/formatting' then
-      vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
+      vim.api.nvim_clear_autocmds { group = init_null_ls_on_attach_group, buffer = bufnr }
       vim.api.nvim_create_autocmd('BufWritePre', {
         desc = 'format on save',
-        group = augroup,
+        group = init_null_ls_on_attach_group,
         buffer = bufnr,
         callback = function()
           -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
