@@ -288,6 +288,12 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
+-- operations are sent to the black hole register, not unnamedplus
+vim.keymap.set('n', 'c', '"_c')
+vim.keymap.set('n', 'C', '"_C')
+vim.keymap.set('n', 'd', '"_d')
+vim.keymap.set('n', 'D', '"_D')
+
 vim.keymap.set({ 'n', 'i' }, '<c-s>', '<Cmd>update<CR>', { silent = true })
 vim.keymap.set('v', '<c-s>', '<Cmd>update<CR>', { silent = true })
 vim.keymap.set('i', '<C-H>', '<C-W>') -- ctrl-backspace to delete previous word
