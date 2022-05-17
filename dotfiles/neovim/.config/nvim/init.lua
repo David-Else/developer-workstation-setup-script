@@ -322,6 +322,16 @@ vim.keymap.set('n', '<Leader>c', function() -- toggle colour column
     vim.opt.colorcolumn = {}
   end
 end)
+vim.g.diagnostics_active = true
+vim.keymap.set('n', '<leader>d', function()
+  if vim.g.diagnostics_active then
+    vim.g.diagnostics_active = false
+    vim.diagnostic.hide()
+  else
+    vim.g.diagnostics_active = true
+    vim.diagnostic.show()
+  end
+end)
 
 -- ==================
 --        LSP

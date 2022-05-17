@@ -179,7 +179,7 @@ General                                     LSP
 <leader>c  = toggle colorcolumn             <space>wa = add workspace folder
 <leader>n  = toggle line numbers            <space>wr = remove workstation folder
 <leader>z  = toggle zen mode                <space>wl = list workstation folders
-                                            <space>D  = jump to type definition
+<leader>d  = toggle diagnostics             <space>D  = jump to type definition
                                             <space>r  = rename all symbol references
 fzf.vim                                     <space>a  = selects a code action
 -------
