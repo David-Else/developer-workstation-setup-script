@@ -187,7 +187,7 @@ fzf.vim                                     <space>a  = selects a code action
 <leader>b  = open buffers                   Diagnostics
 <leader>h  = open file history              -----------
 <leader>/  = ripgrep search results         <space>e  = show diagnostics from line
-                                            <space>q  = sets the location list
+                                            <space>l  = sets the location list
 ctrl-/     = toggle preview window          [d        = move to previous diagnostic
 ctrl-t/x/v = open in new tab/split/vert     ]d        = move to next diagnostic
 
