@@ -319,13 +319,12 @@ vim.keymap.set('n', '<Leader>c', function() -- toggle colour column
   end
 end)
 vim.g.diagnostics_active = true
-vim.keymap.set('n', '<leader>d', function()
+vim.keymap.set('n', '<leader>d', function() -- toggle diagnostics
+  vim.g.diagnostics_active = not vim.g.diagnostics_active
   if vim.g.diagnostics_active then
-    vim.g.diagnostics_active = false
-    vim.diagnostic.hide()
-  else
-    vim.g.diagnostics_active = true
     vim.diagnostic.show()
+  else
+    vim.diagnostic.hide()
   end
 end)
 
