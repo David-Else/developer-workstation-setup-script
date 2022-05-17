@@ -44,12 +44,6 @@ vim.api.nvim_create_autocmd('BufEnter', {
   command = 'setlocal wrap',
   group = init_group,
 })
--- TODO https://github.com/kosayoda/nvim-lightbulb/pull/35 adds "CursorHoldI"
-vim.api.nvim_create_autocmd({ 'CursorHold' }, {
-  desc = 'nvim-lightbulb',
-  callback = require('nvim-lightbulb').update_lightbulb,
-  group = init_group,
-})
 
 -- ==================
 --     Statusline
@@ -131,6 +125,8 @@ require 'paq' {
 }
 
 require('Comment').setup()
+
+require('nvim-lightbulb').setup { autocmd = { enabled = true } }
 
 require('zen-mode').setup {
   window = {
