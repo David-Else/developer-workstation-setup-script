@@ -114,8 +114,8 @@ require 'paq' {
   'hrsh7th/cmp-path',
   'hrsh7th/cmp-buffer',
   'hrsh7th/cmp-cmdline',
+  'hrsh7th/cmp-nvim-lua',
   'saadparwaiz1/cmp_luasnip',
-  'rafamadriz/friendly-snippets',
   {
     'nvim-treesitter/nvim-treesitter',
     run = function()
@@ -135,7 +135,7 @@ require('zen-mode').setup {
   },
 }
 
-require('luasnip.loaders.from_vscode').lazy_load()
+require('luasnip.loaders.from_vscode').lazy_load { paths = { './vscode-snippets' } }
 local luasnip = require 'luasnip'
 local cmp = require 'cmp'
 local cmp_kinds = {
@@ -208,7 +208,8 @@ cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'nvim_lsp_signature_help' },
-    { name = 'luasnip' },
+    { name = 'nvim_lua' },
+    { name = 'luasnip', keyword_length = 2 },
     { name = 'path' },
     { name = 'buffer', keyword_length = 4 },
   },
@@ -282,7 +283,7 @@ vim.keymap.set('n', '<leader>/', '<Cmd>Rg!<CR>')
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
+vim.keymap.set('n', '<leader>l', vim.diagnostic.setloclist)
 
 -- operations are sent to the black hole register, not unnamedplus
 vim.keymap.set('n', 'c', '"_c')
@@ -303,12 +304,8 @@ vim.keymap.set('n', '%', 'ggVG')
 vim.keymap.set('v', '%', '<Nop>')
 vim.keymap.set('n', '<leader>tv', '<Cmd>vsplit<bar>term<CR>')
 vim.keymap.set('n', '<leader>ts', '<Cmd>split<bar>term<CR>')
-vim.keymap.set('n', '<Leader>s', function() -- toggle spelling
-  vim.o.spell = not vim.o.spell
-end)
-vim.keymap.set('n', '<Leader>n', function() -- toggle line numbers
-  vim.o.number = not vim.o.number
-end)
+vim.keymap.set('n', '<Leader>s', '<Cmd>set invspell<CR>') -- toggle spelling
+vim.keymap.set('n', '<Leader>n', '<Cmd>set invnumber<CR>') -- toggle line numbers
 vim.keymap.set('n', '<Leader>c', function() -- toggle colour column
   local default_value = { 81 }
   local value = vim.inspect(vim.opt.colorcolumn:get())
@@ -318,10 +315,10 @@ vim.keymap.set('n', '<Leader>c', function() -- toggle colour column
     vim.opt.colorcolumn = {}
   end
 end)
-vim.g.diagnostics_active = true
+local diagnostics_active = true
 vim.keymap.set('n', '<leader>d', function() -- toggle diagnostics
-  vim.g.diagnostics_active = not vim.g.diagnostics_active
-  if vim.g.diagnostics_active then
+  diagnostics_active = not diagnostics_active
+  if diagnostics_active then
     vim.diagnostic.show()
   else
     vim.diagnostic.hide()
