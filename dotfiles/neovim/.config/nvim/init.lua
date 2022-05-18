@@ -12,15 +12,14 @@ vim.opt.tabstop = 2 -- spaces that a <Tab> in the file counts for
 vim.opt.expandtab = true -- use appropriate number of spaces to insert a <Tab>
 vim.opt.shiftwidth = 2 -- spaces inserted for indentation
 vim.opt.completeopt = 'menuone,noselect'
-vim.opt.updatetime = 250 -- used for the CursorHold autocommand event
+vim.opt.updatetime = 250 -- used for the CursorHold autocmd event
 vim.opt.signcolumn = 'yes' -- add gutter space for LSP info on left
 vim.opt.inccommand = 'split' -- live preview in split window
-vim.g.loaded_matchit = 1 -- disable matchit pluginto allow % to be remapped
 vim.g.markdown_folding = 1
 vim.g.fzf_preview_window = { 'up:75%', 'ctrl-/' }
 vim.g.fzf_layout = { window = { width = 1, height = 1 } }
-vim.g.do_filetype_lua = 1 -- use filetype.lua (will be default in 0.8)
-vim.g.did_load_filetypes = 0 -- don't load filetype.vim
+vim.g.do_filetype_lua = 1 -- use filetype.lua (TODO remove in 0.8)
+vim.g.did_load_filetypes = 0 -- don't load filetype.vim (TODO remove in 0.8)
 
 local init_group = vim.api.nvim_create_augroup('init_group', {})
 vim.api.nvim_create_autocmd('TermOpen', {
@@ -79,7 +78,7 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'FocusGained' }, {
       vim.b.errors = '  ' .. num_errors .. ' '
       return
     end
-    -- otherwise show amount of warnings, or nothing if there aren't any.
+    -- otherwise show amount of warnings, or nothing if there aren't any
     local num_warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
     if num_warnings > 0 then
       vim.b.errors = '  ' .. num_warnings .. ' '
@@ -107,8 +106,8 @@ require 'paq' {
   'jose-elias-alvarez/null-ls.nvim',
   'nvim-lua/plenary.nvim',
   'junegunn/fzf.vim',
-  'hrsh7th/nvim-cmp',
   'L3MON4D3/LuaSnip',
+  'hrsh7th/nvim-cmp',
   'hrsh7th/cmp-nvim-lsp',
   'hrsh7th/cmp-nvim-lsp-signature-help',
   'hrsh7th/cmp-path',
@@ -300,8 +299,6 @@ vim.keymap.set('n', 'c-z', '<Nop>') -- disable suspending
 vim.keymap.set({ 'n', 'v' }, 'gl', '$')
 vim.keymap.set({ 'n', 'v' }, 'gh', '0')
 vim.keymap.set({ 'n', 'v' }, 'gs', '^')
-vim.keymap.set('n', '%', 'ggVG')
-vim.keymap.set('v', '%', '<Nop>')
 vim.keymap.set('n', '<leader>tv', '<Cmd>vsplit<bar>term<CR>')
 vim.keymap.set('n', '<leader>ts', '<Cmd>split<bar>term<CR>')
 vim.keymap.set('n', '<Leader>s', '<Cmd>set invspell<CR>') -- toggle spelling
@@ -315,8 +312,9 @@ vim.keymap.set('n', '<Leader>c', function() -- toggle colour column
     vim.opt.colorcolumn = {}
   end
 end)
+-- toggle diagnostics for all buffers (can go out of sync)
 local diagnostics_active = true
-vim.keymap.set('n', '<leader>d', function() -- toggle diagnostics
+vim.keymap.set('n', '<leader>d', function()
   diagnostics_active = not diagnostics_active
   if diagnostics_active then
     vim.diagnostic.show()
@@ -332,7 +330,7 @@ local init_lsp_on_attach_group = vim.api.nvim_create_augroup('init_lsp_on_attach
 vim.diagnostic.config { virtual_text = false, float = { focusable = false } }
 
 -- show the popup diagnostics window once for the current cursor location
--- preventing it overwriting other popups triggered after at the same location
+-- this prevents it overwriting other popups triggered after
 LspDiagnosticsPopupHandler = function()
   local current_cursor = vim.api.nvim_win_get_cursor(0)
   local last_popup_cursor = vim.w.lsp_diagnostics_last_cursor or { nil, nil }
@@ -367,10 +365,9 @@ local on_attach = function(client, bufnr)
     client.resolved_capabilities.document_range_formatting = false
   end
 
-  --  stop multiple LSPs on this buffer triggering multiple copies of this autocommand
-  --  clear any previous autocommands from the group and buffer number
+  --  stop multiple LSPs triggering multiple copies of this autocmd
+  --  clear any previous copy that has the same group and buffer number
   vim.api.nvim_clear_autocmds { group = init_lsp_on_attach_group, buffer = bufnr }
-  --  set autocommand for only this buffer, it will be deleted if triggered again
   vim.api.nvim_create_autocmd('CursorHold', {
     desc = 'show diagnostics when the cursor is over an error',
     group = init_lsp_on_attach_group,
@@ -452,7 +449,7 @@ null_ls.setup {
         group = init_null_ls_on_attach_group,
         buffer = bufnr,
         callback = function()
-          -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+          -- TODO on 0.8 use vim.lsp.buf.format({ bufnr = bufnr }) instead
           vim.lsp.buf.formatting_sync()
         end,
       })
