@@ -15,11 +15,9 @@ confirm_user_is 'normal'
 detect_os
 clear
 
-gsettings set org.gnome.desktop.default-applications.terminal exec kitty # may stop working in gnome 40
-
-#==============================================================================
-# Improve pulse audio on RHEL clones, not needed on Fedora which uses pipewire
-#==============================================================================
+#=================================================================================
+# Improve pulse audio on RHEL 8.x clones, not needed on Fedora which uses pipewire
+#=================================================================================
 if [[ "$OS" == "valid_rhel" ]]; then
     sudo sed -i "s/; default-sample-format = s16le/default-sample-format = s32le/g" /etc/pulse/daemon.conf
     sudo sed -i "s/; resample-method = speex-float-1/resample-method = speex-float-10/g" /etc/pulse/daemon.conf
@@ -76,6 +74,7 @@ fi
 #
 # This can only be run once, it will give errors if ran again as it moves the
 # dotfiles from the install script directory rather than copies
+# TODO make this more robust, fix lazygit dir bug
 #==============================================================================
 mv "$HOME/.bash_profile" "$HOME/.bash_profile_backup"
 mv "$HOME/.bashrc" "$HOME/.bashrc_backup"
