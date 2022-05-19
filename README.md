@@ -171,7 +171,7 @@ General                                    LSP
 -------                                    ---
        jk = escape                         gD        = jumps to the declaration
    ctrl-s = save                           gd        = jumps to the definition
- gh/gl/gs = goto start/end/start char      <space>k  = displays hover information
+ gh/gl/gs = goto line start/end/1st char   <space>k  = displays hover information
 <space>p  = paste from 0 register          ctrl-k    = displays signature info
 <space>ts = open terminal below            gi        = lists all implementations
 <space>tv = open terminal to the right                 in the quickfix window
@@ -192,7 +192,7 @@ ctrl-/     = toggle preview window         [d        = move to previous diagnost
 ctrl-t/x/v = open in new tab/split/vert    ]d        = move to next diagnostic
 
 
-comment-nvim
+Comment-nvim
 ------------
 NORMAL                                      VISUAL
 
