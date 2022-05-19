@@ -7,4 +7,4 @@ fi
 
 # User specific environment and startup programs
 export EDITOR="nvim"
-export SUDO_EDITOR="/usr/local/bin/nvim"
+export SUDO_EDITOR="/usr/bin/nvim"
