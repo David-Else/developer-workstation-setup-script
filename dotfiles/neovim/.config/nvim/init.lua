@@ -273,6 +273,10 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('i', 'jk', '<Esc>')
 vim.keymap.set('t', 'jk', [[<C-\><C-n>]])
 
+-- paste from 0 register containing most recent yank, not delete or change
+vim.keymap.set({ 'n', 'v' }, '<leader>p', '"0p')
+vim.keymap.set('n', '<leader>P', '"0P')
+
 vim.keymap.set('n', '<leader>z', '<Cmd>ZenMode<CR>', { silent = true })
 vim.keymap.set('n', '<leader>f', '<Cmd>Files!<CR>')
 vim.keymap.set('n', '<leader>b', '<Cmd>Buffers!<CR>')
@@ -283,12 +287,6 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>l', vim.diagnostic.setloclist)
-
--- operations are sent to the black hole register, not unnamedplus
-vim.keymap.set('n', 'c', '"_c')
-vim.keymap.set('n', 'C', '"_C')
-vim.keymap.set('n', 'd', '"_d')
-vim.keymap.set('n', 'D', '"_D')
 
 vim.keymap.set({ 'n', 'i' }, '<c-s>', '<Cmd>update<CR>', { silent = true })
 vim.keymap.set('v', '<c-s>', '<Cmd>update<CR>', { silent = true })
