@@ -167,29 +167,29 @@ sudo ./install.sh
 ### Neovim custom key mappings
 
 ```
-General                                     LSP
--------                                     ---
-        jk = escape                         gD        = jumps to the declaration
-    ctrl-s = save                           gd        = jumps to the definition
-                                            <space>k  = displays hover information
-                                            ctrl-k    = displays signature info
-<leader>ts = open terminal below            gi        = lists all implementations
-<leader>tv = open terminal to the right                 in the quickfix window
-<leader>qa = quit all                       gr        = list all symbol references
-<leader>c  = toggle colorcolumn             <space>wa = add workspace folder
-<leader>n  = toggle line numbers            <space>wr = remove workstation folder
-<leader>z  = toggle zen mode                <space>wl = list workstation folders
-<leader>d  = toggle diagnostics             <space>D  = jump to type definition
-                                            <space>r  = rename all symbol references
-fzf.vim                                     <space>a  = selects a code action
+General                                    LSP
+-------                                    ---
+       jk = escape                         gD        = jumps to the declaration
+   ctrl-s = save                           gd        = jumps to the definition
+ gh/gl/gs = goto start/end/start char      <space>k  = displays hover information
+<space>p  = paste from 0 register          ctrl-k    = displays signature info
+<space>ts = open terminal below            gi        = lists all implementations
+<space>tv = open terminal to the right                 in the quickfix window
+<space>qa = quit all                       gr        = list all symbol references
+<space>c  = toggle colorcolumn             <space>wa = add workspace folder
+<space>n  = toggle line numbers            <space>wr = remove workstation folder
+<space>z  = toggle zen mode                <space>wl = list workstation folders
+<space>d  = toggle diagnostics             <space>D  = jump to type definition
+                                           <space>r  = rename all symbol references
+fzf.vim                                    <space>a  = selects a code action
 -------
-<leader>f  = open file explorer
-<leader>b  = open buffers                   Diagnostics
-<leader>h  = open file history              -----------
-<leader>/  = ripgrep search results         <space>e  = show diagnostics from line
-                                            <space>l  = sets the location list
-ctrl-/     = toggle preview window          [d        = move to previous diagnostic
-ctrl-t/x/v = open in new tab/split/vert     ]d        = move to next diagnostic
+<space>f  = open file explorer
+<space>b  = open buffers                   Diagnostics
+<space>h  = open file history              -----------
+<space>/  = ripgrep search results         <space>e  = show diagnostics from line
+                                           <space>l  = sets the location list
+ctrl-/     = toggle preview window         [d        = move to previous diagnostic
+ctrl-t/x/v = open in new tab/split/vert    ]d        = move to next diagnostic
 
 
 comment-nvim
