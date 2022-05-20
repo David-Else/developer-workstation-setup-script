@@ -1,4 +1,29 @@
 -- NVIM v0.7.0 config
+vim.cmd [[
+func Thesaur(findstart, base)
+    if a:findstart
+	let line = getline('.')
+	let start = col('.') - 1
+	while start > 0 && line[start - 1] =~ '\a'
+	   let start -= 1
+	endwhile
+	return start
+    else
+	let res = []
+	let h = ''
+	for l in split(system('aiksaurus '.shellescape(a:base)), '\n')
+	    if l[:3] == '=== '
+	    	let h = substitute(l[4:], ' =*$', '', '')
+	    elseif l[0] =~ '\a'
+		call extend(res, map(split(l, ', '), {_, val -> {'word': val, 'menu': '('.h.')'}}))
+	    endif
+	endfor
+	return res
+    endif
+endfunc
+]]
+
+vim.opt.thesaurusfunc = 'Thesaur'
 vim.opt.title = true
 vim.opt.titlelen = 33
 vim.opt.splitright = true
@@ -293,7 +318,7 @@ vim.keymap.set('v', '<c-s>', '<Cmd>update<CR>', { silent = true })
 vim.keymap.set('i', '<C-H>', '<C-W>') -- ctrl-backspace to delete previous word
 vim.keymap.set('n', '<leader>qa', '<Cmd>confirm qall<CR>')
 vim.keymap.set('n', 'q', '<Nop>') -- disable recording
-vim.keymap.set('n', 'c-z', '<Nop>') -- disable suspending
+vim.keymap.set('n', '<c-z>', '<Nop>') -- disable suspending
 vim.keymap.set({ 'n', 'v' }, 'gl', '$')
 vim.keymap.set({ 'n', 'v' }, 'gh', '0')
 vim.keymap.set({ 'n', 'v' }, 'gs', '^')
@@ -358,6 +383,7 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_create_user_command('Format', vim.lsp.buf.formatting, {})
 
   -- turn off formatting for selected servers (use null-ls instead)
+  -- TODO 0.8 use client.server_capabilities
   if client.name == 'jsonls' or client.name == 'tsserver' or client.name == 'html' then
     client.resolved_capabilities.document_formatting = false
     client.resolved_capabilities.document_range_formatting = false
