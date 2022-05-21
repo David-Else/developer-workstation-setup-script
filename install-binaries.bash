@@ -92,7 +92,7 @@ touch "$HOME"/.config/nvim/spell/en.utf-8.add
 
 # install fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME"/bin/.fzf
-"$HOME"/bin/.fzf/installer
+"$HOME"/bin/.fzf/install
 
 # install shfmt
 chmod +x $SHFMT_FILENAME

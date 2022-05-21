@@ -130,6 +130,7 @@ require 'paq' {
   'numToStr/Comment.nvim',
   'jose-elias-alvarez/null-ls.nvim',
   'nvim-lua/plenary.nvim',
+  'junegunn/fzf',
   'junegunn/fzf.vim',
   'L3MON4D3/LuaSnip',
   'hrsh7th/nvim-cmp',
