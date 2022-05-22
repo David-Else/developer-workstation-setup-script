@@ -63,9 +63,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
   group = init_group,
 })
-vim.api.nvim_create_autocmd('BufEnter', {
+vim.api.nvim_create_autocmd('VimEnter', {
   pattern = { '*.md', '*.txt' },
-  command = 'setlocal wrap',
+  callback = function()
+    vim.cmd 'setlocal wrap'
+    vim.cmd 'ZenMode'
+  end,
   group = init_group,
 })
 
