@@ -40,11 +40,14 @@ vim.opt.completeopt = 'menuone,noselect'
 vim.opt.updatetime = 250 -- used for the CursorHold autocmd event
 vim.opt.signcolumn = 'yes' -- add gutter space for LSP info on left
 vim.opt.inccommand = 'split' -- live preview in split window
-vim.g.markdown_folding = 1
+vim.g.markdown_folding = 1 -- uses runtime filetype, not treesitter
 vim.g.fzf_preview_window = { 'up:75%', 'ctrl-/' }
 vim.g.fzf_layout = { window = { width = 1, height = 1 } }
 vim.g.do_filetype_lua = 1 -- use filetype.lua (TODO remove in 0.8)
 vim.g.did_load_filetypes = 0 -- don't load filetype.vim (TODO remove in 0.8)
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()' -- use treesitter for folds
+vim.opt.foldnestmax = 3
 
 local init_group = vim.api.nvim_create_augroup('init_group', {})
 vim.api.nvim_create_autocmd('TermOpen', {
