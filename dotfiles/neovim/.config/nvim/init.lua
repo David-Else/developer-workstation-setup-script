@@ -48,6 +48,7 @@ vim.g.did_load_filetypes = 0 -- don't load filetype.vim (TODO remove in 0.8)
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()' -- use treesitter for folds
 vim.opt.foldnestmax = 3
+vim.opt.foldenable = false
 
 local init_group = vim.api.nvim_create_augroup('init_group', {})
 vim.api.nvim_create_autocmd('TermOpen', {
