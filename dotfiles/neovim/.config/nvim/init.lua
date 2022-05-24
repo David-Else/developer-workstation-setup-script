@@ -67,6 +67,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
   group = init_group,
 })
+-- BROKEN https://www.reddit.com/r/neovim/comments/uwn42h/why_does_vimenter_not_work_today_when_it_did/
 vim.api.nvim_create_autocmd('BufEnter', {
   pattern = { '*.md', '*.txt' },
   callback = function()
@@ -129,6 +130,7 @@ vim.opt.statusline =
 -- ==================
 require 'paq' {
   'savq/paq-nvim',
+  'williamboman/nvim-lsp-installer',
   'Mofiqul/vscode.nvim',
   'neovim/nvim-lspconfig',
   'kosayoda/nvim-lightbulb',
@@ -356,6 +358,9 @@ end)
 -- ==================
 --        LSP
 -- ==================
+require('nvim-lsp-installer').setup {
+  automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
+}
 local init_lsp_on_attach_group = vim.api.nvim_create_augroup('init_lsp_on_attach_group', {})
 vim.diagnostic.config { virtual_text = false, float = { focusable = false } }
 
