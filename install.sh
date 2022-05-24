@@ -63,8 +63,6 @@ flathub_packages_to_install=(
     org.signal.Signal)
 
 npm_global_packages_to_install=(
-    vscode-langservers-extracted
-    bash-language-server
     prettier)
 
 #==============================================================================
