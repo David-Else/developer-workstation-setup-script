@@ -122,8 +122,7 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'FocusGained' }, {
 })
 
 vim.opt.laststatus = 3 -- use global statusline
-vim.opt.statusline =
-  [[%#PmenuSel#%{get(b:, "branch_name", "")}%#LineNr# %f %m %= %#CursorColumn# %{get(b:, "errors", "")} %{get(b:, "wordcount", "")} %y %{&fileencoding?&fileencoding:&encoding} [%{&fileformat}] %p%% %l:%c]]
+vim.opt.statusline = [[%#PmenuSel#%{get(b:, "branch_name", "")}%#LineNr# %f %m %= %#CursorColumn# %{get(b:, "errors", "")} %{get(b:, "wordcount", "")} %y %{&fileencoding?&fileencoding:&encoding} [%{&fileformat}] %p%% %l:%c]]
 
 -- ==================
 --      Plugins
@@ -133,6 +132,7 @@ require 'paq' {
   'williamboman/nvim-lsp-installer',
   'Mofiqul/vscode.nvim',
   'neovim/nvim-lspconfig',
+  'folke/lua-dev.nvim',
   'kosayoda/nvim-lightbulb',
   'folke/zen-mode.nvim',
   'numToStr/Comment.nvim',
@@ -147,7 +147,6 @@ require 'paq' {
   'hrsh7th/cmp-path',
   'hrsh7th/cmp-buffer',
   'hrsh7th/cmp-cmdline',
-  'hrsh7th/cmp-nvim-lua',
   'saadparwaiz1/cmp_luasnip',
   {
     'nvim-treesitter/nvim-treesitter',
@@ -156,7 +155,6 @@ require 'paq' {
     end,
   },
 }
-
 require('Comment').setup()
 
 require('nvim-lightbulb').setup { autocmd = { enabled = true } }
@@ -401,6 +399,18 @@ local on_attach = function(client, bufnr)
     client.resolved_capabilities.document_range_formatting = false
   end
 
+  if client.resolved_capabilities.document_formatting then
+    local au_lsp = vim.api.nvim_create_augroup("format_on_save_lsp", { clear = true })
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      desc = 'format on save',
+      callback = function()
+        -- TODO on 0.8 use buffer = bufnr, vim.lsp.buf.format({ bufnr = bufnr }) instead
+        vim.lsp.buf.formatting_sync()
+      end,
+      group = au_lsp,
+    })
+  end
+
   --  stop multiple LSPs triggering multiple copies of this autocmd
   --  clear any previous copy that has the same group and buffer number
   vim.api.nvim_clear_autocmds { group = init_lsp_on_attach_group, buffer = bufnr }
@@ -485,6 +495,14 @@ lspconfig.jsonls.setup {
   },
 }
 
+local luadev = require("lua-dev").setup({
+  lspconfig = {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  },
+})
+lspconfig.sumneko_lua.setup(luadev)
+
 -- ==================
 --    null-ls.nvim
 -- ==================
@@ -497,9 +515,6 @@ null_ls.setup {
     null_ls.builtins.formatting.prettier.with {
       disabled_filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
     }, -- use deno instead
-    null_ls.builtins.formatting.stylua.with {
-      extra_args = { '--config-path', vim.fn.expand '~/.stylua.toml' },
-    },
     null_ls.builtins.formatting.shfmt.with {
       extra_args = { '-i', '4' },
     },
