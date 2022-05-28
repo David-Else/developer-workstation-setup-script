@@ -293,7 +293,6 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
-vim.g.vscode_style = 'dark'
 vim.cmd [[colorscheme vscode]]
 
 -- ==================
