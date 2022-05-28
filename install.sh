@@ -13,7 +13,7 @@
 #
 #       AUTHOR: David Else
 #      COMPANY: https://www.elsewebdevelopment.com/
-#      VERSION: 2.0
+#      VERSION: 2.3
 #==============================================================================
 set -euo pipefail
 exec 2> >(tee "error_log_$(date -Iseconds).txt")
@@ -134,8 +134,7 @@ detect_os
 if [[ "$OS" == "valid_rhel" ]]; then
 
     add_redhat_repositories() {
-        dnf module enable -y nodejs:16
-        dnf -y config-manager --enable powertools
+        dnf -y config-manager --enable crb
         dnf -y install epel-release
         dnf -y install --nogpgcheck https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-8.noarch.rpm https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-8.noarch.rpm
         dnf -y config-manager --add-repo https://download.opensuse.org/repositories/home:stig124:nnn/CentOS_8/home:stig124:nnn.repo
