@@ -73,6 +73,7 @@ rhel_rpm_packages_to_remove=(
     firefox)
 
 rhel_rpm_packages_to_install=(
+    git
     java-11-openjdk-headless
     python36-devel)
 
