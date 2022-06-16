@@ -39,6 +39,7 @@ SHFMT_VERSION=3.4.3
 RIPGREP_VERSION=13.0.0
 BAT_VERSION=0.20.0
 VALE_VERSION=2.15.4
+LTEXLS_VERSION=15.2.0
 DELTA_VERSION=0.11.3
 
 PANDOC_FILENAME=pandoc-${PANDOC_VERSION}-linux-amd64.tar.gz
@@ -47,6 +48,7 @@ SHFMT_FILENAME=shfmt_v${SHFMT_VERSION}_linux_amd64
 RIPGREP_FILENAME=ripgrep-${RIPGREP_VERSION}-x86_64-unknown-linux-musl.tar.gz
 BAT_FILENAME=bat-v${BAT_VERSION}-x86_64-unknown-linux-musl.tar.gz
 VALE_FILENAME=vale_${VALE_VERSION}_Linux_64-bit.tar.gz
+LTEXLS_FILENAME=ltex-ls-${LTEXLS_VERSION}.tar.gz
 DELTA_FILENAME=delta-${DELTA_VERSION}-x86_64-unknown-linux-gnu.tar.gz
 
 # print all the programs to install and ask for confirmation
@@ -63,6 +65,7 @@ download v$SHFMT_VERSION mvdan/sh "*linux_amd64"
 download $RIPGREP_VERSION BurntSushi/ripgrep "*x86_64-unknown-linux-musl.tar.gz"
 download v$BAT_VERSION sharkdp/bat "*x86_64-unknown-linux-musl.tar.gz"
 download v${VALE_VERSION} errata-ai/vale "*Linux_64-bit.tar.gz"
+download $LTEXLS_VERSION valentjn/ltex-ls "*ltex-ls-${LTEXLS_VERSION}.tar.gz"
 download $DELTA_VERSION dandavison/delta "*x86_64-unknown-linux-gnu.tar.gz"
 
 install "$PANDOC_FILENAME" "2" "pandoc"
@@ -71,6 +74,11 @@ install "$RIPGREP_FILENAME" "1" "rg"
 install "$BAT_FILENAME" "1" "bat"
 install "$VALE_FILENAME" "0" "vale"
 install "$DELTA_FILENAME" "1" "delta"
+
+# install ltex-ls
+sudo tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored 'bin' --strip=1
+sudo tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored 'lib' --strip=1
+sudo ln --symbolic --force $BIN_INSTALL_DIR/bin/ltex-ls $BIN_INSTALL_DIR/ltex-ls
 
 # install Paq plugin manager for Neovim, add dictionary file so custom function does not give error
 git clone --depth=1 https://github.com/savq/paq-nvim.git "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/start/paq-nvim
