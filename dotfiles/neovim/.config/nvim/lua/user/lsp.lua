@@ -103,6 +103,18 @@ lspconfig.ltex.setup {
   },
 }
 
+lspconfig.rust_analyzer.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    ["rust-analyzer"] = {
+      checkOnSave = {
+        command = "clippy",
+      },
+    },
+  },
+}
+
 lspconfig.denols.setup {
   on_attach = on_attach,
   capabilities = capabilities,
