@@ -1,6 +1,3 @@
-require('nvim-lsp-installer').setup {
-  automatic_installation = true, -- detect servers to install based on lspconfig
-}
 local init_lsp_on_attach_group = vim.api.nvim_create_augroup('init_lsp_on_attach_group', {})
 vim.diagnostic.config { virtual_text = false, float = { focusable = false, source = "if_many" } }
 

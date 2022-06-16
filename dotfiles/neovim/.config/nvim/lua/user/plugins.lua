@@ -1,6 +1,5 @@
 require 'paq' {
   'savq/paq-nvim',
-  'williamboman/nvim-lsp-installer',
   'davidgranstrom/nvim-markdown-preview',
   'Mofiqul/vscode.nvim',
   'neovim/nvim-lspconfig',
