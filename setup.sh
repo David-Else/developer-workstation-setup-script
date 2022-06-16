@@ -17,6 +17,7 @@ clear
 
 #=================================================================================
 # Improve pulse audio on RHEL 8.x clones, not needed on Fedora which uses pipewire
+# TODO test and remove RHEL9
 #=================================================================================
 if [[ "$OS" == "valid_rhel" ]]; then
     sudo sed -i "s/; default-sample-format = s16le/default-sample-format = s32le/g" /etc/pulse/daemon.conf
@@ -60,6 +61,7 @@ fi
 
 #==============================================================================
 # Font settings for sub-pixel rendering
+# TODO consider removing this are more people have 4k anyway and 1080p small laptop
 #==============================================================================
 read -p "Use sub-pixel rendering? (recommended for monitors with less than 4k resolution) " -n 1 -r
 echo
@@ -90,6 +92,7 @@ nvim -es -u ~/.config/nvim/init.vim -i NONE -c "PlugInstall" -c "qa"
 # Increase inotify watchers for watching large numbers of files, default is 8192
 #
 # curl -s https://raw.githubusercontent.com/fatso83/dotfiles/master/utils/scripts/inotify-consumers | bash
+# TODO Do I need this??!!
 #==============================================================================
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 

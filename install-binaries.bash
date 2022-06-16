@@ -32,6 +32,8 @@ BIN_INSTALL_DIR=/usr/local/bin
 PANDOC_FILTER_DIR="$HOME"/.local/share/pandoc/filters
 
 PANDOC_VERSION=2.17.1.1
+# shell check is coming to el9 https://bugzilla.redhat.com/show_bug.cgi?id=2037671
+# which is getting haskel, so maybe pandoc will come too :)
 SHELLCHECK_VERSION=0.8.0
 SHFMT_VERSION=3.4.3
 RIPGREP_VERSION=13.0.0
