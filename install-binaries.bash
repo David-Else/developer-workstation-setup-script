@@ -14,7 +14,7 @@ download() {
 
 # ${1} filename ${2} strip ${3} new name for shell command
 install() {
-    sudo tar --no-same-owner -C "$BIN_INSTALL_DIR"/ -xf "${1}" --no-anchored "${3}" --strip="${2}"
+    sudo tar --no-same-owner -C "$BIN_INSTALL_DIR"/ -xf "$TMP/${1}" --no-anchored "${3}" --strip="${2}"
 }
 
 download_args() {
@@ -29,14 +29,14 @@ download_args() {
 }
 
 install_args() {
-    $1 "$TMP/pandoc-2.18-linux-amd64.tar.gz" 2 pandoc
-    $1 "$TMP/shellcheck-v0.8.0.linux.x86_64.tar.xz" 1 shellcheck
-    $1 "$TMP/ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz" 1 rg
-    $1 "$TMP/bat-v0.21.0-x86_64-unknown-linux-musl.tar.gz" 1 bat
-    $1 "$TMP/vale_2.18.0_Linux_64-bit.tar.gz" 0 vale
-    $1 "$TMP/delta-0.13.0-x86_64-unknown-linux-gnu.tar.gz" 1 delta
-    $1 "$TMP/ltex-ls-15.2.0.tar.gz" 1 bin
-    $1 "$TMP/ltex-ls-15.2.0.tar.gz" 1 lib
+    $1 "pandoc-2.18-linux-amd64.tar.gz" 2 pandoc
+    $1 "shellcheck-v0.8.0.linux.x86_64.tar.xz" 1 shellcheck
+    $1 "ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz" 1 rg
+    $1 "bat-v0.21.0-x86_64-unknown-linux-musl.tar.gz" 1 bat
+    $1 "vale_2.18.0_Linux_64-bit.tar.gz" 0 vale
+    $1 "delta-0.13.0-x86_64-unknown-linux-gnu.tar.gz" 1 delta
+    $1 "ltex-ls-15.2.0.tar.gz" 1 bin
+    $1 "ltex-ls-15.2.0.tar.gz" 1 lib
 }
 
 mkdir -p $TMP
