@@ -7,6 +7,7 @@ confirm_user_is 'normal'
 sudo --validate
 
 BIN_INSTALL_DIR=/usr/local/bin
+PANDOC_FILTER_DIR="$HOME"/.local/share/pandoc/filters
 TMP=./temp
 mkdir -p $TMP
 
