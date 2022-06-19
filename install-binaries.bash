@@ -1,101 +1,87 @@
 #!/bin/bash
 set -euo pipefail
-sudo --validate
 source colors.bash
 source functions.bash
+
 confirm_user_is 'normal'
+sudo --validate
 
 BIN_INSTALL_DIR=/usr/local/bin
-PANDOC_FILTER_DIR="$HOME"/.local/share/pandoc/filters
+TMP=./temp
+mkdir -p $TMP
 
-##############################################################
-# Download
-##############################################################
+# ==================
+#  Github Download
+# ==================
 
-# ${1} repo ${2} regex pattern
-download_gh() {
-    echo -e "Downloading ${GREEN}${1}${RESET}..."
-    # --dir "./" should be default
-    gh release download --repo "$1" --pattern "$2"
+# ${1} version ${2} repo ${3} regex pattern
+download() {
+    echo -e "Downloading ${GREEN}${2}${RESET}..."
+    gh release download --dir $TMP "$1" --repo "$2" --pattern "$3"
 }
 
-PANDOC_FILENAME=pandoc-2.17.1.1-linux-amd64.tar.gz
-SHELLCHECK_FILENAME=shellcheck-v0.8.0.linux.x86_64.tar.xz
-SHFMT_FILENAME=shfmt_v3.4.3_linux_amd64
-RIPGREP_FILENAME=ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz
-BAT_FILENAME=bat-v0.20.0-x86_64-unknown-linux-musl.tar.gz
-VALE_FILENAME=vale_2.15.4_Linux_64-bit.tar.gz
-LTEXLS_FILENAME=ltex-ls-15.2.0.tar.gz
-DELTA_FILENAME=delta-0.13.0-x86_64-unknown-linux-gnu.tar.gz
+declare -A github_packages=(
+    ['pandoc']="2.18 jgm/pandoc *linux-amd64.tar.gz"
+    ['shellcheck']="v0.8.0 koalaman/shellcheck *linux.x86_64.tar.xz"
+    ['shfmt']="v3.5.1 mvdan/sh *linux_amd64"
+    ['ripgrep']="13.0.0 BurntSushi/ripgrep *x86_64-unknown-linux-musl.tar.gz"
+    ['bat']="v0.21.0 sharkdp/bat *x86_64-unknown-linux-musl.tar.gz"
+    ['vale']="v2.18.0 errata-ai/vale *Linux_64-bit.tar.gz"
+    ['ltex-ls']="15.2.0 valentjn/ltex-ls *ltex-ls-15.2.0.tar.gz"
+    ['delta']="0.13.0 dandavison/delta *x86_64-unknown-linux-gnu.tar.gz"
+)
 
-echo -e "${BOLD}Installing GitHub binaries${RESET}"
+for key in "${!github_packages[@]}"; do
+    read -r -a args <<<"${github_packages[$key]}" # allow whitespace expansion and prevent globbing
+    download "${args[@]}"
+done
 
-download_gh jgm/pandoc -p $PANDOC_FILENAME
-download_gh koalaman/shellcheck -p $SHELLCHECK_FILENAME
-download_gh mvdan/sh -p $SHFMT_FILENAME
-download_gh BurntSushi/ripgrep -p $RIPGREP_FILENAME
-download_gh sharkdp/bat -p $BAT_FILENAME
-download_gh errata-ai/vale -p $VALE_FILENAME
-download_gh valentjn/ltex-ls -p $LTEXLS_FILENAME
-download_gh dandavison/delta -p $DELTA_FILENAME
+# ==================
+#      Install
+# ==================
 
-git clone --depth=1 https://github.com/savq/paq-nvim.git "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/start/paq-nvim
-git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME"/bin/.fzf
-git clone -b v2.3 https://github.com/pystardust/ytfzf
-##############################################################
-# install
-##############################################################
-
-# Extracts a file from a tar archieve into a directory
-# ${1} filename ${2} strip ${3} newname
+# ${1} filename ${2} strip ${3} new name for shell command
 install() {
     if [ -f "$BIN_INSTALL_DIR"/"$3" ]; then
-        echo -e "${GREEN}$3${RESET} was previously installed, updating to new version"
+        echo -e "${GREEN}$3${RESET} was previously installed, updating"
     fi
     sudo tar --no-same-owner -C "$BIN_INSTALL_DIR"/ -xf "${1}" --no-anchored "${3}" --strip="${2}"
 }
 
-install "$PANDOC_FILENAME" "2" "pandoc"
-install "$SHELLCHECK_FILENAME" "1" "shellcheck"
-install "$RIPGREP_FILENAME" "1" "rg"
-install "$BAT_FILENAME" "1" "bat"
-install "$VALE_FILENAME" "0" "vale"
-install "$DELTA_FILENAME" "1" "delta"
-
-# install ltex-ls
-sudo tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored 'bin' --strip=1
-sudo tar --no-same-owner -C $BIN_INSTALL_DIR/ -xf $LTEXLS_FILENAME --no-anchored 'lib' --strip=1
+install "$TMP/pandoc-2.18-linux-amd64.tar.gz" "2" "pandoc"
+install "$TMP/shellcheck-v0.8.0.linux.x86_64.tar.xz" "1" "shellcheck"
+install "$TMP/ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz" "1" "rg"
+install "$TMP/bat-v0.21.0-x86_64-unknown-linux-musl.tar.gz" "1" "bat"
+install "$TMP/vale_2.18.0_Linux_64-bit.tar.gz" "0" "vale"
+install "$TMP/delta-0.13.0-x86_64-unknown-linux-gnu.tar.gz" "1" "delta"
+install "$TMP/ltex-ls-15.2.0.tar.gz" "1" "bin"
+install "$TMP/ltex-ls-15.2.0.tar.gz" "1" "lib"
 sudo ln --symbolic --force $BIN_INSTALL_DIR/bin/ltex-ls $BIN_INSTALL_DIR/ltex-ls
 
-# install Paq plugin manager for Neovim, add dictionary file so custom function does not give error
-mkdir -p "$HOME"/.config/nvim/spell
-touch "$HOME"/.config/nvim/spell/en.utf-8.add
+chmod +x "$TMP/shfmt_v3.5.1_linux_amd64"
+sudo cp -i "$TMP/shfmt_v3.5.1_linux_amd64" $BIN_INSTALL_DIR/shfmt
 
-# install fzf
-"$HOME"/bin/.fzf/install
+# kitty
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+sudo ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/ $BIN_INSTALL_DIR
+cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
+cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
+sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
+sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
 
-# install shfmt
-chmod +x $SHFMT_FILENAME
-sudo cp -i $SHFMT_FILENAME $BIN_INSTALL_DIR/shfmt
-
-# install ytfzf
-cd ytfzf || exit 1
+# ytfzf
+git clone -b v2.3 https://github.com/pystardust/ytfzf $TMP
+cd $TMP/ytfzf || exit 1
 sudo make install doc
-cd ..
+cd -
 
-# download and install deno
+# deno
 curl -fsSL https://deno.land/x/install/install.sh | sh
 
-# download and install kitty
-curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-sudo ln --symbolic --force ~/.local/kitty.app/bin/kitty $BIN_INSTALL_DIR
-cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
-sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty.desktop
-
-# download and install nnn plugins
+# nnn plugins
 curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh
 
-# download and install pandoc filters
+# pandoc filters
 mkdir -p "$PANDOC_FILTER_DIR"
 curl https://raw.githubusercontent.com/pandoc/lua-filters/master/wordcount/wordcount.lua -o "$PANDOC_FILTER_DIR"/wordcount.lua
 curl https://raw.githubusercontent.com/pandoc/lua-filters/master/diagram-generator/diagram-generator.lua -o "$PANDOC_FILTER_DIR"/diagram-generator.lua
@@ -103,21 +89,15 @@ curl https://raw.githubusercontent.com/pandoc/lua-filters/master/pagebreak/pageb
 curl https://raw.githubusercontent.com/pandoc/lua-filters/master/include-files/include-files.lua -o "$PANDOC_FILTER_DIR"/include-files.lua
 curl https://raw.githubusercontent.com/pandoc/lua-filters/master/include-code-files/include-code-files.lua -o "$PANDOC_FILTER_DIR"/include-code-files.lua
 
-##############################################################
-# cleanup
-##############################################################
+# install Paq plugin manager for Neovim
+git clone --depth=1 https://github.com/savq/paq-nvim.git "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/start/paq-nvim
+# add dictionary file so custom function does not give error
+mkdir -p "$HOME"/.config/nvim/spell && touch "$HOME"/.config/nvim/spell/en.utf-8.add
 
-compgen -A variable -X '!*_FILENAME*' | while read line; do rm "${!line}"; done
-rm -rf ./ytfzf
-
-##############################################################
-# display user message
-##############################################################
+# remove temp files
+rm -rf $TMP
 
 display_text "
 
 ${BOLD}Finished!${RESET}
-
-Now install the setup with ${GREEN}./setup.sh${RESET}...
-
 "
