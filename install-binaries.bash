@@ -77,4 +77,12 @@ mkdir -p "$HOME"/.config/nvim/spell && touch "$HOME"/.config/nvim/spell/en.utf-8
 # remove temp files
 rm -rf $TMP
 
+# blender
+sudo mkdir -p "$BIN_INSTALL_DIR/blender-bin"
+curl -O https://download.blender.org/release/Blender3.2/blender-3.2.0-linux-x64.tar.xz
+sudo tar -xvf blender-3.2.0-linux-x64.tar.xz -C "$BIN_INSTALL_DIR/blender-bin"/ --strip=1
+sudo ln --symbolic --force $BIN_INSTALL_DIR/blender-bin/blender $BIN_INSTALL_DIR/blender
+cp "$BIN_INSTALL_DIR/blender-bin/blender.desktop" ~/.local/share/applications/
+sed -i "s|Icon=blender|Icon=$BIN_INSTALL_DIR/blender-bin/blender.svg|g" ~/.local/share/applications/blender*.desktop
+
 echo "Finished!"
