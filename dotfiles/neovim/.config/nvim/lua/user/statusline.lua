@@ -5,7 +5,7 @@ local init_statusline = vim.api.nvim_create_augroup('init_statusline', {})
 --    LSP Progress
 -- ==================
 _G.lsp_progress = function()
-  if #vim.lsp.buf_get_clients(0) == 0 then
+  if #vim.lsp.buf_get_clients(0) == 0 then -- possible bug
     return "No Language Server"
   end
   local lsp = vim.lsp.util.get_progress_messages()[1]
@@ -78,6 +78,9 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'FocusGained' }, {
   group = init_statusline,
 })
 
+-- ==================
+--     Treesitter
+-- ==================
 _G.current_treesitter_context = function()
   local f = require 'nvim-treesitter'.statusline({
     -- indicator_size = 300,
