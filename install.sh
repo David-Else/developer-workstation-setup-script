@@ -137,8 +137,9 @@ if [[ "$OS" == "valid_rhel" ]]; then
     add_redhat_repositories() {
         dnf -y config-manager --enable crb
         dnf -y install epel-release
-        dnf -y install --nogpgcheck https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-8.noarch.rpm https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-8.noarch.rpm
-        dnf -y config-manager --add-repo https://download.opensuse.org/repositories/home:stig124:nnn/CentOS_8/home:stig124:nnn.repo
+        dnf -y install --nogpgcheck https://dl.fedoraproject.org/pub/epel/epel-release-latest-$(rpm -E %rhel).noarch.rpm
+        dnf -y install --nogpgcheck https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-$(rpm -E %rhel).noarch.rpm https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-$(rpm -E %rhel).noarch.rpm
+        dnf -y config-manager --add-repo https://download.opensuse.org/repositories/home:stig124:nnn/CentOS_8/home:stig124:nnn.repo # note version number of OS
     }
 
     rpm_packages_to_remove+=("${rhel_rpm_packages_to_remove[@]}")
@@ -154,7 +155,7 @@ elif [ "$OS" == "valid_fedora" ]; then
 
     add_fedora_repositories() {
         dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-        dnf -y config-manager --add-repo https://download.opensuse.org/repositories/home:stig124:nnn/Fedora_35/home:stig124:nnn.repo
+        dnf -y config-manager --add-repo https://download.opensuse.org/repositories/home:stig124:nnn/Fedora_35/home:stig124:nnn.repo # note version number of OS
     }
 
     rpm_packages_to_remove+=("${fedora_rpm_packages_to_remove[@]}")
