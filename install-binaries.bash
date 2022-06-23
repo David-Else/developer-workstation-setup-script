@@ -1,5 +1,7 @@
 #!/bin/bash
 set -euo pipefail
+source functions.bash
+confirm_user_is 'normal'
 sudo --validate
 
 BIN_INSTALL_DIR=/usr/local/bin
