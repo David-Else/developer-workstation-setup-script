@@ -38,7 +38,6 @@ rpm_packages_to_install=(
     borgbackup
     # code
     ffmpeg
-    fuse-exfat
     gcc-c++
     gh
     gnome-tweaks
@@ -75,7 +74,7 @@ rhel_rpm_packages_to_remove=(
 rhel_rpm_packages_to_install=(
     git
     java-11-openjdk-headless
-    python36-devel)
+    python3-devel)
 
 rhel_flathub_packages_to_install=(
     org.mozilla.firefox

@@ -32,7 +32,7 @@ install "shellcheck-v0.8.0.linux.x86_64.tar.xz" 1 shellcheck
 install "ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz" 1 rg
 install "bat-v0.21.0-x86_64-unknown-linux-musl.tar.gz" 1 bat
 install "vale_2.18.0_Linux_64-bit.tar.gz" 0 vale
-install "delta-0.13.0-x86_64-unknown-linux-gnu.tar.gz" 1 delta
+install "delta-0.13.0-x86_64-unknown-linux-musl.tar.gz" 1 delta
 install "ltex-ls-15.2.0.tar.gz" 1 bin
 install "ltex-ls-15.2.0.tar.gz" 1 lib
 sudo ln --symbolic --force $BIN_INSTALL_DIR/bin/ltex-ls $BIN_INSTALL_DIR/ltex-ls
@@ -43,7 +43,7 @@ sudo cp -i "$TMP/shfmt_v3.5.1_linux_amd64" $BIN_INSTALL_DIR/shfmt
 
 # kitty
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-sudo ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/ $BIN_INSTALL_DIR
+sudo ln --symbolic --force ~/.local/kitty.app/bin/kitty $BIN_INSTALL_DIR
 cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
 cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
 sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
