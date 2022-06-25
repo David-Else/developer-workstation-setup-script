@@ -17,7 +17,8 @@ download() {
 
 # ${1} filename ${2} strip ${3} new name for shell command
 install() {
-    sudo tar --no-same-owner -C "$BIN_INSTALL_DIR"/ -xf "$TMP/${1}" --no-anchored "${3}" --strip="${2}"
+    (cd $TMP && sudo tar --no-same-owner -C "$BIN_INSTALL_DIR"/ -xf ./${1} --no-anchored "${3}" --strip="${2}")
+
 }
 
 download 2.18 jgm/pandoc "*linux-amd64.tar.gz"
@@ -29,14 +30,14 @@ download v2.18.0 errata-ai/vale "*Linux_64-bit.tar.gz"
 download 15.2.0 valentjn/ltex-ls "*ltex-ls-15.2.0.tar.gz"
 download 0.13.0 dandavison/delta "*x86_64-unknown-linux-musl.tar.gz"
 
-install "pandoc-2.18-linux-amd64.tar.gz" 2 pandoc
-install "shellcheck-v0.8.0.linux.x86_64.tar.xz" 1 shellcheck
-install "ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz" 1 rg
-install "bat-v0.21.0-x86_64-unknown-linux-musl.tar.gz" 1 bat
-install "vale_2.18.0_Linux_64-bit.tar.gz" 0 vale
-install "delta-0.13.0-x86_64-unknown-linux-musl.tar.gz" 1 delta
-install "ltex-ls-15.2.0.tar.gz" 1 bin
-install "ltex-ls-15.2.0.tar.gz" 1 lib
+install "pandoc*" 2 pandoc
+install "shellcheck*" 1 shellcheck
+install "ripgrep*" 1 rg
+install "bat*" 1 bat
+install "vale*" 0 vale
+install "delta*" 1 delta
+install "ltex*" 1 bin
+install "ltex*" 1 lib
 sudo ln --symbolic --force $BIN_INSTALL_DIR/bin/ltex-ls $BIN_INSTALL_DIR/ltex-ls
 
 # shfmt
@@ -76,9 +77,6 @@ git clone --depth=1 https://github.com/savq/paq-nvim.git "${XDG_DATA_HOME:-$HOME
 # add dictionary file so custom function does not give error
 mkdir -p "$HOME"/.config/nvim/spell && touch "$HOME"/.config/nvim/spell/en.utf-8.add
 
-# remove temp files
-rm -rf $TMP
-
 # blender
 sudo mkdir -p "$BIN_INSTALL_DIR/blender-bin"
 curl -O https://download.blender.org/release/Blender3.2/blender-3.2.0-linux-x64.tar.xz
@@ -86,5 +84,9 @@ sudo tar -xvf blender-3.2.0-linux-x64.tar.xz -C "$BIN_INSTALL_DIR/blender-bin"/ 
 sudo ln --symbolic --force $BIN_INSTALL_DIR/blender-bin/blender $BIN_INSTALL_DIR/blender
 cp "$BIN_INSTALL_DIR/blender-bin/blender.desktop" ~/.local/share/applications/
 sed -i "s|Icon=blender|Icon=$BIN_INSTALL_DIR/blender-bin/blender.svg|g" ~/.local/share/applications/blender*.desktop
+
+# remove temp files dir
+rm -rf $TMP
+rm blender-3.2.0-linux-x64.tar.xz
 
 echo "Finished!"
