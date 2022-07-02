@@ -63,14 +63,17 @@ flathub_packages_to_install=(
     org.signal.Signal)
 
 npm_global_packages_to_install=(
-    prettier)
+    prettier@2.7.1
+    vscode-langservers-extracted@4.2.1
+    bash-language-server@3.0.4
+    typescript-language-server@0.11.2
+    typescript@4.7.4)
 
 #==============================================================================
 # For RHEL or clones Only
 #==============================================================================
 rhel_rpm_packages_to_remove=(
-    evolution
-    firefox)
+    evolution)
 
 rhel_rpm_packages_to_install=(
     git
@@ -78,10 +81,10 @@ rhel_rpm_packages_to_install=(
     python3-devel)
 
 rhel_flathub_packages_to_install=(
-    org.mozilla.firefox
-    org.kde.krita
-    org.gnome.Shotwell
     # org.winehq.Wine
+    com.github.tchx84.Flatseal
+    com.obsproject.Studio
+    org.kde.krita
     org.bunkus.mkvtoolnix-gui)
 
 #==============================================================================
@@ -94,7 +97,6 @@ fedora_rpm_packages_to_install=(
     krita
     lshw
     mkvtoolnix-gui
-    shotwell
     xrandr
     zathura
     zathura-bash-completion
