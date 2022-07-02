@@ -53,10 +53,10 @@ sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x2
 sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
 
 # ytfzf
-git clone -b v2.3 https://github.com/pystardust/ytfzf $TMP
-cd $TMP/ytfzf || exit 1
-sudo make install doc
-cd -
+# git clone -b v2.4 https://github.com/pystardust/ytfzf $TMP
+# cd $TMP/ytfzf || exit 1
+# sudo make install doc
+# cd -
 
 # deno
 curl -fsSL https://deno.land/x/install/install.sh | sh
