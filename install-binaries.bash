@@ -26,7 +26,7 @@ download v0.8.0 koalaman/shellcheck "*linux.x86_64.tar.xz"
 download v3.5.1 mvdan/sh "*linux_amd64"
 download 13.0.0 BurntSushi/ripgrep "*x86_64-unknown-linux-musl.tar.gz"
 download v0.21.0 sharkdp/bat "*x86_64-unknown-linux-musl.tar.gz"
-download v2.18.0 errata-ai/vale "*Linux_64-bit.tar.gz"
+download v2.19.0 errata-ai/vale "*Linux_64-bit.tar.gz"
 download 15.2.0 valentjn/ltex-ls "*ltex-ls-15.2.0.tar.gz"
 download 0.13.0 dandavison/delta "*x86_64-unknown-linux-musl.tar.gz"
 
@@ -74,8 +74,6 @@ curl $PANDOC_DL_URL/include-code-files/include-code-files.lua -o "$PANDOC_FILTER
 
 # install Paq plugin manager for Neovim
 git clone --depth=1 https://github.com/savq/paq-nvim.git "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/start/paq-nvim
-# add dictionary file so custom function does not give error
-mkdir -p "$HOME"/.config/nvim/spell && touch "$HOME"/.config/nvim/spell/en.utf-8.add
 
 # blender
 sudo mkdir -p "$BIN_INSTALL_DIR/blender-bin"

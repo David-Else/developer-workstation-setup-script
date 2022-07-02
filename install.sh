@@ -37,6 +37,7 @@ rpm_packages_to_install=(
     ImageMagick
     borgbackup
     # code
+    # alsa-lib-devel systemd-devel # for bevy
     ffmpeg
     gcc-c++
     gh
