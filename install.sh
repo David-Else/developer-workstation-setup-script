@@ -34,20 +34,18 @@ rpm_packages_to_remove=(
     totem)
 
 rpm_packages_to_install=(
+    # code
+    # libva-intel-driver
     ImageMagick
     borgbackup
-    # code
-    # alsa-lib-devel systemd-devel # for bevy
     ffmpeg
     gcc-c++
     gh
     gnome-tweaks
-    keepassxc
+    # keepassxc
     lazygit
-    # libva-intel-driver
-    # mesa-vdpau-drivers
     mediainfo
-    mpv
+    # mpv
     nnn
     neovim
     nodejs
