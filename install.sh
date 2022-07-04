@@ -46,14 +46,13 @@ rpm_packages_to_install=(
     lazygit
     mediainfo
     # mpv
-    nnn
+    # nnn
     neovim
     nodejs
     optipng
-    podman
-    stow
+    # stow
     thunderbird
-    transmission-gtk
+    # transmission-gtk
     xclip)
 
 flathub_packages_to_install=(
@@ -214,6 +213,7 @@ install_all() {
 add_conditional_repositories
 install_all
 
+# neovim will fail 2nd time as dir exists
 case " ${rpm_packages_to_install[*]} " in
 *' nnn '*)
     su - "$SUDO_USER" -c "curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh"
@@ -227,11 +227,9 @@ display_text "
 
 ${BOLD}Congratulations, everything is installed!${RESET}
 
-For RHEL clones: ${GREEN}sudo dnf install extras/abattis-cantarell-fonts-0.111-2.fc30.noarch.rpm${RESET} to upgrade 0.0.25
-
 To install Visual Studio Code icons for the Neovim completion plugin double click the ${GREEN}extras/codicon.ttf${RESET} file in Gnome Files
 
-RHEL: To install Python applications: ${GREEN}pip3 install --user yt-dlp gitlint trash-cli tldr${RESET}
+RHEL:   To install Python applications: ${GREEN}pip3 install --user yt-dlp gitlint trash-cli tldr${RESET}
 Fedora: To install Python applications: ${GREEN}pip3 install --user gitlint trash-cli tldr${RESET}
  
 Now install the binaries with ${GREEN}./install-binaries.bash${RESET}...
