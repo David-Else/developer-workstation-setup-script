@@ -169,7 +169,7 @@ else
 fi
 
 #==============================================================================
-# Add more repositories and install extras depending on packages installed
+# Add more repositories depending on packages installed
 #==============================================================================
 add_conditional_repositories() {
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -182,12 +182,6 @@ add_conditional_repositories() {
         ;;&
     *' lazygit '*)
         dnf -y copr enable atim/lazygit
-        ;;&
-    *' nnn '*)
-        su - "$SUDO_USER" -c "curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh"
-        ;;&
-    *' neovim '*)
-        su - "$SUDO_USER" -c "git clone --depth=1 https://github.com/savq/paq-nvim.git ${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/pack/paqs/start/paq-nvim"
         ;;&
     *' gh '*)
         dnf -y config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
@@ -219,6 +213,15 @@ install_all() {
 
 add_conditional_repositories
 install_all
+
+case " ${rpm_packages_to_install[*]} " in
+*' nnn '*)
+    su - "$SUDO_USER" -c "curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh"
+    ;;&
+*' neovim '*)
+    su - "$SUDO_USER" -c "git clone --depth=1 https://github.com/savq/paq-nvim.git ~/.local/share}/nvim/site/pack/paqs/start/paq-nvim"
+    ;;
+esac
 
 display_text "
 
