@@ -86,7 +86,7 @@ mv ./dotfiles "$HOME/dotfiles"
 stow --verbose --dir="$HOME/dotfiles" autostart kitty mpv neovim shell
 
 # install neovim plugins
-nvim -es -u ~/.config/nvim/init.vim -i NONE -c "PlugInstall" -c "qa"
+nvim -es -u ~/.config/nvim/init.vim -i NONE -c "PaqInstall" -c "qa"
 
 #==============================================================================
 # Increase inotify watchers for watching large numbers of files, default is 8192
@@ -107,11 +107,6 @@ ${BOLD}Congratulations, everything is installed!${RESET}
 Gnome:    settings  > details > choose default applications
           software  > install 'Hide Top Bar'
 
-Create/update Deno completions:
--------------------------------
-${GREEN}deno completions bash > deno.sh${RESET}
-${GREEN}sudo mv deno.sh /etc/profile.d${RESET}
-
 Install Firefox extensions
 --------------------------
 ${GREEN}flatpak run org.mozilla.firefox${RESET} (RHEL) or ${GREEN}firefox
@@ -119,14 +114,6 @@ ${GREEN}flatpak run org.mozilla.firefox${RESET} (RHEL) or ${GREEN}firefox
 https://addons.mozilla.org/en-GB/firefox/addon/privacy-badger17/ \
 https://addons.mozilla.org/en-GB/firefox/addon/ublock-origin/ \
 https://addons.mozilla.org/en-US/firefox/addon/surfingkeys_ff/${RESET}
-
-Fix Visual Studio Code keyboard input on RHEL 8 and clones
-----------------------------------------------------------
-- Un-comment ${GREEN}code=GTK_IM_MODULE=ibus code${RESET} from ${GREEN}.bashrc${RESET}
-- Go to terminal type 'ibus-setup'
-- Go to Emoji tab, press the '...' next to Emoji choice to get 'select keyboard shortcut for switching' window
-- Use the delete button to delete the shortcut and leave nothing there, press OK
-- Close
 
 Setup vale 
 -----------------------------------------------------------

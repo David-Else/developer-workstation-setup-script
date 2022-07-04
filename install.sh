@@ -3,17 +3,17 @@
 #==============================================================================
 # Developer Workstation Setup Script
 #
-# DESCRIPTION: Post-install script for Fedora and RHEL 8 clones to create your
+# DESCRIPTION: Post-install script for Fedora and RHEL 9 clones to create your
 #              ultimate development environment
 #
 #      WEBSITE: https://github.com/David-Else/developer-workstation-setup-script
 #
-# REQUIREMENTS: Freshly installed Fedora 34+, or RHEL 8 clone installed with
+# REQUIREMENTS: Freshly installed Fedora 34+, or RHEL 9 clone installed with
 #               software selection = workstation
 #
 #       AUTHOR: David Else
 #      COMPANY: https://www.elsewebdevelopment.com/
-#      VERSION: 2.3
+#      VERSION: 3.0
 #==============================================================================
 set -euo pipefail
 exec 2> >(tee "error_log_$(date -Iseconds).txt")
@@ -25,7 +25,7 @@ source /etc/os-release
 confirm_user_is 'root'
 
 #==============================================================================
-# Packages to be installed, modified depending on OS
+# Packages to be installed on all OS
 #==============================================================================
 rpm_packages_to_remove=(
     cheese
@@ -139,9 +139,7 @@ if [[ "$OS" == "valid_rhel" ]]; then
     add_redhat_repositories() {
         dnf -y config-manager --enable crb
         dnf -y install epel-release
-        dnf -y install --nogpgcheck https://dl.fedoraproject.org/pub/epel/epel-release-latest-$(rpm -E %rhel).noarch.rpm
         dnf -y install --nogpgcheck https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-$(rpm -E %rhel).noarch.rpm https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-$(rpm -E %rhel).noarch.rpm
-        dnf -y config-manager --add-repo https://download.opensuse.org/repositories/home:stig124:nnn/CentOS_8/home:stig124:nnn.repo # note version number of OS
     }
 
     rpm_packages_to_remove+=("${rhel_rpm_packages_to_remove[@]}")
@@ -157,7 +155,6 @@ elif [ "$OS" == "valid_fedora" ]; then
 
     add_fedora_repositories() {
         dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-        dnf -y config-manager --add-repo https://download.opensuse.org/repositories/home:stig124:nnn/Fedora_35/home:stig124:nnn.repo # note version number of OS
     }
 
     rpm_packages_to_remove+=("${fedora_rpm_packages_to_remove[@]}")
@@ -174,7 +171,7 @@ else
 fi
 
 #==============================================================================
-# Add more repositories, some depending if packages have been selected
+# Add more repositories and install extras depending on packages installed
 #==============================================================================
 add_conditional_repositories() {
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -187,6 +184,12 @@ add_conditional_repositories() {
         ;;&
     *' lazygit '*)
         dnf -y copr enable atim/lazygit
+        ;;&
+    *' nnn '*)
+        su - "$SUDO_USER" -c "curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh"
+        ;;&
+    *' neovim '*)
+        su - "$SUDO_USER" -c "git clone --depth=1 https://github.com/savq/paq-nvim.git ${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/pack/paqs/start/paq-nvim"
         ;;&
     *' gh '*)
         dnf -y config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
