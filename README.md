@@ -84,6 +84,8 @@ This script is designed to be run immediately after installing the operating sys
 
 ### Use git to clone this repository
 
+If git is not installed by default then `sudo dnf install git`.
+
 ```
 git clone https://github.com/David-Else/developer-workstation-setup-script
 cd developer-workstation-setup-script
