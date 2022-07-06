@@ -74,6 +74,17 @@ Setup out of the box with the latest [Neovim 0.6.1](https://neovim.io) and plugi
 
 All the software dotfiles are managed using stow, this makes them easy to alter and version on your computer.
 
+\*\* There is no official el9 version of `stow` at the moment, so I rebuilt the el8 version, see the `extras` directory:
+
+```bash
+sudo dnf config-manager --set-enabled crb
+sudo dnf install epel-release
+sudo dnf install perl rpm-build perl-generators perl-IO-stringy perl-Test-Output
+
+curl -O https://download-ib01.fedoraproject.org/pub/epel/8/Everything/SRPMS/Packages/s/stow-2.3.1-1.el8.src.rpm
+rpmbuild --rebuild stow-2.3.1-1.el8.src.rpm
+```
+
 ## Installation
 
 ### RHEL clones must be installed using the `workstation` option

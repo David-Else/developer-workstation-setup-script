@@ -47,6 +47,7 @@ rpm_packages_to_install=(
     mediainfo
     # mpv
     # nnn
+    # kitty
     neovim
     nodejs
     optipng
