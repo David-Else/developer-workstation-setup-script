@@ -24,6 +24,8 @@ detect_os() {
         OS='valid_rhel'
     elif [[ "$ID" == "fedora" && "${VERSION_ID%.*}" -gt 33 ]]; then
         OS='valid_fedora'
+    else
+        OS='invalid'
     fi
 }
 
