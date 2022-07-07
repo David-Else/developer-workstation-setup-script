@@ -24,9 +24,6 @@ source /etc/os-release
 
 confirm_user_is 'root'
 
-# TEMP DELETE!!
-dnf install kitty nnn --enablerepo=epel-testing
-
 #==============================================================================
 # Packages to be installed on all OS
 #==============================================================================
@@ -218,6 +215,9 @@ install_all() {
 
 add_conditional_repositories
 install_all
+
+# TEMP DELETE!!
+dnf install kitty nnn --enablerepo=epel-testing
 
 # neovim will fail 2nd time as dir exists
 case " ${rpm_packages_to_install[*]} " in
