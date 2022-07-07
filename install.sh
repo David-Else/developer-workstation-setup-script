@@ -24,6 +24,9 @@ source /etc/os-release
 
 confirm_user_is 'root'
 
+# TEMP DELETE!!
+dnf install kitty nnn --enablerepo=epel-testing
+
 #==============================================================================
 # Packages to be installed on all OS
 #==============================================================================
