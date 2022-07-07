@@ -2,15 +2,15 @@
 
 ![neo-70s](./images/neo-70s.jpg)
 
-Welcome to your new **ultimate development environment**! A post-install setup script for developers that works on Fedora and all RHEL 8 clones. Enjoy the same software and desktop regardless of which Red Hat based distribution you choose.
+Welcome to your new **ultimate development environment**! A post-install setup script for developers that works on Fedora and all RHEL 9 clones. Enjoy the same software and desktop regardless of which Red Hat based distribution you choose.
 
 ## Features
 
-### Fedora 34+ and RHEL 8+ clones compatibility
+### Fedora 34+ and RHEL 9+ clones compatibility
 
 ![rocky-fedora-logos](./images/rocky-fedora.png)
 
-Works across Fedora 34+, RHEL 8+ and all clones. You get to choose between cutting edge Fedora or stable RHEL clones. I suggest if you want stable, then choose Rocky.
+Works across Fedora 34+, RHEL 9+ and all clones. You get to choose between cutting edge Fedora or stable RHEL clones. I suggest if you want stable, then choose Rocky.
 
 To maintain parity with Fedora 34+, any package that's not available directly in RHEL is downloaded as:
 
