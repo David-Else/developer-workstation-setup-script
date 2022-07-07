@@ -1,9 +1,8 @@
 #!/bin/bash
-
 set -eo pipefail
-
-source functions.bash
 source colors.bash
+source functions.bash
+confirm_user_is 'normal'
 
 idle_delay=2400
 title_bar_buttons_on="true"
@@ -11,7 +10,6 @@ clock_show_date="true"
 capslock_delete="true"
 night_light="true"
 
-confirm_user_is 'normal'
 detect_os
 clear
 
@@ -19,11 +17,11 @@ clear
 # Improve pulse audio on RHEL 8.x clones, not needed on Fedora which uses pipewire
 # TODO test and remove RHEL9
 #=================================================================================
-if [[ "$OS" == "valid_rhel" ]]; then
-    sudo sed -i "s/; default-sample-format = s16le/default-sample-format = s32le/g" /etc/pulse/daemon.conf
-    sudo sed -i "s/; resample-method = speex-float-1/resample-method = speex-float-10/g" /etc/pulse/daemon.conf
-    sudo sed -i "s/; avoid-resampling = false/avoid-resampling = true/g" /etc/pulse/daemon.conf
-fi
+# if [[ "$OS" == "valid_rhel" ]]; then
+#     sudo sed -i "s/; default-sample-format = s16le/default-sample-format = s32le/g" /etc/pulse/daemon.conf
+#     sudo sed -i "s/; resample-method = speex-float-1/resample-method = speex-float-10/g" /etc/pulse/daemon.conf
+#     sudo sed -i "s/; avoid-resampling = false/avoid-resampling = true/g" /etc/pulse/daemon.conf
+# fi
 
 #==============================================================================
 # Set host name
@@ -61,7 +59,6 @@ fi
 
 #==============================================================================
 # Font settings for sub-pixel rendering
-# TODO consider removing this are more people have 4k anyway and 1080p small laptop
 #==============================================================================
 read -p "Use sub-pixel rendering? (recommended for monitors with less than 4k resolution) " -n 1 -r
 echo
