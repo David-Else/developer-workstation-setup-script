@@ -64,26 +64,15 @@ To maintain parity with Fedora 34+, any package that's not available directly in
 
 Gnome has been tweaked along with font settings for a better experience.
 
-### Neovim 0.6.1 with plugins and custom keybindings
+### Neovim 0.7.0 with plugins and custom keybindings
 
-Setup out of the box with the latest [Neovim 0.6.1](https://neovim.io) and plugins configured to use `fzf`, `ripgrep`, `delta` and `bat` with an attractive Visual Studio Code theme
+Setup out of the box with the latest [Neovim 0.7.0](https://neovim.io) and plugins configured to use `fzf`, `ripgrep`, `delta` and `bat` with an attractive Visual Studio Code theme
 
 ![Neovim](./images/fzf.vim.png)
 
 ### Uses [stow](https://www.gnu.org/software/stow/) to install and mange dotfiles
 
 All the software dotfiles are managed using stow, this makes them easy to alter and version on your computer.
-
-\*\* There is no official el9 version of `stow` at the moment, so I rebuilt the el8 version, see the `extras` directory:
-
-```bash
-sudo dnf config-manager --set-enabled crb
-sudo dnf install epel-release
-sudo dnf install perl rpm-build perl-generators perl-IO-stringy perl-Test-Output
-
-curl -O https://download-ib01.fedoraproject.org/pub/epel/8/Everything/SRPMS/Packages/s/stow-2.3.1-1.el8.src.rpm
-rpmbuild --rebuild stow-2.3.1-1.el8.src.rpm
-```
 
 ## Installation
 
