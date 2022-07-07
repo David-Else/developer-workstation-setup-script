@@ -77,13 +77,14 @@ fi
 #==============================================================================
 mv "$HOME/.bash_profile" "$HOME/.bash_profile_backup"
 mv "$HOME/.bashrc" "$HOME/.bashrc_backup"
+mv "$HOME/.config/kitty/kitty.conf" "$HOME/.config/kitty/kitty_backup.conf"
 
-mv ./dotfiles "$HOME/dotfiles"
-# lazygit directory fails for unknown reason, copy manually
-stow --verbose --dir="$HOME/dotfiles" autostart kitty mpv neovim shell
+mkdir -p "$HOME/.dotfiles"
+cp -R ./dotfiles/* "$HOME/.dotfiles"
+stow --verbose --dir="$HOME/.dotfiles" --target="$HOME" neovim mpv shell autostart lazygit kitty
 
 # install neovim plugins
-nvim -es -u ~/.config/nvim/init.vim -i NONE -c "PaqInstall" -c "qa"
+# nvim -es -u ~/.config/nvim/init.vim -i NONE -c "PaqInstall" -c "qa"
 
 #==============================================================================
 # Increase inotify watchers for watching large numbers of files, default is 8192
