@@ -1,5 +1,6 @@
 #!/bin/bash
 set -euo pipefail
+source colors.bash
 source functions.bash
 confirm_user_is 'normal'
 sudo --validate
@@ -12,6 +13,7 @@ mkdir -p $TMP
 
 # ${1} version ${2} repo ${3} regex pattern
 download() {
+    echo -e "Downloading ${GREEN}${2}${RESET}..."
     gh release download --dir $TMP "$1" --repo "$2" --pattern "$3"
 }
 
@@ -63,7 +65,7 @@ sudo ln --symbolic --force $BIN_INSTALL_DIR/blender-bin/blender $BIN_INSTALL_DIR
 cp "$BIN_INSTALL_DIR/blender-bin/blender.desktop" ~/.local/share/applications/
 sed -i "s|Icon=blender|Icon=$BIN_INSTALL_DIR/blender-bin/blender.svg|g" ~/.local/share/applications/blender*.desktop
 
-# remove temp files dir
+# remove temp files
 rm -rf $TMP
 rm blender-3.2.0-linux-x64.tar.xz
 
