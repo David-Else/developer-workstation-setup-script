@@ -3,7 +3,7 @@ require 'paq' {
   'davidgranstrom/nvim-markdown-preview',
   'Mofiqul/vscode.nvim',
   'neovim/nvim-lspconfig',
-  'folke/lua-dev.nvim',
+  -- 'folke/lua-dev.nvim',
   'kosayoda/nvim-lightbulb',
   'folke/zen-mode.nvim',
   'numToStr/Comment.nvim',

@@ -145,8 +145,8 @@ if [[ "$OS" == "valid_rhel" ]]; then
     flathub_packages_to_install+=("${rhel_flathub_packages_to_install[@]}")
     display_user_settings_and_prompt
     add_redhat_repositories
-
     dnf -y install ./el9-rebuilds/stow-2.3.1-1.el9.noarch.rpm ./el9-rebuilds/stow-doc-2.3.1-1.el9.noarch.rpm ./el9-rebuilds/aiksaurus-1.2.1-48.el9.x86_64.rpm
+
     #==========================================================================
     # For Fedora only
     #==========================================================================
@@ -169,12 +169,7 @@ else
     echo "Unsupported OS or version" && exit 1
 fi
 
-#==============================================================================
-# Add more repositories depending on packages installed
-#==============================================================================
 add_conditional_repositories() {
-    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
     # spaces around strings ensure something like 'notnode' could not trigger 'nodejs' using [*]
     case " ${rpm_packages_to_install[*]} " in
     *' code '*)
@@ -190,9 +185,18 @@ add_conditional_repositories() {
     esac
 }
 
-#==============================================================================
-# Remove unwanted programs, update system and install everything
-#==============================================================================
+add_conditional_scripts() {
+    # neovim will fail 2nd time as dir exists
+    case " ${rpm_packages_to_install[*]} " in
+    *' nnn '*)
+        su - "$SUDO_USER" -c "curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh"
+        ;;&
+    *' neovim '*)
+        su - "$SUDO_USER" -c "git clone --depth=1 https://github.com/savq/paq-nvim.git ~/.local/share}/nvim/site/pack/paqs/start/paq-nvim"
+        ;;
+    esac
+}
+
 install_all() {
     echo -e "${BOLD}Removing unwanted programs...${RESET}"
     dnf -y remove "${rpm_packages_to_remove[@]}"
@@ -206,27 +210,15 @@ install_all() {
     echo -e "${BOLD}Installing flathub packages...${RESET}"
     flatpak install -y flathub "${flathub_packages_to_install[@]}"
 
-    if command -v node &>/dev/null; then
-        echo -e "${BOLD}Installing NPM global packages..."
-        npm install -g "${npm_global_packages_to_install[@]}"
-    fi
+    echo -e "${BOLD}Installing NPM global packages..."
+    npm install -g "${npm_global_packages_to_install[@]}"
 }
 
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 add_conditional_repositories
 install_all
-
-# TEMP DELETE!!
-dnf install kitty nnn --enablerepo=epel-testing
-
-# neovim will fail 2nd time as dir exists
-case " ${rpm_packages_to_install[*]} " in
-*' nnn '*)
-    su - "$SUDO_USER" -c "curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh"
-    ;;&
-*' neovim '*)
-    su - "$SUDO_USER" -c "git clone --depth=1 https://github.com/savq/paq-nvim.git ~/.local/share}/nvim/site/pack/paqs/start/paq-nvim"
-    ;;
-esac
+dnf -y install kitty nnn --enablerepo=epel-testing # <<<<<<<<<<<<<<<<<<<<<<<<< TEMP DELETE!! Uncomment when in repos
+add_conditional_scripts
 
 display_text "
 

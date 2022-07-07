@@ -1,13 +1,12 @@
 -- NVIM v0.7.0 config
 require('user.statusline')
--- require('user.thesaurus')
+require('user.thesaurus')
 require('user.plugins')
-if vim.g.lsp_executed == nil then --- load once preventing multiple copies of language servers
-  require('user.lsp')
-  vim.g.lsp_executed = true
-end
+-- if vim.g.lsp_executed == nil then --- load once preventing multiple copies of language servers
+require('user.lsp')
+-- vim.g.lsp_executed = true
+-- end
 
--- vim.g.vscode_style = 'dark'
 vim.cmd [[colorscheme vscode]]
 
 vim.opt.title = true -- window title is 'titlestring' or 'filename [+=-] (path)'
@@ -69,14 +68,14 @@ vim.api.nvim_create_autocmd('BufEnter', {
 vim.g.mapleader = ' '
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
-vim.keymap.set('n', '<leader>vs', function()
-  for name, _ in pairs(package.loaded) do
-    if name:match('^user') then
-      package.loaded[name] = nil
-    end
-  end
-  dofile(vim.env.MYVIMRC)
-end)
+-- vim.keymap.set('n', '<leader>vs', function()
+--   for name, _ in pairs(package.loaded) do
+--     if name:match('^user') then
+--       package.loaded[name] = nil
+--     end
+--   end
+--   dofile(vim.env.MYVIMRC)
+-- end)
 
 vim.keymap.set('i', 'jk', '<Esc>')
 vim.keymap.set('t', 'jk', [[<C-\><C-n>]])

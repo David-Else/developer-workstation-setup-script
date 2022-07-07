@@ -158,13 +158,13 @@ lspconfig.jsonls.setup {
   },
 }
 
-local luadev = require("lua-dev").setup({
-  lspconfig = {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  },
-})
-lspconfig.sumneko_lua.setup(luadev)
+-- local luadev = require("lua-dev").setup({
+--   lspconfig = {
+--     on_attach = on_attach,
+--     capabilities = capabilities,
+--   },
+-- })
+-- lspconfig.sumneko_lua.setup(luadev)
 
 -- ==================
 --    null-ls.nvim
