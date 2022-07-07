@@ -13,16 +13,6 @@ night_light="true"
 detect_os
 clear
 
-#=================================================================================
-# Improve pulse audio on RHEL 8.x clones, not needed on Fedora which uses pipewire
-# TODO test and remove RHEL9
-#=================================================================================
-# if [[ "$OS" == "valid_rhel" ]]; then
-#     sudo sed -i "s/; default-sample-format = s16le/default-sample-format = s32le/g" /etc/pulse/daemon.conf
-#     sudo sed -i "s/; resample-method = speex-float-1/resample-method = speex-float-10/g" /etc/pulse/daemon.conf
-#     sudo sed -i "s/; avoid-resampling = false/avoid-resampling = true/g" /etc/pulse/daemon.conf
-# fi
-
 #==============================================================================
 # Set host name
 #==============================================================================
@@ -73,7 +63,6 @@ fi
 #
 # This can only be run once, it will give errors if ran again as it moves the
 # dotfiles from the install script directory rather than copies
-# TODO make this more robust, fix lazygit dir bug
 #==============================================================================
 mv "$HOME/.bash_profile" "$HOME/.bash_profile_backup"
 mv "$HOME/.bashrc" "$HOME/.bashrc_backup"
@@ -83,14 +72,10 @@ mkdir -p "$HOME/.dotfiles"
 cp -R ./dotfiles/* "$HOME/.dotfiles"
 stow --verbose --dir="$HOME/.dotfiles" --target="$HOME" neovim mpv shell autostart lazygit kitty
 
-# install neovim plugins
-# nvim -es -u ~/.config/nvim/init.vim -i NONE -c "PaqInstall" -c "qa"
-
 #==============================================================================
 # Increase inotify watchers for watching large numbers of files, default is 8192
 #
 # curl -s https://raw.githubusercontent.com/fatso83/dotfiles/master/utils/scripts/inotify-consumers | bash
-# TODO Do I need this??!!
 #==============================================================================
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
