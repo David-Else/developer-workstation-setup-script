@@ -146,7 +146,7 @@ if [[ "$OS" == "valid_rhel" ]]; then
     display_user_settings_and_prompt
     add_redhat_repositories
 
-    dnf -y install ./extras/stow-2.3.1-1.el9.noarch.rpm ./extras/aiksaurus-1.2.1-48.el9.x86_64.rpm
+    dnf -y install ./el9-rebuilds/stow-2.3.1-1.el9.noarch.rpm ./el9-rebuilds/stow-doc-2.3.1-1.el9.noarch.rpm ./el9-rebuilds/aiksaurus-1.2.1-48.el9.x86_64.rpm
     #==========================================================================
     # For Fedora only
     #==========================================================================
