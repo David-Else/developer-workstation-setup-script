@@ -12,10 +12,11 @@ Welcome to your new **ultimate development environment**! A post-install setup s
 
 Works across Fedora 34+, RHEL 9+ and all clones. You get to choose between cutting edge Fedora or stable RHEL clones. I suggest if you want stable, then choose Rocky.
 
-To maintain parity with Fedora 34+, any package that's not available directly in RHEL is downloaded as:
+To maintain parity with Fedora 34+, any package that's not available directly in RHEL is:
 
-- A binary from GitHub or another trusted source
-- From [flathub](https://flathub.org/home)
+- Downloaded as a binary from GitHub or another trusted source
+- Rebuilt from a compatible SRC RPM and installed from `./el9-rebuilds`
+- Downloaded from [flathub](https://flathub.org/home)
 
 ### Great software out of the box, easy to customize and choose your own
 
