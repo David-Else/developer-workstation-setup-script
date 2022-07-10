@@ -1,4 +1,4 @@
-7th July 2022: v3.0
+10th July 2022: v3.0
 
 - Compatible with RHEL 9 and clones, not backwards compatible with 8
 - Everything refactored and improved

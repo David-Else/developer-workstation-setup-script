@@ -59,10 +59,10 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 fi
 
 #==============================================================================
-# Backup files, move new dotfiles to the home directory and run stow
+# Backup files, move dotfiles to the home directory and run stow
 #
-# This can only be run once, it will give errors if ran again as it moves the
-# dotfiles from the install script directory rather than copies
+# This can only be run once as there is no logic to detect if files exist before
+# attempting to rename them
 #==============================================================================
 mv "$HOME/.bash_profile" "$HOME/.bash_profile_backup"
 mv "$HOME/.bashrc" "$HOME/.bashrc_backup"
