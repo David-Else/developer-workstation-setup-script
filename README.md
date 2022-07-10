@@ -10,13 +10,13 @@ Welcome to your new **ultimate development environment**! A post-install setup s
 
 ![rocky-fedora-logos](./images/rocky-fedora.png)
 
-Works across Fedora 34+, RHEL 9+ and all clones. You get to choose between cutting edge Fedora or stable RHEL clones. I suggest if you want stable, then choose Rocky.
+Works across Fedora 34+, RHEL 9+ and all clones. You get to choose between cutting edge Fedora or stable RHEL.
 
-To maintain parity with Fedora 34+, any package that's not available directly in RHEL is:
+To maintain parity with Fedora 34+, any RHEL package that's not available in a popular repository is:
 
 - Downloaded as a binary from GitHub or another trusted source
 - Rebuilt from a compatible SRC RPM and installed from `./el9-rebuilds`
-- Downloaded from [flathub](https://flathub.org/home)
+- Downloaded as a flatpak from [flathub](https://flathub.org/home)
 
 ### Great software out of the box, easy to customize and choose your own
 
@@ -35,7 +35,7 @@ To maintain parity with Fedora 34+, any package that's not available directly in
 
 ### Improved Gnome desktop and font settings
 
-Gnome has been tweaked along with font settings for a better experience.
+Gnome has been tweaked along with optional subpixel font rendering for a better experience.
 
 ### Neovim 0.7.0 with plugins and custom keybindings
 
@@ -45,7 +45,7 @@ Setup out of the box with the latest [Neovim 0.7.0](https://neovim.io) and plugi
 
 ### Uses [stow](https://www.gnu.org/software/stow/) to install and mange dotfiles
 
-All the software dotfiles are managed using stow, this makes them easy to alter and version on your computer.
+All the software dotfiles are managed using stow, this makes them easy to alter and version control on your computer.
 
 ## Installation
 
