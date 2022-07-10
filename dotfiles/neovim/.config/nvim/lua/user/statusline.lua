@@ -79,25 +79,7 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'FocusGained' }, {
 })
 
 -- ==================
---     Treesitter
--- ==================
-_G.current_treesitter_context = function()
-  local f = require 'nvim-treesitter'.statusline({
-    -- indicator_size = 300,
-    -- type_patterns = { "class", "function", "method", "interface", "type_spec", "table", "if_statement", "for_statement",
-    --   "for_in_statement" }
-  })
-  local context = string.format("%s", f) -- convert to string, it may be a empty ts node
-
-  if context == "vim.NIL" then
-    return " "
-  end
-  return " " .. context
-
-end
-
--- ==================
 --     Statusline
 -- ==================
 vim.opt.statusline = [[%#PmenuSel#%{get(b:, "branch_name", "")}%#LineNr# %f %m]]
-vim.opt.statusline:append([[%= %{get(b:, "lsp_status", "")} %{%v:lua.lsp_progress()%} %{%v:lua.current_treesitter_context()%} %#CursorColumn# %{get(b:, "errors", "")} %{get(b:, "wordcount", "")} %y %{&fileencoding?&fileencoding:&encoding} [%{&fileformat}] %p%% %l:%c]])
+vim.opt.statusline:append([[%= %{get(b:, "lsp_status", "")} %{%v:lua.lsp_progress()%} %#CursorColumn# %{get(b:, "errors", "")} %{get(b:, "wordcount", "")} %y %{&fileencoding?&fileencoding:&encoding} [%{&fileformat}] %p%% %l:%c]])
