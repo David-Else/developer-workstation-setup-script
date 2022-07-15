@@ -47,7 +47,7 @@ rpm_packages_to_install=(
     mediainfo
     # mpv
     nnn
-    # kitty
+    kitty
     neovim
     nodejs
     optipng
@@ -217,7 +217,6 @@ install_all() {
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 add_conditional_repositories
 install_all
-dnf -y install kitty --enablerepo=epel-testing # <<<<<<<<<<<<<<<<<<<<<<<<< TEMP DELETE!! Uncomment when in repos
 add_conditional_scripts
 
 display_text "
