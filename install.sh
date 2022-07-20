@@ -92,7 +92,7 @@ fedora_rpm_packages_to_remove=(
     gnome-photos)
 
 fedora_rpm_packages_to_install=(
-    trash-cli # make this common for RHEL and Fedora when stable in RHEL
+    trash-cli # TODO make this common for RHEL and Fedora when stable in RHEL
     krita
     lshw
     mkvtoolnix-gui
@@ -219,6 +219,9 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 add_conditional_repositories
 install_all
 add_conditional_scripts
+
+# TODO TEMP DELETE!!
+dnf install keepassxc trash-cli --enablerepo=epel-testing
 
 display_text "
 
