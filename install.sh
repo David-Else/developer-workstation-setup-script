@@ -92,6 +92,7 @@ fedora_rpm_packages_to_remove=(
     gnome-photos)
 
 fedora_rpm_packages_to_install=(
+    trash-cli # make this common for RHEL and Fedora when stable in RHEL
     krita
     lshw
     mkvtoolnix-gui
@@ -225,8 +226,8 @@ ${BOLD}Congratulations, everything is installed!${RESET}
 
 To install Visual Studio Code icons for the Neovim completion plugin double click the ${GREEN}extras/codicon.ttf${RESET} file in Gnome Files
 
-RHEL:   To install Python applications: ${GREEN}pip3 install --user yt-dlp gitlint trash-cli tldr${RESET}
-Fedora: To install Python applications: ${GREEN}pip3 install --user gitlint trash-cli tldr${RESET}
+RHEL:   To install Python applications: ${GREEN}pip3 install --user yt-dlp gitlint tldr${RESET}
+Fedora: To install Python applications: ${GREEN}pip3 install --user gitlint tldr${RESET}
  
 Now install the binaries with ${GREEN}./install-binaries.bash${RESET}...
 "
