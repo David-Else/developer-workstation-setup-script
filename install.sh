@@ -138,7 +138,9 @@ if [[ "$OS" == "valid_rhel" ]]; then
     add_redhat_repositories() {
         dnf -y config-manager --enable crb
         dnf -y install epel-release
-        dnf -y install --nogpgcheck https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-$(rpm -E %rhel).noarch.rpm https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-$(rpm -E %rhel).noarch.rpm
+        dnf -y install --nogpgcheck \
+            https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-$(rpm -E %rhel).noarch.rpm \
+            https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-$(rpm -E %rhel).noarch.rpm
     }
 
     rpm_packages_to_remove+=("${rhel_rpm_packages_to_remove[@]}")
@@ -146,7 +148,10 @@ if [[ "$OS" == "valid_rhel" ]]; then
     flathub_packages_to_install+=("${rhel_flathub_packages_to_install[@]}")
     display_user_settings_and_prompt
     add_redhat_repositories
-    dnf -y install ./el9-rebuilds/stow-2.3.1-1.el9.noarch.rpm ./el9-rebuilds/stow-doc-2.3.1-1.el9.noarch.rpm ./el9-rebuilds/aiksaurus-1.2.1-48.el9.x86_64.rpm
+    dnf -y install \
+        ./el9-rebuilds/stow-2.3.1-1.el9.noarch.rpm \
+        ./el9-rebuilds/stow-doc-2.3.1-1.el9.noarch.rpm \
+        ./el9-rebuilds/aiksaurus-1.2.1-48.el9.x86_64.rpm
 
     #==========================================================================
     # For Fedora only
@@ -154,7 +159,9 @@ if [[ "$OS" == "valid_rhel" ]]; then
 elif [ "$OS" == "valid_fedora" ]; then
 
     add_fedora_repositories() {
-        dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+        dnf -y install \
+            https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+            https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     }
 
     rpm_packages_to_remove+=("${fedora_rpm_packages_to_remove[@]}")
@@ -171,7 +178,7 @@ else
 fi
 
 add_conditional_repositories() {
-    # spaces around strings ensure something like 'notnode' could not trigger 'nodejs' using [*]
+    # spaces either side ensure e.g. 'notnode' couldn't trigger 'nodejs' using [*]
     case " ${rpm_packages_to_install[*]} " in
     *' code '*)
         rpm --import https://packages.microsoft.com/keys/microsoft.asc
@@ -190,10 +197,14 @@ add_conditional_scripts() {
     # neovim will fail 2nd time as dir exists
     case " ${rpm_packages_to_install[*]} " in
     *' nnn '*)
-        su - "$SUDO_USER" -c "curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh"
+        su - "$SUDO_USER" -c \
+            "curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh"
         ;;&
     *' neovim '*)
-        su - "$SUDO_USER" -c "git clone --depth=1 https://github.com/savq/paq-nvim.git ~/.local/share}/nvim/site/pack/paqs/start/paq-nvim"
+        if [ ! -d "$HOME/.local/share}/nvim/site/pack/paqs/start/paq-nvim" ]; then
+            su - "$SUDO_USER" -c \
+                "git clone --depth=1 https://github.com/savq/paq-nvim.git ~/.local/share}/nvim/site/pack/paqs/start/paq-nvim"
+        fi
         ;;
     esac
 }
@@ -221,16 +232,17 @@ install_all
 add_conditional_scripts
 
 # TODO TEMP DELETE!!
-dnf install keepassxc trash-cli --enablerepo=epel-testing
+dnf -y install keepassxc trash-cli --enablerepo=epel-testing
 
 display_text "
 
 ${BOLD}Congratulations, everything is installed!${RESET}
 
-To install Visual Studio Code icons for the Neovim completion plugin double click the ${GREEN}extras/codicon.ttf${RESET} file in Gnome Files
+For VS Code icons double click ${GREEN}extras/codicon.ttf${RESET} in Gnome Files
 
-RHEL:   To install Python applications: ${GREEN}pip3 install --user yt-dlp gitlint tldr${RESET}
-Fedora: To install Python applications: ${GREEN}pip3 install --user gitlint tldr${RESET}
+To install Python applications:
+RHEL:   ${GREEN}pip3 install --user yt-dlp gitlint tldr${RESET}
+Fedora: ${GREEN}pip3 install --user gitlint tldr${RESET}
  
 Now install the binaries with ${GREEN}./install-binaries.bash${RESET}...
 "
