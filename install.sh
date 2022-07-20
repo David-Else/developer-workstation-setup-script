@@ -51,7 +51,6 @@ rpm_packages_to_install=(
     neovim
     nodejs
     optipng
-    # stow
     thunderbird
     # transmission-gtk
     xclip)
@@ -62,7 +61,7 @@ flathub_packages_to_install=(
 
 npm_global_packages_to_install=(
     prettier@2.7.1
-    vscode-langservers-extracted@4.2.1
+    vscode-langservers-extracted@4.4.0
     bash-language-server@3.0.5
     typescript-language-server@0.11.2
     typescript@4.7.4)
@@ -93,6 +92,7 @@ fedora_rpm_packages_to_remove=(
 
 fedora_rpm_packages_to_install=(
     trash-cli # TODO make this common for RHEL and Fedora when stable in RHEL
+    stow
     krita
     lshw
     mkvtoolnix-gui
@@ -194,7 +194,6 @@ add_conditional_repositories() {
 }
 
 add_conditional_scripts() {
-    # neovim will fail 2nd time as dir exists
     case " ${rpm_packages_to_install[*]} " in
     *' nnn '*)
         su - "$SUDO_USER" -c \
