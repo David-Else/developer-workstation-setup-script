@@ -45,7 +45,7 @@ rpm_packages_to_install=(
     # keepassxc
     lazygit
     mediainfo
-    # mpv
+    mpv
     nnn
     kitty
     neovim
