@@ -34,8 +34,8 @@ export thumbnail_viewer="kitty"
 stty -ixon      # disable terminal flow control to free ctrl-s for shortcut
 stty werase \^H # set ctrl-backspace to delete previous word instead of ctrl-w
 
-if [ -f "$HOME/dotfiles/neovim/.config/nvim/plugged/fzf/shell/key-bindings.bash" ]; then
-    source ~/dotfiles/neovim/.config/nvim/plugged/fzf/shell/key-bindings.bash
+if [ -f "$HOME/.local/share/nvim/site/pack/paqs/start/fzf/shell/key-bindings.bash" ]; then
+    source "$HOME/.local/share/nvim/site/pack/paqs/start/fzf/shell/key-bindings.bash"
 fi
 
 eval "$(dircolors -b)" # needed for kitty to colorize the ls command
