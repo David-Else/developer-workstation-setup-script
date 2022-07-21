@@ -135,6 +135,8 @@ sudo ./install.sh
 ./setup.sh
 ```
 
+When Neovim is first run it will give errors as there are no plugins installed. Type `:PaqInstall` to install them, then `:q` and run again to finish installation.
+
 **ENJOY!**
 
 ## Neovim keybindings and plugins used

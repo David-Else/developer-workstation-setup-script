@@ -60,13 +60,9 @@ fi
 
 #==============================================================================
 # Backup files, move dotfiles to the home directory and run stow
-#
-# This can only be run once as there is no logic to detect if files exist before
-# attempting to rename them
 #==============================================================================
-mv "$HOME/.bash_profile" "$HOME/.bash_profile_backup"
-mv "$HOME/.bashrc" "$HOME/.bashrc_backup"
-mv "$HOME/.config/kitty/kitty.conf" "$HOME/.config/kitty/kitty_backup.conf"
+[ -f "$HOME/.bash_profile" ] && mv "$HOME/.bash_profile" "$HOME/.bash_profile_backup"
+[ -f "$HOME/.bashrc" ] && mv "$HOME/.bashrc" "$HOME/.bashrc_backup"
 
 mkdir -p "$HOME/.dotfiles"
 cp -R ./dotfiles/* "$HOME/.dotfiles"
