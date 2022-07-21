@@ -174,7 +174,7 @@ elif [ "$OS" == "valid_fedora" ]; then
 # Exit if unsupported OS
 #==============================================================================
 else
-    echo "Unsupported OS or version" && exit 1
+    echo "Unsupported $ID $VERSION_ID detected" && exit 1
 fi
 
 add_conditional_repositories() {
