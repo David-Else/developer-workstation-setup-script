@@ -63,6 +63,7 @@ fi
 #==============================================================================
 [ -f "$HOME/.bash_profile" ] && mv "$HOME/.bash_profile" "$HOME/.bash_profile_backup"
 [ -f "$HOME/.bashrc" ] && mv "$HOME/.bashrc" "$HOME/.bashrc_backup"
+[ -f "$HOME/.config/kitty/kitty.conf" ] && mv "$HOME/.config/kitty/kitty.conf" "$HOME/.config/kitty/kitty.conf_backup"
 
 mkdir -p "$HOME/.dotfiles"
 cp -R ./dotfiles/* "$HOME/.dotfiles"
