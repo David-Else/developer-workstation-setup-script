@@ -7,7 +7,7 @@ fi
 
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
-    PATH="$HOME/.local/bin:$HOME/bin:$HOME/.deno/bin:$HOME/Documents/scripts:$PATH"
+    PATH="$HOME/.local/bin:$HOME/bin:$HOME/.deno/bin:$HOME/Documents/scripts:$HOME/.local/share/nvim/site/pack/paqs/start/fzf/bin:$HOME/adb-fastboot/platform-tools/:$PATH"
 fi
 export PATH
 
@@ -37,7 +37,6 @@ stty werase \^H # set ctrl-backspace to delete previous word instead of ctrl-w
 if [ -f "$HOME/.local/share/nvim/site/pack/paqs/start/fzf/shell/key-bindings.bash" ]; then
     source "$HOME/.local/share/nvim/site/pack/paqs/start/fzf/shell/key-bindings.bash"
 fi
+[[ $- == *i* ]] && source "$HOME/.local/share/nvim/site/pack/paqs/start/fzf/shell/completion.bash" 2>/dev/null
 
 eval "$(dircolors -b)" # needed for kitty to colorize the ls command
-
-# alias code="GTK_IM_MODULE=ibus code" # for RHEL 8 and clones
