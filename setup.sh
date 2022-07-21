@@ -59,7 +59,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 fi
 
 #==============================================================================
-# Backup files, move dotfiles to the home directory and run stow
+# Stow config files, first move and backup files that would cause stow errors
 #==============================================================================
 [ -f "$HOME/.bash_profile" ] && mv "$HOME/.bash_profile" "$HOME/.bash_profile_backup"
 [ -f "$HOME/.bashrc" ] && mv "$HOME/.bashrc" "$HOME/.bashrc_backup"
