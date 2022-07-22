@@ -8,7 +8,7 @@
 #
 #      WEBSITE: https://github.com/David-Else/developer-workstation-setup-script
 #
-# REQUIREMENTS: Freshly installed Fedora 34+, or RHEL 9 clone installed with
+# REQUIREMENTS: Freshly installed Fedora 36+, or RHEL 9 clone installed with
 #               software selection = workstation
 #
 #       AUTHOR: David Else
@@ -107,7 +107,6 @@ fedora_flathub_packages_to_install=()
 #==============================================================================
 # Display user settings
 #==============================================================================
-
 display_user_settings_and_prompt() {
     clear
     display_text "
