@@ -231,7 +231,6 @@ install_all
 add_conditional_scripts
 
 display_text "
-
 ${BOLD}Congratulations, everything is installed!${RESET}
 
 "

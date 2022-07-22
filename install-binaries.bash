@@ -70,8 +70,7 @@ rm -rf $TMP
 rm blender-3.2.1-linux-x64.tar.xz
 
 display_text "
-
-${BOLD}Finished!
+${BOLD}Finished!${RESET}
 
 GitHub binaries have been installed to ${GREEN}${BIN_INSTALL_DIR}${RESET}
 Pandoc filters have been installed to ${GREEN}${PANDOC_FILTER_DIR}${RESET}

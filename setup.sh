@@ -73,7 +73,6 @@ stow --verbose --dir="$HOME/.dotfiles" --target="$HOME" neovim mpv shell autosta
 touch "$HOME/Templates/text-file.txt"
 
 display_text "
-
 ${BOLD}Congratulations, everything is setup!${RESET}
 
 Please reboot to finish installation and setup...

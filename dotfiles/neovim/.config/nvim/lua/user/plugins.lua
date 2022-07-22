@@ -134,7 +134,7 @@ cmp.setup.cmdline(':', {
 
 require('nvim-treesitter.configs').setup {
   ensure_installed = {
-    'vim',
+    -- 'vim', needs Neovim update to work
     'bash',
     'css',
     'html',
