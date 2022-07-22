@@ -69,13 +69,6 @@ mkdir -p "$HOME/.dotfiles"
 cp -R ./dotfiles/* "$HOME/.dotfiles"
 stow --verbose --dir="$HOME/.dotfiles" --target="$HOME" neovim mpv shell autostart lazygit kitty
 
-#==============================================================================
-# Increase inotify watchers for watching large numbers of files, default is 8192
-#
-# curl -s https://raw.githubusercontent.com/fatso83/dotfiles/master/utils/scripts/inotify-consumers | bash
-#==============================================================================
-# echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
-
 # create template file for nautilus
 touch "$HOME/Templates/text-file.txt"
 
@@ -110,8 +103,12 @@ ${GREEN}curl -LOf https://github.com/errata-ai/Microsoft/releases/latest/downloa
 ${GREEN}unzip Microsoft.zip -d ~/styles${RESET}
 ${GREEN}rm Microsoft.zip${RESET}
 
-# Create example dirs and settings files
+Create example dirs and settings files
 ${GREEN}mkdir -p ~/styles/Vocab/tech-blogging && touch ~/styles/Vocab/tech-blogging/{accept.txt,reject.txt}${RESET}
+
+Consider increasing inotify watchers for watching large numbers of files
+See current use with: curl -s https://raw.githubusercontent.com/fatso83/dotfiles/master/utils/scripts/inotify-consumers | bash
+${GREEN}echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p${RESET}
 
 Please reboot (or things may not work as expected)
 ===============================================================================
