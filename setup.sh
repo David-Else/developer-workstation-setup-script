@@ -4,7 +4,7 @@ source colors.bash
 source functions.bash
 confirm_user_is 'normal'
 
-idle_delay=2400
+idle_delay=1200
 title_bar_buttons_on="true"
 clock_show_date="true"
 capslock_delete="true"
