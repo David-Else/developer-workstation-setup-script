@@ -237,11 +237,4 @@ display_text "
 
 ${BOLD}Congratulations, everything is installed!${RESET}
 
-For VS Code icons double click ${GREEN}extras/codicon.ttf${RESET} in Gnome Files
-
-To install Python applications:
-RHEL:   ${GREEN}pip3 install --user yt-dlp gitlint tldr${RESET}
-Fedora: ${GREEN}pip3 install --user gitlint tldr${RESET}
- 
-Now install the binaries with ${GREEN}./install-binaries.bash${RESET}...
 "

@@ -1,24 +1,26 @@
 # Developer Workstation Setup Script
 
+Welcome to your new **ultimate development environment**!
+
 ![neo-70s](./images/neo-70s.jpg)
 
-Welcome to your new **ultimate development environment**! A post-install setup script for developers that works on Fedora and all RHEL 9 clones. Enjoy the same software and desktop regardless of which Red Hat based distribution you choose.
+Enjoy the same software and desktop setup regardless of which Red Hat based distribution you choose.
 
 ## Features
 
-### Fedora 34+ and RHEL 9+ clones compatibility
+- Works with Fedora 36+ and RHEL 9 compatible distributions
 
 ![rocky-fedora-logos](./images/rocky-fedora.png)
 
-Works across Fedora 34+, RHEL 9+ and all clones. You get to choose between cutting edge Fedora or stable RHEL.
+You get to choose between cutting edge Fedora or stable RHEL.
 
-To maintain parity with Fedora 34+, any RHEL package that's not available in a popular repository is:
+To maintain parity with Fedora 36+, any RHEL package that's not available in a popular repository is:
 
-- Downloaded as a binary from GitHub or another trusted source
-- Rebuilt from a compatible SRC RPM and installed from `./el9-rebuilds`
-- Downloaded as a flatpak from [flathub](https://flathub.org/home)
+1. Downloaded as a binary from GitHub or another trusted source
+2. Rebuilt from a compatible SRC RPM and installed from `./el9-rebuilds`
+3. Downloaded as a flatpak from [flathub](https://flathub.org/home)
 
-### Great software out of the box, easy to customize and choose your own
+- Great software out of the box, easy to customize and choose your own
 
 | Development                 | Browsers         | Graphics    | Sound and video | Security and backup |
 | --------------------------- | ---------------- | ----------- | --------------- | ------------------- |
@@ -33,17 +35,17 @@ To maintain parity with Fedora 34+, any RHEL package that's not available in a p
 | Ripgrep (grep replacement)  |                  |             |                 |                     |
 | Delta (diff viewer)         |                  |             |                 |                     |
 
-### Improved Gnome desktop and font settings
+- Improved Gnome desktop and font settings
 
 Gnome has been tweaked along with optional subpixel font rendering for a better experience.
 
-### Neovim 0.7.0 with plugins and custom keybindings
+- Neovim 0.7.0 with plugins and custom keybindings
 
 Setup out of the box with the latest [Neovim 0.7.0](https://neovim.io) and plugins configured to use `fzf`, `ripgrep`, `delta` and `bat` with an attractive Visual Studio Code theme
 
 ![Neovim](./images/fzf.vim.png)
 
-### Uses [stow](https://www.gnu.org/software/stow/) to install and mange dotfiles
+- Uses [stow](https://www.gnu.org/software/stow/) to install and mange dotfiles
 
 All the software dotfiles are managed using stow, this makes them easy to alter and version control on your computer.
 
@@ -56,8 +58,6 @@ This script is designed to be run immediately after installing the operating sys
 ![RHEL](./images/centos-8-install-options.png)
 
 ### Use git to clone this repository
-
-If git is not installed by default then `sudo dnf install git`.
 
 ```
 git clone https://github.com/David-Else/developer-workstation-setup-script
@@ -89,27 +89,6 @@ fedora_rpm_packages_to_install=()
 fedora_flathub_packages_to_install=()
 ```
 
-Inside a `if then` conditional the first set of arrays are modified depending on if you have installed Fedora or a RHEL clone.
-
-```bash
-detect_os
-
-if [[ "$OS" == "valid_rhel" ]]; then
-
-    rpm_packages_to_remove+=("${rhel_rpm_packages_to_remove[@]}")
-    rpm_packages_to_install+=("${rhel_rpm_packages_to_install[@]}")
-    flathub_packages_to_install+=("${rhel_flathub_packages_to_install[@]}")
-
-elif [ "$OS" == "valid_fedora" ]; then
-
-    rpm_packages_to_remove+=("${fedora_rpm_packages_to_remove[@]}")
-    rpm_packages_to_install+=("${fedora_rpm_packages_to_install[@]}")
-
-else
-    echo "Unsupported OS or version" && exit 1
-fi
-```
-
 Repos can be added conditionally for all OSes, so if the package is not required then the repo is not installed:
 
 ```bash
@@ -135,11 +114,17 @@ sudo ./install.sh
 ./setup.sh
 ```
 
-If you have an Intel CPU with a built-in GPU then `sudo dnf install libva-intel-driver`, MPV will then use HW acceleration.
+### Make any final changes
 
-When Neovim is first run it will give errors as there are no plugins installed. Type `:PaqInstall` to install them, then `:q` and run again to finish installation.
+- If you have an Intel CPU with a built-in GPU then `sudo dnf install libva-intel-driver`, MPV will then use HW acceleration.
 
-**ENJOY!**
+- When Neovim is first run it will give errors as there are no plugins installed. Type `:PaqInstall` to install them, then `:q` and run again to finish installation.
+
+- For VS Code icons that work in Neovim double click `extras/codicon.ttf` in Gnome Files
+
+- Install extra applications, for example: `pip3 install --user yt-dlp gitlint tldr`
+
+**ENJOY!** Please report any bugs you may encounter.
 
 ## Neovim keybindings and plugins used
 
