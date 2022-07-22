@@ -42,6 +42,7 @@ rpm_packages_to_install=(
     gcc-c++
     gh
     gnome-tweaks
+    gnome-extensions-app
     # keepassxc
     lazygit
     mediainfo
