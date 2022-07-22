@@ -18,7 +18,7 @@ To maintain parity with Fedora 36+, any RHEL package that's not available in a p
 
 1. Downloaded as a binary from GitHub or another trusted source
 2. Rebuilt from a compatible SRC RPM and installed from `./el9-rebuilds`
-3. Downloaded as a flatpak from [flathub](https://flathub.org/home)
+3. Downloaded as a flatpak from [Flathub](https://flathub.org/home)
 
 - Great software out of the box, easy to customize and choose your own
 
@@ -49,7 +49,7 @@ Setup out of the box with the latest [Neovim 0.7.0](https://neovim.io) and plugi
 
 All the software dotfiles are managed using stow, this makes them easy to alter and version control on your computer.
 
-## Installation
+## Installation Guide
 
 ### RHEL clones must be installed using the `workstation` option
 
@@ -114,6 +114,8 @@ sudo ./install.sh
 ./setup.sh
 ```
 
+Now reboot before continuing.
+
 ### Make any final changes
 
 - If you have an Intel CPU with a built-in GPU then `sudo dnf install libva-intel-driver`, MPV will then use HW acceleration.
@@ -123,6 +125,39 @@ sudo ./install.sh
 - For VS Code icons that work in Neovim double click `extras/codicon.ttf` in Gnome Files
 
 - Install extra applications, for example: `pip3 install --user yt-dlp gitlint tldr`
+
+- Choose your default applications using the top right selection `Settings > Default Applications`
+- Download any Gnome Extensions like `Hide Top Bar` from the [Gnome Extensions Website](https://extensions.gnome.org/)
+- Install Firefox extensions, I recommend copy/pasting:
+
+```
+firefox https://addons.mozilla.org/en-GB/firefox/addon/privacy-badger17/ \
+https://addons.mozilla.org/en-GB/firefox/addon/ublock-origin/ \
+https://addons.mozilla.org/en-US/firefox/addon/surfingkeys_ff/
+```
+
+- If you use Deno create/update shell completions:
+
+```
+deno completions bash > deno.sh
+sudo mv deno.sh /etc/profile.d
+```
+
+- If you use Vale, install the Microsoft style guide:
+
+```
+curl -LOf https://github.com/errata-ai/Microsoft/releases/latest/download/Microsoft.zip
+unzip Microsoft.zip -d ~/styles
+rm Microsoft.zip
+```
+
+Change the `~/.vale.ini` StylesPath = to use the full path of your home directory, relative doesn't work.
+
+- Consider increasing inotify watchers for watching large numbers of files. See current use with: `curl -s https://raw.githubusercontent.com/fatso83/dotfiles/master/utils/scripts/inotify-consumers | bash`
+
+```
+echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+```
 
 **ENJOY!** Please report any bugs you may encounter.
 
@@ -172,7 +207,7 @@ This is a list of all the plugins used, please follow the links to read about ho
 
 - [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) - Nvim Treesitter configurations and abstraction layer
 - [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) - Quickstart configurations for the Nvim LSP client
-- [nvim-cmp](https://github.com/hrsh7th/nvim-cmp/) - Auto completion plugin for nvim written in Lua
+- [nvim-cmp](https://github.com/hrsh7th/nvim-cmp/) - Auto completion plugin for Nvim written in Lua
 - [nvim-lightbulb](https://github.com/kosayoda/nvim-lightbulb) - Shows a lightbulb whenever a `textDocument/codeAction` is available at the current cursor position
 - [nvim-markdown-preview](https://github.com/davidgranstrom/nvim-markdown-preview) - Markdown preview in the browser using pandoc/live-server through Neovim's job-control API
 - [zen-mode.nvim](https://github.com/folke/zen-mode.nvim) - Distraction-free coding for Neovim
