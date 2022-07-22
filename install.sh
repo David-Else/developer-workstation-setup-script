@@ -230,9 +230,6 @@ add_conditional_repositories
 install_all
 add_conditional_scripts
 
-# TODO TEMP DELETE!! add trash-cli
-dnf -y install keepassxc --enablerepo=epel-testing
-
 display_text "
 
 ${BOLD}Congratulations, everything is installed!${RESET}
