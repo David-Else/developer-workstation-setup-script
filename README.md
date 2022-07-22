@@ -135,6 +135,8 @@ sudo ./install.sh
 ./setup.sh
 ```
 
+If you have an Intel CPU with a built-in GPU then `sudo dnf install libva-intel-driver`, MPV will then use HW acceleration.
+
 When Neovim is first run it will give errors as there are no plugins installed. Type `:PaqInstall` to install them, then `:q` and run again to finish installation.
 
 **ENJOY!**
