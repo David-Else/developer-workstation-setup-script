@@ -118,11 +118,36 @@ Now reboot before continuing.
 
 ### Make any final changes
 
+#### Hardware dependent
+
 - If you have an Intel CPU with a built-in GPU then `sudo dnf install libva-intel-driver`, MPV will then use HW acceleration.
 
-- When Neovim is first run it will give errors as there are no plugins installed. Type `:PaqInstall` to install them, then `:q` and run again to finish installation.
+#### Software dependent
 
-- For VS Code icons that work in Neovim double click `extras/codicon.ttf` in Gnome Files
+- Deno: create/update shell completions:
+
+```
+deno completions bash > deno.sh
+sudo mv deno.sh /etc/profile.d
+```
+
+- Vale: install the Microsoft style guide:
+
+```
+curl -LOf https://github.com/errata-ai/Microsoft/releases/latest/download/Microsoft.zip
+unzip Microsoft.zip -d ~/styles
+rm Microsoft.zip
+```
+
+Change the `~/.vale.ini` `StylesPath =` to use the full path of your home directory, relative doesn't work.
+
+You might also add: `mkdir -p ~/styles/Vocab/tech-blogging && touch ~/styles/Vocab/tech-blogging/{accept.txt,reject.txt}`
+
+- Neovim:
+
+When first run it will give errors as there are no plugins installed. Type `:PaqInstall` to install them, then `:q` and run again to finish installation. For VS Code icons that work in Neovim double click `extras/codicon.ttf` in Gnome Files.
+
+#### Various
 
 - Install extra applications, for example: `pip3 install --user yt-dlp gitlint tldr`
 
@@ -135,23 +160,6 @@ firefox https://addons.mozilla.org/en-GB/firefox/addon/privacy-badger17/ \
 https://addons.mozilla.org/en-GB/firefox/addon/ublock-origin/ \
 https://addons.mozilla.org/en-US/firefox/addon/surfingkeys_ff/
 ```
-
-- If you use Deno create/update shell completions:
-
-```
-deno completions bash > deno.sh
-sudo mv deno.sh /etc/profile.d
-```
-
-- If you use Vale, install the Microsoft style guide:
-
-```
-curl -LOf https://github.com/errata-ai/Microsoft/releases/latest/download/Microsoft.zip
-unzip Microsoft.zip -d ~/styles
-rm Microsoft.zip
-```
-
-Change the `~/.vale.ini` StylesPath = to use the full path of your home directory, relative doesn't work.
 
 - Consider increasing inotify watchers for watching large numbers of files. See current use with: `curl -s https://raw.githubusercontent.com/fatso83/dotfiles/master/utils/scripts/inotify-consumers | bash`
 

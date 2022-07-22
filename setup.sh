@@ -74,42 +74,7 @@ touch "$HOME/Templates/text-file.txt"
 
 display_text "
 
-${BOLD}Congratulations, everything is installed!${RESET}
-===============================================================================
+${BOLD}Congratulations, everything is setup!${RESET}
 
-Gnome:    settings  > details > choose default applications
-          software  > install 'Hide Top Bar'
-
-Install Firefox extensions
---------------------------
-${GREEN}flatpak run org.mozilla.firefox${RESET} (RHEL) or ${GREEN}firefox
-
-https://addons.mozilla.org/en-GB/firefox/addon/privacy-badger17/ \
-https://addons.mozilla.org/en-GB/firefox/addon/ublock-origin/ \
-https://addons.mozilla.org/en-US/firefox/addon/surfingkeys_ff/${RESET}
-
-Setup vale 
------------------------------------------------------------
-Change the ${GREEN}~/.vale.ini${RESET} StylesPath = to the full path of your home directory, relative doesn't work, I couldn't use ~!
-
-Create/update Deno completions
-------------------------------
-${GREEN}deno completions bash > deno.sh${RESET}
-${GREEN}sudo mv deno.sh /etc/profile.d${RESET}
-
-Install the Microsoft vale style guide
---------------------------------------
-${GREEN}curl -LOf https://github.com/errata-ai/Microsoft/releases/latest/download/Microsoft.zip${RESET}
-${GREEN}unzip Microsoft.zip -d ~/styles${RESET}
-${GREEN}rm Microsoft.zip${RESET}
-
-Create example dirs and settings files
-${GREEN}mkdir -p ~/styles/Vocab/tech-blogging && touch ~/styles/Vocab/tech-blogging/{accept.txt,reject.txt}${RESET}
-
-Consider increasing inotify watchers for watching large numbers of files
-See current use with: curl -s https://raw.githubusercontent.com/fatso83/dotfiles/master/utils/scripts/inotify-consumers | bash
-${GREEN}echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p${RESET}
-
-Please reboot (or things may not work as expected)
-===============================================================================
+Please reboot to finish installation and setup...
 "
