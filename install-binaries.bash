@@ -69,4 +69,11 @@ sed -i "s|Icon=blender|Icon=$BIN_INSTALL_DIR/blender-bin/blender.svg|g" ~/.local
 rm -rf $TMP
 rm blender-3.2.1-linux-x64.tar.xz
 
-echo "Finished!"
+display_text "
+
+${BOLD}Finished!
+
+GitHub binaries have been installed to ${GREEN}${BIN_INSTALL_DIR}${RESET}
+Pandoc filters have been installed to ${GREEN}${PANDOC_FILTER_DIR}${RESET}
+
+"
