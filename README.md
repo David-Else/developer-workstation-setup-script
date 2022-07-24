@@ -149,6 +149,12 @@ When first run it will give errors as there are no plugins installed. Type `:Paq
 
 #### Various
 
+- Configure pipewire:
+
+1. Find your sound card and available sample rates: `cat /proc/asound/cards` `cat /proc/asound/card[number]/stream[number]`
+2. Create a user config file: `cp /usr/share/pipewire/pipewire.conf ~/.config/pipewire/`
+3. Add your sound cards available sample rates, for example: `default.clock.allowed-rates = [ 44100 48000 88200 96000 176400 192000 ]`
+
 - Install extra applications, for example: `pip3 install --user yt-dlp gitlint tldr`
 
 - Choose your default applications using the top right selection `Settings > Default Applications`
