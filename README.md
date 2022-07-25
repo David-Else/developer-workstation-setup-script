@@ -122,6 +122,19 @@ Now reboot before continuing.
 
 - If you have an Intel CPU with a built-in GPU then `sudo dnf install libva-intel-driver`, MPV will then use HW acceleration.
 
+- If you have a 4k monitor and want to use 200% screen scaling then make it a default by creating the following file:
+
+`/usr/share/glib-2.0/schemas/93_hidpi.gschema.override`
+
+```
+[org.gnome.desktop.interface]
+scaling-factor=2
+```
+
+And reinit schemas with `sudo glib-compile-schemas /usr/share/glib-2.0/schemas`
+
+If you only use the GUI `Settings/Displays` it often forgets your choice.
+
 #### Software dependent
 
 - Deno: create/update shell completions:
