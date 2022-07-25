@@ -43,7 +43,7 @@ rpm_packages_to_install=(
     gh
     gnome-tweaks
     gnome-extensions-app
-    # keepassxc
+    keepassxc
     lazygit
     mediainfo
     mpv
