@@ -144,17 +144,13 @@ deno completions bash > deno.sh
 sudo mv deno.sh /etc/profile.d
 ```
 
-- Vale: install the Microsoft style guide:
+- Vale: change the global `.vale.ini` file in your `$HOME` directory to point to an empty directory you want to store your styles, for example:
 
 ```
-curl -LOf https://github.com/errata-ai/Microsoft/releases/latest/download/Microsoft.zip
-unzip Microsoft.zip -d ~/styles
-rm Microsoft.zip
+StylesPath = /home/username/Documents/styles
 ```
 
-Change the `~/.vale.ini` `StylesPath =` to use the full path of your home directory, relative doesn't work.
-
-You might also add: `mkdir -p ~/styles/Vocab/tech-blogging && touch ~/styles/Vocab/tech-blogging/{accept.txt,reject.txt}`
+and run `vale sync`. You can create a new file at [Config Generator](https://vale.sh/generator)
 
 - Neovim:
 
