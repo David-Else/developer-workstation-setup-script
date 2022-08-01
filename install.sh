@@ -36,6 +36,7 @@ rpm_packages_to_remove=(
 rpm_packages_to_install=(
     # code
     # libva-intel-driver
+    # transmission-gtk
     ImageMagick
     borgbackup
     ffmpeg
@@ -53,7 +54,7 @@ rpm_packages_to_install=(
     nodejs
     optipng
     thunderbird
-    # transmission-gtk
+    trash-cli
     xclip)
 
 flathub_packages_to_install=(
@@ -92,7 +93,6 @@ fedora_rpm_packages_to_remove=(
     gnome-photos)
 
 fedora_rpm_packages_to_install=(
-    trash-cli # TODO make this common for RHEL and Fedora when stable in RHEL
     stow
     krita
     lshw
