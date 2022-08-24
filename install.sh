@@ -66,7 +66,7 @@ npm_global_packages_to_install=(
     prettier@2.7.1
     vscode-langservers-extracted@4.4.0
     bash-language-server@3.0.5
-    typescript-language-server@0.11.2
+    typescript-language-server@1.1.1
     typescript@4.7.4)
 
 #==============================================================================
