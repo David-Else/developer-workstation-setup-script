@@ -26,7 +26,7 @@ local settings = {
   key_sortplaylist = "",
   key_shuffleplaylist = "",
   key_reverseplaylist = "",
-  key_loadfiles = "",
+  key_loadfiles = "P",
   key_saveplaylist = "",
 
   --replaces matches on filenames based on extension, put as empty string to not replace anything
