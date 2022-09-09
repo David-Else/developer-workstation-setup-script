@@ -37,6 +37,8 @@ rpm_packages_to_install=(
     # code
     # libva-intel-driver
     # transmission-gtk
+    zathura
+    zathura-bash-completion
     stow
     ImageMagick
     borgbackup
@@ -98,8 +100,6 @@ fedora_rpm_packages_to_install=(
     lshw
     mkvtoolnix-gui
     xrandr
-    zathura
-    zathura-bash-completion
     zathura-pdf-mupdf)
 
 fedora_flathub_packages_to_install=()

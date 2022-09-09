@@ -23,6 +23,7 @@ install() {
 
 }
 
+# TODO add https://github.com/tamasfe/taplo/releases
 download 2.18 jgm/pandoc "*linux-amd64.tar.gz"
 download v0.8.0 koalaman/shellcheck "*linux.x86_64.tar.xz"
 download v3.5.1 mvdan/sh "*linux_amd64"
