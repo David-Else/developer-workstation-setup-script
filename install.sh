@@ -86,7 +86,7 @@ rhel_flathub_packages_to_install=(
     # org.winehq.Wine
     com.github.tchx84.Flatseal
     com.obsproject.Studio
-    org.kde.krita
+    # org.kde.krita
     org.bunkus.mkvtoolnix-gui)
 
 #==============================================================================
