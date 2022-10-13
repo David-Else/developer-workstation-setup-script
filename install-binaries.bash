@@ -23,7 +23,7 @@ install() {
 
 }
 
-# TODO add https://github.com/tamasfe/taplo/releases
+# TODO add https://github.com/tamasfe/taplo/releases https://github.com/artempyanykh/marksman
 download 2.18 jgm/pandoc "*linux-amd64.tar.gz"
 download v3.5.1 mvdan/sh "*linux_amd64"
 download 13.0.0 BurntSushi/ripgrep "*x86_64-unknown-linux-musl.tar.gz"
