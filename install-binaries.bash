@@ -25,7 +25,6 @@ install() {
 
 # TODO add https://github.com/tamasfe/taplo/releases
 download 2.18 jgm/pandoc "*linux-amd64.tar.gz"
-download v0.8.0 koalaman/shellcheck "*linux.x86_64.tar.xz"
 download v3.5.1 mvdan/sh "*linux_amd64"
 download 13.0.0 BurntSushi/ripgrep "*x86_64-unknown-linux-musl.tar.gz"
 download v0.21.0 sharkdp/bat "*x86_64-unknown-linux-musl.tar.gz"
@@ -34,7 +33,6 @@ download 15.2.0 valentjn/ltex-ls "*ltex-ls-15.2.0.tar.gz"
 download 0.13.0 dandavison/delta "*x86_64-unknown-linux-musl.tar.gz"
 
 install "pandoc*" 2 pandoc # https://bugzilla.redhat.com/show_bug.cgi?id=2035151
-install "shellcheck*" 1 shellcheck
 install "ripgrep*" 1 rg
 install "bat*" 1 bat
 install "vale*" 0 vale

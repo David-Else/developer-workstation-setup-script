@@ -37,6 +37,7 @@ rpm_packages_to_install=(
     # code
     # libva-intel-driver
     # transmission-gtk
+    shellcheck
     tldr
     zathura
     zathura-bash-completion
