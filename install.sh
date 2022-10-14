@@ -80,6 +80,7 @@ rhel_rpm_packages_to_remove=(
     evolution)
 
 rhel_rpm_packages_to_install=(
+    exfatprogs
     git
     java-11-openjdk-headless
     python3-devel)
