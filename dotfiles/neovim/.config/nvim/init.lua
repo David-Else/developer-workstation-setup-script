@@ -1,4 +1,4 @@
--- NVIM v0.7.0 config
+-- NVIM v0.8.0 config
 require('user.statusline')
 require('user.thesaurus')
 require('user.plugins')
@@ -37,8 +37,6 @@ vim.opt.inccommand = 'split' -- live preview in split window
 vim.g.markdown_folding = 1 -- uses runtime filetype, not treesitter
 vim.g.fzf_preview_window = { 'up:75%', 'ctrl-/' }
 vim.g.fzf_layout = { window = { width = 1, height = 1 } }
-vim.g.do_filetype_lua = 1 -- use filetype.lua (TODO remove in 0.8)
-vim.g.did_load_filetypes = 0 -- don't load filetype.vim (TODO remove in 0.8)
 
 local init_group = vim.api.nvim_create_augroup('init_group', {})
 vim.api.nvim_create_autocmd('TermOpen', {

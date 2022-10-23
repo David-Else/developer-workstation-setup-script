@@ -1,3 +1,5 @@
+require'lspconfig'.marksman.setup{}
+
 local init_lsp_on_attach_group = vim.api.nvim_create_augroup('init_lsp_on_attach_group', {})
 vim.diagnostic.config { virtual_text = false, float = { focusable = false, source = "if_many" } }
 
@@ -32,19 +34,19 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_create_user_command('Format', vim.lsp.buf.formatting, {})
 
   -- turn off formatting for selected servers (use null-ls instead)
-  -- TODO 0.8 use client.server_capabilities
   if client.name == 'jsonls' or client.name == 'tsserver' or client.name == 'html' then
-    client.resolved_capabilities.document_formatting = false
-    client.resolved_capabilities.document_range_formatting = false
+    client.server_capabilities.document_formatting = false
+    client.server_capabilities.document_range_formatting = false
   end
 
-  if client.resolved_capabilities.document_formatting then
+  if client.server_capabilities.document_formatting then
     local au_lsp = vim.api.nvim_create_augroup("format_on_save_lsp", { clear = true })
     vim.api.nvim_create_autocmd("BufWritePre", {
       desc = 'format on save',
       callback = function()
-        -- TODO on 0.8 use buffer = bufnr, vim.lsp.buf.format({ bufnr = bufnr }) instead
-        vim.lsp.buf.formatting_sync()
+        -- TODO on 0.8 use
+        buffer = bufnr,
+        vim.lsp.buf.format({ bufnr = bufnr })
       end,
       group = au_lsp,
     })
@@ -65,7 +67,7 @@ end
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 local lspconfig = require 'lspconfig'
 for _, lsp in ipairs { 'bashls', 'cssls', 'html', 'eslint' } do
