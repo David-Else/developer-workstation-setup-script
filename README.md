@@ -39,9 +39,9 @@ To maintain parity with Fedora 36+, any RHEL package that's not available in a p
 
 Gnome has been tweaked along with optional subpixel font rendering for a better experience.
 
-- Neovim 0.7.0 with plugins and custom keybindings
+- Neovim 0.8.0 with plugins and custom keybindings
 
-Setup out of the box with the latest [Neovim 0.7.0](https://neovim.io) and plugins configured to use `fzf`, `ripgrep`, `delta` and `bat` with an attractive Visual Studio Code theme
+Setup out of the box with the latest [Neovim 0.8.0](https://neovim.io) and plugins configured to use `fzf`, `ripgrep`, `delta` and `bat` with an attractive Visual Studio Code theme
 
 ![Neovim](./images/fzf.vim.png)
 
