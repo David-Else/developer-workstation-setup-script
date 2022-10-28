@@ -36,7 +36,6 @@ rpm_packages_to_remove=(
 rpm_packages_to_install=(
     # code
     # libva-intel-driver
-    # transmission-gtk
     shellcheck
     tldr
     zathura
@@ -54,6 +53,7 @@ rpm_packages_to_install=(
     mediainfo
     mpv
     nnn
+    gthumb
     kitty
     neovim
     nodejs
@@ -68,10 +68,10 @@ flathub_packages_to_install=(
 
 npm_global_packages_to_install=(
     prettier@2.7.1
-    vscode-langservers-extracted@4.4.0
-    bash-language-server@3.0.5
-    typescript-language-server@1.1.1
-    typescript@4.7.4)
+    vscode-langservers-extracted@4.5.0
+    bash-language-server@3.1.0
+    typescript-language-server@2.1.0
+    typescript@4.8.4)
 
 #==============================================================================
 # For RHEL or clones Only
