@@ -55,7 +55,6 @@ rpm_packages_to_install=(
     nnn
     gthumb
     kitty
-    neovim
     nodejs
     optipng
     thunderbird
@@ -199,11 +198,6 @@ add_conditional_scripts() {
     *' nnn '*)
         su - "$SUDO_USER" -c \
             "curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh"
-        ;;&
-    *' neovim '*)
-        nvimDir="$(eval echo ~${SUDO_USER}/.local/share/nvim/site/pack/paqs/start/paq-nvim)"
-        [ ! -d "${nvimDir}" ] && su - "$SUDO_USER" -c \
-            "git clone --depth=1 https://github.com/savq/paq-nvim.git ${nvimDir}"
         ;;
     esac
 }

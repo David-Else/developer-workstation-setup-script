@@ -6,5 +6,5 @@ if [ -f ~/.bashrc ]; then
 fi
 
 # User specific environment and startup programs
-export EDITOR="nvim"
-export SUDO_EDITOR="/usr/bin/nvim"
+export EDITOR="hx"
+export SUDO_EDITOR="$HOME/.cargo/bin/hx"

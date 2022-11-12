@@ -1,1 +1,0 @@
-wincmd L
