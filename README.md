@@ -111,12 +111,13 @@ then the repo is not installed:
     esac
 ```
 
-### Run the scripts
+### Run the scripts in the correct order
 
 ```
 sudo ./install.sh
 ./install-binaries.bash
 ./setup.sh
+./install-rust-helix.sh
 ```
 
 Now reboot before continuing.
