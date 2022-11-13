@@ -2,6 +2,8 @@
 
 # this script should be ran last after setup as the rust install alters .bashrc
 
+source functions.bash
+
 # install the latest rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
