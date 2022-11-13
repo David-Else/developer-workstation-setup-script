@@ -2,6 +2,7 @@
 
 # this script should be ran last after setup as the rust install alters .bashrc
 
+set -e # quit on error
 source functions.bash
 
 # install the latest rust
