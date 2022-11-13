@@ -67,7 +67,7 @@ fi
 
 mkdir -p "$HOME/.dotfiles"
 cp -R ./dotfiles/* "$HOME/.dotfiles"
-stow --verbose --dir="$HOME/.dotfiles" --target="$HOME" mpv shell autostart lazygit kitty
+stow --verbose --dir="$HOME/.dotfiles" --target="$HOME" mpv shell autostart kitty # lazygit does not work for unknown reasons
 
 # create template file for nautilus
 touch "$HOME/Templates/text-file.txt"
