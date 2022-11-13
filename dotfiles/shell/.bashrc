@@ -41,3 +41,4 @@ stty -ixon      # disable terminal flow control to free ctrl-s for shortcut
 stty werase \^H # set ctrl-backspace to delete previous word instead of ctrl-w
 
 eval "$(dircolors -b)" # needed for kitty to colorize the ls command
+. "$HOME/.cargo/env"

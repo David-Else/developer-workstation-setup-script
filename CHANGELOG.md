@@ -1,3 +1,8 @@
+13 Nov 2022: v3.1
+
+- Remove Neovim and replace with Helix
+- Update binaries
+
 10th July 2022: v3.0
 
 - Compatible with RHEL 9 and clones, not backwards compatible with 8
@@ -22,7 +27,9 @@
 24th Feb 2022: v2.0
 
 - All software updated
-- Massive refactoring. Functions split out into modules and shared among install and setup scripts
+- Massive refactoring. Functions split out into modules and shared among install
+  and setup scripts
 - New script for installing binaries that also uses `GitHub CLI`
-- More integration in the tools. For example, `Delta` diff viewer works for `Lazygit` and `fzf.vim`.
+- More integration in the tools. For example, `Delta` diff viewer works for
+  `Lazygit` and `fzf.vim`.
 - Frozen the Neovim plugins until Neovim 0.7 comes out. They are stable now.

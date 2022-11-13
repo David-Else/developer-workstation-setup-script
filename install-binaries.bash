@@ -23,7 +23,6 @@ install() {
 }
 
 # TODO add https://github.com/tamasfe/taplo/releases https://github.com/artempyanykh/marksman
-download 0.8.0 tamasfe/taplo "*full-linux-x86_64.gz"
 download 2.18 jgm/pandoc "*linux-amd64.tar.gz"
 download v3.5.1 mvdan/sh "*linux_amd64"
 download 13.0.0 BurntSushi/ripgrep "*x86_64-unknown-linux-musl.tar.gz"
@@ -32,7 +31,6 @@ download v2.21.0 errata-ai/vale "*Linux_64-bit.tar.gz"
 download 15.2.0 valentjn/ltex-ls "*ltex-ls-15.2.0.tar.gz"
 download 0.14.0 dandavison/delta "*x86_64-unknown-linux-musl.tar.gz"
 
-install "taplo*" 0 taplo # might not work AND might not be executable
 install "pandoc*" 2 pandoc
 install "ripgrep*" 1 rg
 install "bat*" 1 bat
@@ -67,12 +65,13 @@ sed -i "s|Icon=blender|Icon=$BIN_INSTALL_DIR/blender-bin/blender.svg|g" ~/.local
 
 # remove temp files
 rm -rf $TMP
-rm blender-3.2.1-linux-x64.tar.xz
+rm blender-3.3.1-linux-x64.tar.xz
 
 # install the latest rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # install helix from source and compile
+source ~/.bashrc                      # needed to find cargo
 SOURCE_DIR=~/src/helix                # directory to store helix source, user changeable
 CONFIG_DIR=~/.config/helix            # default, don't change
 CONFIG_FILE="$CONFIG_DIR/config.toml" # default, don't change
