@@ -63,6 +63,10 @@ sudo ln --symbolic --force $BIN_INSTALL_DIR/blender-bin/blender $BIN_INSTALL_DIR
 cp "$BIN_INSTALL_DIR/blender-bin/blender.desktop" ~/.local/share/applications/
 sed -i "s|Icon=blender|Icon=$BIN_INSTALL_DIR/blender-bin/blender.svg|g" ~/.local/share/applications/blender*.desktop
 
+# fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+
 # remove temp files
 rm -rf $TMP
 rm blender-3.3.1-linux-x64.tar.xz
