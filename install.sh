@@ -13,7 +13,7 @@
 #
 #       AUTHOR: David Else
 #      COMPANY: https://www.elsewebdevelopment.com/
-#      VERSION: 3.0
+#      VERSION: 3.1
 #==============================================================================
 set -euo pipefail
 exec 2> >(tee "error_log_$(date -Iseconds).txt")
