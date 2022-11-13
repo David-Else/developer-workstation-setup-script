@@ -117,10 +117,13 @@ then the repo is not installed:
 sudo ./install.sh
 ./install-binaries.bash
 ./setup.sh
-./install-rust-helix.sh
 ```
 
 Now reboot before continuing.
+
+```
+./install-rust-helix.sh
+```
 
 ### Make any final changes
 
