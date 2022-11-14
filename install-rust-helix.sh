@@ -5,8 +5,10 @@
 set -e # quit on error
 source functions.bash
 
-# install the latest rust
+# install the latest rust and rust-analyzer
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+rustup component add rust-analyzer # TEST TEST TEST maybe need to source bashrc
+sudo ln -s $(rustup which rust-analyzer) /usr/local/bin/rust-analyzer
 
 # install helix from source and compile
 SOURCE_DIR=~/src/helix                # directory to store helix source, user changeable
