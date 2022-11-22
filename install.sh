@@ -79,6 +79,7 @@ rhel_rpm_packages_to_remove=(
     evolution)
 
 rhel_rpm_packages_to_install=(
+    xdg-desktop-portal-gnome # needed for OBS Studio on Wayland
     exfatprogs
     java-11-openjdk-headless
     python3-devel)
