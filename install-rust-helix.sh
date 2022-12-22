@@ -59,21 +59,16 @@ fi
 if [ ! -f $LANG_FILE ]; then
     cat >$LANG_FILE <<EOF
 [[language]]
-name = "toml"
-config = {}
-auto-format = true
-
-[[language]]
 name = "html"
 formatter = { command = 'prettier', args = ["--parser", "html"] }
 
 [[language]]
 name = "css"
 formatter = { command = 'prettier', args = ["--parser", "css"] }
-auto-format = true
 
 [[language]]
 name = "markdown"
+# language-server = { command = "ltex-ls" }
 # formatter = { command = 'prettier', args = ["--parser", "markdown"] }
 formatter = { command = 'prettier', args = [
   "--parser",
@@ -91,7 +86,6 @@ auto-format = true
 [[language]]
 name = "rust"
 [language.config]
-cargo = { allFeatures = true }
 checkOnSave = { command = "clippy" }
 
 [[language]]
