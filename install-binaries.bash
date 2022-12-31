@@ -57,8 +57,8 @@ curl $PANDOC_DL_URL/include-code-files/include-code-files.lua -o "$PANDOC_FILTER
 
 # blender
 sudo mkdir -p "$BIN_INSTALL_DIR/blender-bin"
-curl -O https://download.blender.org/release/Blender3.3/blender-3.3.1-linux-x64.tar.xz
-sudo tar -xvf blender-3.3.1-linux-x64.tar.xz -C "$BIN_INSTALL_DIR/blender-bin"/ --strip=1
+curl -O https://download.blender.org/release/Blender3.3/blender-3.3.2-linux-x64.tar.xz
+sudo tar -xvf blender-3.3.2-linux-x64.tar.xz -C "$BIN_INSTALL_DIR/blender-bin"/ --strip=1
 sudo ln --symbolic --force $BIN_INSTALL_DIR/blender-bin/blender $BIN_INSTALL_DIR/blender
 cp "$BIN_INSTALL_DIR/blender-bin/blender.desktop" ~/.local/share/applications/
 sed -i "s|Icon=blender|Icon=$BIN_INSTALL_DIR/blender-bin/blender.svg|g" ~/.local/share/applications/blender*.desktop

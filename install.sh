@@ -66,11 +66,11 @@ flathub_packages_to_install=(
     org.signal.Signal)
 
 npm_global_packages_to_install=(
-    prettier@2.7.1
-    vscode-langservers-extracted@4.5.0
-    bash-language-server@3.1.0
-    typescript-language-server@2.1.0
-    typescript@4.8.4)
+    bash-language-server@4.1.3
+    prettier@2.8.1
+    typescript-language-server@3.0.1
+    typescript@4.9.4
+    vscode-langservers-extracted@4.5.0)
 
 #==============================================================================
 # For RHEL or clones Only
