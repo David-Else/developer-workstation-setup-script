@@ -15,7 +15,7 @@ export PATH
 alias ls="ls -ltha --color --group-directories-first --hyperlink=auto"
 alias tree="tree -Catr --noreport --dirsfirst --filelimit 100"
 alias diff="diff -u --color=always" # add '| less -r' for full color output using less
-alias nnn="nnn -xe"                 # -x selection to system clipboard, -e open text in $EDITOR
+alias nnn="nnn -x"                  # -x selection to system clipboard, add -e open text in $EDITOR
 
 clip() { xclip -sel clip -rmlastnl; }
 
