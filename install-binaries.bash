@@ -50,6 +50,14 @@ install() {
     (cd $TMP && sudo tar --no-same-owner -C "$BIN_INSTALL_DIR"/ -xf "./${1}" --no-anchored "${3}" --strip="${2}")
 }
 
+# install() {
+#     # Extract the file from the temporary directory to the specified directory
+#     sudo tar xf "$TMP/$1" -C "$BIN_INSTALL_DIR" --strip "$2" --no-same-owner
+
+#     # Rename the file to the specified command name
+#     mv "$BIN_INSTALL_DIR/$3" "$BIN_INSTALL_DIR/${3%.*}"
+# }
+
 # TODO add https://github.com/tamasfe/taplo/releases https://github.com/artempyanykh/marksman
 download 2022-12-28 artempyanykh/marksman "*linux"
 download 2.19.2 jgm/pandoc "*linux-amd64.tar.gz"
@@ -76,6 +84,10 @@ sudo cp -i "$TMP/marksman-linux" $BIN_INSTALL_DIR/marksman
 # shfmt
 chmod +x "$TMP/shfmt_v3.6.0_linux_amd64"
 sudo cp -i "$TMP/shfmt_v3.6.0_linux_amd64" $BIN_INSTALL_DIR/shfmt
+
+# TEST TEST TEST and delete
+rm -rf $TMP
+exit 0
 
 # deno
 curl -fsSL https://deno.land/x/install/install.sh | sh
