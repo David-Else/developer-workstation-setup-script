@@ -11,34 +11,6 @@ PANDOC_DL_URL="https://raw.githubusercontent.com/pandoc/lua-filters/master"
 TMP=./temp
 mkdir -p $TMP
 
-# # Declare an array of files and directories to delete
-# declare -a files_and_directories_to_delete=(
-#     "BIN_INSTALL_DIR/pandoc"
-#     "BIN_INSTALL_DIR/rg"
-#     "BIN_INSTALL_DIR/bat"
-#     "BIN_INSTALL_DIR/vale"
-#     "BIN_INSTALL_DIR/delta"
-#     "BIN_INSTALL_DIR/bin"
-#     "BIN_INSTALL_DIR/lib"
-#     "BIN_INSTALL_DIR/marksman"
-#     "BIN_INSTALL_DIR/shfmt")
-
-# echo "The following binary files will be installed to $BIN_INSTALL_DIR:"
-# for file_or_directory in "${files_and_directories_to_delete[@]}"; do
-#     echo "$file_or_directory"
-# done
-
-# read -p "Would you like to delete any pre-existing copies to update to the latest versions [y/n] " confirm
-
-# # If the user confirms, delete the files and directories
-# if [[ $confirm == "y" ]]; then
-#     for file_or_directory in "${files_and_directories_to_delete[@]}"; do
-#         rm -rf "$file_or_directory"
-#     done
-# else
-#     exit
-# fi
-
 # ${1} version ${2} repo ${3} regex pattern
 download() {
     echo -e "Downloading ${GREEN}${2}${RESET}..."
@@ -47,18 +19,9 @@ download() {
 
 # ${1} filename ${2} strip ${3} new name for shell command
 install() {
-    (cd $TMP && sudo tar --no-same-owner -C "$BIN_INSTALL_DIR"/ -xf "./${1}" --no-anchored "${3}" --strip="${2}")
+    (cd $TMP && sudo tar --no-same-owner -C "$BIN_INSTALL_DIR"/ -xf ./${1} --no-anchored "${3}" --strip="${2}")
 }
 
-# install() {
-#     # Extract the file from the temporary directory to the specified directory
-#     sudo tar xf "$TMP/$1" -C "$BIN_INSTALL_DIR" --strip "$2" --no-same-owner
-
-#     # Rename the file to the specified command name
-#     mv "$BIN_INSTALL_DIR/$3" "$BIN_INSTALL_DIR/${3%.*}"
-# }
-
-# TODO add https://github.com/tamasfe/taplo/releases https://github.com/artempyanykh/marksman
 download 2022-12-28 artempyanykh/marksman "*linux"
 download 2.19.2 jgm/pandoc "*linux-amd64.tar.gz"
 download v3.6.0 mvdan/sh "*linux_amd64"
@@ -84,10 +47,6 @@ sudo cp -i "$TMP/marksman-linux" $BIN_INSTALL_DIR/marksman
 # shfmt
 chmod +x "$TMP/shfmt_v3.6.0_linux_amd64"
 sudo cp -i "$TMP/shfmt_v3.6.0_linux_amd64" $BIN_INSTALL_DIR/shfmt
-
-# TEST TEST TEST and delete
-rm -rf $TMP
-exit 0
 
 # deno
 curl -fsSL https://deno.land/x/install/install.sh | sh
