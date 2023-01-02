@@ -47,7 +47,7 @@ download() {
 
 # ${1} filename ${2} strip ${3} new name for shell command
 install() {
-    (cd $TMP && sudo tar --no-same-owner -C "$BIN_INSTALL_DIR"/ -xf ./${1} --no-anchored "${3}" --strip="${2}")
+    (cd $TMP && sudo tar --no-same-owner -C "$BIN_INSTALL_DIR"/ -xf "./${1}" --no-anchored "${3}" --strip="${2}")
 }
 
 # TODO add https://github.com/tamasfe/taplo/releases https://github.com/artempyanykh/marksman
