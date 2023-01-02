@@ -11,6 +11,34 @@ PANDOC_DL_URL="https://raw.githubusercontent.com/pandoc/lua-filters/master"
 TMP=./temp
 mkdir -p $TMP
 
+# # Declare an array of files and directories to delete
+# declare -a files_and_directories_to_delete=(
+#     "BIN_INSTALL_DIR/pandoc"
+#     "BIN_INSTALL_DIR/rg"
+#     "BIN_INSTALL_DIR/bat"
+#     "BIN_INSTALL_DIR/vale"
+#     "BIN_INSTALL_DIR/delta"
+#     "BIN_INSTALL_DIR/bin"
+#     "BIN_INSTALL_DIR/lib"
+#     "BIN_INSTALL_DIR/marksman"
+#     "BIN_INSTALL_DIR/shfmt")
+
+# echo "The following binary files will be installed to $BIN_INSTALL_DIR:"
+# for file_or_directory in "${files_and_directories_to_delete[@]}"; do
+#     echo "$file_or_directory"
+# done
+
+# read -p "Would you like to delete any pre-existing copies to update to the latest versions [y/n] " confirm
+
+# # If the user confirms, delete the files and directories
+# if [[ $confirm == "y" ]]; then
+#     for file_or_directory in "${files_and_directories_to_delete[@]}"; do
+#         rm -rf "$file_or_directory"
+#     done
+# else
+#     exit
+# fi
+
 # ${1} version ${2} repo ${3} regex pattern
 download() {
     echo -e "Downloading ${GREEN}${2}${RESET}..."
@@ -23,13 +51,14 @@ install() {
 }
 
 # TODO add https://github.com/tamasfe/taplo/releases https://github.com/artempyanykh/marksman
-download 2.18 jgm/pandoc "*linux-amd64.tar.gz"
-download v3.5.1 mvdan/sh "*linux_amd64"
+download 2022-12-28 artempyanykh/marksman "*linux"
+download 2.19.2 jgm/pandoc "*linux-amd64.tar.gz"
+download v3.6.0 mvdan/sh "*linux_amd64"
 download 13.0.0 BurntSushi/ripgrep "*x86_64-unknown-linux-musl.tar.gz"
 download v0.22.1 sharkdp/bat "*x86_64-unknown-linux-musl.tar.gz"
-download v2.21.0 errata-ai/vale "*Linux_64-bit.tar.gz"
+download v2.21.3 errata-ai/vale "*Linux_64-bit.tar.gz"
 download 15.2.0 valentjn/ltex-ls "*ltex-ls-15.2.0.tar.gz"
-download 0.14.0 dandavison/delta "*x86_64-unknown-linux-musl.tar.gz"
+download 0.15.1 dandavison/delta "*x86_64-unknown-linux-musl.tar.gz"
 
 install "pandoc*" 2 pandoc
 install "ripgrep*" 1 rg
@@ -40,9 +69,13 @@ install "ltex*" 1 bin
 install "ltex*" 1 lib
 sudo ln --symbolic --force $BIN_INSTALL_DIR/bin/ltex-ls $BIN_INSTALL_DIR/ltex-ls
 
+# marksman
+chmod +x "$TMP/marksman-linux"
+sudo cp -i "$TMP/marksman-linux" $BIN_INSTALL_DIR/marksman
+
 # shfmt
-chmod +x "$TMP/shfmt_v3.5.1_linux_amd64"
-sudo cp -i "$TMP/shfmt_v3.5.1_linux_amd64" $BIN_INSTALL_DIR/shfmt
+chmod +x "$TMP/shfmt_v3.6.0_linux_amd64"
+sudo cp -i "$TMP/shfmt_v3.6.0_linux_amd64" $BIN_INSTALL_DIR/shfmt
 
 # deno
 curl -fsSL https://deno.land/x/install/install.sh | sh
@@ -69,4 +102,4 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 
 # remove temp files
 rm -rf $TMP
-rm blender-3.3.1-linux-x64.tar.xz
+rm blender-3.3.2-linux-x64.tar.xz
