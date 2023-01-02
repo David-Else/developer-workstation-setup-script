@@ -159,7 +159,7 @@ sudo mv deno.sh /etc/profile.d
   an empty directory you want to store your styles, for example:
 
 ```
-StylesPath = /home/username/Documents/styles
+StylesPath = ~/Documents/styles
 ```
 
 and run `vale sync`. You can create a new file at
