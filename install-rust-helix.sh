@@ -12,7 +12,7 @@ TERMINAL=kitty         # terminal program to use for desktop integration
 # install the latest rust and rust-analyzer
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source "$HOME/.cargo/env"
-rustup component add rust-analyzer # TEST TEST TEST maybe need to source bashrc
+rustup component add rust-analyzer
 
 # symlink rust-analyzer executable, won't be needed after https://github.com/rust-lang/rustup/pull/3022
 [ ! -e /usr/local/bin/rust-analyzer ] && sudo ln -s $(rustup which rust-analyzer) /usr/local/bin/rust-analyzer
