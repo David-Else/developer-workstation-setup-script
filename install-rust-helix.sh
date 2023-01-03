@@ -1,124 +1,34 @@
 #!/bin/bash
 
-# this script should be ran last after setup as the rust install alters .bashrc
+# note:  run this script after setup.sh as the rust installer adds to .bashrc
+#        see https://copr.fedorainfracloud.org/coprs/varlad/helix/ for compiled releases
 
 set -e # quit on error
 source functions.bash
 
-# install the latest rust and rust-analyzer
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-rustup component add rust-analyzer # TEST TEST TEST maybe need to source bashrc
-sudo ln -s $(rustup which rust-analyzer) /usr/local/bin/rust-analyzer
-
-# install helix from source and compile
 SOURCE_DIR=~/src/helix # directory to store helix source, user changeable
 CONFIG_DIR=~/.config/helix
 CONFIG_FILE="$CONFIG_DIR/config.toml"
 LANG_FILE="$CONFIG_DIR/languages.toml"
 
+# install the latest rust and rust-analyzer
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+rustup component add rust-analyzer # TEST TEST TEST maybe need to source bashrc
+
+# symlink rust-analyzer executable, won't be needed after https://github.com/rust-lang/rustup/pull/3022
+sudo ln -s $(rustup which rust-analyzer) /usr/local/bin/rust-analyzer
+
+# install helix from source and compile
 mkdir -p $SOURCE_DIR
-git clone https://github.com/helix-editor/helix $SOURCE_DIR
-git checkout 0dbee9590baed10bef3c6c32420b8a5802204657 # hand picked stable point
 cd $SOURCE_DIR || exit
+git clone https://github.com/helix-editor/helix
+git checkout 0dbee9590baed10bef3c6c32420b8a5802204657 # hand picked stable point
 cargo install --path helix-term
 
-mkdir -p $CONFIG_DIR
+# create the config files
+stow --verbose --dir="$HOME/.dotfiles" --target="$HOME" helix
 cd $CONFIG_DIR || exit
 [ ! -e ./runtime ] && ln -s $SOURCE_DIR/runtime . # if there is no symlink create one to the source directory
-
-if [ ! -f $CONFIG_FILE ]; then # if there is no config file create one
-    cat >$CONFIG_FILE <<EOF
-theme = "dark_plus"
-
-[keys.normal]
-G = "goto_file_end" # vim
-Z = { Z = ":wq", Q = ":q!" } # vim, save and quit, quit without saving
-"#" = "toggle_comments"
-C-s = ":w"
-
-[keys.insert]
-j = { k = "normal_mode" }
-C-s = ":w"
-
-[keys.select]
-G = "goto_file_end" # vim
-
-[editor.cursor-shape]
-insert = "bar" # change cursor shape in insert mode
-
-[editor.file-picker]
-hidden = false # don't ignore hidden files
-EOF
-
-    echo "
-    $CONFIG_FILE created"
-else
-    echo "
-    $CONFIG_FILE exists, skipping creating new one"
-fi
-
-if [ ! -f $LANG_FILE ]; then
-    cat >$LANG_FILE <<EOF
-[[language]]
-name = "html"
-formatter = { command = 'prettier', args = ["--parser", "html"] }
-
-[[language]]
-name = "css"
-formatter = { command = 'prettier', args = ["--parser", "css"] }
-
-[[language]]
-name = "markdown"
-# language-server = { command = "ltex-ls" }
-# formatter = { command = 'prettier', args = ["--parser", "markdown"] }
-formatter = { command = 'prettier', args = [
-  "--parser",
-  "markdown",
-  "--prose-wrap",
-  "always",
-] }
-auto-format = true
-
-[[language]]
-name = "bash"
-formatter = { command = 'shfmt', args = ["-i", "4"] }
-auto-format = true
-
-[[language]]
-name = "rust"
-[language.config]
-checkOnSave = { command = "clippy" }
-
-[[language]]
-name = "json"
-formatter = { command = 'deno', args = ["fmt", "-", "--ext", "json"] }
-
-[[language]]
-name = "javascript"
-formatter = { command = 'deno', args = ["fmt", "-", "--ext", "js"] }
-auto-format = true
-
-[[language]]
-name = "typescript"
-formatter = { command = 'deno', args = ["fmt", "-", "--ext", "ts"] }
-auto-format = true
-
-[[language]]
-name = "jsx"
-formatter = { command = 'deno', args = ["fmt", "-", "--ext", "jsx"] }
-auto-format = true
-
-[[language]]
-name = "tsx"
-formatter = { command = 'deno', args = ["fmt", "-", "--ext", "tsx"] }
-auto-format = true
-EOF
-    echo "
-    $LANG_FILE created"
-else
-    echo "
-    $LANG_FILE exists, skipping creating new one"
-fi
 
 # add desktop files
 cp contrib/Helix.desktop ~/.local/share/applications
