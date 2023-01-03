@@ -10,15 +10,16 @@ SOURCE_DIR=~/src/helix # directory to store helix source, user changeable
 
 # install the latest rust and rust-analyzer
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source "$HOME/.cargo/env"
 rustup component add rust-analyzer # TEST TEST TEST maybe need to source bashrc
 
 # symlink rust-analyzer executable, won't be needed after https://github.com/rust-lang/rustup/pull/3022
-sudo ln -s $(rustup which rust-analyzer) /usr/local/bin/rust-analyzer
+[ ! -e /usr/local/bin/rust-analyzer ] && sudo ln -s $(rustup which rust-analyzer) /usr/local/bin/rust-analyzer
 
 # install helix from source and compile
 mkdir -p $SOURCE_DIR
+git clone https://github.com/helix-editor/helix $SOURCE_DIR
 cd $SOURCE_DIR || exit
-git clone https://github.com/helix-editor/helix
 git checkout 0dbee9590baed10bef3c6c32420b8a5802204657 # hand picked stable point
 cargo install --path helix-term
 
