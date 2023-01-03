@@ -6,7 +6,8 @@
 set -e # quit on error
 source functions.bash
 
-SOURCE_DIR=~/src/helix # directory to store helix source, user changeable
+SOURCE_DIR=~/src/helix # helix source code directory
+TERMINAL=kitty         # terminal program to use for desktop integration
 
 # install the latest rust and rust-analyzer
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -26,7 +27,7 @@ cargo install --path helix-term
 # add desktop files
 cp contrib/Helix.desktop ~/.local/share/applications
 cp contrib/helix.png ~/.local/share/icons
-sed -i "s|Exec=hx %F|Exec=kitty hx %F|g" ~/.local/share/applications/Helix.desktop
+sed -i "s|Exec=hx %F|Exec=$TERMINAL hx %F|g" ~/.local/share/applications/Helix.desktop
 sed -i "s|Terminal=true|Terminal=false|g" ~/.local/share/applications/Helix.desktop
 
 # create the config files
