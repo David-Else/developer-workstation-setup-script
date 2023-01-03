@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# !! it does not install the so files and the desktop stuff seems to work but doesn't in Fedora 37
+# !! asked for help https://github.com/helix-editor/helix/issues/5052
+
 # note:  run after setup.sh as the rust installer adds to .bashrc and you need stow files it created
 #        see https://copr.fedorainfracloud.org/coprs/varlad/helix/ for compiled releases
 
