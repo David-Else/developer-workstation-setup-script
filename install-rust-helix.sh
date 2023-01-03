@@ -11,13 +11,14 @@ rustup component add rust-analyzer # TEST TEST TEST maybe need to source bashrc
 sudo ln -s $(rustup which rust-analyzer) /usr/local/bin/rust-analyzer
 
 # install helix from source and compile
-SOURCE_DIR=~/src/helix                # directory to store helix source, user changeable
-CONFIG_DIR=~/.config/helix            # default, don't change
-CONFIG_FILE="$CONFIG_DIR/config.toml" # default, don't change
+SOURCE_DIR=~/src/helix # directory to store helix source, user changeable
+CONFIG_DIR=~/.config/helix
+CONFIG_FILE="$CONFIG_DIR/config.toml"
 LANG_FILE="$CONFIG_DIR/languages.toml"
 
 mkdir -p $SOURCE_DIR
 git clone https://github.com/helix-editor/helix $SOURCE_DIR
+git checkout 0dbee9590baed10bef3c6c32420b8a5802204657 # hand picked stable point
 cd $SOURCE_DIR || exit
 cargo install --path helix-term
 
@@ -119,6 +120,12 @@ else
     $LANG_FILE exists, skipping creating new one"
 fi
 
+# add desktop files
+cp contrib/Helix.desktop ~/.local/share/applications
+cp contrib/helix.png ~/.local/share/icons
+sed -i "s|Exec=hx %F|Exec=kitty hx %F|g" ~/.local/share/applications/Helix.desktop
+sed -i "s|Terminal=true|Terminal=false|g" ~/.local/share/applications/Helix.desktop
+
 display_text "
 ${BOLD}Finished!${RESET}
 
@@ -131,8 +138,5 @@ Helix has been installed and compiled from source
 cd $SOURCE_DIR
 git pull
 cargo install --path helix-term
-
-GitHub binaries have been installed to ${GREEN}${BIN_INSTALL_DIR}${RESET}
-Pandoc filters have been installed to ${GREEN}${PANDOC_FILTER_DIR}${RESET}
 
 "
