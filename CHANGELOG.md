@@ -1,7 +1,9 @@
-13 Nov 2022: v3.1
+5th Jan 2022: v3.1
 
-- Remove Neovim and replace with Helix
+- Archive Neovim and replace with Helix
 - Update binaries
+- Add tt terminal based typing test
+- Improve and tweak config files
 
 10th July 2022: v3.0
 
