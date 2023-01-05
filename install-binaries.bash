@@ -6,8 +6,6 @@ confirm_user_is 'normal'
 sudo --validate
 
 BIN_INSTALL_DIR=/usr/local/bin
-PANDOC_FILTER_DIR="$HOME"/.local/share/pandoc/filters
-PANDOC_DL_URL="https://raw.githubusercontent.com/pandoc/lua-filters/master"
 TMP=./temp
 mkdir -p $TMP
 
@@ -23,7 +21,6 @@ install() {
 }
 
 download 2022-12-28 artempyanykh/marksman "*linux"
-download 2.19.2 jgm/pandoc "*linux-amd64.tar.gz"
 download v3.6.0 mvdan/sh "*linux_amd64"
 download 13.0.0 BurntSushi/ripgrep "*x86_64-unknown-linux-musl.tar.gz"
 download v0.22.1 sharkdp/bat "*x86_64-unknown-linux-musl.tar.gz"
@@ -31,7 +28,6 @@ download v2.21.3 errata-ai/vale "*Linux_64-bit.tar.gz"
 download 15.2.0 valentjn/ltex-ls "*ltex-ls-15.2.0.tar.gz"
 download 0.15.1 dandavison/delta "*x86_64-unknown-linux-musl.tar.gz"
 
-install "pandoc*" 2 pandoc
 install "ripgrep*" 1 rg
 install "bat*" 1 bat
 install "vale*" 0 vale
@@ -50,14 +46,6 @@ sudo cp -i "$TMP/shfmt_v3.6.0_linux_amd64" $BIN_INSTALL_DIR/shfmt
 
 # deno
 curl -fsSL https://deno.land/x/install/install.sh | sh
-
-# pandoc filters
-mkdir -p "$PANDOC_FILTER_DIR"
-curl $PANDOC_DL_URL/wordcount/wordcount.lua -o "$PANDOC_FILTER_DIR"/wordcount.lua
-curl $PANDOC_DL_URL/diagram-generator/diagram-generator.lua -o "$PANDOC_FILTER_DIR"/diagram-generator.lua
-curl $PANDOC_DL_URL/pagebreak/pagebreak.lua -o "$PANDOC_FILTER_DIR"/pagebreak.lua
-curl $PANDOC_DL_URL/include-files/include-files.lua -o "$PANDOC_FILTER_DIR"/include-files.lua
-curl $PANDOC_DL_URL/include-code-files/include-code-files.lua -o "$PANDOC_FILTER_DIR"/include-code-files.lua
 
 # blender
 sudo mkdir -p "$BIN_INSTALL_DIR/blender-bin"
