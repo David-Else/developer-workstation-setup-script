@@ -72,6 +72,9 @@ stow --verbose --dir="$HOME/.dotfiles" --target="$HOME" mpv shell autostart kitt
 # create template file for nautilus
 touch "$HOME/Templates/text-file.txt"
 
+# set the protocol to use for git clone and push operations for GitHub CLI
+gh config set git_protocol ssh
+
 display_text "
 ${BOLD}Congratulations, everything is setup!${RESET}
 
