@@ -19,6 +19,11 @@ alias nnn="nnn -x"                  # -x selection to system clipboard, add -e o
 
 clip() { xclip -sel clip -rmlastnl; }
 
+md() {
+    pandoc "$1" >/tmp/"$1".html
+    xdg-open /tmp/"$1".html
+}
+
 ghpr() { GH_FORCE_TTY=100% gh pr list --limit 300 |
     fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window 'down,70%' --header-lines 3 |
     awk '{print $1}' |
