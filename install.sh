@@ -67,7 +67,7 @@ flathub_packages_to_install=(
     org.signal.Signal)
 
 npm_global_packages_to_install=(
-    bash-language-server@4.5.0
+    bash-language-server@4.5.1
     prettier@2.8.3
     typescript-language-server@3.0.2
     typescript@4.9.4
