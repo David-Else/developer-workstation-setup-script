@@ -49,8 +49,8 @@ curl -fsSL https://deno.land/x/install/install.sh | sh
 
 # blender
 sudo mkdir -p "$BIN_INSTALL_DIR/blender-bin"
-curl -O https://download.blender.org/release/Blender3.3/blender-3.3.2-linux-x64.tar.xz
-sudo tar -xvf blender-3.3.2-linux-x64.tar.xz -C "$BIN_INSTALL_DIR/blender-bin"/ --strip=1
+curl -O https://download.blender.org/release/Blender3.3/blender-3.3.3-linux-x64.tar.xz
+sudo tar -xvf blender-3.3.3-linux-x64.tar.xz -C "$BIN_INSTALL_DIR/blender-bin"/ --strip=1
 sudo ln --symbolic --force $BIN_INSTALL_DIR/blender-bin/blender $BIN_INSTALL_DIR/blender
 cp "$BIN_INSTALL_DIR/blender-bin/blender.desktop" ~/.local/share/applications/
 sed -i "s|Icon=blender|Icon=$BIN_INSTALL_DIR/blender-bin/blender.svg|g" ~/.local/share/applications/blender*.desktop
@@ -65,4 +65,4 @@ sudo curl -o /usr/share/man/man1/tt.1.gz -L https://github.com/lemnos/tt/release
 
 # remove temp files
 rm -rf $TMP
-rm blender-3.3.2-linux-x64.tar.xz
+rm blender-3.3.3-linux-x64.tar.xz
