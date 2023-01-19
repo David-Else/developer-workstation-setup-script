@@ -22,13 +22,11 @@ install() {
 
 download 2022-12-28 artempyanykh/marksman "*linux"
 download v3.6.0 mvdan/sh "*linux_amd64"
-download 13.0.0 BurntSushi/ripgrep "*x86_64-unknown-linux-musl.tar.gz"
 download v0.22.1 sharkdp/bat "*x86_64-unknown-linux-musl.tar.gz"
 download v2.21.3 errata-ai/vale "*Linux_64-bit.tar.gz"
 download 15.2.0 valentjn/ltex-ls "*ltex-ls-15.2.0.tar.gz"
 download 0.15.1 dandavison/delta "*x86_64-unknown-linux-musl.tar.gz"
 
-install "ripgrep*" 1 rg
 install "bat*" 1 bat
 install "vale*" 0 vale
 install "delta*" 1 delta
