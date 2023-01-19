@@ -69,7 +69,7 @@ local settings = {
   loadfiles_filetypes = [[
     [
       "jpg", "jpeg", "png", "tif", "tiff", "gif", "webp", "svg", "bmp",
-      "mp3", "wav", "ogm", "flac", "m4a", "wma", "ogg", "opus",
+      "mp3", "wav", "ogm", "flac", "tta", "m4a", "wma", "ogg", "opus",
       "mkv", "avi", "mp4", "ogv", "webm", "rmvb", "flv", "wmv", "mpeg", "mpg", "m4v", "3gp"
     ]
   ]],
