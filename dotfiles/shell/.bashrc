@@ -40,6 +40,9 @@ export NNN_FIFO=/tmp/nnn.fifo
 # bat
 export BAT_THEME="Visual Studio Dark+"
 
+# fzf
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git}"'
+
 # ytfzf
 export video_pref="bestvideo[height<=?2160]+bestaudio/best"
 
