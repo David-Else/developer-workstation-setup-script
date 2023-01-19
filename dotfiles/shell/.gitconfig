@@ -1,8 +1,6 @@
 [delta]
-    syntax-theme = Visual Studio Dark+
+    syntax-theme = "Visual Studio Dark+"
     side-by-side = true
-    line-numbers-left-format = ""
-    line-numbers-right-format = "│ "
 
 [pager]
     diff = delta

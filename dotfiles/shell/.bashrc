@@ -11,12 +11,11 @@ if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
 fi
 export PATH
 
-# User specific aliases and functions
+# Aliases
 alias ls="ls -ltha --color --group-directories-first --hyperlink=auto"
 alias tree="tree -Catr --noreport --dirsfirst --filelimit 100"
-alias diff="diff -u --color=always" # add '| less -r' for full color output using less
-alias nnn="nnn -x"                  # -x selection to system clipboard, add -e open text in $EDITOR
 
+# Functions
 clip() { xclip -sel clip -rmlastnl; }
 
 md() {
@@ -31,16 +30,18 @@ ghpr() { GH_FORCE_TTY=100% gh pr list --limit 300 |
 
 wordcount() { pandoc --lua-filter wordcount.lua "$@"; }
 
+# nnn
 [ -n "$NNNLVL" ] && PS1="N$NNNLVL $PS1" # prompt you are within a shell that will return you to nnn
 export NNN_PLUG="f:fzcd;p:preview-tui;m:mtpmount"
 export NNN_BMS="d:~/Documents;p:~/Pictures;v:~/Videos;m:~/Music;h:~/;u:/run/media/$USERNAME;D:~/Downloads;M:/run/user/$UID/gvfs"
 export NNN_TRASH=1 # use trash-cli: https://pypi.org/project/trash-cli/
 export NNN_FIFO=/tmp/nnn.fifo
 
+# bat
 export BAT_THEME="Visual Studio Dark+"
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git}"'
+
+# ytfzf
 export video_pref="bestvideo[height<=?2160]+bestaudio/best"
-export thumbnail_viewer="kitty"
 
 stty -ixon      # disable terminal flow control to free ctrl-s for shortcut
 stty werase \^H # set ctrl-backspace to delete previous word instead of ctrl-w
