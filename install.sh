@@ -47,6 +47,7 @@ rpm_packages_to_install=(
     ffmpeg
     gcc-c++
     gh
+    lshw
     gnome-tweaks
     gnome-extensions-app
     keepassxc
@@ -88,6 +89,7 @@ rhel_rpm_packages_to_install=(
 
 rhel_flathub_packages_to_install=(
     # org.winehq.Wine
+    org.gnome.Boxes
     com.github.tchx84.Flatseal
     com.obsproject.Studio
     org.kde.krita
@@ -101,7 +103,6 @@ fedora_rpm_packages_to_remove=(
 
 fedora_rpm_packages_to_install=(
     krita
-    lshw
     mkvtoolnix-gui
     xrandr
     zathura-pdf-mupdf)
