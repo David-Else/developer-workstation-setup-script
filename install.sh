@@ -58,6 +58,7 @@ rpm_packages_to_install=(
     kitty
     nodejs
     optipng
+    transmission
     thunderbird
     trash-cli
     xclip)
