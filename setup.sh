@@ -48,7 +48,7 @@ if [[ "${night_light}" == "true" ]]; then
 fi
 
 #==============================================================================
-# Font settings for sub-pixel rendering
+# Fonts
 #==============================================================================
 read -p "Use sub-pixel rendering? (recommended for monitors with less than 4k resolution) " -n 1 -r
 echo
@@ -57,6 +57,9 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     dconf write /org/gnome/settings-daemon/plugins/xsettings/antialiasing "'rgba'"
     echo "Sub-pixel rendering on"
 fi
+
+cp ./extras/'Symbols-2048-em Nerd Font Complete Mono.ttf' ~/.local/share/fonts
+fc-cache -vf
 
 #==============================================================================
 # Stow config files, first move and backup files that would cause stow errors
