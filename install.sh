@@ -49,7 +49,6 @@ rpm_packages_to_install=(
     gh
     lshw
     gnome-tweaks
-    gnome-extensions-app
     keepassxc
     lazygit
     mediainfo
