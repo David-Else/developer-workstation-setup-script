@@ -1,5 +1,8 @@
+# Use external tools for formatting
+
 [[language]]
-name = "toml"
+name = "bash"
+formatter = { command = 'shfmt', args = ["-i", "4"] }
 auto-format = true
 
 [[language]]
@@ -9,29 +12,6 @@ formatter = { command = 'prettier', args = ["--parser", "html"] }
 [[language]]
 name = "css"
 formatter = { command = 'prettier', args = ["--parser", "css"] }
-
-[[language]]
-name = "markdown"
-# language-server = { command = "ltex-ls" }
-# formatter = { command = 'prettier', args = ["--parser", "markdown"] }
-formatter = { command = 'prettier', args = [
-  "--parser",
-  "markdown",
-  "--prose-wrap",
-  "always",
-] }
-auto-format = true
-
-[[language]]
-name = "bash"
-formatter = { command = 'shfmt', args = ["-i", "4"] }
-auto-format = true
-
-[[language]]
-name = "rust"
-[language.config]
-cargo = { allFeatures = true }
-checkOnSave = { command = "clippy" }
 
 [[language]]
 name = "json"
@@ -56,3 +36,39 @@ auto-format = true
 name = "tsx"
 formatter = { command = 'deno', args = ["fmt", "-", "--ext", "tsx"] }
 auto-format = true
+
+# Change or configure language servers
+
+[[language]]
+name = "git-commit"
+language-server = { command = "ltex-ls" }
+
+[[language]]
+name = "markdown"
+# language-server = { command = "ltex-ls" }
+# config = { ltex.disabledRules = { "en-US" = [
+#   "PROFANITY",
+# ], "en-GB" = [
+#   "PROFANITY",
+# ] }, ltex.dictionary = { "en-US" = [
+#   "builtin",
+# ], "en-GB" = [
+#   "builtin",
+# ] } }
+formatter = { command = 'prettier', args = [
+  "--parser",
+  "markdown",
+  "--prose-wrap",
+  "always",       # <always|never|preserve>
+] }
+auto-format = true
+
+[[language]]
+name = "toml"
+auto-format = true
+
+[[language]]
+name = "rust"
+[language.config]
+cargo = { allFeatures = true }
+checkOnSave = { command = "clippy" }
