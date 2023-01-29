@@ -1,0 +1,230 @@
+- name: Install RPM, Flatpak, NPM and binary packages for el9 and Fedora
+  hosts: localhost
+  vars:
+   - user_programs: /usr/local/bin
+  tasks:
+
+    #==========================================================================
+    # Add and enable repositories
+    #==========================================================================
+
+    # el9 only
+    - name: Enable the CodeReady Linux Builder repository
+      when: ansible_facts.distribution != "fedora"
+      become: true
+      ansible.builtin.command: dnf config-manager --enable crb
+      args:
+        creates: /etc/yum.repos.d/*-crb.repo
+
+    - name: Add the Extra Packages for Enterprise Linux repository
+      when: ansible_facts.distribution != "fedora"
+      become: true
+      ansible.builtin.dnf:
+        name:
+          epel-release
+        state: present
+
+    - name: Add the EL9 RPM Fusion repository
+      when: ansible_facts.distribution != "fedora"
+      become: true
+      ansible.builtin.dnf:
+        name: "{{ item }}"
+        state: present
+        disable_gpg_check: true
+      loop:
+        - https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
+        - https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm
+
+    # Fedora only
+    - name: Add the Fedora RPM Fusion repository
+      when: ansible_facts.distribution == "fedora"
+      become: true
+      ansible.builtin.dnf:
+        name: "{{ item }}"
+        state: present
+        disable_gpg_check: true
+      loop:
+        - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
+        - https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm
+
+    # el9 and Fedora
+    - name: Add the GitHub CLI repository
+      become: true
+      ansible.builtin.command:
+        cmd: dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
+      args:
+        creates: /etc/yum.repos.d/gh-cli.repo
+
+    - name: Add the Flathub repository
+      community.general.flatpak_remote:
+        name: flathub
+        flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
+        state: present
+        method: user
+
+    #==========================================================================
+    # Remove packages
+    #==========================================================================
+    - name: Remove unwanted desktop apps
+      become: true
+      ansible.builtin.dnf:
+        name:
+          - cheese
+          - gedit
+          - rhythmbox
+          - totem
+        state: absent
+
+    #==========================================================================
+    # Install packages
+    #==========================================================================
+    - name: Upgrade all packages
+      become: true
+      ansible.builtin.dnf:
+        name: "*"
+        state: latest
+
+    - name: Install packages
+      become: true
+      ansible.builtin.dnf:
+        name:
+          - shellcheck
+          - pandoc
+          - tldr
+          - zathura
+          - zathura-bash-completion
+          - stow
+          - ImageMagick
+          - borgbackup
+          - ffmpeg
+          - gh
+          - gnome-tweaks
+          - keepassxc
+          - mediainfo
+          - mpv
+          - nnn
+          - gthumb
+          - kitty
+          - nodejs
+          - optipng
+          - transmission
+          - thunderbird
+          - trash-cli
+          - xclip
+          - xdg-desktop-portal-gnome
+        state: present
+
+    - name: Install Flatpak packages
+      community.general.flatpak:
+        name:
+          - fr.handbrake.ghb
+          - org.signal.Signal
+          - org.gnome.Boxes
+          - com.obsproject.Studio
+          - org.kde.krita
+          - org.bunkus.mkvtoolnix-gui
+        state: present
+        method: user
+
+    - name: Install NPM global packages
+      become: true
+      loop:
+        - bash-language-server@4.6.1
+        - prettier@2.8.3
+        - typescript-language-server@3.0.3
+        - typescript@4.9.4
+        - vscode-langservers-extracted@4.5.0
+      community.general.npm:
+        name: "{{ item }}"
+        state: present
+        global: true
+
+    #==========================================================================
+    # Install binaries
+    #==========================================================================
+
+    # Rust
+    - name: Check if the cargo executable exists
+      ansible.builtin.stat:
+        path: "{{ lookup('env','HOME') }}/.cargo/bin/cargo"
+      register: cargo
+  
+    - name: Download the latest Rust installer
+      when: not cargo.stat.exists
+      ansible.builtin.get_url:
+        url: https://sh.rustup.rs
+        dest: /tmp/sh.rustup.rs
+        mode: '0755'
+        force: 'yes'
+
+    - name: Install the Rust toolchain
+      when: not cargo.stat.exists
+      ansible.builtin.command: /tmp/sh.rustup.rs -y
+      args:
+        creates: "{{ lookup('env','HOME') }}/.cargo"
+
+    # nnn
+    - name: Check packages
+      package_facts:
+        manager: auto
+
+    - name: Download the latest nnn plugins
+      when: "'nnn' in ansible_facts.packages"
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs
+        dest: /tmp/getplugs
+        mode: '0755'
+        force: 'yes'
+
+    - name: Install nnn plugins
+      when: "'nnn' in ansible_facts.packages"
+      ansible.builtin.command: /tmp/getplugs
+      args:
+        creates: "{{ lookup('env','HOME') }}/.config/nnn/plugins"
+
+    # Blender
+    - name: Create directory /usr/local/bin/blender-bin
+      become: true
+      ansible.builtin.file:
+          path: "{{ user_programs }}/blender-bin"
+          state: directory
+          mode: '775'
+
+    - name: Download Blender and extract archive
+      become: true
+      ansible.builtin.unarchive:
+        src: "https://download.blender.org/release/Blender3.3/blender-3.3.3-linux-x64.tar.xz"
+        dest: "{{ user_programs }}/blender-bin"
+        remote_src: yes
+        creates: "{{ user_programs }}/blender-bin/blender"
+        extra_opts:
+          - "--strip-components=1"
+
+    - name: Create symlink to Blender binary
+      become: true
+      ansible.builtin.file:
+        src: "{{ user_programs }}/blender-bin/blender"
+        dest: "{{ user_programs }}/blender"
+        state: link
+    
+    - name: Copy Blender desktop file
+      ansible.builtin.copy:
+        src: "{{ user_programs }}/blender-bin/blender.desktop"
+        dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/.local/share/applications/blender.desktop"
+        mode: '0644'
+
+    - name: Create ~/.icons directory
+      ansible.builtin.file:
+          path: "{{ lookup('ansible.builtin.env', 'HOME') }}/.icons"
+          state: directory
+          mode: '775'
+
+    - name: Copy Blender icon
+      ansible.builtin.copy:
+        src: "{{ user_programs }}/blender-bin/blender.svg"
+        dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/.icons/blender.svg"
+        mode: '0644'
+
+  # when:
+  #   - ansible_os_family == "RedHat"
+  #   - ansible_distribution != "fedora"
