@@ -10,7 +10,7 @@
 
     # el9 only
     - name: Enable the CodeReady Linux Builder repository
-      when: ansible_facts.distribution != "fedora"
+      when: ansible_facts.distribution != "Fedora"
       become: true
       ansible.builtin.command: dnf config-manager --enable crb
       args:
@@ -190,7 +190,7 @@
           state: directory
           mode: '775'
 
-    - name: Download Blender and extract archive
+    - name: Download Blender LTS and extract archive
       become: true
       ansible.builtin.unarchive:
         src: "https://download.blender.org/release/Blender3.3/blender-3.3.3-linux-x64.tar.xz"
