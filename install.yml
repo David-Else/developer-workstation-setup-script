@@ -17,7 +17,7 @@
         creates: /etc/yum.repos.d/*-crb.repo
 
     - name: Add the Extra Packages for Enterprise Linux repository
-      when: ansible_facts.distribution != "fedora"
+      when: ansible_facts.distribution != "Fedora"
       become: true
       ansible.builtin.dnf:
         name:
@@ -25,7 +25,7 @@
         state: present
 
     - name: Add the EL9 RPM Fusion repository
-      when: ansible_facts.distribution != "fedora"
+      when: ansible_facts.distribution != "Fedora"
       become: true
       ansible.builtin.dnf:
         name: "{{ item }}"
@@ -37,7 +37,7 @@
 
     # Fedora only
     - name: Add the Fedora RPM Fusion repository
-      when: ansible_facts.distribution == "fedora"
+      when: ansible_facts.distribution == "Fedora"
       become: true
       ansible.builtin.dnf:
         name: "{{ item }}"
@@ -227,4 +227,4 @@
 
   # when:
   #   - ansible_os_family == "RedHat"
-  #   - ansible_distribution != "fedora"
+  #   - ansible_distribution != "Fedora"
