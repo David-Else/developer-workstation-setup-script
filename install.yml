@@ -119,7 +119,6 @@
         name:
           - fr.handbrake.ghb
           - org.signal.Signal
-          - org.gnome.Boxes
           - com.obsproject.Studio
           - org.kde.krita
           - org.bunkus.mkvtoolnix-gui
