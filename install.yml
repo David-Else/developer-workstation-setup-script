@@ -233,8 +233,8 @@
 
     - name: Show the date
       community.general.dconf:
-        key: /org/gnome/desktop/interface/clock-show-date
-        value: 'true'
+        key: "/org/gnome/desktop/interface/clock-show-date"
+        value: "true"
 
     - name: Remap capslock to backspace and enable alt-gr as another alt
       community.general.dconf:
@@ -243,9 +243,13 @@
 
     - name: Enable night-light
       community.general.dconf:
-        key: '/org/gnome/settings-daemon/plugins/color/night-light-enabled'
-        value: 'true'
+        key: "/org/gnome/settings-daemon/plugins/color/night-light-enabled"
+        value: "true"
 
+    - name: Lock screen after 15 min
+      community.general.dconf:
+        key: "/org/gnome/desktop/session/idle-delay"
+        value: "uint32 900"
   # when:
   #   - ansible_os_family == "RedHat"
   #   - ansible_distribution != "Fedora"
