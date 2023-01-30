@@ -2,11 +2,6 @@
   hosts: localhost
   vars:
     user_programs: /usr/local/bin
-    gnome_settings:
-      clock-show-date: true
-      night-light-enabled: true
-      button-layout: 'appmenu:minimize,maximize,close'
-      xkb-options: ['caps:backspace', 'terminate:ctrl_alt_bksp', 'lv3:rwin_switch', 'altwin:meta_alt']
 
   tasks:
 
@@ -231,11 +226,25 @@
         mode: '0644'
 
     # Gnome
-    - name: Set-up Gnome
+    - name: "Add window buttons"
       community.general.dconf:
-        key: "/org/gnome/desktop/interface/{{ item.key }}"
-        value: "'{{ item.value }}'"
-      loop: "{{ gnome_settings | dict2items }}"
+        key: "/org/gnome/desktop/wm/preferences/button-layout"
+        value: "'appmenu:minimize,maximize,close'"
+
+    - name: Show the date
+      community.general.dconf:
+        key: /org/gnome/desktop/interface/clock-show-date
+        value: 'true'
+
+    - name: Remap capslock to backspace and enable alt-gr as another alt
+      community.general.dconf:
+        key: "/org/gnome/desktop/input-sources/xkb-options"
+        value: "['caps:backspace', 'terminate:ctrl_alt_bksp', 'lv3:rwin_switch', 'altwin:meta_alt']"
+
+    - name: Enable night-light
+      community.general.dconf:
+        key: '/org/gnome/settings-daemon/plugins/color/night-light-enabled'
+        value: 'true'
 
   # when:
   #   - ansible_os_family == "RedHat"
