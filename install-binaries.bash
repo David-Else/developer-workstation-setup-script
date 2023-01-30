@@ -47,14 +47,6 @@ sudo cp -i "$TMP/shfmt_v3.6.0_linux_amd64" $BIN_INSTALL_DIR/shfmt
 # deno
 curl -fsSL https://deno.land/x/install/install.sh | sh
 
-# blender
-sudo mkdir -p "$BIN_INSTALL_DIR/blender-bin"
-curl -O https://download.blender.org/release/Blender3.3/blender-3.3.3-linux-x64.tar.xz
-sudo tar -xvf blender-3.3.3-linux-x64.tar.xz -C "$BIN_INSTALL_DIR/blender-bin"/ --strip=1
-sudo ln --symbolic --force $BIN_INSTALL_DIR/blender-bin/blender $BIN_INSTALL_DIR/blender
-cp "$BIN_INSTALL_DIR/blender-bin/blender.desktop" ~/.local/share/applications/
-sed -i "s|Icon=blender|Icon=$BIN_INSTALL_DIR/blender-bin/blender.svg|g" ~/.local/share/applications/blender*.desktop
-
 # fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install

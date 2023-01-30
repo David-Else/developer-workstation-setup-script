@@ -4,12 +4,6 @@ source colors.bash
 source functions.bash
 confirm_user_is 'normal'
 
-idle_delay=1200
-title_bar_buttons_on="true"
-clock_show_date="true"
-capslock_delete="true"
-night_light="true"
-
 detect_os
 clear
 
@@ -19,32 +13,6 @@ clear
 read -rp "What is this computer's name? [$HOSTNAME] " hostname
 if [[ ! -z "$hostname" ]]; then
     hostnamectl set-hostname "$hostname"
-fi
-
-#==============================================================================
-# Gnome desktop settings
-#==============================================================================
-gsettings set org.gnome.desktop.session \
-    idle-delay $idle_delay
-
-if [[ "${title_bar_buttons_on}" == "true" ]]; then
-    gsettings set org.gnome.desktop.wm.preferences \
-        button-layout 'appmenu:minimize,maximize,close'
-fi
-
-if [[ "${clock_show_date}" == "true" ]]; then
-    gsettings set org.gnome.desktop.interface \
-        clock-show-date true
-fi
-
-if [[ "${capslock_delete}" == "true" ]]; then
-    gsettings set org.gnome.desktop.input-sources \
-        xkb-options "['caps:backspace', 'terminate:ctrl_alt_bksp']"
-fi
-
-if [[ "${night_light}" == "true" ]]; then
-    gsettings set org.gnome.settings-daemon.plugins.color \
-        night-light-enabled true
 fi
 
 #==============================================================================
