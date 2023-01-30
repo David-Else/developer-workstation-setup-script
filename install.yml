@@ -226,7 +226,7 @@
         mode: '0644'
 
     # Gnome
-    - name: "Add window buttons"
+    - name: Add window buttons
       community.general.dconf:
         key: "/org/gnome/desktop/wm/preferences/button-layout"
         value: "'appmenu:minimize,maximize,close'"
