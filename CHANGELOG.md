@@ -1,3 +1,7 @@
+29th Jan 2022: v4
+
+- Rewrite install script in Ansible
+
 5th Jan 2022: v3.1
 
 - Archive Neovim and replace with Helix
