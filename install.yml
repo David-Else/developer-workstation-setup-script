@@ -1,7 +1,13 @@
 - name: Install RPM, Flatpak, NPM and binary packages for el9 and Fedora
   hosts: localhost
   vars:
-   - user_programs: /usr/local/bin
+    user_programs: /usr/local/bin
+    gnome_settings:
+      clock-show-date: true
+      night-light-enabled: true
+      button-layout: 'appmenu:minimize,maximize,close'
+      xkb-options: ['caps:backspace', 'terminate:ctrl_alt_bksp', 'lv3:rwin_switch', 'altwin:meta_alt']
+
   tasks:
 
     #==========================================================================
@@ -223,6 +229,13 @@
         src: "{{ user_programs }}/blender-bin/blender.svg"
         dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/.icons/blender.svg"
         mode: '0644'
+
+    # Gnome
+    - name: Set-up Gnome
+      community.general.dconf:
+        key: "/org/gnome/desktop/interface/{{ item.key }}"
+        value: "'{{ item.value }}'"
+      loop: "{{ gnome_settings | dict2items }}"
 
   # when:
   #   - ansible_os_family == "RedHat"
