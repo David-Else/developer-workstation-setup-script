@@ -250,6 +250,7 @@
       community.general.dconf:
         key: "/org/gnome/desktop/session/idle-delay"
         value: "uint32 900"
+
   # when:
   #   - ansible_os_family == "RedHat"
   #   - ansible_distribution != "Fedora"
