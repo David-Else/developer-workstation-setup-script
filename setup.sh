@@ -26,9 +26,6 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo "Sub-pixel rendering on"
 fi
 
-cp ./extras/'Symbols-2048-em Nerd Font Complete Mono.ttf' ~/.local/share/fonts
-fc-cache -vf
-
 #==============================================================================
 # Stow config files, first move and backup files that would cause stow errors
 #==============================================================================

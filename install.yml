@@ -1,10 +1,9 @@
-- name: Install RPM, Flatpak, NPM and binary packages for el9 and Fedora
+- name: Install packages and binaries for el9 and Fedora
   hosts: localhost
   vars:
     user_programs: /usr/local/bin
 
   tasks:
-
     #==========================================================================
     # Add and enable repositories
     #==========================================================================
@@ -143,12 +142,11 @@
     #==========================================================================
     # Install binaries
     #==========================================================================
-
-    # nnn
     - name: Check packages
       package_facts:
         manager: auto
 
+    # nnn
     - name: Download the latest nnn plugins
       when: "'nnn' in ansible_facts.packages"
       ansible.builtin.get_url:
@@ -206,6 +204,16 @@
         dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/.icons/blender.svg"
         mode: '0644'
 
+    # Fonts
+    - name: Copy nerd fonts symbols only icons
+      ansible.builtin.copy:
+        src: "./extras/'Symbols-2048-em Nerd Font Complete Mono.ttf'"
+        dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/.local/share/fonts/Symbols-2048-em Nerd Font Complete Mono.ttf"
+        mode: '0644'
+
+    - name: Refresh font cache
+      command: fc-cache -vf
+
     # Gnome
     - name: Add window buttons
       community.general.dconf:
@@ -232,6 +240,3 @@
         key: "/org/gnome/desktop/session/idle-delay"
         value: "uint32 900"
 
-  # when:
-  #   - ansible_os_family == "RedHat"
-  #   - ansible_distribution != "Fedora"
