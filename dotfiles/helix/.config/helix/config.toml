@@ -29,5 +29,8 @@ right = [
   "file-encoding",
 ] # add workspace-diagnostics
 
+[editor.soft-wrap]
+enable = true
+
 # [editor]
 # gutters = ["diagnostics", "spacer", "spacer", "diff"] # no line-numbers
