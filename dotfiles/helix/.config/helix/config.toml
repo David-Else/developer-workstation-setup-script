@@ -4,17 +4,15 @@ theme = "dark_plus"
 G = "goto_file_end"          # vim
 Z = { Z = ":wq", Q = ":q!" } # vim, save and quit, quit without saving
 "#" = "toggle_comments"
-C-s = ":w"
+
+[keys.normal.space]
+w = ":write"
 
 [keys.insert]
 j = { k = "normal_mode" }
-C-s = ":w"
 
 [keys.select]
 G = "goto_file_end" # vim
-
-# [editor]
-# gutters = ["diagnostics", "spacer", "spacer", "diff"] # no line-numbers
 
 [editor.cursor-shape]
 insert = "bar" # change cursor shape in insert mode
@@ -30,3 +28,6 @@ right = [
   "position",
   "file-encoding",
 ] # add workspace-diagnostics
+
+# [editor]
+# gutters = ["diagnostics", "spacer", "spacer", "diff"] # no line-numbers
