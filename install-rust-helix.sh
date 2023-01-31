@@ -12,14 +12,6 @@ source functions.bash
 SOURCE_DIR=~/src/helix # helix source code directory
 TERMINAL=kitty         # terminal program to use for desktop integration
 
-# install the latest rust and rust-analyzer
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-source "$HOME/.cargo/env"
-rustup component add rust-analyzer
-
-# symlink rust-analyzer executable, won't be needed after https://github.com/rust-lang/rustup/pull/3022
-[ ! -e /usr/local/bin/rust-analyzer ] && sudo ln -s $(rustup which rust-analyzer) /usr/local/bin/rust-analyzer
-
 # install helix from source and compile
 mkdir -p $SOURCE_DIR
 git clone https://github.com/helix-editor/helix $SOURCE_DIR
