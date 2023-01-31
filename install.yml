@@ -146,7 +146,7 @@
       package_facts:
         manager: auto
 
-    # nnn
+    # nnn plugins
     - name: Download the latest nnn plugins
       when: "'nnn' in ansible_facts.packages"
       ansible.builtin.get_url:
