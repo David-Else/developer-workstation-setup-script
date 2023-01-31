@@ -219,6 +219,7 @@
 
     - name: Refresh font cache
       command: fc-cache -vf
+      changed_when: no
 
     # Gnome
     - name: Add window buttons
