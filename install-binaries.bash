@@ -1,6 +1,9 @@
 #!/bin/bash
+
+GREEN="\e[38;5;46m"
+RESET="\e[0m"
+
 set -euo pipefail
-source colors.bash
 source functions.bash
 confirm_user_is 'normal'
 sudo --validate

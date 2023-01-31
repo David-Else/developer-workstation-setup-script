@@ -1,6 +1,10 @@
 #!/bin/bash
+
+GREEN="\e[38;5;46m"
+BOLD="\e[1m"
+RESET="\e[0m"
+
 set -eo pipefail
-source colors.bash
 source functions.bash
 confirm_user_is 'normal'
 
