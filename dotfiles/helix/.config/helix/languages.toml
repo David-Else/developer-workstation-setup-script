@@ -59,7 +59,7 @@ formatter = { command = 'prettier', args = [
   "--parser",
   "markdown",
   "--prose-wrap",
-  "always",       # <always|never|preserve>
+  "preserve",     # <always|never|preserve>
 ] }
 auto-format = true
 
