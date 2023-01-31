@@ -63,4 +63,3 @@ rustup component add rust-analyzer
 
 # remove temp files
 rm -rf $TMP
-rm blender-3.3.3-linux-x64.tar.xz
