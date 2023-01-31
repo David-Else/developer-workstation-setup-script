@@ -7,33 +7,29 @@
     #==========================================================================
     # Add and enable repositories
     #==========================================================================
+    - name: el9 only
+      block:
+        - name: Enable the CodeReady Linux Builder repository
+          ansible.builtin.command: dnf config-manager --enable crb
+          args:
+            creates: /etc/yum.repos.d/*-crb.repo
 
-    # el9 only
-    - name: Enable the CodeReady Linux Builder repository
-      when: ansible_facts.distribution != "Fedora"
-      become: true
-      ansible.builtin.command: dnf config-manager --enable crb
-      args:
-        creates: /etc/yum.repos.d/*-crb.repo
+        - name: Add the Extra Packages for Enterprise Linux repository
+          ansible.builtin.dnf:
+            name:
+              epel-release
+            state: present
 
-    - name: Add the Extra Packages for Enterprise Linux repository
-      when: ansible_facts.distribution != "Fedora"
+        - name: Add the EL9 RPM Fusion repository
+          ansible.builtin.dnf:
+            name: "{{ item }}"
+            state: present
+            disable_gpg_check: true
+          loop:
+            - https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
+            - https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm
       become: true
-      ansible.builtin.dnf:
-        name:
-          epel-release
-        state: present
-
-    - name: Add the EL9 RPM Fusion repository
       when: ansible_facts.distribution != "Fedora"
-      become: true
-      ansible.builtin.dnf:
-        name: "{{ item }}"
-        state: present
-        disable_gpg_check: true
-      loop:
-        - https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
-        - https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm
 
     # Fedora only
     - name: Add the Fedora RPM Fusion repository
@@ -249,6 +245,7 @@
 
     # GitHub binaries
     - name: Download and install Marksman language server
+      become: true
       ansible.builtin.get_url:
         url: https://github.com/artempyanykh/marksman/releases/download/2023-01-29/marksman-linux
         dest: "{{ user_programs }}/marksman"
@@ -256,6 +253,7 @@
         force: 'yes'
 
     - name: Download and install shfmt
+      become: true
       ansible.builtin.get_url:
         url: https://github.com/patrickvane/shfmt/releases/download/master/shfmt_linux_amd64
         dest: "{{ user_programs }}/shfmt"
@@ -263,37 +261,42 @@
         force: 'yes'
 
     - name: Download and install ripgrep
+      become: true
       unarchive:
         src: https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz
         dest: "{{ user_programs }}"
         remote_src: true
         extra_opts:
           - "--strip-components=1"
-          - "ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz/rg"
-
-    - name: Download and install vale
-      unarchive:
-        src: https://github.com/errata-ai/vale/releases/download/v2.22.0/vale_2.22.0_Linux_64-bit.tar.gz
-        dest: "{{ user_programs }}"
-        remote_src: true
-        extra_opts:
-          - "--strip-components=0"
-          - "vale_2.22.0_Linux_64-bit.tar.gz/vale"
+          - "ripgrep-13.0.0-x86_64-unknown-linux-musl/rg"
 
     - name: Download and install delta
+      become: true
       unarchive:
         src: https://github.com/dandavison/delta/releases/download/0.15.1/delta-0.15.1-x86_64-unknown-linux-musl.tar.gz
         dest: "{{ user_programs }}"
         remote_src: true
         extra_opts:
           - "--strip-components=1"
-          - "https://github.com/dandavison/delta/releases/download/0.15.1/delta-0.15.1-x86_64-unknown-linux-musl.tar.gz/delta"
+          - "delta-0.15.1-x86_64-unknown-linux-musl/delta"
 
-    - name: Download and install lazygit
-      unarchive:
-        src: https://github.com/jesseduffield/lazygit/releases/download/v0.36.0/lazygit_0.36.0_Linux_x86_64.tar.gz
-        dest: "{{ user_programs }}"
-        remote_src: true
-        extra_opts:
-          - "--strip-components=1"
-          - "https://github.com/jesseduffield/lazygit/releases/download/v0.36.0/lazygit_0.36.0_Linux_x86_64.tar.gz/lazygit"
+    # - name: Download and install lazygit
+    #   become: true
+    #   unarchive:
+    #     src: https://github.com/jesseduffield/lazygit/releases/download/v0.36.0/lazygit_0.36.0_Linux_x86_64.tar.gz
+    #     dest: "{{ user_programs }}"
+    #     remote_src: true
+    #     extra_opts:
+    #       - "--strip-components=0"
+    #       - "lazygit_0.36.0_Linux_x86_64/lazygit"
+
+    # - name: Download and install vale
+    #   become: true
+    #   unarchive:
+    #     src: https://github.com/errata-ai/vale/releases/download/v2.22.0/vale_2.22.0_Linux_64-bit.tar.gz
+    #     dest: "{{ user_programs }}"
+    #     remote_src: true
+    #     extra_opts:
+    #       - "--strip-components=0"
+    #       - "vale_2.22.0_Linux_64-bit/vale"
+
