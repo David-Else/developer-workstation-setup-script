@@ -113,6 +113,7 @@
           - trash-cli
           - xclip
           - xdg-desktop-portal-gnome
+          - bat
         state: present
 
     - name: Install Flatpak packages
