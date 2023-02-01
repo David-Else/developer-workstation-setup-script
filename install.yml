@@ -149,7 +149,6 @@
         url: https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs
         dest: /tmp/getplugs
         mode: '0755'
-        force: 'yes'
 
     - name: Install nnn plugins
       when: "'nnn' in ansible_facts.packages"
@@ -237,14 +236,12 @@
             url: https://github.com/artempyanykh/marksman/releases/download/2023-01-29/marksman-linux
             dest: "{{ user_programs }}/marksman"
             mode: '0755'
-            force: 'yes'
 
         - name: Download and install shfmt
           ansible.builtin.get_url:
             url: https://github.com/patrickvane/shfmt/releases/download/master/shfmt_linux_amd64
             dest: "{{ user_programs }}/shfmt"
             mode: '0755'
-            force: 'yes'
 
         - name: Download and install ripgrep
           unarchive:
@@ -264,15 +261,21 @@
               - "--strip-components=1"
               - "delta-0.15.1-x86_64-unknown-linux-musl/delta"
 
-        # - name: Download and install ltex-ls
-        #   unarchive:
-        #     src: https://github.com/valentjn/ltex-ls/releases/download/15.2.0/ltex-ls-15.2.0-linux-x64.tar.gz
-        #     dest: "{{ user_programs }}"
-        #     remote_src: true
-        #     extra_opts:
-        #       - "--strip-components=1"
-        #       - "ltex-ls-15.2.0-linux-x64/bin"
-        #       - "ltex-ls-15.2.0-linux-x64/lib"
+        - name: Download and install ltex-ls
+          unarchive:
+            src: https://github.com/valentjn/ltex-ls/releases/download/15.2.0/ltex-ls-15.2.0.tar.gz
+            dest: "{{ user_programs }}"
+            remote_src: true
+            extra_opts:
+              - "--strip-components=1"
+              - "ltex-ls-15.2.0/bin"
+              - "ltex-ls-15.2.0/lib"
+
+        - name: Create symlink to ltex-ls binary
+          ansible.builtin.file:
+            src: "{{ user_programs }}/bin/ltex-ls"
+            dest: "{{ user_programs }}/ltex-ls"
+            state: link
 
         - name: Download and install lazygit
           unarchive:
@@ -289,3 +292,30 @@
             include: vale
       become: true
 
+    # Stow
+    - name: Create ~/.dotfile directory
+      ansible.builtin.file:
+          path: "{{ lookup('ansible.builtin.env', 'HOME') }}/.dotfiles"
+          state: directory
+          mode: '775'
+
+    - name: Copy dotfiles
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/dotfiles/"
+        dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/.dotfiles/"
+        mode: '775'
+
+    # - name: Rename .bashrc
+    #   ansible.builtin.copy:
+    #     src: "{{ ansible_env.HOME }}/.bashrc"
+    #     dest: "{{ ansible_env.HOME }}/.bashrc_backup"
+
+    # - name: Rename .bash_profile
+    #   ansible.builtin.copy:
+    #     src: "{{ ansible_env.HOME }}/.bash_profile"
+    #     dest: "{{ ansible_env.HOME }}/.bash_profile_backup"
+
+    - name: Run stow
+      shell: "stow --dir={{ ansible_env.HOME }}/.dotfiles --target {{ ansible_env.HOME }} autostart helix mpv pandoc kitty shell lazygit --verbose=2"
+      register: result
+      changed_when: 'result.stderr is search("LINK: ")'
