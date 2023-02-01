@@ -30,17 +30,6 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo "Sub-pixel rendering on"
 fi
 
-#==============================================================================
-# Stow config files, first move and backup files that would cause stow errors
-#==============================================================================
-[ -f "$HOME/.bash_profile" ] && mv "$HOME/.bash_profile" "$HOME/.bash_profile_backup"
-[ -f "$HOME/.bashrc" ] && mv "$HOME/.bashrc" "$HOME/.bashrc_backup"
-[ -f "$HOME/.config/kitty/kitty.conf" ] && mv "$HOME/.config/kitty/kitty.conf" "$HOME/.config/kitty/kitty.conf_backup"
-
-mkdir -p "$HOME/.dotfiles"
-cp -R ./dotfiles/* "$HOME/.dotfiles"
-stow --verbose --dir="$HOME/.dotfiles" --target="$HOME" mpv shell autostart kitty pandoc # lazygit does not work for unknown reasons
-
 # create template file for nautilus
 touch "$HOME/Templates/text-file.txt"
 

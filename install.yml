@@ -292,7 +292,7 @@
             include: vale
       become: true
 
-    # Stow
+    # Stow * Stow will fail if you have run kitty or lazygit in advance as they both create non link config files on first run
     - name: Create ~/.dotfile directory
       ansible.builtin.file:
           path: "{{ lookup('ansible.builtin.env', 'HOME') }}/.dotfiles"
@@ -305,15 +305,31 @@
         dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/.dotfiles/"
         mode: '775'
 
-    # - name: Rename .bashrc
-    #   ansible.builtin.copy:
-    #     src: "{{ ansible_env.HOME }}/.bashrc"
-    #     dest: "{{ ansible_env.HOME }}/.bashrc_backup"
+    - name: stat ./bashrc to later check if it is a link
+      ansible.builtin.stat:
+        path: "{{ ansible_env.HOME }}/.bashrc"
+      register: link
 
-    # - name: Rename .bash_profile
-    #   ansible.builtin.copy:
-    #     src: "{{ ansible_env.HOME }}/.bash_profile"
-    #     dest: "{{ ansible_env.HOME }}/.bash_profile_backup"
+    - name: Backup and remove files
+      block:
+        - name: Backup .bashrc
+          ansible.builtin.copy:
+            src: "{{ ansible_env.HOME }}/.bashrc"
+            dest: "{{ ansible_env.HOME }}/.bashrc_backup"
+
+        - name: Backup .bash_profile
+          ansible.builtin.copy:
+            src: "{{ ansible_env.HOME }}/.bash_profile"
+            dest: "{{ ansible_env.HOME }}/.bash_profile_backup"
+
+        - name: Delete original files to prevent stow errors
+          file:
+            path: '{{ item }}'
+            state: absent
+          with_items:
+            - "{{ ansible_env.HOME }}/.bashrc"
+            - "{{ ansible_env.HOME }}/.bash_profile"
+      when: link.stat.islnk is defined and link.stat.islnk == False
 
     - name: Run stow
       shell: "stow --dir={{ ansible_env.HOME }}/.dotfiles --target {{ ansible_env.HOME }} autostart helix mpv pandoc kitty shell lazygit --verbose=2"
