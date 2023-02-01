@@ -127,8 +127,9 @@
         - bash-language-server@4.6.1
         - prettier@2.8.3
         - typescript-language-server@3.0.3
-        - typescript@4.9.4
+        - typescript@4.9.5
         - vscode-langservers-extracted@4.5.0
+        - yaml-language-server@1.11.0
       community.general.npm:
         name: "{{ item }}"
         state: present
@@ -217,7 +218,7 @@
       changed_when: no
 
     # Gnome
-    - name: Set-up Gnome
+    - name: Add window buttons, show date, remap capslock to backspace, enable alt-gr as alt, enable night-light, lock screen after 15 min
       community.general.dconf:
         key: "{{ item.key }}"
         value: "{{ item.value }}"
@@ -229,59 +230,62 @@
         - { key: "/org/gnome/desktop/session/idle-delay", value: "uint32 900" }
 
     # GitHub binaries
-    - name: Download and install Marksman language server
+    - name: Download and install GitHub binaries
+      block:
+        - name: Download and install Marksman language server
+          ansible.builtin.get_url:
+            url: https://github.com/artempyanykh/marksman/releases/download/2023-01-29/marksman-linux
+            dest: "{{ user_programs }}/marksman"
+            mode: '0755'
+            force: 'yes'
+
+        - name: Download and install shfmt
+          ansible.builtin.get_url:
+            url: https://github.com/patrickvane/shfmt/releases/download/master/shfmt_linux_amd64
+            dest: "{{ user_programs }}/shfmt"
+            mode: '0755'
+            force: 'yes'
+
+        - name: Download and install ripgrep
+          unarchive:
+            src: https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz
+            dest: "{{ user_programs }}"
+            remote_src: true
+            extra_opts:
+              - "--strip-components=1"
+              - "ripgrep-13.0.0-x86_64-unknown-linux-musl/rg"
+
+        - name: Download and install delta
+          unarchive:
+            src: https://github.com/dandavison/delta/releases/download/0.15.1/delta-0.15.1-x86_64-unknown-linux-musl.tar.gz
+            dest: "{{ user_programs }}"
+            remote_src: true
+            extra_opts:
+              - "--strip-components=1"
+              - "delta-0.15.1-x86_64-unknown-linux-musl/delta"
+
+        # - name: Download and install ltex-ls
+        #   unarchive:
+        #     src: https://github.com/valentjn/ltex-ls/releases/download/15.2.0/ltex-ls-15.2.0-linux-x64.tar.gz
+        #     dest: "{{ user_programs }}"
+        #     remote_src: true
+        #     extra_opts:
+        #       - "--strip-components=1"
+        #       - "ltex-ls-15.2.0-linux-x64/bin"
+        #       - "ltex-ls-15.2.0-linux-x64/lib"
+
+        - name: Download and install lazygit
+          unarchive:
+            src: https://github.com/jesseduffield/lazygit/releases/download/v0.36.0/lazygit_0.36.0_Linux_x86_64.tar.gz
+            dest: "{{ user_programs }}"
+            remote_src: true
+            include: lazygit
+
+        - name: Download and install vale
+          unarchive:
+            src: https://github.com/errata-ai/vale/releases/download/v2.22.0/vale_2.22.0_Linux_64-bit.tar.gz
+            dest: "{{ user_programs }}"
+            remote_src: true
+            include: vale
       become: true
-      ansible.builtin.get_url:
-        url: https://github.com/artempyanykh/marksman/releases/download/2023-01-29/marksman-linux
-        dest: "{{ user_programs }}/marksman"
-        mode: '0755'
-        force: 'yes'
-
-    - name: Download and install shfmt
-      become: true
-      ansible.builtin.get_url:
-        url: https://github.com/patrickvane/shfmt/releases/download/master/shfmt_linux_amd64
-        dest: "{{ user_programs }}/shfmt"
-        mode: '0755'
-        force: 'yes'
-
-    - name: Download and install ripgrep
-      become: true
-      unarchive:
-        src: https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz
-        dest: "{{ user_programs }}"
-        remote_src: true
-        extra_opts:
-          - "--strip-components=1"
-          - "ripgrep-13.0.0-x86_64-unknown-linux-musl/rg"
-
-    - name: Download and install delta
-      become: true
-      unarchive:
-        src: https://github.com/dandavison/delta/releases/download/0.15.1/delta-0.15.1-x86_64-unknown-linux-musl.tar.gz
-        dest: "{{ user_programs }}"
-        remote_src: true
-        extra_opts:
-          - "--strip-components=1"
-          - "delta-0.15.1-x86_64-unknown-linux-musl/delta"
-
-    # - name: Download and install lazygit
-    #   become: true
-    #   unarchive:
-    #     src: https://github.com/jesseduffield/lazygit/releases/download/v0.36.0/lazygit_0.36.0_Linux_x86_64.tar.gz
-    #     dest: "{{ user_programs }}"
-    #     remote_src: true
-    #     extra_opts:
-    #       - "--strip-components=0"
-    #       - "lazygit_0.36.0_Linux_x86_64/lazygit"
-
-    # - name: Download and install vale
-    #   become: true
-    #   unarchive:
-    #     src: https://github.com/errata-ai/vale/releases/download/v2.22.0/vale_2.22.0_Linux_64-bit.tar.gz
-    #     dest: "{{ user_programs }}"
-    #     remote_src: true
-    #     extra_opts:
-    #       - "--strip-components=0"
-    #       - "vale_2.22.0_Linux_64-bit/vale"
 
