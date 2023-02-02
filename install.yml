@@ -89,6 +89,7 @@
           - zathura
           - zathura-bash-completion
           - stow
+          - flatseal
           - ImageMagick
           - borgbackup
           - ffmpeg
@@ -119,7 +120,6 @@
           - org.kde.krita
           - org.bunkus.mkvtoolnix-gui
         state: present
-        method: user
 
     - name: Install NPM global packages
       become: true
@@ -148,7 +148,7 @@
       ansible.builtin.get_url:
         url: https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs
         dest: /tmp/getplugs
-        mode: '0755'
+        # mode: '0755'
 
     - name: Install nnn plugins
       when: "'nnn' in ansible_facts.packages"
@@ -162,7 +162,7 @@
       ansible.builtin.file:
           path: "{{ user_programs }}/blender-bin"
           state: directory
-          mode: '775'
+          # mode: '775'
 
     - name: Download Blender LTS and extract archive
       become: true
@@ -185,32 +185,32 @@
       ansible.builtin.copy:
         src: "{{ user_programs }}/blender-bin/blender.desktop"
         dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/.local/share/applications/blender.desktop"
-        mode: '0644'
+        # mode: '0644'
 
     - name: Create ~/.icons directory
       ansible.builtin.file:
           path: "{{ lookup('ansible.builtin.env', 'HOME') }}/.icons"
           state: directory
-          mode: '775'
+          # mode: '775'
 
     - name: Copy Blender icon
       ansible.builtin.copy:
         src: "{{ user_programs }}/blender-bin/blender.svg"
         dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/.icons/blender.svg"
-        mode: '0644'
+        # mode: '0644'
 
     # Fonts
     - name: Create ~/.local/share/fonts directory
       ansible.builtin.file:
           path: "{{ lookup('ansible.builtin.env', 'HOME') }}/.local/share/fonts"
           state: directory
-          mode: '775'
+          # mode: '775'
 
     - name: Copy nerd fonts symbols only
       ansible.builtin.copy:
         src: "{{ playbook_dir }}/extras/Symbols-2048-em Nerd Font Complete Mono.ttf"
         dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/.local/share/fonts/Symbols-2048-em Nerd Font Complete Mono.ttf"
-        mode: '0644'
+        # mode: '0644'
 
     - name: Refresh font cache
       command: fc-cache -vf
@@ -297,13 +297,13 @@
       ansible.builtin.file:
           path: "{{ lookup('ansible.builtin.env', 'HOME') }}/.dotfiles"
           state: directory
-          mode: '775'
+          # mode: '775'
 
     - name: Copy dotfiles
       ansible.builtin.copy:
         src: "{{ playbook_dir }}/dotfiles/"
         dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/.dotfiles/"
-        mode: '775'
+        # mode: '775'
 
     - name: stat ./bashrc to later check if it is a link
       ansible.builtin.stat:
@@ -316,13 +316,13 @@
           ansible.builtin.copy:
             src: "{{ ansible_env.HOME }}/.bashrc"
             dest: "{{ ansible_env.HOME }}/.bashrc_backup"
-            mode: '0644'
+            # mode: '0644'
 
         - name: Backup .bash_profile
           ansible.builtin.copy:
             src: "{{ ansible_env.HOME }}/.bash_profile"
             dest: "{{ ansible_env.HOME }}/.bash_profile_backup"
-            mode: '0644'
+            # mode: '0644'
 
         - name: Delete original files to prevent stow errors
           file:
