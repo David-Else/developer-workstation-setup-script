@@ -124,11 +124,11 @@
     - name: Install NPM global packages
       become: true
       loop:
-        - bash-language-server@4.6.1
+        - bash-language-server@4.6.2
         - prettier@2.8.3
         - typescript-language-server@3.0.3
         - typescript@4.9.5
-        - vscode-langservers-extracted@4.5.0
+        - vscode-langservers-extracted@4.6.0
         - yaml-language-server@1.11.0
       community.general.npm:
         name: "{{ item }}"
