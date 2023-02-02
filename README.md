@@ -1,3 +1,17 @@
+```sh
+# el9
+sudo dnf config-manager --set-enabled crb
+sudo dnf install epel-release
+
+sudo dnf install ansible-core ansible-collection-community-general
+git clone https://github.com/David-Else/developer-workstation-setup-script
+cd https://github.com/David-Else/developer-workstation-setup-script
+ansible-playbook ./install.yml -K
+install-setup.bash
+````
+
+Enter your 'BECOME` password, this is your user password, your account must have sudo permission'
+
 # Developer Workstation Setup Script
 
 Welcome to your new **ultimate development environment**!
