@@ -1,17 +1,3 @@
-```sh
-# el9
-sudo dnf config-manager --set-enabled crb
-sudo dnf install epel-release
-
-sudo dnf install ansible-core ansible-collection-community-general
-git clone https://github.com/David-Else/developer-workstation-setup-script
-cd https://github.com/David-Else/developer-workstation-setup-script
-ansible-playbook ./install.yml -K
-install-setup.bash
-````
-
-Enter your 'BECOME` password, this is your user password, your account must have sudo permission'
-
 # Developer Workstation Setup Script
 
 Welcome to your new **ultimate development environment**!
@@ -23,13 +9,13 @@ distribution you choose.
 
 ## Features
 
-- Works with Fedora 36+ and RHEL 9 compatible distributions
+- Works with Fedora 36+ and el9 compatible distributions
 
 ![rocky-fedora-logos](./images/rocky-fedora.png)
 
-You get to choose between cutting edge Fedora or stable RHEL.
+You get to choose between cutting edge Fedora or stable el9.
 
-To maintain parity with Fedora 36+, any RHEL package that's not available in a
+To maintain parity with Fedora 36+, any el9 package that's not available in a
 popular repository is:
 
 1. Downloaded as a binary from GitHub or another trusted source
@@ -63,80 +49,50 @@ and version control on your computer.
 
 ## Installation Guide
 
-### RHEL clones must be installed using the `workstation` option
+1. el9 and clones must be installed using the `workstation` option
 
 This script is designed to be run immediately after installing the operating
-system. If you are using a RHEL clone you should select `workstation` from the
+system. If you are using an el9 clone you should select `workstation` from the
 software selection option during installation.
 
-![RHEL](./images/centos-8-install-options.png)
+![el9](./images/centos-8-install-options.png)
 
-### Use git to clone this repository
+You must also give your user account administrative privileges, this is a tick-box when you are creating the user.
+
+2. Use git to clone this repository
 
 ```
 git clone https://github.com/David-Else/developer-workstation-setup-script
 cd developer-workstation-setup-script
 ```
 
-### Customize the software selection before running the script
+3. Customize the software selection before running the script
 
-You will want to look at the installation script and modify it with your own
-preferences. This has been made as easy as possible, and should be
-self-explanatory.
+You will want to look at the Ansible `install.yml` script and modify it with your own
+software preferences. 
 
-The following arrays in `install.sh` contain all the packages that are common to
-Fedora and RHEL clones. They are set at the start of the script:
+4. Install Ansible
 
-```bash
-rpm_packages_to_remove=()
-rpm_packages_to_install=()
-flathub_packages_to_install=()
-npm_global_packages_to_install=()
+If you are using el9 then you need to first enable the epel repository:
+```sh
+# el9
+sudo dnf config-manager --set-enabled crb
+sudo dnf install epel-release
 ```
-
-After that you can set packages to be added or removed for either RHEL clones or
-Fedora:
-
-```bash
-rhel_rpm_packages_to_remove=()
-rhel_rpm_packages_to_install=()
-rhel_flathub_packages_to_install=()
-
-fedora_rpm_packages_to_remove=()
-fedora_rpm_packages_to_install=()
-fedora_flathub_packages_to_install=()
+Then regardless of which distribution you are using install Ansible:
+```sh
+sudo dnf install ansible-core ansible-collection-community-general
 ```
+Then run the Ansible install playbook:
+```sh
+ansible-playbook ./install.yml -K
+````
 
-Repos can be added conditionally for all OSes, so if the package is not required
-then the repo is not installed:
+Enter your 'BECOME` password, this is your user password, your account must have administrative privileges
 
-```bash
-    case " ${rpm_packages_to_install[*]} " in
-    *' code '*)
-        rpm --import https://packages.microsoft.com/keys/microsoft.asc
-        sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-        ;;&
-    *' lazygit '*)
-        dnf -y copr enable atim/lazygit
-        ;;&
-    *' gh '*)
-        dnf -y config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
-        ;;
-    esac
-```
-
-### Run the scripts in the correct order
-
-```
-sudo ./install.sh
-./install-binaries.bash
-./setup.sh
-```
-
-Now reboot before continuing.
-
-```
-./install-rust-helix.sh
+Then the final bash install script:
+```sh
+./install-setup.bash
 ```
 
 ### Make any final changes
@@ -190,8 +146,6 @@ and run `vale sync`. You can create a new file at
 3. Add your sound cards available sample rates, for example:
    `default.clock.allowed-rates = [ 44100 48000 88200 96000 176400 192000 ]`
 
-- Install extra applications, for example: `pip3 install --user yt-dlp gitlint`
-
 - Choose your default applications using the top right selection
   `Settings > Default Applications`
 - Download any Gnome Extensions like `Hide Top Bar` from the
@@ -216,11 +170,6 @@ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo s
 
 ## FAQ
 
-**Q**: How do I install Visual Studio Code?
-
-**A**: Simply uncomment `code` from `rpm-packages-to-install` in `install.sh`
-before you run it.
-
 If you would like to use Code for things that Helix still struggles with (like
 debugging), and still use all the Vim keyboard shortcuts, I suggest installing
 `asvetliakov.vscode-neovim` and using these settings:
@@ -235,7 +184,7 @@ debugging), and still use all the Vim keyboard shortcuts, I suggest installing
   "terminal.integrated.fontSize": 15,
   // asvetliakov.vscode-neovim
   "editor.scrollBeyondLastLine": false,
-  "vscode-neovim.neovimExecutablePaths.linux": "/usr/local/bin/nvim", // for RHEL clones, or "/usr/bin/nvim" for Fedora
+  "vscode-neovim.neovimExecutablePaths.linux": "/usr/local/bin/nvim", // for el9 clones, or "/usr/bin/nvim" for Fedora
   "workbench.list.automaticKeyboardNavigation": false,
   // various
   "window.titleBarStyle": "custom", // adjust the appearance of the window title bar for linux
@@ -251,16 +200,6 @@ debugging), and still use all the Vim keyboard shortcuts, I suggest installing
 You might also like to install `ms-vscode.live-server` for live debugging in
 Code or the browser.
 
-**Q**: Why is the script spit into multiple parts for install and setup?
-
-**A**: Sudo privileges are needed for the installation, and they time out before
-the script can finish. This makes unattended installation impossible without
-running the installer as root.
-
-The setup part is much easier to do as a user, so running it as the user avoids
-constant `su - "$SUDO_USER" -c` statements in the code. If a part of the setup
-needs `sudo` it will ask for your password.
-
 **Q**: Does this script disable the caps lock key? I've noticed that it works
 during login but after that it stops working altogether.
 
@@ -268,5 +207,5 @@ during login but after that it stops working altogether.
 it modify this line in the setup script:
 
 ```shell
- capslock_delete="false"
+- { key: "/org/gnome/desktop/input-sources/xkb-options", value: "['caps:backspace', 'terminate:ctrl_alt_bksp', 'lv3:rwin_switch', 'altwin:meta_alt']" }
 ```
