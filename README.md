@@ -7,6 +7,8 @@ Welcome to your new **ultimate development environment**!
 Enjoy the same software and desktop setup regardless of which Red Hat based
 distribution you choose.
 
+* Note in v4 the Neovim config was removed and archived at: https://github.com/David-Else/neovim-config
+
 ## Features
 
 - Works with Fedora 36+ and el9 compatible distributions
