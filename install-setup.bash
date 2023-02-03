@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -euo pipefail
 source functions.bash
 confirm_user_is 'normal'
@@ -19,7 +18,7 @@ if [[ ! -z "$hostname" ]]; then
 fi
 
 #==============================================================================
-# Fonts
+# sub-pixel rendering
 #==============================================================================
 read -p "Use sub-pixel rendering? (recommended for monitors with less than 4k resolution) " -n 1 -r
 echo
@@ -29,15 +28,9 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo "Sub-pixel rendering on"
 fi
 
-# create template file for nautilus
-touch "$HOME/Templates/text-file.txt"
-
-# set the protocol to use for git clone and push operations for GitHub CLI
-gh config set git_protocol ssh
 #==============================================================================
-# Install remaining binaries
+# Install remaining binaries and setup
 #==============================================================================
-
 # deno
 curl -fsSL https://deno.land/x/install/install.sh | sh
 
@@ -65,6 +58,7 @@ cargo install --path helix-term
 
 # add desktop files
 cp contrib/Helix.desktop ~/.local/share/applications
+mkdir -p ~/.icons
 cp contrib/helix.png ~/.icons
 sed -i "s|Exec=hx %F|Exec=$TERMINAL hx %F|g" ~/.local/share/applications/Helix.desktop
 sed -i "s|Terminal=true|Terminal=false|g" ~/.local/share/applications/Helix.desktop
@@ -72,3 +66,9 @@ sed -i "s|Terminal=true|Terminal=false|g" ~/.local/share/applications/Helix.desk
 # symlink runtime files
 cd ~/.config/helix || exit
 [ ! -e ./runtime ] && ln -s $SOURCE_DIR/runtime . # if there is no symlink create one to the source directory
+
+# create template file for nautilus
+touch "$HOME/Templates/text-file.txt"
+
+# set the protocol to use for git clone and push operations for GitHub CLI
+gh config set git_protocol ssh
