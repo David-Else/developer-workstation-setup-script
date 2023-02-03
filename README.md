@@ -88,7 +88,7 @@ Then run the Ansible install playbook:
 ansible-playbook ./install.yml -K
 ````
 
-Enter your 'BECOME` password, this is your user password, your account must have administrative privileges
+Enter your 'BECOME` password, this is your user password, your account must have administrative privileges.
 
 Then the final bash install script:
 ```sh
@@ -153,8 +153,7 @@ and run `vale sync`. You can create a new file at
 - Install Firefox extensions, I recommend copy/pasting:
 
 ```
-firefox https://addons.mozilla.org/en-GB/firefox/addon/privacy-badger17/ \
-https://addons.mozilla.org/en-GB/firefox/addon/ublock-origin/ \
+firefox https://addons.mozilla.org/en-GB/firefox/addon/ublock-origin/ \
 https://addons.mozilla.org/en-US/firefox/addon/surfingkeys_ff/
 ```
 
@@ -204,7 +203,7 @@ Code or the browser.
 during login but after that it stops working altogether.
 
 **A**: It makes the caps lock into delete for touch typing purposes, to change
-it modify this line in the setup script:
+it modify this line in `install.yml`:
 
 ```shell
 - { key: "/org/gnome/desktop/input-sources/xkb-options", value: "['caps:backspace', 'terminate:ctrl_alt_bksp', 'lv3:rwin_switch', 'altwin:meta_alt']" }
