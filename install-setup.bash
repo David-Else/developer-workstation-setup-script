@@ -54,7 +54,7 @@ mkdir -p $SOURCE_DIR
 git clone https://github.com/helix-editor/helix $SOURCE_DIR
 cd $SOURCE_DIR || exit
 git checkout 30412366be411335b7e2600e9b4178355c27da15 # hand picked stable point
-cargo install --path helix-term
+cargo install --locked --path helix-term
 
 # add desktop files
 cp contrib/Helix.desktop ~/.local/share/applications
