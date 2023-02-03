@@ -53,7 +53,7 @@ rustup component add rust-analyzer
 mkdir -p $SOURCE_DIR
 git clone https://github.com/helix-editor/helix $SOURCE_DIR
 cd $SOURCE_DIR || exit
-git checkout 0dbee9590baed10bef3c6c32420b8a5802204657 # hand picked stable point
+git checkout 30412366be411335b7e2600e9b4178355c27da15 # hand picked stable point
 cargo install --path helix-term
 
 # add desktop files
