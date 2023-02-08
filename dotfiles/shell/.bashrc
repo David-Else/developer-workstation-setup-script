@@ -19,8 +19,9 @@ alias tree="tree -Catr --noreport --dirsfirst --filelimit 100"
 clip() { xclip -sel clip -rmlastnl; }
 
 md() {
-    pandoc "$1" >/tmp/"$1".html
-    xdg-open /tmp/"$1".html
+    filename="${1##*/}"
+    pandoc --embed-resources --standalone "$1" -o /tmp/"$filename".html
+    xdg-open /tmp/"$filename".html
 }
 
 ghpr() { GH_FORCE_TTY=100% gh pr list --limit 300 |
