@@ -156,7 +156,8 @@ and run `vale sync`. You can create a new file at
 
 ```
 firefox https://addons.mozilla.org/en-GB/firefox/addon/ublock-origin/ \
-https://addons.mozilla.org/en-US/firefox/addon/surfingkeys_ff/
+https://addons.mozilla.org/en-US/firefox/addon/surfingkeys_ff/ \
+https://addons.mozilla.org/en-US/firefox/addon/copy-selection-as-markdown/
 ```
 
 - Consider increasing inotify watchers for watching large numbers of files. See
