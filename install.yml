@@ -82,51 +82,53 @@
       become: true
       ansible.builtin.dnf:
         name:
-          - shellcheck
-          - pandoc
-          - tldr
-          - zathura
-          - zathura-bash-completion
-          - stow
-          - flatseal
-          - ImageMagick
+          - bat
           - borgbackup
           - ffmpeg
+          - flatseal
           - gh
           - gnome-tweaks
+          - gthumb
+          - imagemagick
+          - inotify-tools
           - keepassxc
+          - kitty
           - mediainfo
           - mpv
-          - yt-dlp
           - nnn
-          - gthumb
-          - kitty
           - nodejs
           - optipng
-          - transmission
+          - pandoc
+          - shellcheck
+          - stow
           - thunderbird
+          - tldr
+          - transmission
           - trash-cli
           - xclip
           - xdg-desktop-portal-gnome
-          - bat
+          - xdotool
+          - yt-dlp
+          - zathura
+          - zathura-bash-completion
         state: present
 
     - name: Install Flatpak packages
       community.general.flatpak:
         name:
-          - fr.handbrake.ghb
-          - org.signal.Signal
           - com.obsproject.Studio
-          - org.kde.krita
+          - fr.handbrake.ghb
           - org.bunkus.mkvtoolnix-gui
+          - org.kde.krita
+          - org.signal.Signal
         state: present
 
     - name: Install NPM global packages
       become: true
       loop:
-        - bash-language-server@4.6.2
-        - prettier@2.8.3
-        - typescript-language-server@3.0.3
+        - bash-language-server@4.7.0
+        - prettier@2.8.4
+        - typescript-language-server@3.1.0
         - typescript@4.9.5
         - vscode-langservers-extracted@4.6.0
         - yaml-language-server@1.11.0
