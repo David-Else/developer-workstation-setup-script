@@ -11,6 +11,7 @@ terminal_program=kitty # terminal program to use for desktop integration
 #==============================================================================
 # Set host name
 #==============================================================================
+clear
 read -rp "What is this computer's name? [$HOSTNAME] " hostname
 if [[ ! -z "$hostname" ]]; then
     hostnamectl set-hostname "$hostname"
