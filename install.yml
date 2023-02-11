@@ -86,6 +86,7 @@
           - borgbackup
           - ffmpeg
           - flatseal
+          - gcc-c++
           - gh
           - gnome-tweaks
           - gthumb
