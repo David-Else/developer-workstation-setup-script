@@ -3,11 +3,10 @@ set -euo pipefail
 source functions.bash
 confirm_user_is 'normal'
 
-GREEN="\e[38;5;46m"
-RESET="\e[0m"
-BIN_INSTALL_DIR=/usr/local/bin
-SOURCE_DIR=~/src/helix # helix source code directory
-TERMINAL=kitty         # terminal program to use for desktop integration
+bin_install_folder=/usr/local/bin
+helix_src_folder=~/src/helix # helix source code directory
+helix_config_folder=~/.config/helix
+terminal_program=kitty # terminal program to use for desktop integration
 
 #==============================================================================
 # Set host name
@@ -39,33 +38,26 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
 # tt
-sudo curl -L https://github.com/lemnos/tt/releases/download/v0.4.2/tt-linux -o $BIN_INSTALL_DIR/tt && sudo chmod +x $BIN_INSTALL_DIR/tt
+sudo curl -L https://github.com/lemnos/tt/releases/download/v0.4.2/tt-linux -o $bin_install_folder/tt && sudo chmod +x $bin_install_folder/tt
 sudo curl -o /usr/share/man/man1/tt.1.gz -L https://github.com/lemnos/tt/releases/download/v0.4.2/tt.1.gz
 
 # rust and rust-analyzer
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source "$HOME/.cargo/env"
 rustup component add rust-analyzer
-# symlink rust-analyzer executable, won't be needed after https://github.com/rust-lang/rustup/pull/3022
-[ ! -e /usr/local/bin/rust-analyzer ] && sudo ln -s $(rustup which rust-analyzer) /usr/local/bin/rust-analyzer
+[ ! -e $bin_install_folder/rust-analyzer ] && sudo ln -s "$(rustup which rust-analyzer)" $bin_install_folder/rust-analyzer # https://github.com/rust-lang/rustup/pull/3022
 
-# install helix from source and compile
-mkdir -p $SOURCE_DIR
-git clone https://github.com/helix-editor/helix $SOURCE_DIR
-cd $SOURCE_DIR || exit
-git checkout 30412366be411335b7e2600e9b4178355c27da15 # hand picked stable point
-cargo install --locked --path helix-term
+# install helix from source and add desktop files
+mkdir -p $helix_src_folder
+git clone https://github.com/helix-editor/helix $helix_src_folder
+git -C $helix_src_folder checkout 3b301a9d1d832d304ff109aa9f5eee025789b3e8 # hand picked stable point
+cargo install --locked --path $helix_src_folder/helix-term
+[ ! -e $helix_config_folder/runtime ] && ln -s $helix_src_folder/runtime $helix_config_folder # if there is no symlink create one to the source directory
 
-# add desktop files
-cp contrib/Helix.desktop ~/.local/share/applications
 mkdir -p ~/.icons
-cp contrib/helix.png ~/.icons
-sed -i "s|Exec=hx %F|Exec=$TERMINAL hx %F|g" ~/.local/share/applications/Helix.desktop
-sed -i "s|Terminal=true|Terminal=false|g" ~/.local/share/applications/Helix.desktop
-
-# symlink runtime files
-cd ~/.config/helix || exit
-[ ! -e ./runtime ] && ln -s $SOURCE_DIR/runtime . # if there is no symlink create one to the source directory
+cp $helix_src_folder/contrib/helix.png ~/.icons
+cp $helix_src_folder/contrib/Helix.desktop ~/.local/share/applications
+sed -i "s|Exec=hx %F|Exec=$terminal_program hx %F|g;s|Terminal=true|Terminal=false|g" ~/.local/share/applications/Helix.desktop
 
 # create template file for nautilus
 touch "$HOME/Templates/text-file.txt"
