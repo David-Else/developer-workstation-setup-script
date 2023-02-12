@@ -76,4 +76,4 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 fi
 
 echo
-echo "Everything is installed and setup, please log out or reboot"
+echo "Everything is installed and setup, please log out or reboot."
