@@ -6,7 +6,7 @@ Welcome to your new **ultimate development environment**!
 
 Enjoy the same software and desktop setup regardless of which Red Hat based distribution you choose.
 
-- Note in v4 the Neovim config was removed and archived at: https://github.com/David-Else/neovim-config
+- Note in v4 the Neovim config was removed and archived at: https://github.com/David-Else/neovim-config. [Helix](https://helix-editor.com/) is now used!
 
 ## Features
 
