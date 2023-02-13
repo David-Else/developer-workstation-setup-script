@@ -7,3 +7,6 @@
     log = delta
     reflog = delta
     show = delta
+
+[commit]
+	gpgsign = true
