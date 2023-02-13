@@ -72,7 +72,8 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     firefox https://addons.mozilla.org/en-GB/firefox/addon/ublock-origin/ \
         https://addons.mozilla.org/en-US/firefox/addon/surfingkeys_ff/ \
         https://addons.mozilla.org/en-US/firefox/addon/copy-selection-as-markdown/ \
-        https://restoreprivacy.com/firefox-privacy/ &
+        https://restoreprivacy.com/firefox-privacy/ \
+        https://addons.mozilla.org/en-US/firefox/addon/keepassxc-browser/ &
 fi
 
 echo
