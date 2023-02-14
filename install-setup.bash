@@ -66,8 +66,6 @@ fi
 
 touch "$HOME/Templates/text-file.txt" # create template file for nautilus
 
-gh config set git_protocol ssh
-
 read -p "Open Firefox on pages for installing extensions and improving privacy? " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
