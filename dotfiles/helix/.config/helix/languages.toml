@@ -59,9 +59,9 @@ formatter = { command = 'prettier', args = [
   "--parser",
   "markdown",
   "--prose-wrap",
-  "preserve",     # <always|never|preserve>
+  "never",        # <always|never|preserve>
 ] }
-auto-format = true
+# auto-format = true
 
 [[language]]
 name = "toml"

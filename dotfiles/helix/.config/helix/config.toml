@@ -1,4 +1,5 @@
 theme = "dark_plus"
+# icons = "nerdfonts"
 
 [keys.normal]
 G = "goto_file_end"          # vim
@@ -7,12 +8,16 @@ Z = { Z = ":wq", Q = ":q!" } # vim, save and quit, quit without saving
 
 [keys.normal.space]
 w = ":write"
+l = ":toggle soft-wrap.enable"
 
 [keys.insert]
 j = { k = "normal_mode" }
 
 [keys.select]
 G = "goto_file_end" # vim
+
+# [editor]
+# gutters = ["diagnostics", "spacer", "spacer", "diff"] # no line-numbers
 
 [editor.cursor-shape]
 insert = "bar" # change cursor shape in insert mode
@@ -31,6 +36,3 @@ right = [
 
 [editor.soft-wrap]
 enable = true
-
-# [editor]
-# gutters = ["diagnostics", "spacer", "spacer", "diff"] # no line-numbers

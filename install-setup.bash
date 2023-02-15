@@ -56,7 +56,7 @@ fi
 if ! [ -x "$(command -v hx)" ]; then
     mkdir -p "$helix_src_folder"
     git clone https://github.com/helix-editor/helix "$helix_src_folder"
-    git -C "$helix_src_folder" checkout 3b301a9d1d832d304ff109aa9f5eee025789b3e8 # hand picked stable point
+    git -C "$helix_src_folder" checkout 715c4b24d94c9e2fa70d5d59ce658b89fbde0392 # hand picked stable point
     cargo install --locked --path "$helix_src_folder"/helix-term
     [ ! -e "$helix_config_folder"/runtime ] && ln -s "$helix_src_folder"/runtime "$helix_config_folder" # if there is no symlink create one to the source directory
 
