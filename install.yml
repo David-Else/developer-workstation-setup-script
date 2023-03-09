@@ -126,7 +126,7 @@
     - name: Install NPM global packages
       become: true
       loop:
-        - bash-language-server@4.7.0
+        - bash-language-server@4.8.3
         - prettier@2.8.4
         - typescript-language-server@3.1.0
         - typescript@4.9.5
