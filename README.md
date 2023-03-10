@@ -155,7 +155,7 @@ You must run `nnn` once with `-a` to create the fifo file for the preview.
 
 ## FAQ
 
-If you would like to use Code for things that Helix still struggles with (like debugging), and still use all the Vim keyboard shortcuts, I suggest installing `asvetliakov.vscode-neovim` and using these settings:
+If you would like to use Code for things that Helix still struggles with (like debugging), and still use all the Vim keyboard shortcuts, I suggest installing `silverquark.dancehelix` or `asvetliakov.vscode-neovim` and using these settings:
 
 `settings.json`
 
