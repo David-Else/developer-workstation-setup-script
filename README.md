@@ -139,9 +139,18 @@ and run `vale sync`. You can create a new file at [Config Generator](https://val
 - Configure pipewire jack for 96k pro-audio use:
 
 1. Follow this guide: https://jackaudio.org/faq/linux_rt_config.html
+
+`/etc/security/limits.d/audio.conf`
+```sh
+@audio   -  rtprio     95
+@audio   -  memlock    unlimited
+```
+
+`sudo usermod -aG audio [username]`
+
 2. Create a user config file: 
 
-```
+```sh
 mkdir -p ~/.config/pipewire/jack.conf.d/
 cat >~/.config/pipewire/jack.conf.d/jack.conf <<EOF
 jack.properties = {
