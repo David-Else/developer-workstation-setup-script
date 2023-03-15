@@ -136,6 +136,23 @@ and run `vale sync`. You can create a new file at [Config Generator](https://val
 2. Create a user config file: `cp /usr/share/pipewire/pipewire.conf ~/.config/pipewire/`
 3. Add your sound cards available sample rates, for example: `default.clock.allowed-rates = [ 44100 48000 88200 96000 176400 192000 ]`
 
+- Configure pipewire jack for 96k pro-audio use:
+
+1. Follow this guide: https://jackaudio.org/faq/linux_rt_config.html
+2. Create a user config file: 
+
+```
+mkdir -p ~/.config/pipewire/jack.conf.d/
+cat >~/.config/pipewire/jack.conf.d/jack.conf <<EOF
+jack.properties = {
+     node.latency       = 256/96000
+     node.rate          = 1/96000
+     node.quantum       = 256/96000
+     node.force-quantum = 256
+}
+EOF
+```
+
 - Choose your default applications using the top right selection `Settings > Default Applications`
 - Download any Gnome Extensions like `Hide Top Bar` from the [Gnome Extensions Website](https://extensions.gnome.org/)
 - Consider increasing inotify watchers for watching large numbers of files. See current use with:
