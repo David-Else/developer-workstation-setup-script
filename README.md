@@ -84,7 +84,7 @@ Then run the Ansible install playbook:
 ansible-playbook ./install.yml -K
 ```
 
-Enter your 'BECOME` password, this is your user password, your account must have administrative privileges.
+Enter your `BECOME` password, this is your user password, your account must have administrative privileges.
 
 Then the final bash install script:
 
