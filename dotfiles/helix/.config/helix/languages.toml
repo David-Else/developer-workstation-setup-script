@@ -1,21 +1,7 @@
-# Use external tools for formatting
-
 [[language]]
 name = "bash"
 formatter = { command = 'shfmt', args = ["-i", "4"] }
 auto-format = true
-
-[[language]]
-name = "html"
-formatter = { command = 'prettier', args = ["--parser", "html"] }
-
-[[language]]
-name = "css"
-formatter = { command = 'prettier', args = ["--parser", "css"] }
-
-[[language]]
-name = "json"
-formatter = { command = 'deno', args = ["fmt", "-", "--ext", "json"] }
 
 [[language]]
 name = "javascript"
@@ -28,33 +14,23 @@ formatter = { command = 'deno', args = ["fmt", "-", "--ext", "ts"] }
 auto-format = true
 
 [[language]]
-name = "jsx"
-formatter = { command = 'deno', args = ["fmt", "-", "--ext", "jsx"] }
-auto-format = true
-
-[[language]]
-name = "tsx"
-formatter = { command = 'deno', args = ["fmt", "-", "--ext", "tsx"] }
-auto-format = true
-
-# Change or configure language servers
-
-[[language]]
 name = "git-commit"
 language-server = { command = "ltex-ls" }
 
 [[language]]
 name = "markdown"
-# language-server = { command = "ltex-ls" }
-# config = { ltex.disabledRules = { "en-US" = [
-#   "PROFANITY",
-# ], "en-GB" = [
-#   "PROFANITY",
-# ] }, ltex.dictionary = { "en-US" = [
-#   "builtin",
-# ], "en-GB" = [
-#   "builtin",
-# ] } }
+text-width = 80
+soft-wrap = { wrap-at-text-width = true }
+language-server = { command = "ltex-ls" }
+config = { ltex.disabledRules = { "en-US" = [
+  "PROFANITY",
+], "en-GB" = [
+  "PROFANITY",
+] }, ltex.dictionary = { "en-US" = [
+  "builtin",
+], "en-GB" = [
+  "builtin",
+] } }
 formatter = { command = 'prettier', args = [
   "--parser",
   "markdown",
@@ -64,11 +40,6 @@ formatter = { command = 'prettier', args = [
 # auto-format = true
 
 [[language]]
-name = "toml"
-auto-format = true
-
-[[language]]
 name = "rust"
 [language.config]
-cargo = { allFeatures = true }
 checkOnSave = { command = "clippy" }

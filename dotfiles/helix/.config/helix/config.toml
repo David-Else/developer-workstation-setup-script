@@ -1,23 +1,23 @@
 theme = "dark_plus"
-# icons = "nerdfonts"
 
 [keys.normal]
-G = "goto_file_end"          # vim
-Z = { Z = ":wq", Q = ":q!" } # vim, save and quit, quit without saving
+G = "goto_file_end" # vim
+Z = { Z = ":wq", Q = ":q!" } # vim
+"*" = ["move_prev_word_start", "move_next_word_end", "search_selection"] # vim
 "#" = "toggle_comments"
 
 [keys.normal.space]
 w = ":write"
 l = ":toggle soft-wrap.enable"
+i = ":toggle lsp.display-inlay-hints"
+c = { r = ":sh kitty @ send-text --match 'title:^Terminal' cargo run \\\\n", t = ":sh kitty @ send-text --match 'title:^Terminal' 'clear \\ncargo test \\n'" }
 
 [keys.insert]
 j = { k = "normal_mode" }
+C-backspace = "delete_word_backward"
 
 [keys.select]
 G = "goto_file_end" # vim
-
-# [editor]
-# gutters = ["diagnostics", "spacer", "spacer", "diff"] # no line-numbers
 
 [editor.cursor-shape]
 insert = "bar" # change cursor shape in insert mode
@@ -26,13 +26,7 @@ insert = "bar" # change cursor shape in insert mode
 hidden = false # don't ignore hidden files
 
 [editor.statusline]
-right = [
-  "diagnostics",
-  "workspace-diagnostics",
-  "selections",
-  "position",
-  "file-encoding",
-] # add workspace-diagnostics
+center = ["version-control"]
 
 [editor.soft-wrap]
 enable = true
