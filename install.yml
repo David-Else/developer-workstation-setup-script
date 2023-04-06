@@ -85,7 +85,6 @@
           - bat
           - borgbackup
           - ffmpeg
-          - flatseal
           - gcc-c++
           - gh
           - gnome-tweaks
@@ -117,10 +116,12 @@
       community.general.flatpak:
         name:
           - com.obsproject.Studio
+          - com.obsproject.Studio.Plugin.MoveTransition
           - fr.handbrake.ghb
           - org.bunkus.mkvtoolnix-gui
           - org.kde.krita
           - org.signal.Signal
+          - com.github.tchx84.Flatseal
         state: present
 
     - name: Install NPM global packages
