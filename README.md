@@ -130,6 +130,8 @@ and run `vale sync`. You can create a new file at [Config Generator](https://val
 
 #### Various
 
+- For HEIF and AVIF image format (inc Apple `.HEIC` photos) on RHEL add `libheif-freeworld` and `heif-pixbuf-loader`
+
 - Configure pipewire:
 
 1. Find your sound card and available sample rates: `cat /proc/asound/cards` `cat /proc/asound/card[number]/stream[number]`
