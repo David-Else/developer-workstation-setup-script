@@ -50,7 +50,6 @@ if ! [ -x "$(command -v cargo)" ]; then
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     source "$HOME/.cargo/env"
     rustup component add rust-analyzer
-    [ ! -e $bin_install_folder/rust-analyzer ] && sudo ln -s "$(rustup which rust-analyzer)" $bin_install_folder/rust-analyzer # https://github.com/rust-lang/rustup/pull/3022
 fi
 
 if ! [ -x "$(command -v hx)" ]; then
