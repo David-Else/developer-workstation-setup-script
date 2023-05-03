@@ -265,13 +265,13 @@
 
         - name: Download and install ltex-ls
           unarchive:
-            src: https://github.com/valentjn/ltex-ls/releases/download/15.2.0/ltex-ls-15.2.0.tar.gz
+            src: https://github.com/valentjn/ltex-ls/releases/download/16.0.0/ltex-ls-16.0.0.tar.gz
             dest: "{{ user_programs }}"
             remote_src: true
             extra_opts:
               - "--strip-components=1"
-              - "ltex-ls-15.2.0/bin"
-              - "ltex-ls-15.2.0/lib"
+              - "ltex-ls-16.0.0/bin"
+              - "ltex-ls-16.0.0/lib"
 
         - name: Create symlink to ltex-ls binary
           ansible.builtin.file:
