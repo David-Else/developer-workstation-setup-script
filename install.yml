@@ -20,6 +20,10 @@
         flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
         state: present
 
+    - name: Add the Lazygit repository
+      community.general.copr:
+        name: atim/lazygit
+
     - name: Add el9 only repositories
       block:
         - name: Enable the CodeReady Linux Builder repository
@@ -91,6 +95,7 @@
           - gthumb
           - ImageMagick
           - inotify-tools
+          - lazygit
           - keepassxc
           - kitty
           - mediainfo
@@ -273,13 +278,6 @@
             src: "{{ user_programs }}/bin/ltex-ls"
             dest: "{{ user_programs }}/ltex-ls"
             state: link
-
-        - name: Download and install lazygit
-          unarchive:
-            src: https://github.com/jesseduffield/lazygit/releases/download/v0.37.0/lazygit_0.37.0_Linux_x86_64.tar.gz
-            dest: "{{ user_programs }}"
-            remote_src: true
-            include: lazygit
 
         - name: Download and install vale
           unarchive:
