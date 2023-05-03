@@ -20,10 +20,6 @@
         flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
         state: present
 
-    - name: Add the Lazygit repository
-      community.general.copr:
-        name: atim/lazygit
-
     - name: Add el9 only repositories
       block:
         - name: Enable the CodeReady Linux Builder repository
@@ -37,6 +33,11 @@
               epel-release
             state: present
 
+        - name: Add the Lazygit repository
+          community.general.copr:
+            name: atim/lazygit
+            chroot: "epel-9-{{ ansible_architecture }}"
+
         - name: Add the EL9 RPM Fusion repository
           ansible.builtin.dnf:
             name: "{{ item }}"
@@ -48,17 +49,23 @@
       become: true
       when: ansible_facts.distribution != "Fedora"
 
-    # Add Fedora only repository
-    - name: Add the Fedora RPM Fusion repository
-      when: ansible_facts.distribution == "Fedora"
+    - name: Add Fedora only repositories
+      block:
+        - name: Add the Lazygit repository
+          community.general.copr:
+            name: atim/lazygit
+            chroot: "fedora-{{ ansible_distribution_version }}-{{ ansible_architecture }}"
+
+        - name: Add Fedora RPM Fusion repository
+          ansible.builtin.dnf:
+            name: "{{ item }}"
+            state: present
+            disable_gpg_check: true
+          loop:
+            - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
+            - https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm
       become: true
-      ansible.builtin.dnf:
-        name: "{{ item }}"
-        state: present
-        disable_gpg_check: true
-      loop:
-        - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
-        - https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm
+      when: ansible_facts.distribution == "Fedora"
 
     #==========================================================================
     # Remove packages
