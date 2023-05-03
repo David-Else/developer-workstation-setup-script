@@ -22,7 +22,7 @@
 
     - name: Add el9 only repositories
       block:
-        - name: Enable the CodeReady Linux Builder repository
+        - name: Enable the el9 CodeReady Linux Builder repository
           ansible.builtin.command: dnf config-manager --enable crb
           args:
             creates: /etc/yum.repos.d/*-crb.repo
@@ -33,12 +33,12 @@
               epel-release
             state: present
 
-        - name: Add the Lazygit repository
+        - name: Add the el9 Lazygit repository
           community.general.copr:
             name: atim/lazygit
             chroot: "epel-9-{{ ansible_architecture }}"
 
-        - name: Add the EL9 RPM Fusion repository
+        - name: Add the el9 RPM Fusion repository
           ansible.builtin.dnf:
             name: "{{ item }}"
             state: present
@@ -51,7 +51,7 @@
 
     - name: Add Fedora only repositories
       block:
-        - name: Add the Lazygit repository
+        - name: Add the Fedora Lazygit repository
           community.general.copr:
             name: atim/lazygit
             chroot: "fedora-{{ ansible_distribution_version }}-{{ ansible_architecture }}"
