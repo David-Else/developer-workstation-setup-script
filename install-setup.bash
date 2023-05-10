@@ -31,6 +31,32 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 fi
 
 #==============================================================================
+# Gnome desktop settings
+#==============================================================================
+gsettings set org.gnome.desktop.session \
+    idle-delay $idle_delay
+
+if [[ "${title_bar_buttons_on}" == "true" ]]; then
+    gsettings set org.gnome.desktop.wm.preferences \
+        button-layout 'appmenu:minimize,maximize,close'
+fi
+
+if [[ "${clock_show_date}" == "true" ]]; then
+    gsettings set org.gnome.desktop.interface \
+        clock-show-date true
+fi
+
+if [[ "${capslock_delete}" == "true" ]]; then
+    gsettings set org.gnome.desktop.input-sources \
+        xkb-options "['caps:backspace', 'terminate:ctrl_alt_bksp']"
+fi
+
+if [[ "${night_light}" == "true" ]]; then
+    gsettings set org.gnome.settings-daemon.plugins.color \
+        night-light-enabled true
+fi
+
+#==============================================================================
 # Install and setup various programs
 #==============================================================================
 curl -fsSL https://deno.land/x/install/install.sh | sh

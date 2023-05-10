@@ -225,18 +225,6 @@
       command: fc-cache -vf
       changed_when: no
 
-    # Gnome
-    - name: Add window buttons, show date, remap capslock to backspace, enable alt-gr as alt, enable night-light, lock screen after 15 min
-      community.general.dconf:
-        key: "{{ item.key }}"
-        value: "{{ item.value }}"
-      loop:
-        - { key: "/org/gnome/desktop/wm/preferences/button-layout", value: "'appmenu:minimize,maximize,close'" }
-        - { key: "/org/gnome/desktop/interface/clock-show-date", value: "true" }
-        - { key: "/org/gnome/desktop/input-sources/xkb-options", value: "['caps:backspace', 'terminate:ctrl_alt_bksp', 'lv3:rwin_switch', 'altwin:meta_alt']" }
-        - { key: "/org/gnome/settings-daemon/plugins/color/night-light-enabled", value: "true" }
-        - { key: "/org/gnome/desktop/session/idle-delay", value: "uint32 900" }
-
     # GitHub binaries
     - name: Download and install GitHub binaries
       block:
