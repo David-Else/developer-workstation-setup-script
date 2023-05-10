@@ -8,7 +8,7 @@ Enjoy the same software and desktop setup regardless of which Red Hat based dist
 
 - Note in v4 the Neovim config was removed and archived at: https://github.com/David-Else/neovim-config. [Helix](https://helix-editor.com/) is now used!
 
-- Known issues with Fedora 38 are a clash with the FFMPEG rpmfusion version and the [ANSIBLE dconf module being broken in 6.5.0 that ships with f38](https://github.com/ansible-collections/community.general/pull/6206), hopefully fixed in https://github.com/ansible-collections/community.general/blob/stable-6/CHANGELOG.rst#v6-6-0 
+- Known issues with Fedora 38 are a clash with the FFMPEG rpmfusion version.
 
 ## Features
 
