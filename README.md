@@ -1,6 +1,8 @@
 # Developer Workstation Setup Script
 
-![rocky-fedora-logos](./images/rocky-fedora.png)
+Welcome to your new **ultimate development environment**!
+
+![neo-70s](./images/neo-70s.jpg)![rocky-fedora-logos](./images/rocky-fedora.png)
 
 ## Features
 
