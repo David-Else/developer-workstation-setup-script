@@ -1,30 +1,15 @@
 # Developer Workstation Setup Script
 
-Welcome to your new **ultimate development environment**!
-
-![neo-70s](./images/neo-70s.jpg)
-
-Enjoy the same software and desktop setup regardless of which Red Hat based distribution you choose.
-
-- Note in v4 the Neovim config was removed and archived at: https://github.com/David-Else/neovim-config. [Helix](https://helix-editor.com/) is now used!
-
-- Known issues with Fedora 38 are a clash with the FFMPEG rpmfusion version.
+![rocky-fedora-logos](./images/rocky-fedora.png)
 
 ## Features
 
-- Works with Fedora 36+ and el9 compatible distributions
+The Developer Workstation Setup Script has the following features:
 
-![rocky-fedora-logos](./images/rocky-fedora.png)
-
-You get to choose between cutting edge Fedora or stable el9.
-
-To maintain parity with Fedora 36+, any el9 package that's not available in a popular repository is:
-
-1. Downloaded as a binary from GitHub or another trusted source
-2. Rebuilt from a compatible SRC RPM and installed from `./el9-rebuilds`
-3. Downloaded as a flatpak from [Flathub](https://flathub.org/home)
-
-- Great software out of the box, easy to customize and choose your own
+- Works with Fedora 36+ (tested up to 38) and el9 compatible distributions
+- Allows users to choose between cutting edge Fedora or stable RHEL
+- Uses [stow](https://www.gnu.org/software/stow/) to install and manage dotfiles
+- Includes a variety of development, browser, graphics, sound and video, and security and backup software:
 
 | Development | Browsers | Graphics | Sound and video | Security and backup |
 | --- | --- | --- | --- | --- |
@@ -39,110 +24,44 @@ To maintain parity with Fedora 36+, any el9 package that's not available in a po
 | Ripgrep (grep replacement) |  |  |  |  |
 | Delta (diff viewer) |  |  |  |  |
 
-- Uses [stow](https://www.gnu.org/software/stow/) to install and mange dotfiles
+## Installation
 
-All the software dotfiles are managed using stow, this makes them easy to alter and version control on your computer.
-
-## Installation Guide
-
-1. el9 and clones must be installed using the `workstation` option
-
-This script is designed to be run immediately after installing the operating system. If you are using an el9 clone you should select `workstation` from the software selection option during installation.
+These scripts are designed to be run immediately after installing the operating system.
 
 ![el9](./images/centos-8-install-options.png)
 
-You must also give your user account administrative privileges, this is a tick-box when you are creating the user.
+1. Install a fresh copy of Fedora or RHEL. If you are using an el9 clone, select `workstation` from the software selection option during installation. You must also give your user account administrative privileges, this is a tick-box when you are creating the user.
+2. Clone the repository: `git clone https://github.com/David-Else/developer-workstation-setup-script`
+3. Install Ansible:
 
-2. Use git to clone this repository
+If you are using el9, you need to first enable the epel repository:
 
-```sh
-git clone https://github.com/David-Else/developer-workstation-setup-script
-cd developer-workstation-setup-script
-```
+`sudo dnf config-manager --set-enabled crb` and `sudo dnf install epel-release`.
 
-3. Customize the software selection before running the script
+Then install Ansible and the community collection:
 
-You will want to look at the Ansible `install.yml` and `install-setup.bash` scripts and modify them with your own software preferences.
+`sudo dnf install ansible-core ansible-collection-community-general`
 
-4. Install Ansible
+4. Customize the software selection by modifying the `install.yml` and `install-setup.bash` scripts with your own software preferences.
+5. Run the scripts: `ansible-playbook ./install.yml -K` and `./install-setup.bash`
 
-If you are using el9 then you need to first enable the epel repository:
+Note: Your `BECOME` password in Ansible is your user password, your account must have administrative privileges.
 
-```sh
-# el9
-sudo dnf config-manager --set-enabled crb
-sudo dnf install epel-release
-```
+After installation, you must run `nnn` once with `-a` to create the fifo file for the preview feature to work.
 
-Then regardless of which distribution you are using install Ansible:
+## Optional Tweaks
 
-```sh
-sudo dnf install ansible-core ansible-collection-community-general
-```
+Based on your software selection, hardware, and personal preferences, you may want to make the following changes:
 
-Then run the Ansible install playbook:
+### Audio
 
-```sh
-ansible-playbook ./install.yml -K
-```
-
-Enter your `BECOME` password, this is your user password, your account must have administrative privileges.
-
-Then the final bash install script:
-
-```sh
-./install-setup.bash
-```
-
-### Make any final changes
-
-#### Hardware dependent
-
-- If you have an Intel CPU with a built-in GPU then `sudo dnf install libva-intel-driver`, MPV will then use HW acceleration.
-
-- If you have a 4k monitor and want to use 200% screen scaling then make it a default by creating the following file:
-
-`/usr/share/glib-2.0/schemas/93_hidpi.gschema.override`
-
-```
-[org.gnome.desktop.interface]
-scaling-factor=2
-```
-
-And reinit schemas with `sudo glib-compile-schemas /usr/share/glib-2.0/schemas`
-
-If you only use the GUI `Settings/Displays` it often forgets your choice.
-
-#### Software dependent
-
-- Deno: create/update shell completions:
-
-```sh
-deno completions bash > deno.sh
-sudo mv deno.sh /etc/profile.d
-```
-
-- Vale: change the global `.vale.ini` file in your `$HOME` directory to point to an empty directory you want to store your styles, for example:
-
-```sh
-StylesPath = ~/Documents/styles
-```
-
-and run `vale sync`. You can create a new file at [Config Generator](https://vale.sh/generator)
-
-#### Various
-
-- For HEIF and AVIF image format (inc Apple `.HEIC` photos) on RHEL add `libheif-freeworld` and `heif-pixbuf-loader`
-
-- Configure pipewire:
+- Set the available sample rates for your audio interface:
 
 1. Find your sound card and available sample rates: `cat /proc/asound/cards` `cat /proc/asound/card[number]/stream[number]`
 2. Create a user config file: `cp /usr/share/pipewire/pipewire.conf ~/.config/pipewire/`
 3. Add your sound cards available sample rates, for example: `default.clock.allowed-rates = [ 44100 48000 88200 96000 176400 192000 ]`
 
-- Configure pipewire-jack for pro-audio use:
-
-1. Follow this guide: https://jackaudio.org/faq/linux_rt_config.html
+- Setup PipeWire for pro audio by following the guide at https://jackaudio.org/faq/linux_rt_config.html and creating or modifying the following file:
 
 `/etc/security/limits.d/audio.conf`
 ```sh
@@ -150,9 +69,9 @@ and run `vale sync`. You can create a new file at [Config Generator](https://val
 @audio   -  memlock    unlimited
 ```
 
-`sudo usermod -aG audio [username]`
+Add yourself to the `audio` group that you have given the privileges to with `sudo usermod -aG audio [username]`.
 
-2. Create a user config file: 
+Create a user config file for your (PipeWire) jack settings: 
 
 ```sh
 mkdir -p ~/.config/pipewire/jack.conf.d/
@@ -166,26 +85,34 @@ jack.properties = {
 EOF
 ```
 
-You must reboot for changes to be applied.
+### General
 
-- Choose your default applications using the top right selection `Settings > Default Applications`
-- Download any Gnome Extensions like `Hide Top Bar` from the [Gnome Extensions Website](https://extensions.gnome.org/)
-- Consider increasing inotify watchers for watching large numbers of files. See current use with:
+- Install the `libva-intel` driver for Intel CPUs with built-in GPUs to use HW acceleration with MPV.
+- Fix Gnome forgetting your monitor scaling choice, if you only use the GUI `Settings/Displays` it often forgets.
 
-```sh
-curl -s https://raw.githubusercontent.com/fatso83/dotfiles/master/utils/scripts/inotify-consumers | bash
-```
-Increase watchers:
+Create a file `/usr/share/glib-2.0/schemas/93_hidpi.gschema.override` with the following content for 200% scaling:
 
 ```sh
-echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+[org.gnome.desktop.interface]
+scaling-factor=2
 ```
 
-You must run `nnn` once with `-a` to create the fifo file for the preview.
+Reinitialize schemas with `sudo glib-compile-schemas /usr/share/glib-2.0/schemas`
 
-**ENJOY!** Please report any bugs you may encounter.
+- Setup Deno by creating/updating shell completions: `deno completions bash > deno.sh` and `sudo mv deno.sh /etc/profile.d`.
+- Setup Vale:
 
-## FAQ
+Change the global `.vale.ini` file in your `$HOME` directory to point to an empty directory you want to store your styles, for example:
+
+```sh
+StylesPath = ~/Documents/styles
+```
+
+Run `vale sync`. You can create a new config file at [Config Generator](https://vale.sh/generator)
+
+- Setup HEIF and AVIF image formats (inc Apple `.HEIC` photos) by adding `libheif-freeworld` and `heif-pixbuf-loader`.
+
+# FAQ
 
 If you would like to use Code for things that Helix still struggles with (like debugging), and still use all the Vim keyboard shortcuts, I suggest installing `silverquark.dancehelix` or `asvetliakov.vscode-neovim` and using these settings:
 
@@ -218,6 +145,6 @@ You might also like to install `ms-vscode.live-server` for live debugging in Cod
 
 **A**: It makes the caps lock into delete for touch typing purposes, to change it modify this line in `install.yml`:
 
-```
+```yml
 - { key: "/org/gnome/desktop/input-sources/xkb-options", value: "['caps:backspace', 'terminate:ctrl_alt_bksp', 'lv3:rwin_switch', 'altwin:meta_alt']" }
 ```
