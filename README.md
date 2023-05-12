@@ -103,8 +103,8 @@ Playback:
     Implicit Feedback Mode: No
 ```
 
-2. Create a user config file: `cp /usr/share/pipewire/pipewire.conf ~/.config/pipewire/`
-3. Add/modify your sound cards available sample rates in `~/.config/pipewire/pipewire.conf`:
+2. Create a PipeWire user config file: `cp /usr/share/pipewire/pipewire.conf ~/.config/pipewire/`
+3. Add/modify your sound cards available sample rates by editing `~/.config/pipewire/pipewire.conf`:
 
 The Fedora default is:
 
@@ -121,6 +121,8 @@ default.clock.allowed-rates = [ 44100 48000 88200 96000 176400 192000 ]
 Don't forget to remove the `#` comment.
 
 - Setup PipeWire for low latency audio by following the guide at https://jackaudio.org/faq/linux_rt_config.html and creating the following file:
+
+Note: Copy code blocks by clicking on the top right-hand corner, then just paste them into your terminal.
 
 ```sh
 cat <<'EOF' | sudo tee /etc/security/limits.d/audio.conf
