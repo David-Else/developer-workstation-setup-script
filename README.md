@@ -16,10 +16,10 @@ The Developer Workstation Setup Script has the following features:
 | Development | Browsers | Graphics | Sound and video | Security and backup |
 | --- | --- | --- | --- | --- |
 | Helix | Firefox | Krita | MPV | KeepassXC |
-| Node.js / Deno | Chromium | Shotwell | Handbrake | BorgBackup |
-| Kitty (terminal) | nnn file browser | ImageMagick | MKVToolNix |  |
-| Lazygit (git terminal GUI) |  |  |  |  |
-| GitHub CLI |  |  |  |  |
+| Node.js / Deno | nnn file browser | ImageMagick | Handbrake | BorgBackup |
+| Kitty (terminal) | | | MKVToolNix |  |
+| Lazygit (git terminal GUI) |  |  | Blender |  |
+| GitHub CLI |  |  | OBS Studio |  |
 | Pandoc (document converter) |  |  |  |  |
 | Shellcheck / Shfmt |  |  |  |  |
 | Bat (cat replacement) |  |  |  |  |
