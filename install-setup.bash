@@ -6,6 +6,12 @@ source functions.bash
 confirm_user_is 'normal'
 clear
 
+idle_delay=1200
+title_bar_buttons_on="true"
+clock_show_date="true"
+capslock_delete="true"
+night_light="true"
+
 bin_install_folder=/usr/local/bin
 helix_src_folder="$HOME/src/helix"
 helix_config_folder="$HOME/.config/helix"
@@ -62,7 +68,7 @@ fi
 curl -fsSL https://deno.land/x/install/install.sh | sh
 
 echo
-curl https://rclone.org/install.sh | sudo bash
+curl https://rclone.org/install.sh | sudo bash || true
 
 sudo curl -L https://github.com/lemnos/tt/releases/download/v0.4.2/tt-linux -o $bin_install_folder/tt && sudo chmod +x $bin_install_folder/tt
 sudo curl -o /usr/share/man/man1/tt.1.gz -L https://github.com/lemnos/tt/releases/download/v0.4.2/tt.1.gz
