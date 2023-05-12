@@ -64,6 +64,9 @@
           loop:
             - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
             - https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm
+
+        - name: Switch to full ffmpeg
+          ansible.builtin.shell: sudo dnf swap ffmpeg-free ffmpeg --allowerasing
       become: true
       when: ansible_facts.distribution == "Fedora"
 
