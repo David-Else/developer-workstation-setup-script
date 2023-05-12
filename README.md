@@ -104,7 +104,19 @@ Playback:
 ```
 
 2. Create a user config file: `cp /usr/share/pipewire/pipewire.conf ~/.config/pipewire/`
-3. Add/modify your sound cards available sample rates in `~/.config/pipewire/pipewire.conf`, for the example above use: `default.clock.allowed-rates = [ 44100 48000 88200 96000 176400 192000 ]`
+3. Add/modify your sound cards available sample rates in `~/.config/pipewire/pipewire.conf`:
+
+Example of Fedora default:
+
+```sh
+#default.clock.allowed-rates = [ 48000 ]
+```
+
+For the Scarlett 6i6 example replace with:
+
+```sh
+`default.clock.allowed-rates = [ 44100 48000 88200 96000 176400 192000 ]`
+```
 
 - Setup PipeWire for low latency audio by following the guide at https://jackaudio.org/faq/linux_rt_config.html and creating or modifying the following file:
 
