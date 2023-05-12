@@ -118,6 +118,8 @@ For the Scarlett 6i6 example above replace it with:
 default.clock.allowed-rates = [ 44100 48000 88200 96000 176400 192000 ]
 ```
 
+Don't forget to remove the `#` comment.
+
 - Setup PipeWire for low latency audio by following the guide at https://jackaudio.org/faq/linux_rt_config.html and creating the following file:
 
 ```sh
