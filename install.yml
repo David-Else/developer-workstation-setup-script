@@ -87,13 +87,14 @@
       become: true
       ansible.builtin.dnf:
         name: "*"
-        state: latest
+        state: latest # noqa package-latest
 
     - name: Install packages
       become: true
       ansible.builtin.dnf:
         name:
           - bat
+          - blender
           - borgbackup
           - ffmpeg
           - gcc-c++
@@ -170,45 +171,6 @@
       ansible.builtin.command: /tmp/getplugs
       args:
         creates: "{{ lookup('env','HOME') }}/.config/nnn/plugins"
-
-    # Blender
-    - name: Create directory /usr/local/bin/blender-bin
-      become: true
-      ansible.builtin.file:
-          path: "{{ user_programs }}/blender-bin"
-          state: directory
-
-    - name: Download Blender LTS and extract archive
-      become: true
-      ansible.builtin.unarchive:
-        src: "https://download.blender.org/release/Blender3.3/blender-3.3.3-linux-x64.tar.xz"
-        dest: "{{ user_programs }}/blender-bin"
-        remote_src: yes
-        creates: "{{ user_programs }}/blender-bin/blender"
-        extra_opts:
-          - "--strip-components=1"
-
-    - name: Create symlink to Blender binary
-      become: true
-      ansible.builtin.file:
-        src: "{{ user_programs }}/blender-bin/blender"
-        dest: "{{ user_programs }}/blender"
-        state: link
-    
-    - name: Copy Blender desktop file
-      ansible.builtin.copy:
-        src: "{{ user_programs }}/blender-bin/blender.desktop"
-        dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/.local/share/applications/blender.desktop"
-
-    - name: Create ~/.icons directory
-      ansible.builtin.file:
-          path: "{{ lookup('ansible.builtin.env', 'HOME') }}/.icons"
-          state: directory
-
-    - name: Copy Blender icon
-      ansible.builtin.copy:
-        src: "{{ user_programs }}/blender-bin/blender.svg"
-        dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/.icons/blender.svg"
 
     # Fonts
     - name: Create ~/.local/share/fonts directory
