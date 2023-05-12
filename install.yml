@@ -145,7 +145,7 @@
         - typescript-language-server@3.3.2
         - typescript@5.0.4
         - vscode-langservers-extracted@4.7.0
-        - yaml-language-server@1.12.0
+        - yaml-language-server@1.11.0
       community.general.npm:
         name: "{{ item }}"
         state: present
