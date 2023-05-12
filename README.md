@@ -11,7 +11,7 @@ The Developer Workstation Setup Script has the following features:
 - Works with both cutting edge Fedora (tested up to 38) and stable Red Hat Enterprise Linux 9 compatible distributions.
 - Easy to customize, just add and remove packages/config from the scripts before running.
 - Uses [stow](https://www.gnu.org/software/stow/) to install and manage dotfiles.
-- Includes a variety of development, browser, graphics, sound and video, and security and backup software:
+- Includes a variety of development and general use software:
 
 | Development | Browsers | Graphics | Sound and video | Security and backup |
 | --- | --- | --- | --- | --- |
@@ -32,8 +32,8 @@ These scripts are designed to be run immediately after installing the operating 
 
 ![el9](./images/centos-8-install-options.png)
 
-1. Install a fresh copy of Fedora or RHEL. If you are using an el9 clone, select `workstation` from the software selection option during installation. You must also give your user account administrative privileges, this is a tick-box when you are creating the user.
-2. Clone the repository: `git clone https://github.com/David-Else/developer-workstation-setup-script`
+1. Install a fresh copy of Fedora or a Red Hat Enterprise Linux 9 compatible distribution. If you are using an el9 clone, select `workstation` from the software selection option during installation. You must also give your user account administrative privileges, this is a tick-box when you are creating the user.
+2. Clone the repository and `cd` into it: `git clone https://github.com/David-Else/developer-workstation-setup-script`
 3. Install Ansible:
 
 If you are using el9, you need to first enable the epel repository:
@@ -63,7 +63,7 @@ Based on your software selection, hardware, and personal preferences, you may wa
 2. Create a user config file: `cp /usr/share/pipewire/pipewire.conf ~/.config/pipewire/`
 3. Add your sound cards available sample rates, for example: `default.clock.allowed-rates = [ 44100 48000 88200 96000 176400 192000 ]`
 
-- Setup PipeWire for pro audio by following the guide at https://jackaudio.org/faq/linux_rt_config.html and creating or modifying the following file:
+- Setup PipeWire for low latency audio by following the guide at https://jackaudio.org/faq/linux_rt_config.html and creating or modifying the following file:
 
 `/etc/security/limits.d/audio.conf`
 ```sh
@@ -73,7 +73,7 @@ Based on your software selection, hardware, and personal preferences, you may wa
 
 Add yourself to the `audio` group that you have given the privileges to with `sudo usermod -aG audio [username]`.
 
-Create a user config file for your (PipeWire) jack settings: 
+Create a user config file for your (PipeWire) JACK settings: 
 
 ```sh
 mkdir -p ~/.config/pipewire/jack.conf.d/
@@ -90,7 +90,7 @@ EOF
 ### General
 
 - Install the `libva-intel` driver for Intel CPUs with built-in GPUs to use HW acceleration with MPV.
-- Fix Gnome forgetting your monitor scaling choice, if you only use the GUI `Settings/Displays` it often forgets.
+- (el9) Fix Gnome forgetting your monitor scaling choice, if you only use the GUI `Settings/Displays` it often forgets.
 
 Create a file `/usr/share/glib-2.0/schemas/93_hidpi.gschema.override` with the following content for 200% scaling:
 
