@@ -40,7 +40,7 @@ If you are using el9, you need to first enable the epel repository:
 
 `sudo dnf config-manager --set-enabled crb` and `sudo dnf install epel-release`.
 
-Then install Ansible and the community collection:
+Install Ansible and the community collection:
 
 `sudo dnf install ansible-core ansible-collection-community-general`
 
@@ -125,6 +125,18 @@ StylesPath = ~/Documents/styles
 Run `vale sync`. You can create a new config file at [Config Generator](https://vale.sh/generator)
 
 - Setup HEIF and AVIF image formats (inc Apple `.HEIC` photos) by adding `libheif-freeworld` and `heif-pixbuf-loader`.
+
+- Setup Git:
+
+```sh
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+```
+
+```sh
+git config --global user.signingkey key
+git config --global commit.gpgsign true
+```
 
 # FAQ
 
