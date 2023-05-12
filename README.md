@@ -59,9 +59,52 @@ Based on your software selection, hardware, and personal preferences, you may wa
 
 - Set the available sample rates for your audio interface:
 
-1. Find your sound card and available sample rates: `cat /proc/asound/cards` `cat /proc/asound/card[number]/stream[number]`
+1. Find your audio interface(s) and available sample rates:
+
+`cat /proc/asound/cards`
+
+Example output:
+
+```sh
+ 0 [HDMI           ]: HDA-Intel - HDA ATI HDMI
+                      HDA ATI HDMI at 0xf7e60000 irq 31
+ 1 [USB            ]: USB-Audio - Scarlett 6i6 USB
+                      Focusrite Scarlett 6i6 USB at usb-0000:00:14.0-10, high speed
+```
+
+Play some audio and examine the stream for your audio interface (in this case `card1`):
+
+`cat /proc/asound/card1/stream0`
+
+Example output:
+   
+```sh
+Focusrite Scarlett 6i6 USB at usb-0000:00:14.0-10, high speed : USB Audio
+
+Playback:
+  Status: Running
+    Interface = 1
+    Altset = 1
+    Packet Size = 216
+    Momentary freq = 48000 Hz (0x6.0000)
+    Feedback Format = 16.16
+  Interface 1
+    Altset 1
+    Format: S32_LE
+    Channels: 6
+    Endpoint: 0x01 (1 OUT) (ASYNC)
+    Rates: 44100, 48000, 88200, 96000, 176400, 192000
+    Data packet interval: 125 us
+    Bits: 24
+    Channel map: FL FR FC LFE RL RR
+    Sync Endpoint: 0x81 (1 IN)
+    Sync EP Interface: 1
+    Sync EP Altset: 1
+    Implicit Feedback Mode: No
+```
+
 2. Create a user config file: `cp /usr/share/pipewire/pipewire.conf ~/.config/pipewire/`
-3. Add your sound cards available sample rates, for example: `default.clock.allowed-rates = [ 44100 48000 88200 96000 176400 192000 ]`
+3. Add your sound cards available sample rates, for the example above: `default.clock.allowed-rates = [ 44100 48000 88200 96000 176400 192000 ]`
 
 - Setup PipeWire for low latency audio by following the guide at https://jackaudio.org/faq/linux_rt_config.html and creating or modifying the following file:
 
