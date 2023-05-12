@@ -1,4 +1,11 @@
-29th Jan 2022: v4
+12th May 2023 v4.1
+
+- Rewrite the README from scratch
+- Add Fedora 38 compatibility
+- Update scripts to use new repositories, remove binaries, and fix things that have changed
+- Update dependencies
+
+29th Jan 2023 v4
 
 - Rewrite install script in Ansible
 
