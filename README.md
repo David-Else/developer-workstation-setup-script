@@ -93,6 +93,15 @@ EOF
 
 ### General
 
+- (Fedora) Hardware codecs with AMD (Mesa)
+
+This is needed since Fedora 37 and later... and mainly concern AMD hardware since NVIDIA hardware with nouveau doesn't work well:
+
+```sh
+sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld
+sudo dnf swap mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
+```
+
 - (el9) Fix Gnome forgetting your monitor scaling choice, if you only use the GUI `Settings/Displays` it often forgets.
 
 Create a file `/usr/share/glib-2.0/schemas/93_hidpi.gschema.override` with the following content for 200% scaling:
