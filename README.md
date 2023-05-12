@@ -87,9 +87,12 @@ jack.properties = {
 EOF
 ```
 
+### Intel CPU GPU HW acceleration
+
+- Install the `libva-intel`(older systems) or `intel-media-driver` driver for Intel CPUs with built-in GPUs to use HW acceleration with MPV.
+
 ### General
 
-- Install the `libva-intel` driver for Intel CPUs with built-in GPUs to use HW acceleration with MPV.
 - (el9) Fix Gnome forgetting your monitor scaling choice, if you only use the GUI `Settings/Displays` it often forgets.
 
 Create a file `/usr/share/glib-2.0/schemas/93_hidpi.gschema.override` with the following content for 200% scaling:
