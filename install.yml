@@ -110,7 +110,6 @@
           - keepassxc
           - kitty
           - mediainfo
-          - mpv
           - nnn
           - nodejs
           - optipng
@@ -138,6 +137,7 @@
           - org.kde.krita
           - org.signal.Signal
           - com.github.tchx84.Flatseal
+          - io.mpv.Mpv
         state: present
 
     - name: Install NPM global packages

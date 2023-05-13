@@ -14,6 +14,7 @@ export PATH
 # Aliases
 alias ls="ls -ltha --color --group-directories-first --hyperlink=auto"
 alias tree="tree -Catr --noreport --dirsfirst --filelimit 100"
+alias mpv="flatpak run io.mpv.Mpv"
 
 # Functions
 clip() { xclip -sel clip -rmlastnl; }
