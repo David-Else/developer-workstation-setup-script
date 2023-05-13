@@ -1,10 +1,10 @@
 # Developer Workstation Setup Script
 
+![neo-70s](./images/neo-70s.jpg)![rocky-fedora-logos](./images/rocky-fedora.png)
+
 Are you tired of spending hours setting up your development environment every time you switch to a new machine? Look no further than the Developer Workstation Setup Script!
 
  This setup script uses Ansible and Bash to quickly and easily install a variety of development and general use software on both cutting edge Fedora and stable Red Hat Enterprise Linux 9 compatible distributions. Plus, it's easy to customize - just add or remove packages/config from the scripts before running. And with the use of stow to manage dotfiles, you can easily transfer your personalized settings between machines.
-
-![neo-70s](./images/neo-70s.jpg)![rocky-fedora-logos](./images/rocky-fedora.png)
 
 ## Features
 
