@@ -4,13 +4,13 @@
 
 Are you tired of spending hours setting up your development environment every time you switch to a new machine? Look no further than the Developer Workstation Setup Script!
 
- This setup script uses Ansible and Bash to quickly and easily install a variety of development and general use software on both cutting edge Fedora and stable Red Hat Enterprise Linux 9 compatible distributions. Plus, it's easy to customize - just add or remove packages/config from the scripts before running. And with the use of stow to manage dotfiles, you can easily transfer your personalized settings between machines.
+ This setup script uses Ansible and Bash to quickly and easily install a variety of development and general use software on both cutting edge Fedora and stable Red Hat Enterprise Linux 9 compatible distributions.
 
 ## Features
 
 The Developer Workstation Setup Script has the following features:
 
-- Works with both cutting edge Fedora (tested up to 38) and stable Red Hat Enterprise Linux 9 compatible distributions.
+- Works with both cutting edge Fedora (tested up to [38](https://download.fedoraproject.org/pub/fedora/linux/releases/38/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-38-1.6.iso)) and stable Red Hat Enterprise Linux 9 (tested up to [9.2](https://mirrors.almalinux.org/isos/x86_64/9.2.html)) compatible distributions.
 - Easy to customize, just add and remove packages/config from the scripts before running.
 - Uses [stow](https://www.gnu.org/software/stow/) to install and manage dotfiles.
 - Includes a variety of development and general use software:
