@@ -186,10 +186,10 @@ StylesPath = ~/Documents/styles
 
 Run `vale sync`. You can create a new config file at [Config Generator](https://vale.sh/generator)
 
-- Setup HEIF and AVIF image formats (inc Apple `.HEIC` photos) by adding:
+- Setup HEIF, AVIF and WebP image formats (inc Apple `.HEIC` photos) by adding:
 
 ```sh
-sudo dnf install libheif-freeworld heif-pixbuf-loader libheif-tools
+sudo dnf install libheif-freeworld libheif-tools heif-pixbuf-loader webp-pixbuf-loader
 ```
 
 - Setup Git:
