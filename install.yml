@@ -114,6 +114,7 @@
           - nodejs
           - optipng
           - pandoc
+          - ripgrep
           - shellcheck
           - stow
           - thunderbird
@@ -204,15 +205,6 @@
             url: https://github.com/patrickvane/shfmt/releases/download/master/shfmt_linux_amd64
             dest: "{{ user_programs }}/shfmt"
             mode: '0755'
-
-        - name: Download and install ripgrep
-          unarchive:
-            src: https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz
-            dest: "{{ user_programs }}"
-            remote_src: true
-            extra_opts:
-              - "--strip-components=1"
-              - "ripgrep-13.0.0-x86_64-unknown-linux-musl/rg"
 
         - name: Download and install delta
           unarchive:
