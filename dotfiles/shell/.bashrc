@@ -15,6 +15,8 @@ export PATH
 alias ls="ls -ltha --color --group-directories-first --hyperlink=auto"
 alias tree="tree -Catr --noreport --dirsfirst --filelimit 100"
 alias mpv="flatpak run io.mpv.Mpv"
+alias avif="heif-enc -A -q 85"            # encode avif at almost lossless quality
+alias hg="kitty +kitten hyperlinked_grep" # https://sw.kovidgoyal.net/kitty/kittens/hyperlinked_grep/
 
 # Functions
 clip() { xclip -sel clip -rmlastnl; }
