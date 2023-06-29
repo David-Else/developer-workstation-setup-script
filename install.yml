@@ -74,6 +74,7 @@
           - zathura
           # - zathura-bash-completion
           # debian
+          - npm
           - g++
           - shfmt
           - rclone
