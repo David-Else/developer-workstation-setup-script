@@ -8,7 +8,7 @@
     # Add and enable repositories
     #==========================================================================
 
-    # This module is part of the community.general collection 
+    # This module is part of the community.general collection
     - name: Add the Flathub repository
       community.general.flatpak_remote:
         name: flathub
@@ -35,9 +35,9 @@
     #==========================================================================
     - name: Update and upgrade all packages
       become: true
-      apt:
-        upgrade: yes
-        update_cache: yes
+      ansible.builtin.apt:
+        upgrade: true
+        update_cache: true
 
     - name: Install packages
       become: true
@@ -134,13 +134,13 @@
       when: "'nnn' in ansible_facts.packages"
       ansible.builtin.command: /tmp/getplugs
       args:
-        creates: "{{ lookup('env','HOME') }}/.config/nnn/plugins"
+        creates: "{{ lookup('env', 'HOME') }}/.config/nnn/plugins"
 
     # Fonts
     - name: Create ~/.local/share/fonts directory
       ansible.builtin.file:
-          path: "{{ lookup('ansible.builtin.env', 'HOME') }}/.local/share/fonts"
-          state: directory
+        path: "{{ lookup('ansible.builtin.env', 'HOME') }}/.local/share/fonts"
+        state: directory
 
     - name: Copy nerd fonts symbols only
       ansible.builtin.copy:
@@ -148,8 +148,8 @@
         dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/.local/share/fonts/Symbols-2048-em Nerd Font Complete Mono.ttf"
 
     - name: Refresh font cache
-      command: fc-cache -vf
-      changed_when: no
+      ansible.builtin.command: fc-cache -vf
+      changed_when: false
 
     # GitHub binaries
     - name: Download and install GitHub binaries
@@ -162,7 +162,7 @@
 
         # Debian wants the .deb file!
         - name: Download and install delta
-          unarchive:
+          ansible.builtin.unarchive:
             src: https://github.com/dandavison/delta/releases/download/0.15.1/delta-0.15.1-x86_64-unknown-linux-musl.tar.gz
             dest: "{{ user_programs }}"
             remote_src: true
@@ -171,7 +171,7 @@
               - "delta-0.15.1-x86_64-unknown-linux-musl/delta"
 
         - name: Download and install ltex-ls
-          unarchive:
+          ansible.builtin.unarchive:
             src: https://github.com/valentjn/ltex-ls/releases/download/16.0.0/ltex-ls-16.0.0.tar.gz
             dest: "{{ user_programs }}"
             remote_src: true
@@ -187,7 +187,7 @@
             state: link
 
         - name: Download and install vale
-          unarchive:
+          ansible.builtin.unarchive:
             src: https://github.com/errata-ai/vale/releases/download/v2.22.0/vale_2.22.0_Linux_64-bit.tar.gz
             dest: "{{ user_programs }}"
             remote_src: true
@@ -223,7 +223,7 @@
         #     dest: "{{ ansible_env.HOME }}/.bash_profile_backup"
 
         - name: Delete original files to prevent stow errors
-          file:
+          ansible.builtin.file:
             path: '{{ item }}'
             state: absent
           with_items:
@@ -233,6 +233,6 @@
 
     - name: Run stow
       # debian miss out 'shell' as bashrc and more is different
-      command: "stow --dir={{ ansible_env.HOME }}/.dotfiles --target {{ ansible_env.HOME }} autostart helix mpv pandoc kitty lazygit --verbose=2"
+      ansible.builtin.command: "stow --dir={{ ansible_env.HOME }}/.dotfiles --target {{ ansible_env.HOME }} autostart helix mpv pandoc kitty lazygit --verbose=2"
       register: result
       changed_when: 'result.stderr is search("LINK: ")'
