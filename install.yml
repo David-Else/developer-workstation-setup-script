@@ -4,9 +4,9 @@
     user_programs: /usr/local/bin
 
   tasks:
-    #==========================================================================
+    # =========================================================================
     # Add and enable repositories
-    #==========================================================================
+    # =========================================================================
 
     # This module is part of the community.general collection
     - name: Add the Flathub repository
@@ -15,9 +15,9 @@
         flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
         state: present
 
-    #==========================================================================
+    # =========================================================================
     # Remove packages
-    #==========================================================================
+    # =========================================================================
     - name: Remove unwanted desktop apps
       become: true
       ansible.builtin.package:
@@ -30,9 +30,9 @@
           - evolution
         state: absent
 
-    #==========================================================================
+    # =========================================================================
     # Install packages
-    #==========================================================================
+    # =========================================================================
     - name: Update and upgrade all packages
       become: true
       ansible.builtin.apt:
@@ -115,11 +115,11 @@
         state: present
         global: true
 
-    #==========================================================================
+    # =========================================================================
     # Install binaries
-    #==========================================================================
+    # =========================================================================
     - name: Check packages
-      package_facts:
+      ansible.builtin.package_facts:
         manager: auto
 
     # nnn plugins
@@ -197,15 +197,15 @@
     # Stow * Stow will fail if you have run kitty or lazygit in advance as they both create non link config files on first run
     - name: Create ~/.dotfile directory
       ansible.builtin.file:
-          path: "{{ lookup('ansible.builtin.env', 'HOME') }}/.dotfiles"
-          state: directory
+        path: "{{ lookup('ansible.builtin.env', 'HOME') }}/.dotfiles"
+        state: directory
 
     - name: Copy dotfiles
       ansible.builtin.copy:
         src: "{{ playbook_dir }}/dotfiles/"
         dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/.dotfiles/"
 
-    - name: stat ./bashrc to later check if it is a link
+    - name: Stat ./bashrc to later check if it is a link
       ansible.builtin.stat:
         path: "{{ ansible_env.HOME }}/.bashrc"
       register: link
