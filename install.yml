@@ -77,7 +77,7 @@
           - curl
           - npm
           - default-jre-headless
-          - g++
+          - build-essential
           - shfmt
           - rclone
           - gh
