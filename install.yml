@@ -85,6 +85,7 @@
         state: present
 
     - name: Install Flatpak packages
+      become: true
       community.general.flatpak:
         name:
           - com.obsproject.Studio
