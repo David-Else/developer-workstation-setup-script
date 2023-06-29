@@ -1,4 +1,4 @@
-- name: Install packages and binaries for el9 and Fedora
+- name: Install packages and binaries for Debian 12
   hosts: localhost
   vars:
     user_programs: /usr/local/bin
@@ -7,106 +7,53 @@
     #==========================================================================
     # Add and enable repositories
     #==========================================================================
-    - name: Add the GitHub CLI repository
-      become: true
-      ansible.builtin.command:
-        cmd: dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
-      args:
-        creates: /etc/yum.repos.d/gh-cli.repo
 
+    # This module is part of the community.general collection 
     - name: Add the Flathub repository
       community.general.flatpak_remote:
         name: flathub
         flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
         state: present
 
-    - name: Add el9 only repositories
-      block:
-        - name: Enable the el9 CodeReady Linux Builder repository
-          ansible.builtin.command: dnf config-manager --enable crb
-          args:
-            creates: /etc/yum.repos.d/*-crb.repo
-
-        - name: Add the Extra Packages for Enterprise Linux repository
-          ansible.builtin.dnf:
-            name:
-              epel-release
-            state: present
-
-        - name: Add the el9 Lazygit repository
-          community.general.copr:
-            name: atim/lazygit
-            chroot: "epel-9-{{ ansible_architecture }}"
-
-        - name: Add the el9 RPM Fusion repository
-          ansible.builtin.dnf:
-            name: "{{ item }}"
-            state: present
-            disable_gpg_check: true
-          loop:
-            - https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
-            - https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm
-      become: true
-      when: ansible_facts.distribution != "Fedora"
-
-    - name: Add Fedora only repositories
-      block:
-        - name: Add the Fedora Lazygit repository
-          community.general.copr:
-            name: atim/lazygit
-            chroot: "fedora-{{ ansible_distribution_version }}-{{ ansible_architecture }}"
-
-        - name: Add Fedora RPM Fusion repository
-          ansible.builtin.dnf:
-            name: "{{ item }}"
-            state: present
-            disable_gpg_check: true
-          loop:
-            - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
-            - https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm
-
-        - name: Switch to full FFmpeg
-          ansible.builtin.shell: sudo dnf -y swap ffmpeg-free ffmpeg --allowerasing
-      become: true
-      when: ansible_facts.distribution == "Fedora"
-
     #==========================================================================
     # Remove packages
     #==========================================================================
     - name: Remove unwanted desktop apps
       become: true
-      ansible.builtin.dnf:
+      ansible.builtin.package:
         name:
           - cheese
-          - gedit
+          # - gedit
           - rhythmbox
           - totem
+          # debian
+          - evolution
         state: absent
 
     #==========================================================================
     # Install packages
     #==========================================================================
-    - name: Upgrade all packages
+    - name: Update and upgrade all packages
       become: true
-      ansible.builtin.dnf:
-        name: "*"
-        state: latest # noqa package-latest
+      apt:
+        upgrade: yes
+        update_cache: yes
 
     - name: Install packages
       become: true
-      ansible.builtin.dnf:
+      ansible.builtin.package:
         name:
           - bat
           - blender
           - borgbackup
           - ffmpeg
-          - gcc-c++
+          # - gcc-c++
           - gh
           - gnome-tweaks
           - gthumb
           - ImageMagick
           - inotify-tools
-          - lazygit
+          # - lazygit
           - keepassxc
           - kitty
           - mediainfo
@@ -125,7 +72,17 @@
           - xdg-desktop-portal-gnome
           - yt-dlp
           - zathura
-          - zathura-bash-completion
+          # - zathura-bash-completion
+          # debian
+          - g++
+          - shfmt
+          - rclone
+          - gh
+          - flatpak
+          - gnome-software-plugin-flatpak
+          - mpv
+          - mkvtoolnix-gui
+          - krita
         state: present
 
     - name: Install Flatpak packages
@@ -134,11 +91,11 @@
           - com.obsproject.Studio
           - com.obsproject.Studio.Plugin.MoveTransition
           - fr.handbrake.ghb
-          - org.bunkus.mkvtoolnix-gui
-          - org.kde.krita
+          # - org.bunkus.mkvtoolnix-gui
+          # - org.kde.krita
           - org.signal.Signal
           - com.github.tchx84.Flatseal
-          - io.mpv.Mpv
+          # - io.mpv.Mpv
         state: present
 
     - name: Install NPM global packages
@@ -200,12 +157,7 @@
             dest: "{{ user_programs }}/marksman"
             mode: '0755'
 
-        - name: Download and install shfmt
-          ansible.builtin.get_url:
-            url: https://github.com/patrickvane/shfmt/releases/download/master/shfmt_linux_amd64
-            dest: "{{ user_programs }}/shfmt"
-            mode: '0755'
-
+        # Debian wants the .deb file!
         - name: Download and install delta
           unarchive:
             src: https://github.com/dandavison/delta/releases/download/0.15.1/delta-0.15.1-x86_64-unknown-linux-musl.tar.gz
@@ -277,6 +229,7 @@
       when: link.stat.islnk is defined and link.stat.islnk == False
 
     - name: Run stow
-      command: "stow --dir={{ ansible_env.HOME }}/.dotfiles --target {{ ansible_env.HOME }} autostart helix mpv pandoc kitty shell lazygit --verbose=2"
+      # debian miss out 'shell' as bashrc and more is different
+      command: "stow --dir={{ ansible_env.HOME }}/.dotfiles --target {{ ansible_env.HOME }} autostart helix mpv pandoc kitty lazygit --verbose=2"
       register: result
       changed_when: 'result.stderr is search("LINK: ")'
