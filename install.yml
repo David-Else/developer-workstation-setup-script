@@ -153,6 +153,7 @@
 
     # GitHub binaries
     - name: Download and install GitHub binaries
+      become: true
       block:
         - name: Download and install Marksman language server
           ansible.builtin.get_url:
@@ -192,7 +193,6 @@
             dest: "{{ user_programs }}"
             remote_src: true
             include: vale
-      become: true
 
     # Stow * Stow will fail if you have run kitty or lazygit in advance as they both create non link config files on first run
     - name: Create ~/.dotfile directory
