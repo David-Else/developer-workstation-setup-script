@@ -1,51 +1,14 @@
-# Developer Workstation Setup Script
+# Developer Workstation Setup Script Debian 12 Edition
 
-![neo-70s](./images/neo-70s.jpg)![rocky-fedora-logos](./images/rocky-fedora.png)
-
-Are you tired of spending hours setting up your development environment every time you switch to a new machine? Look no further than the Developer Workstation Setup Script!
-
- This setup script uses Ansible and Bash to quickly and easily install a variety of development and general use software on both cutting edge Fedora and stable Red Hat Enterprise Linux 9 compatible distributions.
-
-## Features
-
-The Developer Workstation Setup Script has the following features:
-
-- Works with both cutting edge Fedora (tested up to [38](https://download.fedoraproject.org/pub/fedora/linux/releases/38/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-38-1.6.iso)) and stable Red Hat Enterprise Linux 9 (tested up to [9.2](https://mirrors.almalinux.org/isos/x86_64/9.2.html)) compatible distributions.
-- Easy to customize, just add and remove packages/config from the scripts before running.
-- Uses [stow](https://www.gnu.org/software/stow/) to install and manage dotfiles.
-- Includes a variety of development and general use software:
-
-| Development | Browsers | Graphics | Sound and video | Security and backup |
-| --- | --- | --- | --- | --- |
-| Helix | Firefox | Krita | MPV | KeepassXC |
-| Node.js / Deno | nnn file browser | ImageMagick | Handbrake | BorgBackup |
-| Kitty |  |  | MKVToolNix |  |
-| Lazygit |  |  | Blender |  |
-| GitHub CLI |  |  | OBS Studio |  |
-| Pandoc |  |  |  |  |
-| Shellcheck / Shfmt |  |  |  |  |
-| Bat |  |  |  |  |
-| Ripgrep |  |  |  |  |
-| Delta |  |  |  |  |
+Test version for Debian 12.
 
 ## Installation
 
 These scripts are designed to be run immediately after installing the operating system.
 
-![el9](./images/centos-8-install-options.png)
-
-1. Install a fresh copy of Fedora or a Red Hat Enterprise Linux 9 compatible distribution. If you are using an el9 clone, select `workstation` from the software selection option during installation. You must also give your user account administrative privileges, this is a tick-box when you are creating the user.
-2. Clone the repository and `cd` into it: `git clone https://github.com/David-Else/developer-workstation-setup-script`
-3. Install Ansible:
-
-If you are using el9, you need to first enable the epel repository:
-
-`sudo dnf config-manager --set-enabled crb` and `sudo dnf install epel-release`.
-
-Install Ansible and the community collection:
-
-`sudo dnf install ansible-core ansible-collection-community-general`
-
+1. Install a fresh copy of Debian 12. Don't fill in any details for the root account and make your user have admin/sudo rights.
+2. Install Ansible and git: `sudo apt install ansible git`
+3. Clone the repository and `cd` into it: `git clone https://github.com/David-Else/developer-workstation-setup-script`
 4. Customize the software selection by modifying the `install.yml` and `install-setup.bash` scripts with your own software preferences.
 5. Run the scripts: `ansible-playbook ./install.yml -K` and `./install-setup.bash`
 
@@ -79,7 +42,7 @@ Play some audio and examine the stream for your audio interface (in this case `c
 `cat /proc/asound/card1/stream0`
 
 Example output:
-   
+
 ```sh
 Focusrite Scarlett 6i6 USB at usb-0000:00:14.0-10, high speed : USB Audio
 
@@ -135,7 +98,7 @@ EOF
 
 Add yourself to the `audio` group that you have given the privileges to with `sudo usermod -aG audio [username]`.
 
-Create a user config file for your (PipeWire) JACK settings: 
+Create a user config file for your (PipeWire) JACK settings:
 
 ```sh
 mkdir -p ~/.config/pipewire/jack.conf.d/
@@ -149,31 +112,7 @@ jack.properties = {
 EOF
 ```
 
-### Intel CPU GPU HW acceleration
-
-- Install the `libva-intel`(older systems) or `intel-media-driver` driver for Intel CPUs with built-in GPUs to use HW acceleration with MPV.
-
 ### General
-
-- (Fedora) Hardware codecs with AMD (Mesa)
-
-This is needed since Fedora 37 and later... and mainly concern AMD hardware since NVIDIA hardware with nouveau doesn't work well:
-
-```sh
-sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld
-sudo dnf swap mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
-```
-
-- (el9) Fix Gnome forgetting your monitor scaling choice, if you only use the GUI `Settings/Displays` it often forgets.
-
-Create a file `/usr/share/glib-2.0/schemas/93_hidpi.gschema.override` with the following content for 200% scaling:
-
-```sh
-[org.gnome.desktop.interface]
-scaling-factor=2
-```
-
-Reinitialize schemas with `sudo glib-compile-schemas /usr/share/glib-2.0/schemas`
 
 - Setup Deno by creating/updating shell completions: `deno completions bash > deno.sh` and `sudo mv deno.sh /etc/profile.d`.
 - Setup Vale:
@@ -185,12 +124,6 @@ StylesPath = ~/Documents/styles
 ```
 
 Run `vale sync`. You can create a new config file at [Config Generator](https://vale.sh/generator)
-
-- Setup HEIF, AVIF and WebP image formats (inc Apple `.HEIC` photos) by adding:
-
-```sh
-sudo dnf install libheif-freeworld libheif-tools heif-pixbuf-loader webp-pixbuf-loader
-```
 
 - Setup Git:
 
@@ -238,5 +171,8 @@ You might also like to install `ms-vscode.live-server` for live debugging in Cod
 **A**: It makes the caps lock into delete for touch typing purposes, to change it modify this line in `install.yml`:
 
 ```yml
-- { key: "/org/gnome/desktop/input-sources/xkb-options", value: "['caps:backspace', 'terminate:ctrl_alt_bksp', 'lv3:rwin_switch', 'altwin:meta_alt']" }
+- {
+    key: "/org/gnome/desktop/input-sources/xkb-options",
+    value: "['caps:backspace', 'terminate:ctrl_alt_bksp', 'lv3:rwin_switch', 'altwin:meta_alt']",
+  }
 ```
