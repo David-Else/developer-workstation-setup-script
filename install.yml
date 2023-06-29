@@ -211,6 +211,7 @@
       register: link
 
     - name: Backup and remove files
+      when: link.stat.islnk is defined and link.stat.islnk == False
       block:
         - name: Backup .bashrc
           ansible.builtin.copy:
@@ -229,7 +230,6 @@
           with_items:
             - "{{ ansible_env.HOME }}/.bashrc"
             - "{{ ansible_env.HOME }}/.bash_profile"
-      when: link.stat.islnk is defined and link.stat.islnk == False
 
     - name: Run stow
       # debian miss out 'shell' as bashrc and more is different
