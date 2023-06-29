@@ -21,9 +21,9 @@
       ansible.builtin.package:
         name:
           - cheese
+          - evolution
           - rhythmbox
           - totem
-          - evolution
         state: absent
 
     # =========================================================================
@@ -42,20 +42,31 @@
           - bat
           - blender
           - borgbackup
+          - build-essential
+          - curl
+          - default-jre-headless
           - ffmpeg
+          - fzf
           - gh
+          - gnome-software-plugin-flatpak
           - gnome-tweaks
           - gthumb
           - imagemagick
           - keepassxc
           - kitty
+          - krita
           - mediainfo
+          - mkvtoolnix-gui
+          - mpv
           - nnn
           - nodejs
-          - optipng
+          - npm
           - pandoc
+          - rclone
           - ripgrep
+          - screenkey
           - shellcheck
+          - shfmt
           - stow
           - thunderbird
           - tldr
@@ -65,19 +76,6 @@
           - xdg-desktop-portal-gnome
           - yt-dlp
           - zathura
-          - screenkey
-          - curl
-          - npm
-          - default-jre-headless
-          - build-essential
-          - shfmt
-          - rclone
-          - gh
-          - gnome-software-plugin-flatpak
-          - mpv
-          - mkvtoolnix-gui
-          - krita
-          - fzf
         state: present
 
     - name: Install Flatpak packages
