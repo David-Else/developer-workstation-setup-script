@@ -7,8 +7,6 @@
     # =========================================================================
     # Add and enable repositories
     # =========================================================================
-
-    # This module is part of the community.general collection
     - name: Add the Flathub repository
       community.general.flatpak_remote:
         name: flathub
@@ -23,10 +21,8 @@
       ansible.builtin.package:
         name:
           - cheese
-          # - gedit
           - rhythmbox
           - totem
-          # debian
           - evolution
         state: absent
 
@@ -47,13 +43,10 @@
           - blender
           - borgbackup
           - ffmpeg
-          # - gcc-c++
           - gh
           - gnome-tweaks
           - gthumb
           - imagemagick
-          - inotify-tools
-          # - lazygit
           - keepassxc
           - kitty
           - mediainfo
@@ -72,8 +65,7 @@
           - xdg-desktop-portal-gnome
           - yt-dlp
           - zathura
-          # - zathura-bash-completion
-          # debian
+          - screenkey
           - curl
           - npm
           - default-jre-headless
@@ -94,11 +86,8 @@
           - com.obsproject.Studio
           - com.obsproject.Studio.Plugin.MoveTransition
           - fr.handbrake.ghb
-          # - org.bunkus.mkvtoolnix-gui
-          # - org.kde.krita
           - org.signal.Signal
           - com.github.tchx84.Flatseal
-          # - io.mpv.Mpv
         state: present
 
     - name: Install NPM global packages
@@ -161,7 +150,6 @@
             dest: "{{ user_programs }}/marksman"
             mode: '0755'
 
-        # Debian wants the .deb file!
         - name: Download and install delta
           ansible.builtin.unarchive:
             src: https://github.com/dandavison/delta/releases/download/0.15.1/delta-0.15.1-x86_64-unknown-linux-musl.tar.gz
@@ -193,6 +181,10 @@
             dest: "{{ user_programs }}"
             remote_src: true
             include: vale
+
+    # =========================================================================
+    # Stow dotfiles
+    # =========================================================================
 
     # Stow * Stow will fail if you have run kitty or lazygit in advance as they both create non link config files on first run
     - name: Create ~/.dotfile directory
