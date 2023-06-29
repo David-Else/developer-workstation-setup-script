@@ -77,6 +77,7 @@
           - mpv
           - mkvtoolnix-gui
           - krita
+          - fzf
         state: present
 
     - name: Install Flatpak packages
