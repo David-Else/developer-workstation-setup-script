@@ -78,7 +78,6 @@
           - shfmt
           - rclone
           - gh
-          - flatpak
           - gnome-software-plugin-flatpak
           - mpv
           - mkvtoolnix-gui
