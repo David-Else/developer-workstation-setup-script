@@ -75,6 +75,7 @@
           # - zathura-bash-completion
           # debian
           - npm
+          - default-jre-headless
           - g++
           - shfmt
           - rclone
