@@ -84,6 +84,7 @@ if ! [ -x "$(command -v cargo)" ]; then
     rustup component add rust-analyzer
 fi
 
+# TODO this can only be run once as the helix src folder will exist, needs more checks
 if ! [ -x "$(command -v hx)" ]; then
     mkdir -p "$helix_src_folder"
     git clone https://github.com/helix-editor/helix "$helix_src_folder"
