@@ -1,3 +1,34 @@
+[language-server.ltex-ls]
+command = "ltex-ls"
+
+[language-server.ltex-ls.config]
+ltex.disabledRules = { "en-US" = [
+  "PROFANITY",
+], "en-GB" = [
+  "PROFANITY",
+] }
+ltex.dictionary = { "en-US" = [
+  "builtin",
+], "en-GB" = [
+  "builtin",
+] } 
+
+[language-server.rust-analyzer.config]
+checkOnSave = { command = "clippy" }
+
+[[language]]
+name = "markdown"
+text-width = 80
+soft-wrap = { wrap-at-text-width = true }
+language-servers = [ "ltex-ls", "marksman" ]
+formatter = { command = 'prettier', args = [
+  "--parser",
+  "markdown",
+  "--prose-wrap",
+  "never",        # <always|never|preserve>
+] }
+# auto-format = true
+
 [[language]]
 name = "bash"
 formatter = { command = 'shfmt', args = ["-i", "4"] }
@@ -15,31 +46,4 @@ auto-format = true
 
 [[language]]
 name = "git-commit"
-language-server = { command = "ltex-ls" }
-
-[[language]]
-name = "markdown"
-text-width = 80
-soft-wrap = { wrap-at-text-width = true }
-language-server = { command = "ltex-ls" }
-config = { ltex.disabledRules = { "en-US" = [
-  "PROFANITY",
-], "en-GB" = [
-  "PROFANITY",
-] }, ltex.dictionary = { "en-US" = [
-  "builtin",
-], "en-GB" = [
-  "builtin",
-] } }
-formatter = { command = 'prettier', args = [
-  "--parser",
-  "markdown",
-  "--prose-wrap",
-  "never",        # <always|never|preserve>
-] }
-# auto-format = true
-
-[[language]]
-name = "rust"
-[language.config]
-checkOnSave = { command = "clippy" }
+language-servers = [ "ltex-ls" ]

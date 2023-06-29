@@ -11,6 +11,7 @@ w = ":write"
 l = ":toggle soft-wrap.enable"
 i = ":toggle lsp.display-inlay-hints"
 c = { r = ":sh kitty @ send-text --match 'title:^Terminal' cargo run \\\\n", t = ":sh kitty @ send-text --match 'title:^Terminal' 'clear \\ncargo test \\n'" }
+"." = "file_picker_in_current_buffer_directory"
 
 [keys.insert]
 j = { k = "normal_mode" }
@@ -19,14 +20,19 @@ C-backspace = "delete_word_backward"
 [keys.select]
 G = "goto_file_end" # vim
 
-[editor.cursor-shape]
-insert = "bar" # change cursor shape in insert mode
+[editor]
+color-modes = true
+
+# [editor.cursor-shape]
+# insert = "bar" # change cursor shape in insert mode
 
 [editor.file-picker]
 hidden = false # don't ignore hidden files
+follow-symlinks = false
 
 [editor.statusline]
 center = ["version-control"]
 
 [editor.soft-wrap]
 enable = true
+wrap-at-text-width = true
