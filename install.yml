@@ -216,10 +216,10 @@
             src: "{{ ansible_env.HOME }}/.bashrc"
             dest: "{{ ansible_env.HOME }}/.bashrc_backup"
 
-        - name: Backup .bash_profile
-          ansible.builtin.copy:
-            src: "{{ ansible_env.HOME }}/.bash_profile"
-            dest: "{{ ansible_env.HOME }}/.bash_profile_backup"
+        # - name: Backup .bash_profile
+        #   ansible.builtin.copy:
+        #     src: "{{ ansible_env.HOME }}/.bash_profile"
+        #     dest: "{{ ansible_env.HOME }}/.bash_profile_backup"
 
         - name: Delete original files to prevent stow errors
           file:
