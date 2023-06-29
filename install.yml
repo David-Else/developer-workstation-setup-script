@@ -51,7 +51,7 @@
           - gh
           - gnome-tweaks
           - gthumb
-          - ImageMagick
+          - imagemagick
           - inotify-tools
           # - lazygit
           - keepassxc
