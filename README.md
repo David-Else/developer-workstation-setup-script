@@ -7,14 +7,26 @@ Test version for Debian 12.
 These scripts are designed to be run immediately after installing the operating system.
 
 1. Install a fresh copy of Debian 12 selecting Gnome as the desktop. Don't fill in any details for the root account and make your user has admin rights.
-2. Install Ansible and git: `sudo apt install ansible git`
-3. Clone the repository and `cd` into it: `git clone https://github.com/David-Else/developer-workstation-setup-script`
+2. Install Ansible and git: `sudo apt install ansible git flatpak` (You may need to remove the CDROM reference from `/etc/apt/sources.list` or use the Software and Updates App to do remove it)
+3. Clone the repository and `cd` into it: `git clone https://github.com/David-Else/developer-workstation-setup-script` and `git switch debian12` to change to the correct branch.
 4. Customize the software selection by modifying the `install.yml` and `install-setup.bash` scripts with your own software preferences.
 5. Run the scripts: `ansible-playbook ./install.yml -K` and `./install-setup.bash`
 
 Note: Your `BECOME` password in Ansible is your user password, your account must have administrative privileges.
 
-After installation, you must run `nnn` once with `-a` to create the fifo file for the preview feature to work.
+Run `nnn` once with `-a` to create the fifo file for the preview feature to work.
+
+Append this line to `~/.bashrc` to enable fzf keybindings for Bash:
+
+```sh
+source /usr/share/doc/fzf/examples/key-bindings.bash
+```
+
+Append this line to `~/.bashrc` to enable fuzzy auto-completion for Bash:
+
+```sh
+source /usr/share/doc/fzf/examples/completion.bash
+```
 
 ## Optional Tweaks
 
