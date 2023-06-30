@@ -197,10 +197,10 @@
         src: "{{ playbook_dir }}/dotfiles/"
         dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/.dotfiles/"
 
-    - name: Stat ./bashrc to later check if it is a link
-      ansible.builtin.stat:
-        path: "{{ ansible_env.HOME }}/.bashrc"
-      register: link
+    # - name: Stat ./bashrc to later check if it is a link
+    #   ansible.builtin.stat:
+    #     path: "{{ ansible_env.HOME }}/.bashrc"
+    #   register: link
 
     # - name: Backup and remove files
     #   when: link.stat.islnk is defined and link.stat.islnk == False
