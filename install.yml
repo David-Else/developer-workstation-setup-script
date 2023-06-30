@@ -11,7 +11,7 @@
       community.general.flatpak_remote:
         name: flathub
         flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
-        state: present
+        # state: present
 
     # =========================================================================
     # Remove packages
@@ -82,7 +82,7 @@
           - yt-dlp
           - ytfzf
           - zathura
-        state: present
+        # state: present
 
     - name: Install Flatpak packages
       become: true
@@ -93,7 +93,7 @@
           - fr.handbrake.ghb
           - org.signal.Signal
           - com.github.tchx84.Flatseal
-        state: present
+        # state: present
 
     - name: Install NPM global packages
       become: true
@@ -106,7 +106,7 @@
         - yaml-language-server@1.11.0
       community.general.npm:
         name: "{{ item }}"
-        state: present
+        # state: present
         global: true
 
     # =========================================================================
