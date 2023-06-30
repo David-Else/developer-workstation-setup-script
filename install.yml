@@ -20,32 +20,31 @@
       become: true
       ansible.builtin.package:
         name:
-          - aisleriot
+          - gnome-games
+          - gnome-music
+          - gnome-sound-recorder
+          # - aisleriot
           - cheese
           - evolution
-          - four-in-a-row
-          - gnome-2048
-          - gnome-klotski
-          - gnome-mahjongg
-          - gnome-mines
-          - gnome-robots
-          - gnome-sudoku
-          - gnome-taquin
-          - gnome-tetravex
-          - hitori
-          - iagno
-          - lightsoff
-          - quadrapassel
+          # - four-in-a-row
+          # - gnome-2048
+          # - gnome-klotski
+          # - gnome-mahjongg
+          # - gnome-mines
+          # - gnome-robots
+          # - gnome-sudoku
+          # - gnome-taquin
+          # - gnome-tetravex
+          # - hitori
+          # - iagno
+          # - lightsoff
+          # - quadrapassel
           - rhythmbox
-          - swell-foop
+          # - swell-foop
           - totem
         state: absent
         autoremove: true
-
-    # - name: Remove dependencies that are no longer required
-    #   become: true
-    #   ansible.builtin.apt:
-    #     autoremove: yes
+        purge: true
 
     # =========================================================================
     # Install packages
@@ -91,7 +90,7 @@
           - stow
           - thunderbird
           - tldr
-          - transmission
+          # - transmission
           - trash-cli
           - xclip
           - xdg-desktop-portal-gnome
