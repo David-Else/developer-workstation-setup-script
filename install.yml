@@ -18,29 +18,14 @@
     # =========================================================================
     - name: Remove unwanted desktop apps
       become: true
-      ansible.builtin.package:
+      ansible.builtin.apt:
         name:
           - gnome-games
           - gnome-music
           - gnome-sound-recorder
-          # - aisleriot
           - cheese
           - evolution
-          # - four-in-a-row
-          # - gnome-2048
-          # - gnome-klotski
-          # - gnome-mahjongg
-          # - gnome-mines
-          # - gnome-robots
-          # - gnome-sudoku
-          # - gnome-taquin
-          # - gnome-tetravex
-          # - hitori
-          # - iagno
-          # - lightsoff
-          # - quadrapassel
           - rhythmbox
-          # - swell-foop
           - totem
         state: absent
         autoremove: true
@@ -57,7 +42,7 @@
 
     - name: Install packages
       become: true
-      ansible.builtin.package:
+      ansible.builtin.apt:
         name:
           - bat
           - blender
