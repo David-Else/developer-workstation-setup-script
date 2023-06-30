@@ -159,7 +159,7 @@
     # Install binaries
     # =========================================================================
     - name: Check packages
-      ansible.builtin.package_facts:
+      package_facts:
         manager: auto
 
     # nnn plugins
