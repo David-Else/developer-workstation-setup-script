@@ -159,7 +159,7 @@
     # Install binaries
     # =========================================================================
     - name: Check packages
-      package_facts:
+      ansible.builtin.package_facts:
         manager: auto
 
     # nnn plugins
@@ -188,7 +188,7 @@
         dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/.local/share/fonts/Symbols-2048-em Nerd Font Complete Mono.ttf"
 
     - name: Refresh font cache
-      ansible_facts.command: fc-cache -vf
+      ansible.builtin.command: fc-cache -vf
       changed_when: no
 
     # GitHub binaries
@@ -207,7 +207,7 @@
             mode: '0755'
 
         - name: Download and install delta
-          ansible_facts.unarchive:
+          ansible.builtin.unarchive:
             src: https://github.com/dandavison/delta/releases/download/0.15.1/delta-0.15.1-x86_64-unknown-linux-musl.tar.gz
             dest: "{{ user_programs }}"
             remote_src: true
@@ -216,7 +216,7 @@
               - "delta-0.15.1-x86_64-unknown-linux-musl/delta"
 
         - name: Download and install ltex-ls
-          ansible_facts.unarchive:
+          ansible.builtin.unarchive:
             src: https://github.com/valentjn/ltex-ls/releases/download/16.0.0/ltex-ls-16.0.0.tar.gz
             dest: "{{ user_programs }}"
             remote_src: true
@@ -232,7 +232,7 @@
             state: link
 
         - name: Download and install vale
-          ansible_facts.unarchive:
+          ansible.builtin.unarchive:
             src: https://github.com/errata-ai/vale/releases/download/v2.22.0/vale_2.22.0_Linux_64-bit.tar.gz
             dest: "{{ user_programs }}"
             remote_src: true
