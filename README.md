@@ -6,7 +6,7 @@ Test version for Debian 12.
 
 These scripts are designed to be run immediately after installing the operating system.
 
-1. Install a fresh copy of Debian 12. Don't fill in any details for the root account and make your user have admin/sudo rights.
+1. Install a fresh copy of Debian 12 selecting Gnome as the desktop. Don't fill in any details for the root account and make your user has admin rights.
 2. Install Ansible and git: `sudo apt install ansible git`
 3. Clone the repository and `cd` into it: `git clone https://github.com/David-Else/developer-workstation-setup-script`
 4. Customize the software selection by modifying the `install.yml` and `install-setup.bash` scripts with your own software preferences.
