@@ -184,8 +184,8 @@
 
     - name: Copy nerd fonts symbols only
       ansible.builtin.copy:
-        src: "{{ playbook_dir }}/extras/Symbols-2048-em Nerd Font Complete Mono.ttf"
-        dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/.local/share/fonts/Symbols-2048-em Nerd Font Complete Mono.ttf"
+        src: "{{ playbook_dir }}/extras/SymbolsNerdFontMono-Regular.ttf"
+        dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/.local/share/fonts/SymbolsNerdFontMono-Regular.ttf"
 
     - name: Refresh font cache
       ansible.builtin.command: fc-cache -vf
