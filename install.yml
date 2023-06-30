@@ -96,6 +96,7 @@
       become: true
       ansible.builtin.dnf:
         name:
+          - ImageMagick
           - bat
           - blender
           - borgbackup
@@ -104,11 +105,10 @@
           - gh
           - gnome-tweaks
           - gthumb
-          - ImageMagick
           - inotify-tools
-          - lazygit
           - keepassxc
           - kitty
+          - lazygit
           - mediainfo
           - nnn
           - nodejs
