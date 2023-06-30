@@ -202,26 +202,26 @@
         path: "{{ ansible_env.HOME }}/.bashrc"
       register: link
 
-    - name: Backup and remove files
-      when: link.stat.islnk is defined and link.stat.islnk == False
-      block:
-        - name: Backup .bashrc
-          ansible.builtin.copy:
-            src: "{{ ansible_env.HOME }}/.bashrc"
-            dest: "{{ ansible_env.HOME }}/.bashrc_backup"
+    # - name: Backup and remove files
+    #   when: link.stat.islnk is defined and link.stat.islnk == False
+    #   block:
+    #     - name: Backup .bashrc
+    #       ansible.builtin.copy:
+    #         src: "{{ ansible_env.HOME }}/.bashrc"
+    #         dest: "{{ ansible_env.HOME }}/.bashrc_backup"
 
         # - name: Backup .bash_profile
         #   ansible.builtin.copy:
         #     src: "{{ ansible_env.HOME }}/.bash_profile"
         #     dest: "{{ ansible_env.HOME }}/.bash_profile_backup"
 
-        - name: Delete original files to prevent stow errors
-          ansible.builtin.file:
-            path: '{{ item }}'
-            state: absent
-          with_items:
-            - "{{ ansible_env.HOME }}/.bashrc"
-            - "{{ ansible_env.HOME }}/.bash_profile"
+        # - name: Delete original files to prevent stow errors
+        #   ansible.builtin.file:
+        #     path: '{{ item }}'
+        #     state: absent
+        #   with_items:
+        #     - "{{ ansible_env.HOME }}/.bashrc"
+        #     - "{{ ansible_env.HOME }}/.bash_profile"
 
     - name: Run stow
       # debian miss out 'shell' as bashrc and more is different
