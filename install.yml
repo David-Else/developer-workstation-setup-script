@@ -40,11 +40,12 @@
           - swell-foop
           - totem
         state: absent
+        autoremove: true
 
-    - name: Remove dependencies that are no longer required
-      become: true
-      ansible.builtin.apt:
-        autoremove: yes
+    # - name: Remove dependencies that are no longer required
+    #   become: true
+    #   ansible.builtin.apt:
+    #     autoremove: yes
 
     # =========================================================================
     # Install packages
