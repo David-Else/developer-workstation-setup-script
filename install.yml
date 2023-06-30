@@ -174,13 +174,13 @@
       when: "'nnn' in ansible_facts.packages"
       ansible.builtin.command: /tmp/getplugs
       args:
-        creates: "{{ lookup('env','HOME') }}/.config/nnn/plugins"
+        creates: "{{ lookup('env', 'HOME') }}/.config/nnn/plugins"
 
     # Fonts
     - name: Create ~/.local/share/fonts directory
       ansible.builtin.file:
-          path: "{{ lookup('ansible.builtin.env', 'HOME') }}/.local/share/fonts"
-          state: directory
+        path: "{{ lookup('ansible.builtin.env', 'HOME') }}/.local/share/fonts"
+        state: directory
 
     - name: Copy nerd fonts symbols only
       ansible.builtin.copy:
@@ -189,10 +189,11 @@
 
     - name: Refresh font cache
       ansible.builtin.command: fc-cache -vf
-      changed_when: no
+      changed_when: false
 
     # GitHub binaries
     - name: Download and install GitHub binaries
+      become: true
       block:
         - name: Download and install Marksman language server
           ansible.builtin.get_url:
@@ -237,7 +238,6 @@
             dest: "{{ user_programs }}"
             remote_src: true
             include: vale
-      become: true
 
     # =========================================================================
     # Stow dotfiles
@@ -254,7 +254,7 @@
         src: "{{ playbook_dir }}/dotfiles/"
         dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/.dotfiles/"
 
-    - name: stat ./bashrc to later check if it is a link
+    - name: Stat ./bashrc to later check if it is a link
       ansible.builtin.stat:
         path: "{{ ansible_env.HOME }}/.bashrc"
       register: link
