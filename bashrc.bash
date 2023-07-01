@@ -36,10 +36,12 @@ export BAT_THEME="Visual Studio Dark+"
 # fzf
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git}"'
 source /usr/share/doc/fzf/examples/key-bindings.bash
-source /usr/share/doc/fzf/examples/completion.bash
 
 # ytfzf
 export video_pref="bestvideo[height<=?2160]+bestaudio/best"
+
+# zoxide
+eval "$(zoxide init bash)"
 
 stty -ixon      # disable terminal flow control to free ctrl-s for shortcut
 stty werase \^H # set ctrl-backspace to delete previous word instead of ctrl-w
