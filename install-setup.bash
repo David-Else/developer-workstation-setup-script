@@ -53,6 +53,10 @@ fi
 #==============================================================================
 # Install and setup various programs
 #==============================================================================
+
+pipx install shell-gpt
+pipx ensurepath
+
 curl -fsSL https://deno.land/x/install/install.sh | sh
 
 sudo curl -L https://github.com/lemnos/tt/releases/download/v0.4.2/tt-linux -o $bin_install_folder/tt && sudo chmod +x $bin_install_folder/tt

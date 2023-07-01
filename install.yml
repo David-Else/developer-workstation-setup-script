@@ -48,7 +48,7 @@
           - borgbackup
           - build-essential
           - curl
-          - default-jre-headless
+          # - default-jre-headless
           - ffmpeg
           - fzf
           - gh
@@ -66,6 +66,7 @@
           - nodejs
           - npm
           - pandoc
+          - pipx
           - rclone
           - ripgrep
           - screenkey
@@ -105,10 +106,6 @@
       community.general.npm:
         name: "{{ item }}"
         global: true
-
-    - name: Install ShellGPT
-      ansible.builtin.pip:
-        name: shell-gpt==0.9.3
 
     # =========================================================================
     # Install binaries
