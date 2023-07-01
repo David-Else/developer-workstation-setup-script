@@ -12,7 +12,7 @@ clip() { xclip -sel clip -rmlastnl; }
 
 md() {
     filename="${1##*/}"
-    pandoc --embed-resources --standalone "$1" -o /tmp/"$filename".html
+    pandoc --self-contained "$1" -o /tmp/"$filename".html
     xdg-open /tmp/"$filename".html
 }
 
