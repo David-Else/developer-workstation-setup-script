@@ -18,17 +18,6 @@ confirm_user_is() {
     fi
 }
 
-# Detects OS, and if valid sets a global variable OS to valid_rhel/valid_fedora
-detect_os() {
-    if [[ ("$ID" == "eurolinux" || "$ID" == "centos" || "$ID" == "rocky" || "$ID" == "rhel" || "$ID" == "almalinux") && "${VERSION_ID%.*}" -gt 8 ]]; then
-        OS='valid_rhel'
-    elif [[ "$ID" == "fedora" && "${VERSION_ID%.*}" -gt 35 ]]; then
-        OS='valid_fedora'
-    else
-        OS='invalid'
-    fi
-}
-
 # Display a block of text with color ANSI escape codes
 display_text() {
     echo -e "$(
