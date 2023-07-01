@@ -80,6 +80,7 @@
           - yt-dlp
           - ytfzf
           - zathura
+          - zoxide
 
     - name: Install Flatpak packages
       become: true
@@ -94,15 +95,20 @@
     - name: Install NPM global packages
       become: true
       loop:
-        - bash-language-server@4.9.1
+        - bash-language-server@4.10.1
         - prettier@2.8.8
         - typescript-language-server@3.3.2
-        - typescript@5.0.4
+        - typescript@5.1.6
         - vscode-langservers-extracted@4.7.0
         - yaml-language-server@1.11.0
+
       community.general.npm:
         name: "{{ item }}"
         global: true
+
+    - name: Install ShellGPT
+      ansible.builtin.pip:
+        name: shell-gpt==0.9.3
 
     # =========================================================================
     # Install binaries
