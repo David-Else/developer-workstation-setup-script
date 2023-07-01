@@ -9,6 +9,7 @@ clear
 idle_delay=1200
 title_bar_buttons_on="true"
 capslock_delete="true"
+night_light="true"
 
 bin_install_folder=/usr/local/bin
 helix_src_folder="$HOME/src/helix"
@@ -48,6 +49,11 @@ fi
 if [[ "${capslock_delete}" == "true" ]]; then
     gsettings set org.gnome.desktop.input-sources \
         xkb-options "['caps:backspace', 'terminate:ctrl_alt_bksp']"
+fi
+
+if [[ "${night_light}" == "true" ]]; then
+    gsettings set org.gnome.settings-daemon.plugins.color \
+        night-light-enabled true
 fi
 
 #==============================================================================
