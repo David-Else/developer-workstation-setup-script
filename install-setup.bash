@@ -54,6 +54,7 @@ fi
 # Install and setup various programs
 #==============================================================================
 pipx install shell-gpt
+pipx install yt-dlp
 pipx ensurepath
 
 curl -fsSL https://deno.land/x/install/install.sh | sh
