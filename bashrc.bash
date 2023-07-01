@@ -1,21 +1,10 @@
-# .bashrc
-
-# Source global definitions
-if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
-fi
-
-# User specific environment
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
-    PATH="$HOME/.local/bin:$HOME/bin:$HOME/.deno/bin:$HOME/Documents/scripts:$HOME/adb-fastboot/platform-tools/:$PATH"
-fi
+# Add to $PATH
+PATH="$HOME/.deno/bin:$HOME/Documents/scripts:$HOME/adb-fastboot/platform-tools/:$PATH"
 export PATH
 
 # Aliases
 alias ls="ls -ltha --color --group-directories-first --hyperlink=auto"
 alias tree="tree -Catr --noreport --dirsfirst --filelimit 100"
-alias mpv="flatpak run io.mpv.Mpv"
-alias avif="heif-enc -A -q 85"            # encode avif at almost lossless quality
 alias hg="kitty +kitten hyperlinked_grep" # https://sw.kovidgoyal.net/kitty/kittens/hyperlinked_grep/
 
 # Functions
@@ -46,11 +35,11 @@ export BAT_THEME="Visual Studio Dark+"
 
 # fzf
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git}"'
+source /usr/share/doc/fzf/examples/key-bindings.bash
+source /usr/share/doc/fzf/examples/completion.bash
 
 # ytfzf
 export video_pref="bestvideo[height<=?2160]+bestaudio/best"
 
 stty -ixon      # disable terminal flow control to free ctrl-s for shortcut
 stty werase \^H # set ctrl-backspace to delete previous word instead of ctrl-w
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash

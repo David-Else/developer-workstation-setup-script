@@ -16,18 +16,6 @@ Note: Your `BECOME` password in Ansible is your user password, your account must
 
 Run `nnn` once with `-a` to create the fifo file for the preview feature to work.
 
-Append this line to `~/.bashrc` to enable fzf keybindings for Bash:
-
-```sh
-source /usr/share/doc/fzf/examples/key-bindings.bash
-```
-
-Append this line to `~/.bashrc` to enable fuzzy auto-completion for Bash:
-
-```sh
-source /usr/share/doc/fzf/examples/completion.bash
-```
-
 ## Optional Tweaks
 
 Based on your software selection, hardware, and personal preferences, you may want to make the following changes:

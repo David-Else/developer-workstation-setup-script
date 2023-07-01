@@ -203,34 +203,16 @@
         src: "{{ playbook_dir }}/dotfiles/"
         dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/.dotfiles/"
 
-    # - name: Stat ./bashrc to later check if it is a link
-    #   ansible.builtin.stat:
-    #     path: "{{ ansible_env.HOME }}/.bashrc"
-    #   register: link
-
-    # - name: Backup and remove files
-    #   when: link.stat.islnk is defined and link.stat.islnk == False
-    #   block:
-    #     - name: Backup .bashrc
-    #       ansible.builtin.copy:
-    #         src: "{{ ansible_env.HOME }}/.bashrc"
-    #         dest: "{{ ansible_env.HOME }}/.bashrc_backup"
-
-        # - name: Backup .bash_profile
-        #   ansible.builtin.copy:
-        #     src: "{{ ansible_env.HOME }}/.bash_profile"
-        #     dest: "{{ ansible_env.HOME }}/.bash_profile_backup"
-
-        # - name: Delete original files to prevent stow errors
-        #   ansible.builtin.file:
-        #     path: '{{ item }}'
-        #     state: absent
-        #   with_items:
-        #     - "{{ ansible_env.HOME }}/.bashrc"
-        #     - "{{ ansible_env.HOME }}/.bash_profile"
-
     - name: Run stow
-      # debian miss out 'shell' as bashrc and more is different
-      ansible.builtin.command: "stow --dir={{ ansible_env.HOME }}/.dotfiles --target {{ ansible_env.HOME }} autostart helix mpv pandoc kitty lazygit --verbose=2"
+      ansible.builtin.command: "stow --dir={{ ansible_env.HOME }}/.dotfiles --target {{ ansible_env.HOME }} autostart helix mpv shell pandoc kitty lazygit --verbose=2"
       register: result
       changed_when: 'result.stderr is search("LINK: ")'
+
+    # =========================================================================
+    # Append extra settings to config files
+    # =========================================================================
+    - name: Update .bashrc
+      ansible.builtin.blockinfile:
+        block: "{{ lookup('ansible.builtin.file', './bashrc.bash') }}"
+        path: "{{ lookup('env', 'HOME') }}/.bashrc"
+        backup: yes
