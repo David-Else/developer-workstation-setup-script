@@ -15,7 +15,7 @@
     - name: Add user to the pipewire group
       become: true
       ansible.builtin.user:
-        name: "{{ ansible_user }}"
+        name: "{{ lookup('env', 'USER') }}"
         groups: pipewire
         append: true
 
