@@ -85,19 +85,6 @@ default.clock.allowed-rates = [ 44100 48000 88200 96000 176400 192000 ]
 
 Don't forget to remove the `#` comment.
 
-- Setup PipeWire for low latency audio by following the guide at https://jackaudio.org/faq/linux_rt_config.html and creating the following file:
-
-Note: Copy code blocks by clicking on the top right-hand corner, then just paste them into your terminal.
-
-```sh
-cat <<'EOF' | sudo tee /etc/security/limits.d/audio.conf
-@audio   -  rtprio     95
-@audio   -  memlock    unlimited
-EOF
-```
-
-Add yourself to the `audio` group that you have given the privileges to with `sudo usermod -aG audio [username]`.
-
 Create a user config file for your (PipeWire) JACK settings:
 
 ```sh
