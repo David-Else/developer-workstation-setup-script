@@ -7,12 +7,17 @@
     # =========================================================================
     # Add user to groups
     # =========================================================================
-    - name: adding existing user "{{ ansible_user }}" to group pipewire
+    - name: Create pipewire group
+      become: true
+      ansible.builtin.group:
+        name: pipewire
+
+    - name: Add user to the pipewire group
+      become: true
       ansible.builtin.user:
         name: "{{ ansible_user }}"
         groups: pipewire
         append: yes
-      become: yes
 
     # =========================================================================
     # Add and enable repositories
