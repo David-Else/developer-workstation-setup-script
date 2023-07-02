@@ -1,4 +1,3 @@
----
 - name: Install packages and binaries for Debian 12
   hosts: localhost
   vars:
@@ -66,7 +65,7 @@
 
   tasks:
     # =========================================================================
-    # Add and enable repositories
+    # Add user to groups
     # =========================================================================
     - name: Create pipewire group
       become: true
@@ -209,6 +208,8 @@
     # =========================================================================
     # Stow dotfiles
     # =========================================================================
+
+    # Stow * Stow will fail if you have run kitty or lazygit in advance as they both create non link config files on first run
     - name: Create ~/.dotfile directory
       ansible.builtin.file:
         path: "{{ lookup('ansible.builtin.env', 'HOME') }}/.dotfiles"
