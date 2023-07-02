@@ -1,0 +1,234 @@
+---
+- name: Install packages and binaries for Debian 12
+  hosts: localhost
+  vars:
+    user_programs: /usr/local/bin
+    packages_to_remove:
+      - gnome-games
+      - gnome-music
+      - gnome-sound-recorder
+      - cheese
+      - evolution
+      - rhythmbox
+      - totem
+    packages_to_install:
+      - bat
+      - blender
+      - borgbackup
+      - build-essential
+      - curl
+      - ffmpeg
+      - fzf
+      - gh
+      - gnome-software-plugin-flatpak
+      - gnome-tweaks
+      - gthumb
+      - handbrake
+      - imagemagick
+      - keepassxc
+      - kitty
+      - krita
+      - mediainfo
+      - mkvtoolnix-gui
+      - mpv
+      - nnn
+      - nodejs
+      - npm
+      - pandoc
+      - pipewire-jack
+      - pipx
+      - rclone
+      - ripgrep
+      - screenkey
+      - shellcheck
+      - shfmt
+      - stow
+      - thunderbird
+      - tldr
+      - trash-cli
+      - xclip
+      - xdg-desktop-portal-gnome
+      - ytfzf
+      - zathura
+      - zoxide
+    flatpak_packages:
+      - com.obsproject.Studio
+      - com.obsproject.Studio.Plugin.MoveTransition
+      - org.signal.Signal
+      - com.github.tchx84.Flatseal
+    npm_packages:
+      - bash-language-server@4.10.1
+      - prettier@2.8.8
+      - typescript-language-server@3.3.2
+      - typescript@5.1.6
+      - vscode-langservers-extracted@4.7.0
+      - yaml-language-server@1.11.0
+
+  tasks:
+    # =========================================================================
+    # Add and enable repositories
+    # =========================================================================
+    - name: Create pipewire group
+      become: true
+      ansible.builtin.group:
+        name: pipewire
+
+    - name: Add user to the pipewire group
+      become: true
+      ansible.builtin.user:
+        name: "{{ lookup('env', 'USER') }}"
+        groups: pipewire
+        append: true
+
+    # =========================================================================
+    # Add and enable repositories
+    # =========================================================================
+    - name: Add the Flathub repository
+      community.general.flatpak_remote:
+        name: flathub
+        flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
+
+    # =========================================================================
+    # Remove packages
+    # =========================================================================
+    - name: Remove unwanted desktop apps
+      become: true
+      ansible.builtin.apt:
+        name: "{{ packages_to_remove }}"
+        state: absent
+        autoremove: true
+        purge: true
+
+    # =========================================================================
+    # Install packages
+    # =========================================================================
+    - name: Update and upgrade all packages
+      become: true
+      ansible.builtin.apt:
+        upgrade: true
+        update_cache: true
+
+    - name: Install packages
+      become: true
+      ansible.builtin.apt:
+        name: "{{ packages_to_install }}"
+
+    - name: Install Flatpak packages
+      become: true
+      community.general.flatpak:
+        name: "{{ flatpak_packages }}"
+
+    - name: Install NPM global packages
+      become: true
+      loop: "{{ npm_packages }}"
+      community.general.npm:
+        name: "{{ item }}"
+        global: true
+
+    # =========================================================================
+    # Install binaries
+    # =========================================================================
+    - name: Check packages
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Download the latest nnn plugins
+      when: "'nnn' in ansible_facts.packages"
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs
+        dest: /tmp/getplugs
+        mode: '0755'
+
+    - name: Install nnn plugins
+      when: "'nnn' in ansible_facts.packages"
+      ansible.builtin.command: /tmp/getplugs
+      args:
+        creates: "{{ lookup('env', 'HOME') }}/.config/nnn/plugins"
+
+    - name: Create ~/.local/share/fonts directory
+      ansible.builtin.file:
+        path: "{{ lookup('ansible.builtin.env', 'HOME') }}/.local/share/fonts"
+        state: directory
+
+    - name: Copy nerd fonts symbols only
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/extras/SymbolsNerdFontMono-Regular.ttf"
+        dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/.local/share/fonts/SymbolsNerdFontMono-Regular.ttf"
+
+    - name: Refresh font cache
+      ansible.builtin.command: fc-cache -vf
+      changed_when: false
+
+    - name: Download and install GitHub binaries
+      become: true
+      block:
+        - name: Download and install Marksman language server
+          ansible.builtin.get_url:
+            url: https://github.com/artempyanykh/marksman/releases/download/2023-07-01/marksman-linux-x64
+            dest: "{{ user_programs }}/marksman"
+            mode: '0755'
+
+        - name: Download and install tt
+          ansible.builtin.get_url:
+            url: https://github.com/lemnos/tt/releases/download/v0.4.2/tt-linux
+            dest: "{{ user_programs }}/tt"
+            mode: '0755'
+
+        - name: Download and install tt man page
+          ansible.builtin.get_url:
+            url: https://github.com/lemnos/tt/releases/download/v0.4.2/tt.1.gz
+            dest: /usr/share/man/man1/tt.1.gz
+
+        - name: Download and install delta
+          ansible.builtin.apt:
+            deb: https://github.com/dandavison/delta/releases/download/0.16.5/git-delta_0.16.5_amd64.deb
+
+        - name: Download and install ltex-ls
+          ansible.builtin.unarchive:
+            src: https://github.com/valentjn/ltex-ls/releases/download/16.0.0/ltex-ls-16.0.0.tar.gz
+            dest: "{{ user_programs }}"
+            remote_src: true
+            extra_opts:
+              - "--strip-components=1"
+              - "ltex-ls-16.0.0/bin"
+              - "ltex-ls-16.0.0/lib"
+
+        - name: Create symlink to ltex-ls binary
+          ansible.builtin.file:
+            src: "{{ user_programs }}/bin/ltex-ls"
+            dest: "{{ user_programs }}/ltex-ls"
+            state: link
+
+        - name: Download and install vale
+          ansible.builtin.unarchive:
+            src: https://github.com/errata-ai/vale/releases/download/v2.27.0/vale_2.27.0_Linux_64-bit.tar.gz
+            dest: "{{ user_programs }}"
+            remote_src: true
+            include: vale
+
+    # =========================================================================
+    # Stow dotfiles
+    # =========================================================================
+    - name: Create ~/.dotfile directory
+      ansible.builtin.file:
+        path: "{{ lookup('ansible.builtin.env', 'HOME') }}/.dotfiles"
+        state: directory
+
+    - name: Copy dotfiles
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/dotfiles/"
+        dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/.dotfiles/"
+
+    - name: Run stow
+      ansible.builtin.command: "stow --dir={{ ansible_env.HOME }}/.dotfiles --target {{ ansible_env.HOME }} autostart helix mpv shell pandoc kitty lazygit --verbose=2"
+      register: result
+      changed_when: 'result.stderr is search("LINK: ")'
+
+    # =========================================================================
+    # Append extra settings to config files
+    # =========================================================================
+    - name: Update .bashrc
+      ansible.builtin.blockinfile:
+        block: "{{ lookup('ansible.builtin.file', './bashrc.bash') }}"
+        path: "{{ lookup('env', 'HOME') }}/.bashrc"
+        backup: true
