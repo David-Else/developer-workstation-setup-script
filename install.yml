@@ -55,6 +55,7 @@
           - gnome-software-plugin-flatpak
           - gnome-tweaks
           - gthumb
+          - handbrake
           - imagemagick
           - keepassxc
           - kitty
@@ -88,7 +89,6 @@
         name:
           - com.obsproject.Studio
           - com.obsproject.Studio.Plugin.MoveTransition
-          - fr.handbrake.ghb
           - org.signal.Signal
           - com.github.tchx84.Flatseal
 
