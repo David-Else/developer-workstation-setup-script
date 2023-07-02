@@ -2,6 +2,66 @@
   hosts: localhost
   vars:
     user_programs: /usr/local/bin
+    packages_to_remove:
+      - gnome-games
+      - gnome-music
+      - gnome-sound-recorder
+      - cheese
+      - evolution
+      - rhythmbox
+      - totem
+    packages_to_install:
+      - bat
+      - blender
+      - borgbackup
+      - build-essential
+      - curl
+      - ffmpeg
+      - fzf
+      - gh
+      - gnome-software-plugin-flatpak
+      - gnome-tweaks
+      - gthumb
+      - handbrake
+      - imagemagick
+      - keepassxc
+      - kitty
+      - krita
+      - mediainfo
+      - mkvtoolnix-gui
+      - mpv
+      - nnn
+      - nodejs
+      - npm
+      - pandoc
+      - pipewire-jack
+      - pipx
+      - rclone
+      - ripgrep
+      - screenkey
+      - shellcheck
+      - shfmt
+      - stow
+      - thunderbird
+      - tldr
+      - trash-cli
+      - xclip
+      - xdg-desktop-portal-gnome
+      - ytfzf
+      - zathura
+      - zoxide
+    flatpak_packages:
+      - com.obsproject.Studio
+      - com.obsproject.Studio.Plugin.MoveTransition
+      - org.signal.Signal
+      - com.github.tchx84.Flatseal
+    npm_packages:
+      - bash-language-server@4.10.1
+      - prettier@2.8.8
+      - typescript-language-server@3.3.2
+      - typescript@5.1.6
+      - vscode-langservers-extracted@4.7.0
+      - yaml-language-server@1.11.0
 
   tasks:
     # =========================================================================
@@ -33,14 +93,7 @@
     - name: Remove unwanted desktop apps
       become: true
       ansible.builtin.apt:
-        name:
-          - gnome-games
-          - gnome-music
-          - gnome-sound-recorder
-          - cheese
-          - evolution
-          - rhythmbox
-          - totem
+        name: "{{ packages_to_remove }}"
         state: absent
         autoremove: true
         purge: true
@@ -57,66 +110,16 @@
     - name: Install packages
       become: true
       ansible.builtin.apt:
-        name:
-          - bat
-          - blender
-          - borgbackup
-          - build-essential
-          - curl
-          # - default-jre-headless
-          - ffmpeg
-          - fzf
-          - gh
-          - gnome-software-plugin-flatpak
-          - gnome-tweaks
-          - gthumb
-          - handbrake
-          - imagemagick
-          - keepassxc
-          - kitty
-          - krita
-          - mediainfo
-          - mkvtoolnix-gui
-          - mpv
-          - nnn
-          - nodejs
-          - npm
-          - pandoc
-          - pipewire-jack
-          - pipx
-          - rclone
-          - ripgrep
-          - screenkey
-          - shellcheck
-          - shfmt
-          - stow
-          - thunderbird
-          - tldr
-          - trash-cli
-          - xclip
-          - xdg-desktop-portal-gnome
-          - ytfzf
-          - zathura
-          - zoxide
+        name: "{{ packages_to_install }}"
 
     - name: Install Flatpak packages
       become: true
       community.general.flatpak:
-        name:
-          - com.obsproject.Studio
-          - com.obsproject.Studio.Plugin.MoveTransition
-          - org.signal.Signal
-          - com.github.tchx84.Flatseal
+        name: "{{ flatpak_packages }}"
 
     - name: Install NPM global packages
       become: true
-      loop:
-        - bash-language-server@4.10.1
-        - prettier@2.8.8
-        - typescript-language-server@3.3.2
-        - typescript@5.1.6
-        - vscode-langservers-extracted@4.7.0
-        - yaml-language-server@1.11.0
+      loop: "{{ npm_packages }}"
       community.general.npm:
         name: "{{ item }}"
         global: true
@@ -128,7 +131,6 @@
       ansible.builtin.package_facts:
         manager: auto
 
-    # nnn plugins
     - name: Download the latest nnn plugins
       when: "'nnn' in ansible_facts.packages"
       ansible.builtin.get_url:
@@ -142,7 +144,6 @@
       args:
         creates: "{{ lookup('env', 'HOME') }}/.config/nnn/plugins"
 
-    # Fonts
     - name: Create ~/.local/share/fonts directory
       ansible.builtin.file:
         path: "{{ lookup('ansible.builtin.env', 'HOME') }}/.local/share/fonts"
@@ -157,7 +158,6 @@
       ansible.builtin.command: fc-cache -vf
       changed_when: false
 
-    # GitHub binaries
     - name: Download and install GitHub binaries
       become: true
       block:
