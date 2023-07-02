@@ -151,6 +151,18 @@
             dest: "{{ user_programs }}/marksman"
             mode: '0755'
 
+        - name: Download and install tt
+          ansible.builtin.get_url:
+            url: https://github.com/lemnos/tt/releases/download/v0.4.2/tt-linux 
+            dest: "{{ user_programs }}/tt"
+            mode: '0755'
+
+        - name: Download and install tt man page
+          ansible.builtin.get_url:
+            url: https://github.com/lemnos/tt/releases/download/v0.4.2/tt.1.gz
+            dest: /usr/share/man/man1/tt.1.gz
+
+
         - name: Download and install delta
           ansible.builtin.apt:
             deb: https://github.com/dandavison/delta/releases/download/0.16.5/git-delta_0.16.5_amd64.deb
