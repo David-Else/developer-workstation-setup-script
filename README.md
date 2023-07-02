@@ -71,7 +71,7 @@ Playback:
 2. Create a PipeWire user config file: `cp /usr/share/pipewire/pipewire.conf ~/.config/pipewire/`
 3. Add/modify your sound cards available sample rates by editing `~/.config/pipewire/pipewire.conf`:
 
-The Fedora default is:
+The default is:
 
 ```sh
 #default.clock.allowed-rates = [ 48000 ]
