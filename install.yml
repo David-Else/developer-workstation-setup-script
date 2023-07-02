@@ -17,7 +17,7 @@
       ansible.builtin.user:
         name: "{{ ansible_user }}"
         groups: pipewire
-        append: yes
+        append: true
 
     # =========================================================================
     # Add and enable repositories
