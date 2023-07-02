@@ -82,6 +82,7 @@
           - nodejs
           - npm
           - pandoc
+          - pipewire-jack
           - pipx
           - rclone
           - ripgrep
