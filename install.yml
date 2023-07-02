@@ -5,6 +5,16 @@
 
   tasks:
     # =========================================================================
+    # Add user to groups
+    # =========================================================================
+    - name: adding existing user "{{ ansible_user }}" to group pipewire
+      ansible.builtin.user:
+        name: "{{ ansible_user }}"
+        groups: pipewire
+        append: yes
+      become: yes
+
+    # =========================================================================
     # Add and enable repositories
     # =========================================================================
     - name: Add the Flathub repository

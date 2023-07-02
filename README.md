@@ -1,6 +1,6 @@
 # Developer Workstation Setup Script Debian 12 Edition
 
-Test version for Debian 12.
+Version for Debian 12.
 
 ## Installation
 
