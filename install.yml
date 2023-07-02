@@ -153,7 +153,7 @@
 
         - name: Download and install tt
           ansible.builtin.get_url:
-            url: https://github.com/lemnos/tt/releases/download/v0.4.2/tt-linux 
+            url: https://github.com/lemnos/tt/releases/download/v0.4.2/tt-linux
             dest: "{{ user_programs }}/tt"
             mode: '0755'
 
