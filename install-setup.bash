@@ -1,17 +1,25 @@
 #!/bin/bash
-# Run this script after running install.yml
 
 set -euo pipefail
-source functions.bash
-confirm_user_is 'normal'
 clear
+
+# Confirm the user is either normal or root and exit if they are not
+# ${1} normal|root
+confirm_user_is() {
+    USER_STATUS=$(id -u)
+    if [[ "$USER_STATUS" != 0 && ${1} == "root" ]]; then
+        echo "You're not root! Run script with sudo" && exit 1
+    elif [[ "$USER_STATUS" == 0 && ${1} == "normal" ]]; then
+        echo "You're root! Run script as user" && exit 1
+    fi
+}
+confirm_user_is 'normal'
 
 idle_delay=1200
 title_bar_buttons_on="true"
 capslock_delete="true"
 night_light="true"
 
-bin_install_folder=/usr/local/bin
 helix_src_folder="$HOME/src/helix"
 helix_config_folder="$HOME/.config/helix"
 terminal_program=kitty # terminal program to use for desktop integration
