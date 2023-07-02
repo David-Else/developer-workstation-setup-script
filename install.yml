@@ -147,18 +147,13 @@
       block:
         - name: Download and install Marksman language server
           ansible.builtin.get_url:
-            url: https://github.com/artempyanykh/marksman/releases/download/2023-01-29/marksman-linux
+            url: https://github.com/artempyanykh/marksman/releases/download/2023-07-01/marksman-linux-x64
             dest: "{{ user_programs }}/marksman"
             mode: '0755'
 
         - name: Download and install delta
-          ansible.builtin.unarchive:
-            src: https://github.com/dandavison/delta/releases/download/0.15.1/delta-0.15.1-x86_64-unknown-linux-musl.tar.gz
-            dest: "{{ user_programs }}"
-            remote_src: true
-            extra_opts:
-              - "--strip-components=1"
-              - "delta-0.15.1-x86_64-unknown-linux-musl/delta"
+          ansible.builtin.apt:
+            deb: https://github.com/dandavison/delta/releases/download/0.16.5/git-delta_0.16.5_amd64.deb
 
         - name: Download and install ltex-ls
           ansible.builtin.unarchive:
@@ -178,7 +173,7 @@
 
         - name: Download and install vale
           ansible.builtin.unarchive:
-            src: https://github.com/errata-ai/vale/releases/download/v2.22.0/vale_2.22.0_Linux_64-bit.tar.gz
+            src: https://github.com/errata-ai/vale/releases/download/v2.27.0/vale_2.27.0_Linux_64-bit.tar.gz
             dest: "{{ user_programs }}"
             remote_src: true
             include: vale
