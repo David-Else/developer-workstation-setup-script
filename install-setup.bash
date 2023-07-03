@@ -12,7 +12,6 @@ clock_show_date="true"
 capslock_delete="true"
 night_light="true"
 
-bin_install_folder=/usr/local/bin
 helix_src_folder="$HOME/src/helix"
 helix_config_folder="$HOME/.config/helix"
 terminal_program=kitty # terminal program to use for desktop integration
