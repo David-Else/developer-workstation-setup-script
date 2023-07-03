@@ -1,131 +1,158 @@
 # Developer Workstation Setup Script Debian 12 Edition
 
-Version for Debian 12.
+This guide provides instructions for setting up a developer workstation using Debian 12. The setup script automates the installation of necessary software and configurations to create an efficient development environment.
 
 ## Installation
 
-These scripts are designed to be run immediately after installing the operating system.
+Before running the setup script, follow these steps to install Debian 12 and configure the desktop environment:
 
-1. Install a fresh copy of Debian 12 selecting Gnome as the desktop. Don't fill in any details for the root account and your user will have admin rights.
-2. `sudo apt install ansible git flatpak` (You may need to remove the CDROM reference from `/etc/apt/sources.list` or use the Software and Updates App to remove it)
+1. Install a fresh copy of Debian 12, selecting Gnome as the desktop environment. During the installation, do not provide any details for the root account. Your user account will have administrative rights.
 
-![screenshot](./images/bookworm_sw_updates_screenshot.png)
+   > Note: If you encounter any issues related to the CD-ROM reference in `/etc/apt/sources.list`, remove it or use the Software and Updates App before proceeding.
 
-3. Clone the repository and `cd` into it: `git clone https://github.com/David-Else/developer-workstation-setup-script` and `git switch debian12` to change to the correct branch.
-4. Customize the software selection by modifying the `install.yml` and `install-setup.bash` scripts with your own software preferences.
-5. Run the scripts: `ansible-playbook ./install.yml -K` and `./install-setup.bash`
+   ![Software and Updates App](./images/bookworm_sw_updates_screenshot.png)
 
-Note: Your `BECOME` password in Ansible is your user password, your account must have administrative privileges.
+2. Open the terminal and run the following command to install Ansible, Git, and Flatpak:
 
-Run `nnn` once with `-a` to create the fifo file for the preview feature to work.
+   ```
+   sudo apt install ansible git flatpak
+   ```
+
+3. Clone the repository and navigate to it:
+
+   ```
+   git clone https://github.com/David-Else/developer-workstation-setup-script
+   cd developer-workstation-setup-script
+   git switch debian12
+   ```
+
+4. Customize the software selection by modifying the `install.yml` and `install-setup.bash` scripts according to your preferences.
+
+5. Run the setup scripts:
+
+   ```
+   ansible-playbook ./install.yml -K
+   ./install-setup.bash
+   ```
+
+   > Note: When prompted for the `BECOME` password in Ansible, enter your user password. Your account must have administrative privileges.
+
+6. To enable the preview feature in the `nnn` file manager, run it once with the `-a` flag to create the FIFO file.
 
 ## Optional Tweaks
 
-Based on your software selection, hardware, and personal preferences, you may want to make the following changes:
+Depending on your software selection, hardware, and personal preferences, you may want to make the following changes:
 
 ### Audio
 
-- Set the available sample rates for your audio interface:
+To set the available sample rates for your audio interface, follow these steps:
 
-1. Find your audio interface(s) and available sample rates:
+1. Find your audio interface(s) and available sample rates by running the following command:
 
-`cat /proc/asound/cards`
+   ```
+   cat /proc/asound/cards
+   ```
 
-Example output:
+   Example output:
 
-```sh
- 0 [HDMI           ]: HDA-Intel - HDA ATI HDMI
-                      HDA ATI HDMI at 0xf7e60000 irq 31
- 1 [USB            ]: USB-Audio - Scarlett 6i6 USB
-                      Focusrite Scarlett 6i6 USB at usb-0000:00:14.0-10, high speed
-```
+   ```sh
+   0 [HDMI           ]: HDA-Intel - HDA ATI HDMI
+                         HDA ATI HDMI at 0xf7e60000 irq 31
+   1 [USB            ]: USB-Audio - Scarlett 6i6 USB
+                         Focusrite Scarlett 6i6 USB at usb-0000:00:14.0-10, high speed
+   ```
 
-Play some audio and examine the stream for your audio interface (in this case `card1`):
+2. Play some audio and examine the stream for your audio interface (in this case `card1`) by running the following command:
 
-`cat /proc/asound/card1/stream0`
+   ```
+   cat /proc/asound/card1/stream0
+   ```
 
-Example output:
+   Example output:
 
-```sh
-Focusrite Scarlett 6i6 USB at usb-0000:00:14.0-10, high speed : USB Audio
+   ```sh
+   Focusrite Scarlett 6i6 USB at usb-0000:00:14.0-10, high speed : USB Audio
 
-Playback:
-  Status: Running
-    Interface = 1
-    Altset = 1
-    Packet Size = 216
-    Momentary freq = 48000 Hz (0x6.0000)
-    Feedback Format = 16.16
-  Interface 1
-    Altset 1
-    Format: S32_LE
-    Channels: 6
-    Endpoint: 0x01 (1 OUT) (ASYNC)
-    Rates: 44100, 48000, 88200, 96000, 176400, 192000
-    Data packet interval: 125 us
-    Bits: 24
-    Channel map: FL FR FC LFE RL RR
-    Sync Endpoint: 0x81 (1 IN)
-    Sync EP Interface: 1
-    Sync EP Altset: 1
-    Implicit Feedback Mode: No
-```
+   Playback:
+     Status: Running
+       Interface = 1
+       Altset = 1
+       Packet Size = 216
+       Momentary freq = 48000 Hz (0x6.0000)
+       Feedback Format = 16.16
+     Interface 1
+       Altset 1
+       Format: S32_LE
+       Channels: 6
+       Endpoint: 0x01 (1 OUT) (ASYNC)
+       Rates: 44100, 48000, 88200, 96000, 176400, 192000
+       Data packet interval: 125 us
+       Bits: 24
+       Channel map: FL FR FC LFE RL RR
+       Sync Endpoint: 0x81 (1 IN)
+       Sync EP Interface: 1
+       Sync EP Altset: 1
+       Implicit Feedback Mode: No
+   ```
 
-2. Create a PipeWire user config file: `cp /usr/share/pipewire/pipewire.conf ~/.config/pipewire/`
-3. Add/modify your sound cards available sample rates by editing `~/.config/pipewire/pipewire.conf`:
+3. Create a PipeWire user config file by running the following command:
 
-The default is:
+   ```
+   cp /usr/share/pipewire/pipewire.conf ~/.config/pipewire/
+   ```
 
-```sh
-#default.clock.allowed-rates = [ 48000 ]
-```
+4. Edit the `~/.config/pipewire/pipewire.conf` file to add or modify the available sample rates for your sound card(s). Replace the default line with the desired sample rates, removing the `#` comment:
 
-For the Scarlett 6i6 example above replace it with:
+   ```sh
+   default.clock.allowed-rates = [ 44100 48000 88200 96000 176400 192000 ]
+   ```
 
-```sh
-default.clock.allowed-rates = [ 44100 48000 88200 96000 176400 192000 ]
-```
+5. Create a user config file for your PipeWire JACK settings by running the following commands:
 
-Don't forget to remove the `#` comment.
-
-Create a user config file for your (PipeWire) JACK settings:
-
-```sh
-mkdir -p ~/.config/pipewire/jack.conf.d/
-cat >~/.config/pipewire/jack.conf.d/jack.conf <<EOF
-jack.properties = {
-     node.latency       = 256/96000
-     node.rate          = 1/96000
-     node.quantum       = 256/96000
-     node.force-quantum = 256
-}
-EOF
-```
+   ```sh
+   mkdir -p ~/.config/pipewire/jack.conf.d/
+   cat >~/.config/pipewire/jack.conf.d/jack.conf <<EOF
+   jack.properties = {
+        node.latency       = 256/96000
+        node.rate          = 1/96000
+        node.quantum       = 256/96000
+        node.force-quantum = 256
+   }
+   EOF
+   ```
 
 ### General
 
-- Setup Deno by creating/updating shell completions: `deno completions bash > deno.sh` and `sudo mv deno.sh /etc/profile.d`.
-- Setup Vale:
+To perform general tweaks, follow these steps:
 
-Change the global `.vale.ini` file in your `$HOME` directory to point to an empty directory you want to store your styles, for example:
-
-```sh
-StylesPath = ~/Documents/styles
-```
-
-Run `vale sync`. You can create a new config file at [Config Generator](https://vale.sh/generator)
-
-- Setup Git:
+- Set up Deno by creating or updating shell completions. Run the following command:
 
 ```sh
-git config --global user.email "you@example.com"
-git config --global user.name "Your Name"
+deno completions bash > deno.sh
+sudo mv deno.sh /etc/profile.d
 ```
 
-```sh
-git config --global user.signingkey key
-git config --global commit.gpgsign true
-```
+- Set up Vale by changing the global `.vale.ini` file in your `$HOME` directory. Update the `StylesPath` to point to an empty directory where you want to store your styles. For example:
+
+  ```sh
+  StylesPath = ~/Documents/styles
+  ```
+
+  After making the change, run `vale sync`. You can create a new config file using the [Config Generator](https://vale.sh/generator).
+
+- Configure Git by setting your email and name. Run the following commands:
+
+  ```sh
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+  ```
+
+  If you want to enable GPG signing for commits, use the following commands:
+
+  ```sh
+  git config --global user.signingkey key
+  git config --global commit.gpgsign true
+  ```
 
 # FAQ
 
