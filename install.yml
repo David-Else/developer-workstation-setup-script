@@ -197,7 +197,7 @@
       block:
         - name: Download and install Marksman language server
           ansible.builtin.get_url:
-            url: https://github.com/artempyanykh/marksman/releases/download/2023-01-29/marksman-linux
+            url: https://github.com/artempyanykh/marksman/releases/download/2023-07-01/marksman-linux-x64
             dest: "{{ user_programs }}/marksman"
             mode: '0755'
 
@@ -234,10 +234,22 @@
 
         - name: Download and install vale
           ansible.builtin.unarchive:
-            src: https://github.com/errata-ai/vale/releases/download/v2.22.0/vale_2.22.0_Linux_64-bit.tar.gz
+            src: https://github.com/errata-ai/vale/releases/download/v2.27.0/vale_2.27.0_Linux_64-bit.tar.gz
             dest: "{{ user_programs }}"
             remote_src: true
             include: vale
+
+        - name: Download and install tt
+          ansible.builtin.get_url:
+            url: https://github.com/lemnos/tt/releases/download/v0.4.2/tt-linux
+            dest: "{{ user_programs }}/tt"
+            mode: '0755'
+
+        - name: Download and install tt man page
+          ansible.builtin.get_url:
+            url: https://github.com/lemnos/tt/releases/download/v0.4.2/tt.1.gz
+            dest: /usr/share/man/man1/tt.1.gz
+
 
     # =========================================================================
     # Stow dotfiles
