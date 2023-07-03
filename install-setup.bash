@@ -25,14 +25,6 @@ helix_config_folder="$HOME/.config/helix"
 terminal_program=kitty # terminal program to use for desktop integration
 
 #==============================================================================
-# Set host name
-#==============================================================================
-read -rp "What is this computer's name? [$HOSTNAME] " hostname
-if [[ ! -z "$hostname" ]]; then
-    hostnamectl set-hostname "$hostname"
-fi
-
-#==============================================================================
 # Optional sub-pixel rendering
 #==============================================================================
 read -p "Use sub-pixel rendering? (recommended for monitors with less than 4k resolution) " -n 1 -r
