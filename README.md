@@ -8,6 +8,9 @@ These scripts are designed to be run immediately after installing the operating 
 
 1. Install a fresh copy of Debian 12 selecting Gnome as the desktop. Don't fill in any details for the root account and your user will have admin rights.
 2. `sudo apt install ansible git flatpak` (You may need to remove the CDROM reference from `/etc/apt/sources.list` or use the Software and Updates App to remove it)
+
+![screenshot](./images/bookworm_sw_updates_screenshot.png)
+
 3. Clone the repository and `cd` into it: `git clone https://github.com/David-Else/developer-workstation-setup-script` and `git switch debian12` to change to the correct branch.
 4. Customize the software selection by modifying the `install.yml` and `install-setup.bash` scripts with your own software preferences.
 5. Run the scripts: `ansible-playbook ./install.yml -K` and `./install-setup.bash`
