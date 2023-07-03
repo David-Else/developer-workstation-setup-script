@@ -107,7 +107,7 @@ To set the available sample rates for your audio interface, follow these steps:
    default.clock.allowed-rates = [ 44100 48000 88200 96000 176400 192000 ]
    ```
 
-More info can be found at:[docs.pipewire.org](https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Config-PipeWire#configuration-file-pipewireconf)
+More info can be found at: [docs.pipewire.org configuration-file-pipewireconf](https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Config-PipeWire#configuration-file-pipewireconf)
 
 5. Create a user config file for your PipeWire JACK settings by running the following commands:
 
@@ -122,7 +122,7 @@ More info can be found at:[docs.pipewire.org](https://gitlab.freedesktop.org/pip
    }
    EOF
    ```
-More info can be found at: [docs.pipewire.org](https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Config-JACK#configuration-file-jackconf)
+More info can be found at: [docs.pipewire.org configuration-file-jackconf](https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Config-JACK#configuration-file-jackconf)
 
 ### General
 
