@@ -79,7 +79,8 @@ if ! [ -x "$(command -v hx)" ]; then
     cargo install --locked --path "$helix_src_folder"/helix-term
     [ ! -e "$helix_config_folder"/runtime ] && ln -s "$helix_src_folder"/runtime "$helix_config_folder" # if there is no symlink create one to the source directory
 
-    cp "$helix_src_folder"/contrib/helix.png "$HOME/.icons"
+    mkdir -p "$HOME/.icons/"
+    cp "$helix_src_folder"/contrib/helix.png "$HOME/.icons/"
     cp "$helix_src_folder"/contrib/Helix.desktop "$HOME/.local/share/applications"
     sed -i "s|Exec=hx %F|Exec=$terminal_program hx %F|g;s|Terminal=true|Terminal=false|g" "$HOME/.local/share/applications/Helix.desktop"
 fi
