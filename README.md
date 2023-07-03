@@ -1,6 +1,6 @@
-# Developer Workstation Setup Script Debian 12 Edition
+# Developer Workstation Setup Script Debian Edition
 
-This guide provides instructions for setting up a developer workstation using Debian 12. The setup script automates the installation of necessary software and configurations to create an efficient development environment.
+This guide provides instructions for setting up a developer workstation using Debian 12 "bookworm". The setup script automates the installation of necessary software and configurations to create an efficient development environment.
 
 ## Installation
 
