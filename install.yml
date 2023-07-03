@@ -2,6 +2,53 @@
   hosts: localhost
   vars:
     user_programs: /usr/local/bin
+    el9_packages:
+      - ImageMagick
+      - bat
+      - blender
+      - borgbackup
+      - ffmpeg
+      - gcc-c++
+      - gh
+      - gnome-tweaks
+      - gthumb
+      - inotify-tools
+      - keepassxc
+      - kitty
+      - lazygit
+      - mediainfo
+      - nnn
+      - nodejs
+      - optipng
+      - pandoc
+      - ripgrep
+      - shellcheck
+      - stow
+      - thunderbird
+      - tldr
+      - transmission
+      - trash-cli
+      - xclip
+      - xdg-desktop-portal-gnome
+      - yt-dlp
+      - zathura
+      - zathura-bash-completion
+    flatpak_packages:
+      - com.obsproject.Studio
+      - com.obsproject.Studio.Plugin.MoveTransition
+      - fr.handbrake.ghb
+      - org.bunkus.mkvtoolnix-gui
+      - org.kde.krita
+      - org.signal.Signal
+      - com.github.tchx84.Flatseal
+      - io.mpv.Mpv
+    npm_packages:
+      - bash-language-server@4.10.1
+      - prettier@2.8.8
+      - typescript-language-server@3.3.2
+      - typescript@5.1.6
+      - vscode-langservers-extracted@4.7.0
+      - yaml-language-server@1.11.0
 
   tasks:
     # =========================================================================
@@ -92,64 +139,20 @@
         name: "*"
         state: latest # noqa package-latest
 
-    - name: Install packages
+    - name: Install el9 packages
       become: true
       ansible.builtin.dnf:
-        name:
-          - ImageMagick
-          - bat
-          - blender
-          - borgbackup
-          - ffmpeg
-          - gcc-c++
-          - gh
-          - gnome-tweaks
-          - gthumb
-          - inotify-tools
-          - keepassxc
-          - kitty
-          - lazygit
-          - mediainfo
-          - nnn
-          - nodejs
-          - optipng
-          - pandoc
-          - ripgrep
-          - shellcheck
-          - stow
-          - thunderbird
-          - tldr
-          - transmission
-          - trash-cli
-          - xclip
-          - xdg-desktop-portal-gnome
-          - yt-dlp
-          - zathura
-          - zathura-bash-completion
+        name: "{{ el9_packages }}"
         state: present
 
     - name: Install Flatpak packages
       community.general.flatpak:
-        name:
-          - com.obsproject.Studio
-          - com.obsproject.Studio.Plugin.MoveTransition
-          - fr.handbrake.ghb
-          - org.bunkus.mkvtoolnix-gui
-          - org.kde.krita
-          - org.signal.Signal
-          - com.github.tchx84.Flatseal
-          - io.mpv.Mpv
+        name: "{{ flatpak_packages }}"
         state: present
 
     - name: Install NPM global packages
       become: true
-      loop:
-        - bash-language-server@4.10.1
-        - prettier@2.8.8
-        - typescript-language-server@3.3.2
-        - typescript@5.1.6
-        - vscode-langservers-extracted@4.7.0
-        - yaml-language-server@1.11.0
+      loop: "{{ npm_packages }}"
       community.general.npm:
         name: "{{ item }}"
         state: present
@@ -249,7 +252,6 @@
           ansible.builtin.get_url:
             url: https://github.com/lemnos/tt/releases/download/v0.4.2/tt.1.gz
             dest: /usr/share/man/man1/tt.1.gz
-
 
     # =========================================================================
     # Stow dotfiles
