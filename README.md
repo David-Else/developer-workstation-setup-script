@@ -97,6 +97,12 @@ To set the available sample rates for your audio interface, follow these steps:
        Implicit Feedback Mode: No
    ```
 
+   You can view the current playback sample-rate with:
+
+   ```sh
+   cat /proc/asound/card1/pcm0p/sub0/hw_params
+   ```
+  
 3. Create a PipeWire user config file by running the following command:
 
    ```
