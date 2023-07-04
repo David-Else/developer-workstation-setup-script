@@ -140,10 +140,10 @@ To perform general tweaks, follow these steps:
 
 - Set up Deno by creating or updating shell completions. Run the following command:
 
-```sh
-deno completions bash > deno.sh
-sudo mv deno.sh /etc/profile.d
-```
+  ```sh
+  deno completions bash > deno.sh
+  sudo mv deno.sh /etc/profile.d
+  ```
 
 - Set up Vale by changing the global `.vale.ini` file in your `$HOME` directory. Update the `StylesPath` to point to an empty directory where you want to store your styles. For example:
 
