@@ -64,7 +64,7 @@ To set the available sample rates for your audio interface, follow these steps:
                          Focusrite Scarlett 6i6 USB at usb-0000:00:14.0-10, high speed
    ```
 
-2. Play some audio and examine the stream for your audio interface (in this case `card1`) by running the following command:
+2. Play some audio and examine the stream for your audio interface (in this case `card1`) by running the following command *note this might not work:
 
    ```
    cat /proc/asound/card1/stream0
@@ -103,7 +103,7 @@ To set the available sample rates for your audio interface, follow these steps:
    cat /proc/asound/card1/pcm0p/sub0/hw_params
    ```
   
-3. Create a PipeWire user config file by running the following command:
+3. Create a PipeWire user config file by running the following commands:
 
    ```
    mkdir -p ~/.config/pipewire/
