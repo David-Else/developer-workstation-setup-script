@@ -11,6 +11,8 @@
       - rhythmbox
       - totem
     packages_to_install:
+      - adb
+      - android-sdk-platform-tools-common
       - bat
       - blender
       - borgbackup
