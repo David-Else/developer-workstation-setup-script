@@ -58,9 +58,9 @@ To set the available sample rates for your audio interface, follow these steps:
    Example output:
 
    ```sh
-   0 [HDMI           ]: HDA-Intel - HDA ATI HDMI
-                         HDA ATI HDMI at 0xf7e60000 irq 31
-   1 [USB            ]: USB-Audio - Scarlett 6i6 USB
+   0 [HDMI]: HDA-Intel - HDA ATI HDMI
+              HDA ATI HDMI at 0xf7e60000 irq 31
+   1 [USB ]: USB-Audio - Scarlett 6i6 USB
                          Focusrite Scarlett 6i6 USB at usb-0000:00:14.0-10, high speed
    ```
 
