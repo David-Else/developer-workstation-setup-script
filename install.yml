@@ -21,6 +21,7 @@
       - ffmpeg
       - fzf
       - gh
+      - gnome-shell-extension-autohidetopbar
       - gnome-software-plugin-flatpak
       - gnome-tweaks
       - gthumb
