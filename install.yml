@@ -22,6 +22,7 @@
       - fzf
       - gh
       - gnome-shell-extension-autohidetopbar
+      - gnome-shell-extension-caffeine
       - gnome-software-plugin-flatpak
       - gnome-tweaks
       - gthumb
