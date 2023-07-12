@@ -18,6 +18,7 @@
       - borgbackup
       - build-essential
       - curl
+      - default-jdk-headless
       - ffmpeg
       - fzf
       - gh
