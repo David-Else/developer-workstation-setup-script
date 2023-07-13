@@ -10,18 +10,16 @@ Before running the setup script, follow these steps to install Debian 12 and con
 
 1. Install a fresh copy of Debian 12.
 
-> If you use the default guided partitioner in the Debian installer, [you will get a swap partition of only 1GB](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=987503). To work around this in the grub menu before the Debian installer runs, follow these steps:
+> If you use the default guided partitioner in the Debian installer, [you will get a swap partition of only 1 GB](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=987503). To get an uncapped swap partition size, in the grub menu before the Debian installer runs, follow these steps:
 >
 > 1. Press "e" to edit the default installation option.
-> 2. In the line that says `linux /install.amd/vmlinuz`, add the following separated by a space after `vmlinuz`:
+> 2. In the line that says `linux /install.amd/vmlinuz vga=788 --- quiet`, add the following separated by a space after `vmlinuz`:
 >
 >    ```sh
 >    partman-auto/cap-ram=n
 >    ```
 >
-> 3. Press Ctrl-x or F10 to boot debian-installer with your changes.
->
-> This will result in an uncapped swap size, which should be fine for normal laptops and desktops.
+> 3. Press Ctrl-x or F10 to boot into the text installer which is the same as the GUI version.
 
 Select Gnome as the desktop environment. During the installation, do not provide any details for the root account. Your user account will have administrative rights.
 
@@ -37,7 +35,7 @@ Select Gnome as the desktop environment. During the installation, do not provide
 
 3. Clone the repository and navigate to it:
 
-   ```
+   ```sh
    git clone https://github.com/David-Else/developer-workstation-setup-script
    cd developer-workstation-setup-script
    git switch debian12
@@ -47,8 +45,11 @@ Select Gnome as the desktop environment. During the installation, do not provide
 
 5. Run the setup scripts:
 
-   ```
+   ```sh
    ansible-playbook ./install.yml -K
+   ```
+    
+   ```sh
    ./install-setup.bash
    ```
 
@@ -66,7 +67,7 @@ To set the available sample rates for your audio interface, follow these steps:
 
 1. Find your audio interface(s) and available sample rates by running the following command:
 
-   ```
+   ```sh
    cat /proc/asound/cards
    ```
 
@@ -81,7 +82,7 @@ To set the available sample rates for your audio interface, follow these steps:
 
 2. Play some audio and examine the stream for your audio interface (in this case `card1`) by running the following command \*note this might not work:
 
-   ```
+   ```sh
    cat /proc/asound/card1/stream0
    ```
 
@@ -120,7 +121,7 @@ To set the available sample rates for your audio interface, follow these steps:
 
 3. Create a PipeWire user config file by running the following commands:
 
-   ```
+   ```sh
    mkdir -p ~/.config/pipewire/
    cp /usr/share/pipewire/pipewire.conf ~/.config/pipewire/
    ```
