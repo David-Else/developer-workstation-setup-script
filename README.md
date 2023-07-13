@@ -21,7 +21,7 @@ Before running the setup script, follow these steps to install Debian 12 and con
 >
 > 3. Press Ctrl-x or F10 to boot into the text installer which is the same as the GUI version.
 
-Select Gnome as the desktop environment. During the installation, do not provide any details for the root account. Your user account will have administrative rights.
+Select Gnome as the desktop environment. During the installation, do not provide any details for the root account, your user account will then have administrative rights.
 
 2. Open the terminal and run the following command to install Ansible, Git, and Flatpak:
 
