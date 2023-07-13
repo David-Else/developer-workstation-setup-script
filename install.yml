@@ -22,6 +22,7 @@
       - ffmpeg
       - fzf
       - gh
+      - gnome-boxes
       - gnome-shell-extension-autohidetopbar
       - gnome-shell-extension-caffeine
       - gnome-software-plugin-flatpak
@@ -32,6 +33,7 @@
       - keepassxc
       - kitty
       - krita
+      - libvirt-daemon-system # needed for gnome-boxes
       - lshw
       - mediainfo
       - mkvtoolnix-gui
