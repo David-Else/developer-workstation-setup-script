@@ -66,7 +66,7 @@ pipx ensurepath
 curl -fsSL https://deno.land/x/install/install.sh | sh
 
 if ! [ -x "$(command -v cargo)" ]; then
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
     source "$HOME/.cargo/env"
     rustup component add rust-analyzer
 fi
