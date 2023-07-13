@@ -5,6 +5,3 @@ git:
 
 refresher:
   refreshInterval: 5
-
-gui:
-  showIcons: true
