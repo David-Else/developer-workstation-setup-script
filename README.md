@@ -8,17 +8,32 @@ This guide provides instructions for setting up a developer workstation using De
 
 Before running the setup script, follow these steps to install Debian 12 and configure the desktop environment:
 
-1. Install a fresh copy of Debian 12, selecting Gnome as the desktop environment. During the installation, do not provide any details for the root account. Your user account will have administrative rights.
+1. Install a fresh copy of Debian 12.
 
-   > Note: If you encounter any issues related to the CD-ROM reference in `/etc/apt/sources.list`, remove it or use the Software and Updates App before proceeding.
+> If you use the default guided partitioner in the Debian installer, [you will get a swap partition of only 1GB](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=987503). To work around this in the grub menu before the Debian installer runs, follow these steps:
+>
+> 1. Press "e" to edit the default installation option.
+> 2. In the line that says `linux /install.amd/vmlinuz`, add the following separated by a space after `vmlinuz`:
+>
+>    ```sh
+>    partman-auto/cap-ram=n
+>    ```
+>
+> 3. Press Ctrl-x or F10 to boot debian-installer with your changes.
+>
+> This will result in an uncapped swap size, which should be fine for normal laptops and desktops.
 
-   ![Software and Updates App](./images/bookworm_sw_updates_screenshot.png)
+Select Gnome as the desktop environment. During the installation, do not provide any details for the root account. Your user account will have administrative rights.
 
 2. Open the terminal and run the following command to install Ansible, Git, and Flatpak:
 
    ```
    sudo apt install ansible git flatpak
    ```
+
+> If you encounter any issues related to the CD-ROM reference in `/etc/apt/sources.list`, remove it or use the Software and Updates App before proceeding.
+
+![Software and Updates App](./images/bookworm_sw_updates_screenshot.png)
 
 3. Clone the repository and navigate to it:
 
@@ -64,7 +79,7 @@ To set the available sample rates for your audio interface, follow these steps:
                          Focusrite Scarlett 6i6 USB at usb-0000:00:14.0-10, high speed
    ```
 
-2. Play some audio and examine the stream for your audio interface (in this case `card1`) by running the following command *note this might not work:
+2. Play some audio and examine the stream for your audio interface (in this case `card1`) by running the following command \*note this might not work:
 
    ```
    cat /proc/asound/card1/stream0
@@ -102,7 +117,7 @@ To set the available sample rates for your audio interface, follow these steps:
    ```sh
    cat /proc/asound/card1/pcm0p/sub0/hw_params
    ```
-  
+
 3. Create a PipeWire user config file by running the following commands:
 
    ```
@@ -125,7 +140,7 @@ To set the available sample rates for your audio interface, follow these steps:
 
    and watch the sample rates change per application running `pw-top`.
 
-    > More info can be found at: [docs.pipewire.org configuration-file-pipewireconf](https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Config-PipeWire#configuration-file-pipewireconf)
+   > More info can be found at: [docs.pipewire.org configuration-file-pipewireconf](https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Config-PipeWire#configuration-file-pipewireconf)
 
 5. Create a user config file for your PipeWire JACK settings by running the following commands:
 
@@ -140,7 +155,8 @@ To set the available sample rates for your audio interface, follow these steps:
    }
    EOF
    ```
-    > More info can be found at: [docs.pipewire.org configuration-file-jackconf](https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Config-JACK#configuration-file-jackconf)
+
+   > More info can be found at: [docs.pipewire.org configuration-file-jackconf](https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Config-JACK#configuration-file-jackconf)
 
 ### General
 
