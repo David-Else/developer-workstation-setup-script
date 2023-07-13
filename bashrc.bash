@@ -1,5 +1,5 @@
 # Add to $PATH
-PATH="$HOME/.deno/bin:$HOME/Documents/scripts:$HOME/adb-fastboot/platform-tools/:$PATH"
+PATH="$HOME/.deno/bin:$HOME/Documents/scripts:$PATH"
 export PATH
 
 # Aliases
