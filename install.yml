@@ -60,6 +60,7 @@
       - zoxide
     flatpak_packages:
       - com.obsproject.Studio
+      - com.obsproject.Studio.Plugin.DroidCam
       - com.obsproject.Studio.Plugin.MoveTransition
       - org.signal.Signal
       - com.github.tchx84.Flatseal
